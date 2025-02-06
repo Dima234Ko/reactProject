@@ -76,19 +76,14 @@ export async function checkTaskStatus(
         dispatch(setProgress(progress)); // Обновляем прогресс в Redux
       }
 
-      if (attempts < 5) {
-        setTimeout(() => checkTaskStatus(taskId, dispatch, setLoading, setResult, navigate, attempts + 1, progress), 10000); // Повторяем через 10 секунд
+      setTimeout(() => checkTaskStatus(taskId, dispatch, setLoading, setResult, navigate, attempts + 1, progress), 10000); // Повторяем через 10 секунд
+      
       } else {
-        alert("Задача не завершена после 5 попыток.");
+        dispatch(setProgress(100)); // Устанавливаем прогресс в 100%
         setLoading(false); // Закрываем загрузку
-      }
-    } else {
-      dispatch(setProgress(100)); // Устанавливаем прогресс в 100%
-      setLoading(false); // Закрываем загрузку
-      setResult(taskData.result); // Обновляем результат
-
-      // Удаляем taskId из URL после завершения запроса
-      navigate("?", { replace: true });
+        setResult(taskData.result); // Обновляем результат
+        // Удаляем taskId из URL после завершения запроса
+        navigate("?", { replace: true });
     }
   } catch (error) {
     if (attempts < 5) {
