@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState } from "react";
 import Authorization from "./pages/Authorization";
 import Status from "./pages/Status";
 
