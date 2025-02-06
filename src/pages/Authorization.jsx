@@ -24,7 +24,7 @@ function Authorization() {
   const handleAuthorization = async () => {
     setLoading(true);
     try {
-      await authorization(login, password);  // Передаем login и password в функцию авторизации
+      await authorization(login, password); // Передаем login и password в функцию авторизации
       navigate("/status");
     } catch (error) {
       console.error("Ошибка авторизации:", error);
@@ -38,21 +38,21 @@ function Authorization() {
     <div id="authorization">
       <h2>Авторизация</h2>
       <Input
-        id="login" 
+        id="login"
         type="text"
         placeholder="Введите логин"
-        value={login} 
+        value={login}
         onChange={handleInputChange}
       />
       <Input
-        id="password"  
+        id="password"
         type="password"
         placeholder="Введите пароль"
-        value={password}  
+        value={password}
         onChange={handleInputChange}
       />
       <Button name="Авторизоваться" onClick={handleAuthorization} />
-      {loading && <Loader />} 
+      {loading && <Loader />}
     </div>
   );
 }

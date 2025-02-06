@@ -10,7 +10,7 @@ function Status() {
 
   // Обработчик изменения значения в поле ввода
   const handleInputChange = (event) => {
-    setSerial(event.target.value);  // Получаем значение из события и обновляем состояние
+    setSerial(event.target.value); // Получаем значение из события и обновляем состояние
   };
 
   const handleGetStatus = async () => {
@@ -29,8 +29,8 @@ function Status() {
         id="id_Ntu"
         type="text"
         placeholder="Введите pon-serial"
-        value={serial}  
-        onChange={handleInputChange}  
+        value={serial}
+        onChange={handleInputChange}
       />
       <Button name="Отправить запрос" onClick={handleGetStatus} />
       {loading && <Loader />}

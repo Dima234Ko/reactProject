@@ -5,12 +5,12 @@ export const Input = ({ id, type, placeholder, value, onChange }) => {
 
   return (
     <input
-    className="some-input"
-    id={id}
-    type={type}
-    placeholder={placeholder}
-    value={value}
-    onChange={handleChange}
+      className="some-input"
+      id={id}
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      onChange={handleChange}
     />
   );
 };
