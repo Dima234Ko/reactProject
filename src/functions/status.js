@@ -30,7 +30,7 @@ export async function getStatus(serial, setLoading, setResult) {
           setTimeout(() => checkTaskStatus(attempts + 1), 10000);
         } else {
           setLoading(false);
-          setResult(taskData.result); // Обновляем результат
+          setResult(taskData.result);
         }
       } catch (error) {
         if (attempts < 5) {

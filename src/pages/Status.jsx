@@ -1,27 +1,32 @@
-import { useState } from "react";
-import { Input } from "../components/Input";
-import { Button } from "../components/Button";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setSerial } from '../store/actions/serialActions'; // Импортируем action для записи в Redux
+import { Input } from '../components/Input';
+import { Button } from '../components/Button';
+import { Loader } from '../components/Loader';
+import Result from '../components/Result';
+import { getStatus } from '../functions/status';
 import { LinkButton } from "../components/Link";
-import { getStatus } from "../functions/status";
-import { Loader } from "../components/Loader";
-import Result from "../components/Result";
 
 function Status() {
-  const [serial, setSerial] = useState("");
+  const dispatch = useDispatch();
+  const [serial, setSerialState] = useState(''); 
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
 
   const handleInputChange = (event) => {
-    setSerial(event.target.value); 
+    setSerialState(event.target.value);  
   };
 
   const handleGetStatus = async () => {
+    dispatch(setSerial(serial));
+
     setLoading(true);
     setResult(null);
     try {
       await getStatus(serial, setLoading, setResult);
     } catch (error) {
-      console.error("Ошибка при получении статуса:", error);
+      console.error('Ошибка при получении статуса:', error);
     }
   };
 
@@ -32,12 +37,12 @@ function Status() {
         id="id_Ntu"
         type="text"
         placeholder="Введите pon-serial"
-        value={serial}
-        onChange={handleInputChange}
+        value={serial} 
+        onChange={handleInputChange} 
       />
       <Button name="Отправить запрос" onClick={handleGetStatus} />
       {loading && <Loader />}
-      {result && <Result data={result} />} 
+      {result && <Result data={result} />}
       <LinkButton name="Перейти на PPPoE" to="/pppoe" />
     </div>
   );
