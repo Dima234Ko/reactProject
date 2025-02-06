@@ -11,18 +11,18 @@ function Authorization() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const handleInputChange = (event) => {
-    const { id, value } = event.target; 
+    const { id, value } = event.target;
     if (id === "login") {
       setLogin(value);
     } else if (id === "password") {
-      setPassword(value); 
+      setPassword(value);
     }
   };
 
   const handleAuthorization = async () => {
     setLoading(true);
     try {
-      await authorization(login, password); 
+      await authorization(login, password);
       navigate("/status");
     } catch (error) {
       console.error("Ошибка авторизации:", error);

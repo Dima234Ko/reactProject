@@ -1,5 +1,5 @@
-import { configureStore } from '@reduxjs/toolkit'; 
-import serialReducer from './reducers/serialReducer';
+import { configureStore } from "@reduxjs/toolkit";
+import serialReducer from "./reducers/serialReducer";
 
 const store = configureStore({
   reducer: {

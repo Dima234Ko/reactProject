@@ -1,19 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client'; // Используем react-dom/client
-import store from './store/store.js';
-import { Provider } from 'react-redux';
-import App from './App.jsx';
-import './css/main.css';
-import './css/button.css';
-import './css/input.css';
-import './css/loader.css';
-import './css/mobile.css';
+import React from "react";
+import ReactDOM from "react-dom/client"; // Используем react-dom/client
+import store from "./store/store.js";
+import { Provider } from "react-redux";
+import App from "./App.jsx";
+import "./css/main.css";
+import "./css/button.css";
+import "./css/input.css";
+import "./css/loader.css";
+import "./css/mobile.css";
 
 // Создаем root для React 18
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <Provider store={store}> 
+  <Provider store={store}>
     <App />
-  </Provider>
+  </Provider>,
 );

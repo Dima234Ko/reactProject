@@ -2,8 +2,8 @@ export async function requestAPI(method, action, body) {
   try {
     const bodyData = typeof body === "object" ? JSON.stringify(body) : body;
 
-    //const response = await fetch(`https://172.24.6.20:7449/${action}`, {
-    const response = await fetch(`https://192.168.1.103:8443/${action}`, {
+    const response = await fetch(`https://172.24.6.20:7449/${action}`, {
+      //const response = await fetch(`https://192.168.1.103:8443/${action}`, {
       method: method,
       credentials: "include",
       headers: {

@@ -1,7 +1,7 @@
 /* Мобильные адаптивы (например, экраны до 768px) */
 @media (max-width: 768px) {
   .some-input,
-  .button.blue  {
+  .button.blue {
     max-width: 80%;
   }
 

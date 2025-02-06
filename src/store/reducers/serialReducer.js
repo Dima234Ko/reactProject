@@ -1,7 +1,7 @@
 import { SET_SERIAL } from "../actions/serialActions";
 
 const initialState = {
-  serial: "",  
+  serial: "",
 };
 
 const serialReducer = (state = initialState, action) => {

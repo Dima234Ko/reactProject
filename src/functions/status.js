@@ -1,6 +1,6 @@
 import { requestAPI } from "./api";
 
-export async function getStatus(serial, setLoading, setResult, setProgress)  {
+export async function getStatus(serial, setLoading, setResult, setProgress) {
   let progress = 0;
   if (!serial) {
     alert("Введите pon-serial");
@@ -30,7 +30,7 @@ export async function getStatus(serial, setLoading, setResult, setProgress)  {
 
         // Если задача не завершена, повторяем через 10 секунд
         if (taskData.status !== "completed") {
-          if (progress < 90){
+          if (progress < 90) {
             progress = progress + 5;
             setProgress(progress);
           }
@@ -42,7 +42,7 @@ export async function getStatus(serial, setLoading, setResult, setProgress)  {
         }
       } catch (error) {
         if (attempts < 5) {
-          setProgress('NaN');
+          setProgress("NaN");
           setTimeout(() => checkTaskStatus(attempts + 1), 10000);
         } else {
           alert("Ошибка при запросе статуса после 3 попыток:", error);
