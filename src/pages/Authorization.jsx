@@ -10,21 +10,19 @@ function Authorization() {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
-  // Обработчик изменений для полей ввода
   const handleInputChange = (event) => {
-    const { id, value } = event.target; // Деструктурируем из event.target
+    const { id, value } = event.target; 
     if (id === "login") {
-      setLogin(value); // Обновляем состояние для логина
+      setLogin(value);
     } else if (id === "password") {
-      setPassword(value); // Обновляем состояние для пароля
+      setPassword(value); 
     }
   };
 
   const handleAuthorization = async () => {
     setLoading(true);
     try {
-      await authorization(login, password); // Передаем login и password в функцию авторизации
+      await authorization(login, password); 
       navigate("/status");
     } catch (error) {
       console.error("Ошибка авторизации:", error);

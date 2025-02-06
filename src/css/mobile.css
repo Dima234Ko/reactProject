@@ -1,26 +1,12 @@
 /* Мобильные адаптивы (например, экраны до 768px) */
 @media (max-width: 768px) {
   .some-input,
-  .button {
+  .button.blue  {
     max-width: 80%;
   }
 
   h2 {
     font-size: 1.5rem;
     margin-bottom: 15px;
-  }
-}
-
-/* Экстра мобильные устройства (например, экраны до 480px) */
-@media (max-width: 480px) {
-  .some-input,
-  .button {
-    padding: 8px 15px;
-    font-size: 14px;
-  }
-
-  #h2 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
   }
 }

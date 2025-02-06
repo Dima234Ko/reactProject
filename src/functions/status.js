@@ -1,6 +1,6 @@
 import { requestAPI } from "./api";
 
-export async function getStatus(serial, setLoading) {
+export async function getStatus(serial, setLoading, setResult) {
   if (!serial) {
     alert("Введите pon-serial");
     setLoading(false);
@@ -30,7 +30,7 @@ export async function getStatus(serial, setLoading) {
           setTimeout(() => checkTaskStatus(attempts + 1), 10000);
         } else {
           setLoading(false);
-          alert(taskData.result); // Выводим результат
+          setResult(taskData.result); // Обновляем результат
         }
       } catch (error) {
         if (attempts < 5) {
@@ -45,7 +45,6 @@ export async function getStatus(serial, setLoading) {
       }
     };
 
-    // Запускаем первый опрос статуса
     checkTaskStatus();
   } catch (error) {
     alert("Ошибка при запросе статуса:", error);

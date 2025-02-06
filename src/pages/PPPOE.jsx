@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
-import { LinkButton } from "../components/Link";
 import { getStatus } from "../functions/status";
 import { Loader } from "../components/Loader";
 import Result from "../components/Result";
 
-function Status() {
+function Pppoe() {
   const [serial, setSerial] = useState("");
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
 
@@ -19,15 +20,18 @@ function Status() {
     setLoading(true);
     setResult(null);
     try {
-      await getStatus(serial, setLoading, setResult);
+   
+        
+
+
     } catch (error) {
       console.error("Ошибка при получении статуса:", error);
     }
   };
 
   return (
-    <div id="status">
-      <h2>Статус NTU</h2>
+    <div id="pppoe">
+      <h2>Настройка PPPoE</h2>
       <Input
         id="id_Ntu"
         type="text"
@@ -35,12 +39,27 @@ function Status() {
         value={serial}
         onChange={handleInputChange}
       />
+            <Input
+        id="login"
+        type="text"
+        placeholder="Введите логин"
+        value={login}
+        onChange={handleInputChange}
+      />
+
+<Input
+        id="password"
+        type="text"
+        placeholder="Введите пароль"
+        value={password}
+        onChange={handleInputChange}
+      />
+
       <Button name="Отправить запрос" onClick={handleGetStatus} />
       {loading && <Loader />}
       {result && <Result data={result} />} 
-      <LinkButton name="Перейти на PPPoE" to="/pppoe" />
     </div>
   );
 }
 
-export default Status;
+export default Pppoe;
