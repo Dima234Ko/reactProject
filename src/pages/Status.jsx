@@ -13,6 +13,7 @@ function Status() {
   const [serial, setSerialState] = useState(''); 
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
+  const [progress, setProgress] = useState(0);
 
   const handleInputChange = (event) => {
     setSerialState(event.target.value);  
@@ -23,8 +24,10 @@ function Status() {
 
     setLoading(true);
     setResult(null);
+    setProgress(0); 
+
     try {
-      await getStatus(serial, setLoading, setResult);
+      await getStatus(serial, setLoading, setResult, setProgress); 
     } catch (error) {
       console.error('Ошибка при получении статуса:', error);
     }
@@ -41,7 +44,7 @@ function Status() {
         onChange={handleInputChange} 
       />
       <Button name="Отправить запрос" onClick={handleGetStatus} />
-      {loading && <Loader />}
+      {loading && <Loader progress={progress} />}
       {result && <Result data={result} />}
       <LinkButton name="Перейти на PPPoE" to="/pppoe" />
     </div>
