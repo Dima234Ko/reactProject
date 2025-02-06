@@ -3,8 +3,8 @@ export function Loader({ progress }) {
     <div className="loader">
       <div className="spinner"></div>
       {progress !== undefined && (
-        <div className="progress">
-          {progress}% 
+        <div className="progress-text">
+          {progress}%
         </div>
       )}
     </div>

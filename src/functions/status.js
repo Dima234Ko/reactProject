@@ -1,6 +1,7 @@
 import { requestAPI } from "./api";
 
 export async function getStatus(serial, setLoading, setResult, setProgress)  {
+  let progress = 0;
   if (!serial) {
     alert("Введите pon-serial");
     setLoading(false);
@@ -17,7 +18,8 @@ export async function getStatus(serial, setLoading, setResult, setProgress)  {
     // Запрашиваем номер задачи
     let data = await requestAPI("POST", action, logPass);
     let taskId = data.taskId;
-    setProgress(15);
+    progress = progress + 30;
+    setProgress(progress);
 
     // Функция для опроса статуса задачи
     const checkTaskStatus = async (attempts = 0) => {
@@ -28,6 +30,10 @@ export async function getStatus(serial, setLoading, setResult, setProgress)  {
 
         // Если задача не завершена, повторяем через 10 секунд
         if (taskData.status !== "completed") {
+          if (progress < 90){
+            progress = progress + 5;
+            setProgress(progress);
+          }
           setTimeout(() => checkTaskStatus(attempts + 1), 10000);
         } else {
           setProgress(100);
@@ -36,9 +42,7 @@ export async function getStatus(serial, setLoading, setResult, setProgress)  {
         }
       } catch (error) {
         if (attempts < 5) {
-          console.log(
-            `Попытка ${attempts + 1} не удалась, повтор через 10 секунд`,
-          );
+          setProgress('NaN');
           setTimeout(() => checkTaskStatus(attempts + 1), 10000);
         } else {
           alert("Ошибка при запросе статуса после 3 попыток:", error);
