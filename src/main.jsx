@@ -7,7 +7,9 @@ import "./css/main.css";
 import "./css/button.css";
 import "./css/input.css";
 import "./css/loader.css";
+import "./css/header.css";
 import "./css/mobile.css";
+import "./css/menu.css";
 
 // Создаем root для React 18
 const root = ReactDOM.createRoot(document.getElementById("root"));

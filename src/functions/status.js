@@ -1,8 +1,14 @@
 import { requestAPI } from "./api";
-import { setProgress } from "../store/actions/progressActions";  // Импортируем экшен для прогресса
+import { setProgress } from "../store/actions/progressActions"; // Импортируем экшен для прогресса
 
 // Главная функция для получения статуса
-export async function getStatus(serial, setLoading, setResult, dispatch, navigate) {
+export async function getStatus(
+  serial,
+  setLoading,
+  setResult,
+  dispatch,
+  navigate,
+) {
   setLoading(true);
   setResult(null);
   dispatch(setProgress(0)); // Устанавливаем прогресс в 0
@@ -10,10 +16,18 @@ export async function getStatus(serial, setLoading, setResult, dispatch, navigat
   try {
     // Получаем taskId
     const taskId = await getTaskId(serial, dispatch, setLoading, navigate);
-    
+
     if (taskId) {
       // Если taskId получен, начинаем отслеживание статуса
-      await checkTaskStatus(taskId, dispatch, setLoading, setResult, navigate, 0, 30); // Передаем начальный прогресс
+      await checkTaskStatus(
+        taskId,
+        dispatch,
+        setLoading,
+        setResult,
+        navigate,
+        0,
+        30,
+      ); // Передаем начальный прогресс
     }
   } catch (error) {
     console.error("Ошибка при получении статуса:", error);
@@ -61,7 +75,7 @@ export async function checkTaskStatus(
   setResult,
   navigate,
   attempts,
-  progress
+  progress,
 ) {
   const action = `setNTU/taskStatus/${taskId}`;
 
@@ -76,19 +90,42 @@ export async function checkTaskStatus(
         dispatch(setProgress(progress)); // Обновляем прогресс в Redux
       }
 
-      setTimeout(() => checkTaskStatus(taskId, dispatch, setLoading, setResult, navigate, attempts + 1, progress), 10000); // Повторяем через 10 секунд
-      
-      } else {
-        dispatch(setProgress(100)); // Устанавливаем прогресс в 100%
-        setLoading(false); // Закрываем загрузку
-        setResult(taskData.result); // Обновляем результат
-        // Удаляем taskId из URL после завершения запроса
-        navigate("?", { replace: true });
+      setTimeout(
+        () =>
+          checkTaskStatus(
+            taskId,
+            dispatch,
+            setLoading,
+            setResult,
+            navigate,
+            attempts + 1,
+            progress,
+          ),
+        10000,
+      ); // Повторяем через 10 секунд
+    } else {
+      dispatch(setProgress(100)); // Устанавливаем прогресс в 100%
+      setLoading(false); // Закрываем загрузку
+      setResult(taskData.result); // Обновляем результат
+      // Удаляем taskId из URL после завершения запроса
+      navigate("?", { replace: true });
     }
   } catch (error) {
     if (attempts < 5) {
       dispatch(setProgress("NaN")); // Отображаем неопределенное значение прогресса
-      setTimeout(() => checkTaskStatus(taskId, dispatch, setLoading, setResult, navigate, attempts + 1, progress), 10000); // Повторяем запрос через 10 секунд
+      setTimeout(
+        () =>
+          checkTaskStatus(
+            taskId,
+            dispatch,
+            setLoading,
+            setResult,
+            navigate,
+            attempts + 1,
+            progress,
+          ),
+        10000,
+      ); // Повторяем запрос через 10 секунд
     } else {
       alert("Ошибка при запросе статуса после 5 попыток: " + error);
       setLoading(false); // Закрываем загрузку

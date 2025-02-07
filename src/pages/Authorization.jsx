@@ -10,7 +10,7 @@ function Authorization() {
   const [loading, setLoading] = useState(false);
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
-  const [result, setResult] = useState(null); 
+  const [result, setResult] = useState(null);
   const navigate = useNavigate();
 
   const handleInputChange = (event) => {
@@ -26,11 +26,14 @@ function Authorization() {
     setLoading(true);
     setResult(null);
     try {
-      await authorization(login, password, setResult);
+      await authorization(login, password);
       navigate("/status");
     } catch (error) {
       console.error("Ошибка авторизации:", error);
-      setResult({ success: false, message: "Ошибка авторизации. Попробуйте еще раз" }); 
+      setResult({
+        success: false,
+        message: "Ошибка авторизации. Попробуйте еще раз",
+      });
     } finally {
       setLoading(false);
     }

@@ -38,7 +38,15 @@ function Status() {
       setLoading(true);
       setResult(null);
       dispatch(setProgress(50));
-      checkTaskStatus(taskIdFromUrl, dispatch, setLoading, setResult, navigate, 0, progressFromRedux); // Передаем прогресс
+      checkTaskStatus(
+        taskIdFromUrl,
+        dispatch,
+        setLoading,
+        setResult,
+        navigate,
+        0,
+        progressFromRedux,
+      ); // Передаем прогресс
     }
   }, [location.search, navigate, loading, dispatch, progressFromRedux]);
 
@@ -56,7 +64,14 @@ function Status() {
     setResult(null);
 
     try {
-      await getStatus(serial, setLoading, setResult, dispatch, navigate, progressFromRedux); // Передаем прогресс
+      await getStatus(
+        serial,
+        setLoading,
+        setResult,
+        dispatch,
+        navigate,
+        progressFromRedux,
+      ); // Передаем прогресс
     } catch (error) {
       console.error("Ошибка при получении статуса:", error);
     }

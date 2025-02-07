@@ -1,0 +1,58 @@
+/* Стили для шапки */
+header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    position: relative;
+  }
+  
+  /* Кнопка назад */
+  .back-button {
+    background: none; /* Убираем фон кнопки */
+    border: none; /* Убираем границу кнопки */
+    padding: 0; /* Убираем внутренние отступы */
+    cursor: pointer; /* Меняем курсор на указатель при наведении */
+  }
+  
+  #back-button img {
+    width: 24px; /* Размер изображения */
+    height: 24px;
+  }
+  
+  /* Логотип в центре */
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; /* Логотип будет располагаться по центру */
+  }
+  
+  .logo-container img {
+    width: 100px; /* Размер логотипа */
+    height: auto;
+  }
+  
+  /* Если шапка фиксированная, добавляем отступ сверху для контента */
+  body {
+    margin-top: 60px; /* Делаем отступ для контента под шапкой */
+  }
+  
+  /* Стили для бургер-меню */
+  .burger-menu {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px; /* Ширина бургер-меню */
+    height: 20px; /* Высота бургер-меню */
+    margin-left: auto;
+    position: relative; /* Необходим для корректного отображения выпадающего меню */
+  }
+  
+  /* Линии бургер-меню */
+  .line {
+    height: 2px;
+    background-color: #333; /* Цвет линий бургер-меню */
+    transition: all 0.3s ease-in-out;
+  }
+  
