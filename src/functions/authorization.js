@@ -1,6 +1,6 @@
 import { requestAPI } from "./api";
 
-export async function authorization(login, password) {
+export async function authorization(login, password, setResult) {
   let action = "login";
   let logPass = {
     login: login,
@@ -8,5 +8,5 @@ export async function authorization(login, password) {
   };
 
   let data = await requestAPI("POST", action, logPass);
-  alert(data.result);
+  setResult(data.result);
 }

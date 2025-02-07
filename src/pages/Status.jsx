@@ -37,6 +37,7 @@ function Status() {
       // Если в URL есть taskId и запрос еще не выполняется
       setLoading(true);
       setResult(null);
+      dispatch(setProgress(50));
       checkTaskStatus(taskIdFromUrl, dispatch, setLoading, setResult, navigate, 0, progressFromRedux); // Передаем прогресс
     }
   }, [location.search, navigate, loading, dispatch, progressFromRedux]);
