@@ -1,5 +1,7 @@
 import { requestAPI } from "./api";
-import { setProgress } from "../store/actions/progressActions"; // Импортируем экшен для прогресса
+import { setProgress } from "../store/actions/progressActions"; 
+import { setSerial } from "../store/actions/serialActions";
+import {updateUrlWithParam} from './url'
 
 // Главная функция для получения статуса
 export async function getStatus(
@@ -57,7 +59,8 @@ export async function getTaskId(serial, dispatch, setLoading, navigate) {
     dispatch(setProgress(30)); // Устанавливаем начальный прогресс
 
     // Добавляем taskId в URL
-    navigate(`?task=${taskId}`, { replace: true });
+    updateUrlWithParam("task", taskId, navigate);  
+    
 
     return taskId; // Возвращаем taskId
   } catch (error) {
@@ -107,8 +110,6 @@ export async function checkTaskStatus(
       dispatch(setProgress(100)); // Устанавливаем прогресс в 100%
       setLoading(false); // Закрываем загрузку
       setResult(taskData.result); // Обновляем результат
-      // Удаляем taskId из URL после завершения запроса
-      navigate("?", { replace: true });
     }
   } catch (error) {
     if (attempts < 5) {

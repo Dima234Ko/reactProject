@@ -32,23 +32,26 @@ function Status() {
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const taskIdFromUrl = queryParams.get("task");
-
+    dispatch(setSerial(queryParams.get("serial")));
+  
     if (taskIdFromUrl && !loading) {
       // Если в URL есть taskId и запрос еще не выполняется
-      setLoading(true);
-      setResult(null);
-      dispatch(setProgress(50));
-      checkTaskStatus(
-        taskIdFromUrl,
-        dispatch,
-        setLoading,
-        setResult,
-        navigate,
-        0,
-        progressFromRedux,
-      ); // Передаем прогресс
+      if (!result) { // Проверка на то, что результат ещё не получен
+        setLoading(true);
+        setResult(null);
+        checkTaskStatus(
+          taskIdFromUrl,
+          dispatch,
+          setLoading,
+          setResult,
+          navigate,
+          0,
+          50
+        ); // Передаем прогресс
+      }
     }
-  }, [location.search, navigate, loading, dispatch, progressFromRedux]);
+  }, [location.search, navigate, loading, dispatch, progressFromRedux, result]); 
+  
 
   // Обработчик изменения поля ввода
   const handleInputChange = (event) => {
@@ -62,7 +65,7 @@ function Status() {
     dispatch(setProgress(0)); // Обнуляем прогресс перед запросом
     setLoading(true);
     setResult(null);
-
+    navigate(`?serial=${serial}`, { replace: true });
     try {
       await getStatus(
         serial,
