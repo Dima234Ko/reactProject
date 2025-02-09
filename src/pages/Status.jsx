@@ -8,7 +8,7 @@ import { Button } from "../components/Button";
 import { Loader } from "../components/Loader";
 import Result from "../components/Result";
 import { getStatus, checkTaskStatus } from "../functions/status";
-import { LinkButton } from "../components/Link";
+import { NextButton } from "../components/Link";
 
 function Status() {
   const dispatch = useDispatch();
@@ -92,7 +92,7 @@ function Status() {
       {result && <Result data={result} />}
       <Button name="Отправить запрос" onClick={handleGetStatus} />
       {loading && <Loader progress={progressFromRedux} />}
-      <LinkButton name="Перейти на PPPoE" to={`/pppoe?serial=${serial}`} />
+      <NextButton to={`/pppoe?serial=${serial}`} />
     </div>
   );
 }

@@ -1,9 +1,6 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux"; // Импортируем хук useSelector
 import Authorization from "./pages/Authorization";
 import Header from "./components/Header";
 import Status from "./pages/Status";
@@ -26,16 +23,20 @@ function Main() {
   const showBackButton = location.pathname !== "/";
   const showBurgerMenu = location.pathname !== "/";
 
+  // Получаем serial из Redux
+  const serialFromRedux = useSelector((state) => state.serial.serial); // Здесь предполагаем, что serial находится в state.serial
+
+
   // Массив пунктов меню, который передается в Header
   const menuItems = [
     { id: "home", name: "Главная", to: "/" },
     { id: "status", name: "Статус", to: "/status" },
-    { id: "pppoe", name: "PPPoE", to: "/pppoe" },
+    { id: "pppoe", name: "PPPoE", to: `/pppoe?serial=${serialFromRedux}`},
+    { id: "wifi", name: "WiFi", to: `/wifi?serial=${serialFromRedux}`}
   ];
 
   return (
     <>
-      {/* Передаем пропсы showBackButton и showBurgerMenu */}
       <Header
         menuItems={menuItems}
         showBackButton={showBackButton}

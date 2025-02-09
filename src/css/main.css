@@ -22,7 +22,8 @@ h2 {
 
 #authorization,
 #status,
-#pppoe {
+#pppoe,
+#wifi {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -36,13 +37,3 @@ pre {
   text-align: center;
 }
 
-.ssid-container {
-  display: flex;
-  gap: 10px;
-  width: 53vh;
-}
-
-.ssid-container select {
-  width: 75px;
-  height: 44px;
-}

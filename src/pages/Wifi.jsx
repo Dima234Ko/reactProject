@@ -20,8 +20,10 @@ function Wifi() {
   const [serial, setSerialState] = useState(serialFromRedux || "");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
+  const [ssid2_4, setSsid2_4] = useState("");
+  const [password2_4, setPassword2_4] = useState("");
+  const [ssid5, setSsid5] = useState("");
+  const [password5, setPassword5] = useState("");
 
   // Обновление serialState при изменении serial из Redux
   useEffect(() => {
@@ -54,7 +56,7 @@ function Wifi() {
   };
 
   return (
-    <div id="pppoe">
+    <div id="wifi">
       <h2>Настройка WiFi</h2>
       <Input
         id="id_Ntu"
@@ -69,7 +71,7 @@ function Wifi() {
           id="SSID2_4"
           type="text"
           placeholder="Введите SSID 2.4Ггц"
-          value={login}
+          value={ssid2_4}
           onChange={(e) => setLogin(e.target.value)}
         />
         <SelectSSID />
@@ -78,7 +80,25 @@ function Wifi() {
         id="password2_4"
         type="text"
         placeholder="Введите пароль"
-        value={password}
+        value={password2_4}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+
+      <div className="ssid-container">
+        <Input
+          id="SSID5"
+          type="text"
+          placeholder="Введите SSID 5Ггц"
+          value={ssid5}
+          onChange={(e) => setLogin(e.target.value)}
+        />
+        <SelectSSID5 />
+      </div>
+      <Input
+        id="password5"
+        type="text"
+        placeholder="Введите пароль"
+        value={password5}
         onChange={(e) => setPassword(e.target.value)}
       />
 
