@@ -10,3 +10,19 @@
     margin-bottom: 15px;
   }
 }
+
+@media (max-width: 768px) {
+  #SSID2_4,
+  #SSID5 {
+    width: 65%;
+  }
+
+  #selectSSID2_4,
+  #selectSSID5 {
+    width: 30%;
+  }
+
+  .ssid-container {
+    width: 86.03%;
+  }
+}

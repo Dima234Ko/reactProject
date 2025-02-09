@@ -8,6 +8,7 @@ import Authorization from "./pages/Authorization";
 import Header from "./components/Header";
 import Status from "./pages/Status";
 import Pppoe from "./pages/PPPOE";
+import Wifi from "./pages/Wifi";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function Main() {
           <Route path="/" element={<Authorization />} />
           <Route path="/status" element={<Status />} />
           <Route path="/pppoe" element={<Pppoe />} />
+          <Route path="/wifi" element={<Wifi />} />
         </Routes>
       </div>
     </>

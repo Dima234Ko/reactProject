@@ -1,6 +1,8 @@
-export const Input = ({ id, type, placeholder, value, onChange }) => {
+export const Input = ({ id, type, placeholder, value, onChange, disabled }) => {
   const handleChange = (event) => {
-    onChange(event);
+    if (!disabled) {
+      onChange(event);
+    }
   };
 
   return (
@@ -11,6 +13,7 @@ export const Input = ({ id, type, placeholder, value, onChange }) => {
       placeholder={placeholder}
       value={value || ""}
       onChange={handleChange}
+      disabled={disabled}
     />
   );
 };

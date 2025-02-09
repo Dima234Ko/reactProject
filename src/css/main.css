@@ -35,3 +35,14 @@ pre {
   align-items: center;
   text-align: center;
 }
+
+.ssid-container {
+  display: flex;
+  gap: 10px;
+  width: 53vh;
+}
+
+.ssid-container select {
+  width: 75px;
+  height: 44px;
+}

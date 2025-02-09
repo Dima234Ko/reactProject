@@ -30,8 +30,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50px; /* Размер круга */
-  height: 50px; /* Размер круга */
   font-size: 0; /* Убираем пробел между стрелкой и обводкой */
   cursor: pointer;
   transition:

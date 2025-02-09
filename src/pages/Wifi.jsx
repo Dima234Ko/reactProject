@@ -2,15 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { setSerial } from "../store/actions/serialActions";
-import { setProgress } from "../store/actions/progressActions";
+import { SelectSSID, SelectSSID5 } from "../components/Select";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { Loader } from "../components/Loader";
 import Result from "../components/Result";
-import { setPppoe } from "../functions/pppoe";
 import { NextButton } from "../components/Link";
 
-function Pppoe() {
+function Wifi() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -49,31 +48,14 @@ function Pppoe() {
     setSerialState(event.target.value); // Обновляем local state для serial
   };
 
-  const handleSetPppoe = async () => {
-    dispatch(setProgress(0)); // Сбросить прогресс в Redux
-    setLoading(true);
-    setResult(null);
-    navigate(`?serial=${serial}`, { replace: true }); // Обновляем URL с serial
-    try {
-      await setPppoe(
-        serial,
-        login,
-        password,
-        setLoading,
-        setResult,
-        dispatch,
-        navigate,
-        progressFromRedux,
-      );
-    } catch (error) {
-      console.error("Ошибка при получении статуса:", error);
-      setLoading(false);
-    }
+  const handleSetPppoe = () => {
+    // Добавьте логику отправки запроса, если нужно
+    console.log("Отправить запрос на сервер");
   };
 
   return (
     <div id="pppoe">
-      <h2>Настройка PPPoE</h2>
+      <h2>Настройка WiFi</h2>
       <Input
         id="id_Ntu"
         type="text"
@@ -82,26 +64,29 @@ function Pppoe() {
         onChange={handleInputChange}
         disabled={true}
       />
+      <div className="ssid-container">
+        <Input
+          id="SSID2_4"
+          type="text"
+          placeholder="Введите SSID 2.4Ггц"
+          value={login}
+          onChange={(e) => setLogin(e.target.value)}
+        />
+        <SelectSSID />
+      </div>
       <Input
-        id="login"
-        type="text"
-        placeholder="Введите логин"
-        value={login}
-        onChange={(e) => setLogin(e.target.value)}
-      />
-      <Input
-        id="password"
+        id="password2_4"
         type="text"
         placeholder="Введите пароль"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <Button name="Отправить запрос" onClick={handleSetPppoe} />
+
       {loading && <Loader />}
       {result && <Result data={result} />}
-      <NextButton to={`/wifi?serial=${serial}`} />
+      <Button name="Отправить запрос" onClick={handleSetPppoe} />
     </div>
   );
 }
 
-export default Pppoe;
+export default Wifi;
