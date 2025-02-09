@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Authorization from "./pages/Authorization";
 import Header from "./components/Header";
 import Status from "./pages/Status";
@@ -17,8 +22,8 @@ function Main() {
   const location = useLocation();
 
   // Логика отображения кнопки "назад" и бургер-меню
-  const showBackButton = location.pathname !== '/';
-  const showBurgerMenu = location.pathname !== '/'; 
+  const showBackButton = location.pathname !== "/";
+  const showBurgerMenu = location.pathname !== "/";
 
   // Массив пунктов меню, который передается в Header
   const menuItems = [
@@ -30,10 +35,10 @@ function Main() {
   return (
     <>
       {/* Передаем пропсы showBackButton и showBurgerMenu */}
-      <Header 
-        menuItems={menuItems} 
-        showBackButton={showBackButton} 
-        showBurgerMenu={showBurgerMenu} 
+      <Header
+        menuItems={menuItems}
+        showBackButton={showBackButton}
+        showBurgerMenu={showBurgerMenu}
       />
       <div id="app">
         <Routes>

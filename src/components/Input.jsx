@@ -9,7 +9,7 @@ export const Input = ({ id, type, placeholder, value, onChange }) => {
       id={id}
       type={type}
       placeholder={placeholder}
-      value={value}
+      value={value || ""}
       onChange={handleChange}
     />
   );

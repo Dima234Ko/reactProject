@@ -16,6 +16,40 @@
   align-items: center;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 16px;
-  font-weight: 400; 
+  font-weight: 400;
   text-align: center;
+}
+
+.next-button {
+  margin-top: 25px;
+  background-color: white; /* Белый фон */
+  color: #003597c5; /* Цвет стрелки */
+  border: 3px solid #003597c5; /* Обводка круга */
+  border-radius: 50%; /* Округлая форма */
+  padding: 10px; /* Уменьшаем размер круга */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px; /* Размер круга */
+  height: 50px; /* Размер круга */
+  font-size: 0; /* Убираем пробел между стрелкой и обводкой */
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s;
+}
+
+.next-button img {
+  margin-top: 2px;
+}
+
+.next-button:hover {
+  background-color: rgba(184, 208, 253, 0.773); /* Фон при наведении */
+  color: white; /* Белый цвет стрелки при наведении */
+  border-color: #0050e4c5; /* Обводка не меняется */
+}
+
+.arrow {
+  font-size: 24px; /* Размер стрелки */
+  color: #003597c5; /* Цвет стрелки */
 }

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { setSerial } from "../store/actions/serialActions";
-import { setProgress } from "../store/actions/progressActions"; // Импортируем экшен для прогресса
+import { setProgress } from "../store/actions/progressActions";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { Loader } from "../components/Loader";
@@ -18,7 +18,6 @@ function Status() {
   // Получаем значения serial и progress из Redux
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress); // Получаем значение прогресса
-
   const [serial, setSerialState] = useState(serialFromRedux || "");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
@@ -33,10 +32,11 @@ function Status() {
     const queryParams = new URLSearchParams(location.search);
     const taskIdFromUrl = queryParams.get("task");
     dispatch(setSerial(queryParams.get("serial")));
-  
+
     if (taskIdFromUrl && !loading) {
       // Если в URL есть taskId и запрос еще не выполняется
-      if (!result) { // Проверка на то, что результат ещё не получен
+      if (!result) {
+        // Проверка на то, что результат ещё не получен
         setLoading(true);
         setResult(null);
         checkTaskStatus(
@@ -46,12 +46,11 @@ function Status() {
           setResult,
           navigate,
           0,
-          50
+          50,
         ); // Передаем прогресс
       }
     }
-  }, [location.search, navigate, loading, dispatch, progressFromRedux, result]); 
-  
+  }, [location.search, navigate, loading, dispatch, progressFromRedux, result]);
 
   // Обработчик изменения поля ввода
   const handleInputChange = (event) => {
@@ -62,7 +61,7 @@ function Status() {
 
   // Обработчик для получения статуса
   const handleGetStatus = async () => {
-    dispatch(setProgress(0)); // Обнуляем прогресс перед запросом
+    dispatch(setProgress(0));
     setLoading(true);
     setResult(null);
     navigate(`?serial=${serial}`, { replace: true });
@@ -74,7 +73,7 @@ function Status() {
         dispatch,
         navigate,
         progressFromRedux,
-      ); // Передаем прогресс
+      );
     } catch (error) {
       console.error("Ошибка при получении статуса:", error);
     }
@@ -93,7 +92,7 @@ function Status() {
       {result && <Result data={result} />}
       <Button name="Отправить запрос" onClick={handleGetStatus} />
       {loading && <Loader progress={progressFromRedux} />}
-      <LinkButton name="Перейти на PPPoE" to="/pppoe" />
+      <LinkButton name="Перейти на PPPoE" to={`/pppoe?serial=${serial}`} />
     </div>
   );
 }

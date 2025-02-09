@@ -1,7 +1,6 @@
 import { requestAPI } from "./api";
-import { setProgress } from "../store/actions/progressActions"; 
-import { setSerial } from "../store/actions/serialActions";
-import {updateUrlWithParam} from './url'
+import { setProgress } from "../store/actions/progressActions";
+import { updateUrlWithParam } from "./url";
 
 // Главная функция для получения статуса
 export async function getStatus(
@@ -59,8 +58,7 @@ export async function getTaskId(serial, dispatch, setLoading, navigate) {
     dispatch(setProgress(30)); // Устанавливаем начальный прогресс
 
     // Добавляем taskId в URL
-    updateUrlWithParam("task", taskId, navigate);  
-    
+    updateUrlWithParam("task", taskId, navigate);
 
     return taskId; // Возвращаем taskId
   } catch (error) {

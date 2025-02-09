@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { LinkButton } from "./Link";
 
-import backIcon from "../img/back.png";
+import backIcon from "../img/Back.svg";
+import menuIcon from "../img/Menu.svg";
 import logoIcon from "../img/logo.png";
 
-const Header = ({ menuItems, showBurgerMenu = true, showBackButton = true }) => {
+const Header = ({
+  menuItems,
+  showBurgerMenu = true,
+  showBackButton = true,
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -22,14 +27,12 @@ const Header = ({ menuItems, showBurgerMenu = true, showBackButton = true }) => 
           <img src={backIcon} alt="Кнопка назад" />
         </button>
       )}
-      <a href="/user" className="logo-container">
+      <a className="logo-container">
         <img src={logoIcon} alt="Логотип" />
       </a>
       {showBurgerMenu && (
         <div className="burger-menu" onClick={toggleMenu}>
-          <div className="line"></div>
-          <div className="line"></div>
-          <div className="line"></div>
+          <img src={menuIcon} alt="Кнопка назад" />
         </div>
       )}
       <div
