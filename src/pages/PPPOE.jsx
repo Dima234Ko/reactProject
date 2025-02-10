@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { setSerial } from "../store/actions/serialActions";
@@ -7,7 +7,8 @@ import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { Loader } from "../components/Loader";
 import Result from "../components/Result";
-import { setPppoe, checkTask } from "../functions/pppoe";
+import { setPppoe } from "../functions/pppoe";
+import { checkTask } from "../functions/task";
 import { NextButton } from "../components/Link";
 
 function Pppoe() {
@@ -15,7 +16,7 @@ function Pppoe() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Получение serial из Redux
+  // Получаем значения serial и progress из Redux
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const [serial, setSerialState] = useState(serialFromRedux || "");
@@ -42,6 +43,7 @@ function Pppoe() {
         setLoading(true);
         setResult(null);
         checkTask(
+          'setNTU/taskStatus',
           taskIdFromUrl,
           dispatch,
           setLoading,
@@ -52,7 +54,7 @@ function Pppoe() {
         ); 
       }
     }
-  }, [location.search, navigate, loading, dispatch, result]);
+  }, [location.search, navigate, loading, dispatch, progressFromRedux, result]);
 
   const handleInputChange = (event) => {
     setSerialState(event.target.value);
@@ -62,7 +64,7 @@ function Pppoe() {
     dispatch(setProgress(0));
     setLoading(true);
     setResult(null);
-    navigate(`?serial=${serial}`, { replace: true }); // Обновляем URL с serial
+    navigate(`?serial=${serial}`, { replace: true });
     try {
       await setPppoe(
         serial,

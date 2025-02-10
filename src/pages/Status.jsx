@@ -7,7 +7,8 @@ import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { Loader } from "../components/Loader";
 import Result from "../components/Result";
-import { getStatus, checkTask } from "../functions/status";
+import { getStatus } from "../functions/status";
+import { checkTask } from "../functions/task";
 import { NextButton } from "../components/Link";
 
 function Status() {
@@ -40,6 +41,7 @@ function Status() {
         setLoading(true);
         setResult(null);
         checkTask(
+          'setNTU/taskStatus',
           taskIdFromUrl,
           dispatch,
           setLoading,
