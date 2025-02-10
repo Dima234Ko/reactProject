@@ -20,6 +20,11 @@
   text-align: center;
 }
 
+.arrow {
+  font-size: 24px; /* Размер стрелки */
+  color: #003597c5; /* Цвет стрелки */
+}
+
 .next-button {
   margin-top: 25px;
   background-color: white; /* Белый фон */
@@ -34,20 +39,32 @@
   cursor: pointer;
   transition:
     background-color 0.3s,
-    border-color 0.3s;
+    border-color 0.3s,
+    opacity 0.3s; /* Добавляем плавный переход для прозрачности */
 }
 
 .next-button img {
   margin-top: 2px;
+  transition: opacity 0.3s; /* Плавный переход для прозрачности изображения */
 }
 
 .next-button:hover {
-  background-color: rgba(184, 208, 253, 0.773); /* Фон при наведении */
   color: white; /* Белый цвет стрелки при наведении */
-  border-color: #0050e4c5; /* Обводка не меняется */
+  border-color: #0050e4c5; /* Обводка при наведении */
+  transform: scale(1.1); /* Увеличение размера кнопки для эффекта вспышки */
 }
 
-.arrow {
-  font-size: 24px; /* Размер стрелки */
-  color: #003597c5; /* Цвет стрелки */
+/* Стили для отключенной кнопки */
+.next-button.disabled {
+  background-color: white; /* Белый фон (сохраняем) */
+  color: #003597c5; /* Цвет стрелки (сохраняем) */
+  border-color: #003597c5; /* Обводка (сохраняем) */
+  cursor: not-allowed; /* Убираем курсор */
+  opacity: 0.3; /* Добавляем 50% прозрачности */
+  pointer-events: none; /* Отключаем кликабельность */
+}
+
+/* Прозрачность для картинки внутри кнопки */
+.next-button.disabled img {
+  opacity: 0.5; /* 50% прозрачности для картинки */
 }

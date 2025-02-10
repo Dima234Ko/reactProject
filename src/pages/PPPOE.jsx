@@ -110,7 +110,7 @@ function Pppoe() {
       <Button name="Отправить запрос" onClick={handleSetPppoe} />
       {loading && <Loader progress={progressFromRedux} />}
       {result && <Result data={result} />}
-      <NextButton to={`/wifi?serial=${serial}`} />
+      <NextButton to={`/wifi?serial=${serial}`}  disabled={!result} />
     </div>
   );
 }

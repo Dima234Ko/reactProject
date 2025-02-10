@@ -94,7 +94,7 @@ function Status() {
       <Button name="Отправить запрос" onClick={handleGetStatus} />
       {loading && <Loader progress={progressFromRedux} />}
       {result && <Result data={result} />}
-      <NextButton to={`/pppoe?serial=${serial}`} />
+      <NextButton to={`/pppoe?serial=${serial}`} disabled={!result} />
     </div>
   );
 }

@@ -2,6 +2,11 @@
   cursor: pointer;
 }
 
+.burger-menu:hover {
+  transform: scale(1.1); /* Увеличение размера кнопки для эффекта вспышки */
+}
+
+
 .dropdown {
   display: none; /* Скрываем меню по умолчанию */
   position: absolute;
