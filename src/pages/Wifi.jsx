@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
+import { setProgress } from "../store/actions/progressActions";
 import { setSerial } from "../store/actions/serialActions";
 import { SelectSSID, SelectSSID5 } from "../components/Select";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { Loader } from "../components/Loader";
 import Result from "../components/Result";
-import { NextButton } from "../components/Link";
+import { setWiFi } from "../functions/wifi";
+import { checkTask } from "../functions/task";
 
 function Wifi() {
   const dispatch = useDispatch();
@@ -22,8 +24,10 @@ function Wifi() {
   const [result, setResult] = useState(null);
   const [ssid2_4, setSsid2_4] = useState("");
   const [password2_4, setPassword2_4] = useState("");
+  const [selectSSID2_4, setSelectSSID2_4] = useState("");
   const [ssid5, setSsid5] = useState("");
   const [password5, setPassword5] = useState("");
+  const [selectSSID5, setSelectSSID5] = useState("");
 
   // Обновление serialState при изменении serial из Redux
   useEffect(() => {
@@ -39,20 +43,51 @@ function Wifi() {
     if (taskIdFromUrl && !loading) {
       // Если в URL есть taskId и запрос еще не выполняется
       if (!result) {
-        // Здесь должен быть запрос с использованием taskId
-        console.log("Получение данных по taskId:", taskIdFromUrl);
-        // Вы можете добавить вызов функции для получения информации по taskId
+        // Проверка на то, что результат ещё не получен
+        setLoading(true);
+        setResult(null);
+        checkTask(
+          'setNTU/taskStatus',
+          taskIdFromUrl,
+          dispatch,
+          setLoading,
+          setResult,
+          navigate,
+          0,
+          50,
+        ); 
       }
     }
-  }, [location.search, navigate, loading, dispatch, result]);
+  }, [location.search, navigate, loading, dispatch, progressFromRedux, result]);
 
   const handleInputChange = (event) => {
     setSerialState(event.target.value); // Обновляем local state для serial
   };
 
-  const handleSetPppoe = () => {
-    // Добавьте логику отправки запроса, если нужно
-    console.log("Отправить запрос на сервер");
+  const handleSetWiFi = async () => {
+    dispatch(setProgress(0));
+    setLoading(true);
+    setResult(null);
+    navigate(`?serial=${serial}`, { replace: true });
+    try {
+      await setWiFi(
+        serial,
+        ssid2_4,
+        password2_4,
+        selectSSID2_4,
+        ssid5,
+        password5,
+        selectSSID5,
+        setLoading,
+        setResult,
+        dispatch,
+        navigate,
+        progressFromRedux,
+      );
+    } catch (error) {
+      console.error("Ошибка применения параметров:", error);
+      setLoading(false);
+    }
   };
 
   return (
@@ -72,7 +107,7 @@ function Wifi() {
           type="text"
           placeholder="Введите SSID 2.4Ггц"
           value={ssid2_4}
-          onChange={(e) => setLogin(e.target.value)}
+          onChange={(e) => setSsid2_4(e.target.value)}
         />
         <SelectSSID />
       </div>
@@ -81,7 +116,7 @@ function Wifi() {
         type="text"
         placeholder="Введите пароль"
         value={password2_4}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e) => setPassword2_4(e.target.value)}
       />
 
       <div className="ssid-container">
@@ -90,7 +125,7 @@ function Wifi() {
           type="text"
           placeholder="Введите SSID 5Ггц"
           value={ssid5}
-          onChange={(e) => setLogin(e.target.value)}
+          onChange={(e) => setSsid5(e.target.value)}
         />
         <SelectSSID5 />
       </div>
@@ -99,12 +134,12 @@ function Wifi() {
         type="text"
         placeholder="Введите пароль"
         value={password5}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e) => setPassword5(e.target.value)}
       />
 
       {loading && <Loader />}
       {result && <Result data={result} />}
-      <Button name="Отправить запрос" onClick={handleSetPppoe} />
+      <Button name="Отправить запрос" onClick={handleSetWiFi} />
     </div>
   );
 }
