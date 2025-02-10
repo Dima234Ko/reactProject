@@ -20,7 +20,7 @@ export async function getStatus(
 
     if (taskId) {
       // Если taskId получен, начинаем отслеживание статуса
-      await checkTaskStatus(
+      await checkTask(
         taskId,
         dispatch,
         setLoading,
@@ -28,7 +28,7 @@ export async function getStatus(
         navigate,
         0,
         30,
-      ); // Передаем начальный прогресс
+      );
     }
   } catch (error) {
     console.error("Ошибка при получении статуса:", error);
@@ -69,7 +69,7 @@ export async function getTaskId(serial, dispatch, setLoading, navigate) {
 }
 
 // Функция для проверки статуса задачи
-export async function checkTaskStatus(
+export async function checkTask(
   taskId,
   dispatch,
   setLoading,
@@ -93,7 +93,7 @@ export async function checkTaskStatus(
 
       setTimeout(
         () =>
-          checkTaskStatus(
+          checkTask(
             taskId,
             dispatch,
             setLoading,
@@ -114,7 +114,7 @@ export async function checkTaskStatus(
       dispatch(setProgress("NaN")); // Отображаем неопределенное значение прогресса
       setTimeout(
         () =>
-          checkTaskStatus(
+          checkTask(
             taskId,
             dispatch,
             setLoading,

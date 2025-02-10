@@ -7,7 +7,7 @@ import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { Loader } from "../components/Loader";
 import Result from "../components/Result";
-import { setPppoe } from "../functions/pppoe";
+import { setPppoe, checkTask } from "../functions/pppoe";
 import { NextButton } from "../components/Link";
 
 function Pppoe() {
@@ -38,19 +38,28 @@ function Pppoe() {
     if (taskIdFromUrl && !loading) {
       // Если в URL есть taskId и запрос еще не выполняется
       if (!result) {
-        // Здесь должен быть запрос с использованием taskId
-        console.log("Получение данных по taskId:", taskIdFromUrl);
-        // Вы можете добавить вызов функции для получения информации по taskId
+        // Проверка на то, что результат ещё не получен
+        setLoading(true);
+        setResult(null);
+        checkTask(
+          taskIdFromUrl,
+          dispatch,
+          setLoading,
+          setResult,
+          navigate,
+          0,
+          50,
+        ); 
       }
     }
   }, [location.search, navigate, loading, dispatch, result]);
 
   const handleInputChange = (event) => {
-    setSerialState(event.target.value); // Обновляем local state для serial
+    setSerialState(event.target.value);
   };
 
   const handleSetPppoe = async () => {
-    dispatch(setProgress(0)); // Сбросить прогресс в Redux
+    dispatch(setProgress(0));
     setLoading(true);
     setResult(null);
     navigate(`?serial=${serial}`, { replace: true }); // Обновляем URL с serial
@@ -66,7 +75,7 @@ function Pppoe() {
         progressFromRedux,
       );
     } catch (error) {
-      console.error("Ошибка при получении статуса:", error);
+      console.error("Ошибка применения параметров:", error);
       setLoading(false);
     }
   };
@@ -97,7 +106,7 @@ function Pppoe() {
         onChange={(e) => setPassword(e.target.value)}
       />
       <Button name="Отправить запрос" onClick={handleSetPppoe} />
-      {loading && <Loader />}
+      {loading && <Loader progress={progressFromRedux} />}
       {result && <Result data={result} />}
       <NextButton to={`/wifi?serial=${serial}`} />
     </div>

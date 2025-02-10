@@ -7,7 +7,7 @@ import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { Loader } from "../components/Loader";
 import Result from "../components/Result";
-import { getStatus, checkTaskStatus } from "../functions/status";
+import { getStatus, checkTask } from "../functions/status";
 import { NextButton } from "../components/Link";
 
 function Status() {
@@ -17,7 +17,7 @@ function Status() {
 
   // Получаем значения serial и progress из Redux
   const serialFromRedux = useSelector((state) => state.serial.serial);
-  const progressFromRedux = useSelector((state) => state.progress.progress); // Получаем значение прогресса
+  const progressFromRedux = useSelector((state) => state.progress.progress);
   const [serial, setSerialState] = useState(serialFromRedux || "");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
@@ -39,7 +39,7 @@ function Status() {
         // Проверка на то, что результат ещё не получен
         setLoading(true);
         setResult(null);
-        checkTaskStatus(
+        checkTask(
           taskIdFromUrl,
           dispatch,
           setLoading,
@@ -47,16 +47,16 @@ function Status() {
           navigate,
           0,
           50,
-        ); // Передаем прогресс
+        ); 
       }
     }
   }, [location.search, navigate, loading, dispatch, progressFromRedux, result]);
 
-  // Обработчик изменения поля ввода
+  // Обработчик serial в Redux при изменении поля ввода
   const handleInputChange = (event) => {
     const newSerial = event.target.value;
     setSerialState(newSerial);
-    dispatch(setSerial(newSerial)); // Обновляем serial в Redux
+    dispatch(setSerial(newSerial));
   };
 
   // Обработчик для получения статуса
@@ -89,9 +89,9 @@ function Status() {
         value={serial}
         onChange={handleInputChange}
       />
-      {result && <Result data={result} />}
       <Button name="Отправить запрос" onClick={handleGetStatus} />
       {loading && <Loader progress={progressFromRedux} />}
+      {result && <Result data={result} />}
       <NextButton to={`/pppoe?serial=${serial}`} />
     </div>
   );
