@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Select({ id, options, defaultValue }) {
+export function Select({ id, options, defaultValue }) {
   const [selectedValue, setSelectedValue] = useState(defaultValue || "auto");
 
   const handleChange = (event) => {
