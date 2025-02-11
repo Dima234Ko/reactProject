@@ -48,7 +48,6 @@ function Pppoe() {
       if (!result) {
         // Проверка на то, что результат ещё не получен
         setLoading(true);
-        setIsFormOpen(true);
         setResult(null);
         checkTask(
           "setNTU/taskStatus",
@@ -110,7 +109,6 @@ function Pppoe() {
   return (
     <div id="pppoe">
       <h2>Настройка PPPoE</h2>
-      {/* Передаем пропс isFormOpen и функцию closeForm в компонент FormUser */}
       <FormUser isFormOpen={isFormOpen} closeForm={closeForm} />
       <Input
         id="id_Ntu"
@@ -125,7 +123,7 @@ function Pppoe() {
         type="text"
         placeholder="Введите логин"
         value={login}
-        onChange={handleLoginChange}  // Используем обработчик для логина
+        onChange={handleLoginChange}  
       />
       <Input
         id="password"

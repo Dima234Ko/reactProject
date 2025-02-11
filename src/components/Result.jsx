@@ -13,8 +13,15 @@ function Result({ data }) {
 }
 
 function removeQuotes(jsonString) {
-  return jsonString.replace(/[\{\},]/g, "").replace(/"/g, "");
+  // Удаляем все пробелы и символы новой строки
+  return jsonString
+    .replace(/[\{\},]/g, "")  
+    .replace(/^[\s\n]+/, "")
+    .replace(/"/g, "");       
 }
+
+
+
 
 function removeFields(data) {
   const { type, serialNewNtu, success, ...newData } = data;

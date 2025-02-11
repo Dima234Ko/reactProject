@@ -25,6 +25,22 @@
   }
 
   .custom-component {
+    top: 14%;
     width: 80%;
   }
+
+  .result {
+    width: 80%; /* Устанавливаем ширину 90% от ширины экрана */
+    margin: 0 auto; /* Центрируем элемент по горизонтали */
+  }
+  
+  .result pre {
+    margin-top: 20px;
+    white-space: pre-wrap; /* Перенос строк, если текст выходит за пределы */
+    word-wrap: break-word; /* Разрыв длинных слов */
+    font-size: 14px; /* Устанавливаем размер шрифта */
+  }
+  
+  
+    
 }

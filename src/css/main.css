@@ -32,6 +32,10 @@ h2 {
   align-items: center;
 }
 
+.result {
+  width: 80%;
+}
+
 pre {
   display: flex;
   justify-content: center;
