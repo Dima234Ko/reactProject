@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import { useSelector } from "react-redux"; // Импортируем хук useSelector
 import Authorization from "./pages/Authorization";
 import Header from "./components/Header";
@@ -33,36 +38,34 @@ function Main() {
   const serialFromRedux = useSelector((state) => state.serial.serial); // Здесь предполагаем, что serial находится в state.serial
   let menuItems = [];
 
-switch (true) {
-  case location.pathname === "/settings" || location.pathname === "/region":
-    // Если на странице settings или region
-    menuItems = [
-      { id: "status", name: "Статус", to: "/status" },
-      { id: "home", name: "Выход", to: "/" },
-    ];
-    break;
+  switch (true) {
+    case location.pathname === "/settings" || location.pathname === "/region":
+      // Если на странице settings или region
+      menuItems = [
+        { id: "status", name: "Статус", to: "/status" },
+        { id: "home", name: "Выход", to: "/" },
+      ];
+      break;
 
-  case location.pathname !== "/" && !hasSerial:
-    // Если нет serial в URL
-    menuItems = [
-      { id: "settings", name: "Настройки", to: "/settings" },
-      { id: "home", name: "Выход", to: "/" },
-    ];
-    break;
+    case location.pathname !== "/" && !hasSerial:
+      // Если нет serial в URL
+      menuItems = [
+        { id: "settings", name: "Настройки", to: "/settings" },
+        { id: "home", name: "Выход", to: "/" },
+      ];
+      break;
 
-  default:
-    // Если serial есть в URL
-    menuItems = [
-      { id: "status", name: "Статус", to: "/status" },
-      { id: "pppoe", name: "PPPoE", to: `/pppoe?serial=${serialFromRedux}` },
-      { id: "wifi", name: "WiFi", to: `/wifi?serial=${serialFromRedux}` },
-      { id: "settings", name: "Настройки", to: "/settings" },
-      { id: "home", name: "Выход", to: "/" },
-    ];
-    break;
-}
-
-
+    default:
+      // Если serial есть в URL
+      menuItems = [
+        { id: "status", name: "Статус", to: "/status" },
+        { id: "pppoe", name: "PPPoE", to: `/pppoe?serial=${serialFromRedux}` },
+        { id: "wifi", name: "WiFi", to: `/wifi?serial=${serialFromRedux}` },
+        { id: "settings", name: "Настройки", to: "/settings" },
+        { id: "home", name: "Выход", to: "/" },
+      ];
+      break;
+  }
 
   return (
     <>

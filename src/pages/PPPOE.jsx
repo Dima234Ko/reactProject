@@ -43,7 +43,7 @@ function Pppoe() {
         setLoading(true);
         setResult(null);
         checkTask(
-          'setNTU/taskStatus',
+          "setNTU/taskStatus",
           taskIdFromUrl,
           dispatch,
           setLoading,
@@ -51,7 +51,7 @@ function Pppoe() {
           navigate,
           0,
           50,
-        ); 
+        );
       }
     }
   }, [location.search, navigate, loading, dispatch, progressFromRedux, result]);
@@ -110,7 +110,7 @@ function Pppoe() {
       <Button name="Отправить запрос" onClick={handleSetPppoe} />
       {loading && <Loader progress={progressFromRedux} />}
       {result && <Result data={result} />}
-      <NextButton to={`/wifi?serial=${serial}`}  disabled={!result} />
+      <NextButton to={`/wifi?serial=${serial}`} disabled={!result} />
     </div>
   );
 }

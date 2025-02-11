@@ -21,29 +21,28 @@ export async function setPppoe(
     userPassword: password,
   };
 
-
   try {
     // Получаем taskId
     const taskId = await getTaskId(
-      'setNTU/setNtuNewPppoe',
+      "setNTU/setNtuNewPppoe",
       body,
       dispatch,
       setLoading,
       navigate,
+    );
+    if (taskId) {
+      // Если taskId получен, начинаем отслеживание статуса
+      await checkTask(
+        "setNTU/taskStatus",
+        taskId,
+        dispatch,
+        setLoading,
+        setResult,
+        navigate,
+        0,
+        80,
       );
-      if (taskId) {
-        // Если taskId получен, начинаем отслеживание статуса
-        await checkTask(
-          'setNTU/taskStatus',
-          taskId,
-          dispatch,
-          setLoading,
-          setResult,
-          navigate,
-          0,
-          30,
-        );
-      }    
+    }
   } catch (error) {
     console.error("Ошибка при получении статуса:", error);
     setLoading(false);

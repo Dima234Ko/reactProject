@@ -47,7 +47,7 @@ function Wifi() {
         setLoading(true);
         setResult(null);
         checkTask(
-          'setNTU/taskStatus',
+          "setNTU/taskStatus",
           taskIdFromUrl,
           dispatch,
           setLoading,
@@ -55,7 +55,7 @@ function Wifi() {
           navigate,
           0,
           50,
-        ); 
+        );
       }
     }
   }, [location.search, navigate, loading, dispatch, progressFromRedux, result]);
@@ -110,10 +110,9 @@ function Wifi() {
           onChange={(e) => setSsid2_4(e.target.value)}
         />
         <SelectSSID
-          value={selectSSID2_4} 
+          value={selectSSID2_4}
           onChange={(e) => setSelectSSID2_4(e.target.value)}
-    />
-
+        />
       </div>
       <Input
         id="password2_4"
@@ -134,7 +133,7 @@ function Wifi() {
         <SelectSSID5
           value={selectSSID5}
           onChange={(e) => setSelectSSID5(e.target.value)}
-           />
+        />
       </div>
       <Input
         id="password5"
@@ -143,8 +142,7 @@ function Wifi() {
         value={password5}
         onChange={(e) => setPassword5(e.target.value)}
       />
-
-      {loading && <Loader />}
+      {loading && <Loader progress={progressFromRedux} />}
       {result && <Result data={result} />}
       <Button name="Отправить запрос" onClick={handleSetWiFi} />
     </div>

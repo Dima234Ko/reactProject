@@ -3,14 +3,8 @@ import { setProgress } from "../store/actions/progressActions";
 import { updateUrlWithParam } from "./url";
 
 // Функция для получения taskId
-export async function getTaskId(
-    action, 
-    body, 
-    dispatch, 
-    setLoading, 
-    navigate) 
-  {
-    try {
+export async function getTaskId(action, body, dispatch, setLoading, navigate) {
+  try {
     // Запрашиваем номер задачи
     const data = await requestAPI("POST", action, body);
     const taskId = data.taskId;
@@ -37,7 +31,7 @@ export async function checkTask(
   setResult,
   navigate,
   attempts = 0,
-  progress = 30
+  progress = 30,
 ) {
   const statusAction = `${action}/${taskId}`;
 
@@ -54,7 +48,7 @@ export async function checkTask(
 
       setTimeout(
         () =>
-            checkTask(
+          checkTask(
             action,
             taskId,
             dispatch,
@@ -62,9 +56,9 @@ export async function checkTask(
             setResult,
             navigate,
             attempts + 1,
-            progress
+            progress,
           ),
-        10000
+        10000,
       ); // Повторяем через 10 секунд
     } else {
       dispatch(setProgress(100)); // Устанавливаем прогресс в 100%
@@ -84,9 +78,9 @@ export async function checkTask(
             setResult,
             navigate,
             attempts + 1,
-            progress
+            progress,
           ),
-        10000
+        10000,
       ); // Повторяем запрос через 10 секунд
     } else {
       alert("Ошибка при запросе статуса после 5 попыток: " + error);

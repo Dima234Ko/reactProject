@@ -21,37 +21,36 @@ export async function setWiFi(
   let body = {
     regionId: 1,
     serialNewNtu: serial,
-    ssidWifi2:ssid2_4,
-    passWifi2:password2_4,
-    channelWifi2:selectSSID2_4,
-    ssidWifi5:ssid5,
-    passWifi5:password5,
-    channelWifi5:selectSSID5 
+    ssidWifi2: ssid2_4,
+    passWifi2: password2_4,
+    channelWifi2: selectSSID2_4,
+    ssidWifi5: ssid5,
+    passWifi5: password5,
+    channelWifi5: selectSSID5,
   };
-
 
   try {
     // Получаем taskId
     const taskId = await getTaskId(
-      'setNTU/setNtuWifi',
+      "setNTU/setNtuWifi",
       body,
       dispatch,
       setLoading,
       navigate,
+    );
+    if (taskId) {
+      // Если taskId получен, начинаем отслеживание статуса
+      await checkTask(
+        "setNTU/taskStatus",
+        taskId,
+        dispatch,
+        setLoading,
+        setResult,
+        navigate,
+        0,
+        80,
       );
-      if (taskId) {
-        // Если taskId получен, начинаем отслеживание статуса
-        await checkTask(
-          'setNTU/taskStatus',
-          taskId,
-          dispatch,
-          setLoading,
-          setResult,
-          navigate,
-          0,
-          30,
-        );
-      }    
+    }
   } catch (error) {
     console.error("Ошибка при получении статуса:", error);
     setLoading(false);

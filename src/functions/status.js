@@ -18,7 +18,7 @@ export async function getStatus(
     setLoading(false);
     return null; // Если серийный номер не введен, возвращаем null
   }
-  
+
   let body = {
     regionId: 1,
     serialNewNtu: serial,
@@ -27,17 +27,17 @@ export async function getStatus(
   try {
     // Получаем taskId
     const taskId = await getTaskId(
-      'setNTU/statusNTU', 
-      body, 
-      dispatch, 
-      setLoading, 
-      navigate
+      "setNTU/statusNTU",
+      body,
+      dispatch,
+      setLoading,
+      navigate,
     );
 
     if (taskId) {
       // Если taskId получен, начинаем отслеживание статуса
       await checkTask(
-        'setNTU/taskStatus',
+        "setNTU/taskStatus",
         taskId,
         dispatch,
         setLoading,

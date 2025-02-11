@@ -11,7 +11,11 @@ export function LinkButton({ name, id, to }) {
 
 export function NextButton({ to, disabled }) {
   return (
-    <Link to={to} className={`next-button ${disabled ? "disabled" : ""}`} aria-disabled={disabled}>
+    <Link
+      to={to}
+      className={`next-button ${disabled ? "disabled" : ""}`}
+      aria-disabled={disabled}
+    >
       <img src={nextIcon} alt="Кнопка вперед" />
     </Link>
   );

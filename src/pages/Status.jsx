@@ -41,7 +41,7 @@ function Status() {
         setLoading(true);
         setResult(null);
         checkTask(
-          'setNTU/taskStatus',
+          "setNTU/taskStatus",
           taskIdFromUrl,
           dispatch,
           setLoading,
@@ -49,7 +49,7 @@ function Status() {
           navigate,
           0,
           50,
-        ); 
+        );
       }
     }
   }, [location.search, navigate, loading, dispatch, progressFromRedux, result]);
