@@ -1,15 +1,31 @@
 /* Loader.css */
-.loader {
+
+/* Этот слой будет перекрывать весь экран и делать его неактивным */
+.overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5); /* Полупрозрачный серый фон */
+  z-index: 999; /* Окно с загрузчиком будет сверху */
+}
+
+.loader {
+  position: fixed;
+  bottom: 20px; /* Задаем положение снизу */
+  left: 50%; /* Центрируем по горизонтали */
+  transform: translateX(
+    -50%
+  ); /* Центрирование относительно своего контейнера */
+  background: rgba(0, 0, 0, 0.7); /* Полупрозрачный серый фон */
+  padding: 15px 30px; /* Отступы */
+  border-radius: 12px; /* Скругление углов */
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000; /* Делаем его поверх всего */
+  min-width: 200px; /* Минимальная ширина */
 }
 
 .spinner {
@@ -17,8 +33,8 @@
   border: 4px solid rgba(255, 255, 255, 0.3);
   border-top: 4px solid #fff;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   animation: spin 1s linear infinite;
 }
 

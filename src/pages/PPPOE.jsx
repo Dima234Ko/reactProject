@@ -108,10 +108,18 @@ function Pppoe() {
         onChange={(e) => setPassword(e.target.value)}
       />
       <Button name="Отправить запрос" onClick={handleSetPppoe} />
-      {loading && <Loader progress={progressFromRedux} />}
+      {loading && (
+        <div className="overlay">
+          <div className="spinner-container">
+            <Loader progress={progressFromRedux} />
+          </div>
+        </div>
+      )}
       {result && <Result data={result} />}
-      <NextButton to={`/wifi?serial=${serial}`} 
-      disabled={result === null || result.success === false}  />
+      <NextButton
+        to={`/wifi?serial=${serial}`}
+        disabled={result === null || result.success === false}
+      />
     </div>
   );
 }

@@ -10,18 +10,21 @@ import Result from "../components/Result";
 import { getStatus } from "../functions/status";
 import { checkTask } from "../functions/task";
 import { NextButton } from "../components/Link";
+import { FormUser } from "../components/Form";
 
 function Status() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Получаем значения serial и progress из Redux
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const [serial, setSerialState] = useState(serialFromRedux || "");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
+
+  // Состояние для открытия формы
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   // Синхронизация serial с Redux
   useEffect(() => {
@@ -35,9 +38,7 @@ function Status() {
     dispatch(setSerial(queryParams.get("serial")));
 
     if (taskIdFromUrl && !loading) {
-      // Если в URL есть taskId и запрос еще не выполняется
       if (!result) {
-        // Проверка на то, что результат ещё не получен
         setLoading(true);
         setResult(null);
         checkTask(
@@ -54,7 +55,6 @@ function Status() {
     }
   }, [location.search, navigate, loading, dispatch, progressFromRedux, result]);
 
-  // Обработчик serial в Redux при изменении поля ввода
   const handleInputChange = (event) => {
     const newSerial = event.target.value;
     setSerialState(newSerial);
@@ -67,6 +67,7 @@ function Status() {
     setLoading(true);
     setResult(null);
     navigate(`?serial=${serial}`, { replace: true });
+
     try {
       await getStatus(
         serial,
@@ -79,11 +80,16 @@ function Status() {
     } catch (error) {
       console.error("Ошибка при получении статуса:", error);
     }
+
+    // Открытие формы после отправки запроса
+    setIsFormOpen(true);
   };
 
   return (
     <div id="status">
       <h2>Статус NTU</h2>
+      {isFormOpen && <FormUser />}
+
       <Input
         id="id_Ntu"
         type="text"
@@ -91,17 +97,25 @@ function Status() {
         value={serial}
         onChange={handleInputChange}
       />
-      <Button 
-        name="Отправить запрос" 
-        onClick={handleGetStatus} 
-        disabled={false} 
+      <Button
+        name="Отправить запрос"
+        onClick={handleGetStatus}
+        disabled={false}
       />
-      {loading && <Loader progress={progressFromRedux} />}
+
+      {loading && (
+        <div className="overlay">
+          <div className="spinner-container">
+            <Loader progress={progressFromRedux} />
+          </div>
+        </div>
+      )}
+
       {result && <Result data={result} />}
-      
-      <NextButton 
-        to={`/pppoe?serial=${serial}`} 
-        disabled={result === null || result.success === false} 
+
+      <NextButton
+        to={`/pppoe?serial=${serial}`}
+        disabled={result === null || result.success === false}
       />
     </div>
   );

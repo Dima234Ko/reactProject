@@ -1,13 +1,13 @@
 function Result({ data }) {
-  const cleanedData = removeFields(data);  // Удаляем ненужные поля
-  const cleanedString = JSON.stringify(cleanedData, null, 2);  // Преобразуем в строку JSON
+  const cleanedData = removeFields(data); // Удаляем ненужные поля
+  const cleanedString = JSON.stringify(cleanedData, null, 2); // Преобразуем в строку JSON
 
   // Определяем стиль для текста
-  const textStyle = data.success === false ? { color: 'red' } : {};
+  const textStyle = data.success === false ? { color: "red" } : {};
 
   return (
     <div className="result">
-      <pre style={textStyle}>{removeQuotes(cleanedString)}</pre> 
+      <pre style={textStyle}>{removeQuotes(cleanedString)}</pre>
     </div>
   );
 }

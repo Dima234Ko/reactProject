@@ -9,9 +9,7 @@
     font-size: 1.5rem;
     margin-bottom: 15px;
   }
-}
 
-@media (max-width: 768px) {
   #SSID2_4,
   #SSID5 {
     width: 65%;
@@ -24,5 +22,9 @@
 
   .ssid-container {
     width: 86.03%;
+  }
+
+  .custom-component {
+    width: 80%;
   }
 }

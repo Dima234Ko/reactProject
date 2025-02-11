@@ -142,7 +142,13 @@ function Wifi() {
         value={password5}
         onChange={(e) => setPassword5(e.target.value)}
       />
-      {loading && <Loader progress={progressFromRedux} />}
+      {loading && (
+        <div className="overlay">
+          <div className="spinner-container">
+            <Loader progress={progressFromRedux} />
+          </div>
+        </div>
+      )}
       {result && <Result data={result} />}
       <Button name="Отправить запрос" onClick={handleSetWiFi} />
     </div>
