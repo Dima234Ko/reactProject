@@ -80,10 +80,10 @@ function Status() {
     } catch (error) {
       console.error("Ошибка при получении статуса:", error);
     }
-    
+
     setTimeout(() => {
       setIsFormOpen(false);
-    }, 15000);
+    }, 30000);
   };
 
   // Функция для закрытия формы

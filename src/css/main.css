@@ -45,3 +45,13 @@ pre {
   white-space: pre-wrap; /* Перенос строк, если текст выходит за пределы */
   word-wrap: break-word; /* Разрыв длинных слов */
 }
+
+.input-container ul {
+  padding-left: 15px; /* Убираем отступ слева для списка */
+  list-style-type: disc; 
+}
+
+.input-container ul li {
+  margin-bottom: 10px; /* Отступ между элементами списка */
+  text-align: left; /* Текст будет выровнен по левому краю */
+}
