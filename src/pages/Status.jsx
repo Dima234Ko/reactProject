@@ -91,10 +91,18 @@ function Status() {
         value={serial}
         onChange={handleInputChange}
       />
-      <Button name="Отправить запрос" onClick={handleGetStatus} />
+      <Button 
+        name="Отправить запрос" 
+        onClick={handleGetStatus} 
+        disabled={false} 
+      />
       {loading && <Loader progress={progressFromRedux} />}
       {result && <Result data={result} />}
-      <NextButton to={`/pppoe?serial=${serial}`} disabled={!result} />
+      
+      <NextButton 
+        to={`/pppoe?serial=${serial}`} 
+        disabled={result === null || result.success === false} 
+      />
     </div>
   );
 }
