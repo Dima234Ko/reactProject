@@ -24,10 +24,10 @@ function Wifi() {
   const [result, setResult] = useState(null);
   const [ssid2_4, setSsid2_4] = useState("");
   const [password2_4, setPassword2_4] = useState("");
-  const [selectSSID2_4, setSelectSSID2_4] = useState("");
+  const [selectSSID2_4, setSelectSSID2_4] = useState("auto");
   const [ssid5, setSsid5] = useState("");
   const [password5, setPassword5] = useState("");
-  const [selectSSID5, setSelectSSID5] = useState("");
+  const [selectSSID5, setSelectSSID5] = useState("auto");
 
   // Обновление serialState при изменении serial из Redux
   useEffect(() => {
@@ -109,10 +109,11 @@ function Wifi() {
           value={ssid2_4}
           onChange={(e) => setSsid2_4(e.target.value)}
         />
-          <SelectSSID
-          value={SelectSSID}
+        <SelectSSID
+          value={selectSSID2_4} 
           onChange={(e) => setSelectSSID2_4(e.target.value)}
-           />
+    />
+
       </div>
       <Input
         id="password2_4"
@@ -131,7 +132,7 @@ function Wifi() {
           onChange={(e) => setSsid5(e.target.value)}
         />
         <SelectSSID5
-          value={SelectSSID5}
+          value={selectSSID5}
           onChange={(e) => setSelectSSID5(e.target.value)}
            />
       </div>

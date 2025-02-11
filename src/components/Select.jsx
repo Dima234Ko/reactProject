@@ -4,7 +4,7 @@ export function Select({ id, options, value, onChange }) {
       className="some-input"
       id={id}
       value={value}
-      onChange={onChange}  // Прокидываем изменение наружу
+      onChange={onChange}  
     >
       {options.map((option) => (
         <option key={option} value={option}>
