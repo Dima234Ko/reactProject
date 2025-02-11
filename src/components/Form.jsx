@@ -63,3 +63,26 @@ export function FormUser({ isFormOpen, closeForm }) {
     </div>
   );
 }
+
+export function FormInfo({ isFormOpen, closeForm }) {
+    // Обработчик закрытия формы
+  const handleClose = () => {
+    if (closeForm) closeForm(); // Вызов переданного колбэка для закрытия формы
+  };
+
+   if (!isFormOpen) return null; // Если форма не открыта, ничего не рендерим
+
+  return (
+    <div className="custom-component">
+      <div className="close-btn" onClick={handleClose}>
+        &times;
+      </div>
+      <div className="input-container">
+        <h2>Внимание</h2>
+        <pre>В данной версии приложения 
+            функции из расширенной настройки, 
+            вынесены в меню в верхнем правом углу.</pre>
+      </div>
+    </div>
+  );
+}

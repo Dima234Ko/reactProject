@@ -9,7 +9,9 @@ import { Loader } from "../components/Loader";
 import Result from "../components/Result";
 import { getStatus } from "../functions/status";
 import { checkTask } from "../functions/task";
-import { NextButton } from "../components/Link";
+import { NextButton } from "../components/Link"
+import { FormInfo } from "../components/Form";
+
 
 function Status() {
   const dispatch = useDispatch();
@@ -21,6 +23,7 @@ function Status() {
   const [serial, setSerialState] = useState(serialFromRedux || "");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   // Синхронизация serial с Redux
   useEffect(() => {
@@ -61,6 +64,7 @@ function Status() {
   const handleGetStatus = async () => {
     dispatch(setProgress(0));
     setLoading(true);
+    setIsFormOpen(true);
     setResult(null);
     navigate(`?serial=${serial}`, { replace: true });
 
@@ -76,11 +80,21 @@ function Status() {
     } catch (error) {
       console.error("Ошибка при получении статуса:", error);
     }
+    
+    setTimeout(() => {
+      setIsFormOpen(false);
+    }, 15000);
+  };
+
+  // Функция для закрытия формы
+  const closeForm = () => {
+    setIsFormOpen(false);
   };
 
   return (
     <div id="status">
       <h2>Статус NTU</h2>
+      <FormInfo isFormOpen={isFormOpen} closeForm={closeForm} />
       <Input
         id="id_Ntu"
         type="text"

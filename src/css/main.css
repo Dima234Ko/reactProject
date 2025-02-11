@@ -40,5 +40,8 @@ pre {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  text-align: center; 
+  margin-top: 20px;
+  white-space: pre-wrap; /* Перенос строк, если текст выходит за пределы */
+  word-wrap: break-word; /* Разрыв длинных слов */
 }

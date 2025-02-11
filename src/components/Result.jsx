@@ -20,9 +20,6 @@ function removeQuotes(jsonString) {
     .replace(/"/g, "");       
 }
 
-
-
-
 function removeFields(data) {
   const { type, serialNewNtu, success, ...newData } = data;
   return newData;
