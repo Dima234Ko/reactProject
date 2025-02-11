@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 
-export function FormUser() {
-  const [isOpen, setIsOpen] = useState(true); // Открыто ли окно
+export function FormUser({ isFormOpen, closeForm }) {
   const [input1, setInput1] = useState("");  // Для фамилии
   const [input2, setInput2] = useState("");  // Для имени
   const [input3, setInput3] = useState("");  // Для отчества
@@ -22,49 +21,45 @@ export function FormUser() {
 
   // Обработчик закрытия формы
   const handleClose = () => {
-    setIsOpen(false);
+    if (closeForm) closeForm(); // Вызов переданного колбэка для закрытия формы
   };
 
+   if (!isFormOpen) return null; // Если форма не открыта, ничего не рендерим
+
   return (
-    <>
-      {isOpen && (
-        <div className="custom-component">
-          <div className="close-btn" onClick={handleClose}>
-            &times;
-          </div>
-          <div className="input-container">
-          <h2>Если абонент новый, заполните форму</h2>
-          <pre>если нет, просто закройте её</pre>
-            <Input
-              id="surname"
-              type="text"
-              name="input1"
-              placeholder="Введите фамилию"
-              value={input1}
-              onChange={handleInputChange}
-            />
-            <Input
-              id="name"
-              type="text"
-              name="input2"
-              placeholder="Введите имя"
-              value={input2}
-              onChange={handleInputChange}
-            />
-            <Input
-              id="patronymic"
-              type="text"
-              name="input3"
-              placeholder="Введите отчество"
-              value={input3}
-              onChange={handleInputChange}
-            />
-            <Button
-              name="Записать"
-            />
-          </div>
-        </div>
-      )}
-    </>
+    <div className="custom-component">
+      <div className="close-btn" onClick={handleClose}>
+        &times;
+      </div>
+      <div className="input-container">
+        <h2>Если абонент новый, заполните форму</h2>
+        <pre>если нет, просто закройте её</pre>
+        <Input
+          id="surname"
+          type="text"
+          name="input1"
+          placeholder="Введите фамилию"
+          value={input1}
+          onChange={handleInputChange}
+        />
+        <Input
+          id="name"
+          type="text"
+          name="input2"
+          placeholder="Введите имя"
+          value={input2}
+          onChange={handleInputChange}
+        />
+        <Input
+          id="patronymic"
+          type="text"
+          name="input3"
+          placeholder="Введите отчество"
+          value={input3}
+          onChange={handleInputChange}
+        />
+        <Button name="Записать" />
+      </div>
+    </div>
   );
 }

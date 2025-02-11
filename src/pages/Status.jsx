@@ -10,7 +10,6 @@ import Result from "../components/Result";
 import { getStatus } from "../functions/status";
 import { checkTask } from "../functions/task";
 import { NextButton } from "../components/Link";
-import { FormUser } from "../components/Form";
 
 function Status() {
   const dispatch = useDispatch();
@@ -22,9 +21,6 @@ function Status() {
   const [serial, setSerialState] = useState(serialFromRedux || "");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
-
-  // Состояние для открытия формы
-  const [isFormOpen, setIsFormOpen] = useState(false);
 
   // Синхронизация serial с Redux
   useEffect(() => {
@@ -80,16 +76,11 @@ function Status() {
     } catch (error) {
       console.error("Ошибка при получении статуса:", error);
     }
-
-    // Открытие формы после отправки запроса
-    setIsFormOpen(true);
   };
 
   return (
     <div id="status">
       <h2>Статус NTU</h2>
-      {isFormOpen && <FormUser />}
-
       <Input
         id="id_Ntu"
         type="text"

@@ -1,7 +1,7 @@
 /* CustomComponent.css */
 .custom-component {
   position: fixed;
-  top: 20%;
+  top: 23%;
   left: 50%;
   transform: translateX(-50%);
   width: 53vh; /* Занимает 2/3 экрана */

@@ -10,6 +10,7 @@ import Result from "../components/Result";
 import { setPppoe } from "../functions/pppoe";
 import { checkTask } from "../functions/task";
 import { NextButton } from "../components/Link";
+import { FormUser } from "../components/Form";
 
 function Pppoe() {
   const dispatch = useDispatch();
@@ -24,6 +25,12 @@ function Pppoe() {
   const [result, setResult] = useState(null);
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+
+  // Состояние для открытия формы
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+  // Переменная для отслеживания предыдущего значения логина
+  const [prevLogin, setPrevLogin] = useState("");
 
   // Обновление serialState при изменении serial из Redux
   useEffect(() => {
@@ -41,6 +48,7 @@ function Pppoe() {
       if (!result) {
         // Проверка на то, что результат ещё не получен
         setLoading(true);
+        setIsFormOpen(true);
         setResult(null);
         checkTask(
           "setNTU/taskStatus",
@@ -50,7 +58,7 @@ function Pppoe() {
           setResult,
           navigate,
           0,
-          50,
+          80,
         );
       }
     }
@@ -60,11 +68,23 @@ function Pppoe() {
     setSerialState(event.target.value);
   };
 
+  const handleLoginChange = (e) => {
+    const newLogin = e.target.value;
+    setLogin(newLogin);
+  };
+
   const handleSetPppoe = async () => {
+    // Проверяем, был ли изменен логин
+    if (login !== prevLogin) {
+      setIsFormOpen(true); // Открываем форму, если логин изменился
+      setPrevLogin(login); // Обновляем значение предыдущего логина
+    }
+
     dispatch(setProgress(0));
     setLoading(true);
     setResult(null);
     navigate(`?serial=${serial}`, { replace: true });
+
     try {
       await setPppoe(
         serial,
@@ -82,9 +102,16 @@ function Pppoe() {
     }
   };
 
+  // Функция для закрытия формы
+  const closeForm = () => {
+    setIsFormOpen(false);
+  };
+
   return (
     <div id="pppoe">
       <h2>Настройка PPPoE</h2>
+      {/* Передаем пропс isFormOpen и функцию closeForm в компонент FormUser */}
+      <FormUser isFormOpen={isFormOpen} closeForm={closeForm} />
       <Input
         id="id_Ntu"
         type="text"
@@ -98,7 +125,7 @@ function Pppoe() {
         type="text"
         placeholder="Введите логин"
         value={login}
-        onChange={(e) => setLogin(e.target.value)}
+        onChange={handleLoginChange}  // Используем обработчик для логина
       />
       <Input
         id="password"
