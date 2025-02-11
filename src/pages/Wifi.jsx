@@ -109,7 +109,10 @@ function Wifi() {
           value={ssid2_4}
           onChange={(e) => setSsid2_4(e.target.value)}
         />
-        <SelectSSID />
+          <SelectSSID
+          value={SelectSSID}
+          onChange={(e) => setSelectSSID2_4(e.target.value)}
+           />
       </div>
       <Input
         id="password2_4"
@@ -127,7 +130,10 @@ function Wifi() {
           value={ssid5}
           onChange={(e) => setSsid5(e.target.value)}
         />
-        <SelectSSID5 />
+        <SelectSSID5
+          value={SelectSSID5}
+          onChange={(e) => setSelectSSID5(e.target.value)}
+           />
       </div>
       <Input
         id="password5"
