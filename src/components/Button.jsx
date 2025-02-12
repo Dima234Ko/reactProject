@@ -1,8 +1,19 @@
-// Button.jsx
-export function Button({ name, id, onClick }) {
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileImport } from '@fortawesome/free-solid-svg-icons';
+
+export function Button({ name, id, onClick, className = '' }) {
   return (
-    <button className="button blue" id={id} onClick={onClick}>
+    <button className={`button blue ${className}`} id={id} onClick={onClick}>
       {name}
+    </button>
+  );
+}
+
+export function UploadButton({ onClick, className = '' }) {
+  return (
+    <button className={`upload-button ${className}`} id="openForm" onClick={onClick}>
+      <FontAwesomeIcon icon={faFileImport} />
     </button>
   );
 }

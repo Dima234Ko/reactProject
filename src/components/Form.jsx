@@ -1,6 +1,8 @@
-import React, { useState } from "react";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
+import { useState } from 'react';
+
+
 
 export function FormUser({ isFormOpen, closeForm }) {
   const [input1, setInput1] = useState("");  // Для фамилии
@@ -64,6 +66,9 @@ export function FormUser({ isFormOpen, closeForm }) {
   );
 }
 
+
+
+
 export function FormInfo({ isFormOpen, closeForm }) {
     // Обработчик закрытия формы
   const handleClose = () => {
@@ -91,4 +96,87 @@ export function FormInfo({ isFormOpen, closeForm }) {
       </div>
     </div>
   );  
+}
+
+
+
+
+
+export function FormPhoto({ isFormOpen, closeForm }) {
+    const [file, setFile] = useState(null); // для хранения выбранного файла
+    const [isUploading, setIsUploading] = useState(false); // для отслеживания процесса загрузки
+
+    const handleClose = () => {
+      if (closeForm) closeForm();
+    };
+
+    // Обработчик выбора файла
+    const handleFileChange = (event) => {
+        const selectedFile = event.target.files[0];
+        if (selectedFile) {
+            setFile(selectedFile);
+        }
+    };
+
+    // Функция для отправки фото
+    const handleUpload = async () => {
+        if (!file) {
+            alert('Пожалуйста, выберите файл для загрузки');
+            return;
+        }
+
+        setIsUploading(true);
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error('Ошибка загрузки фото');
+            }
+
+            const data = await response.json();
+            console.log('Фото успешно загружено:', data);
+            handleClose();
+        } catch (error) {
+            console.error('Ошибка при отправке фото:', error);
+        } finally {
+            setIsUploading(false);
+        }
+    };
+
+    if (!isFormOpen) return null;
+
+    return (
+        <div className="custom-component">
+            <div className="close-btn" onClick={handleClose}>
+                &times;
+            </div>
+            <div className="input-container">
+                <h2>Загрузить фото</h2>
+                <pre>Выберите скриншоты из приложения Analizator WiFi</pre>
+                <input 
+                    type="file" 
+                    id="file-upload" 
+                    onChange={handleFileChange} 
+                />
+
+                <label htmlFor="file-upload" className="custom-file-upload">
+                    Выбрать файл
+                </label>
+
+                {file && (
+                    <div className="file-name">
+                        <strong>Выбран файл: </strong>{file.name}
+                    </div>
+                )}
+                <Button name= 'Загрузить' onClick={handleUpload} disabled={isUploading} />
+            </div>
+        </div>
+    );
 }

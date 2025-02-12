@@ -5,11 +5,12 @@ import { setProgress } from "../store/actions/progressActions";
 import { setSerial } from "../store/actions/serialActions";
 import { SelectSSID, SelectSSID5 } from "../components/Select";
 import { Input } from "../components/Input";
-import { Button } from "../components/Button";
+import { Button, UploadButton } from "../components/Button";
 import { Loader } from "../components/Loader";
 import Result from "../components/Result";
 import { setWiFi } from "../functions/wifi";
 import { checkTask } from "../functions/task";
+import { FormPhoto } from "../components/Form";
 
 function Wifi() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function Wifi() {
   const [ssid5, setSsid5] = useState("");
   const [password5, setPassword5] = useState("");
   const [selectSSID5, setSelectSSID5] = useState("auto");
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   // Обновление serialState при изменении serial из Redux
   useEffect(() => {
@@ -90,9 +92,18 @@ function Wifi() {
     }
   };
 
+  const openForm = () => {
+    setIsFormOpen(true);
+  };
+
+  const closeForm = () => {
+    setIsFormOpen(false);
+  };
+
   return (
     <div id="wifi">
       <h2>Настройка WiFi</h2>
+       <FormPhoto isFormOpen={isFormOpen} closeForm={closeForm} />
       <Input
         id="id_Ntu"
         type="text"
@@ -151,6 +162,7 @@ function Wifi() {
       )}
       {result && <Result data={result} />}
       <Button name="Отправить запрос" onClick={handleSetWiFi} />
+      <UploadButton onClick={openForm} />
     </div>
   );
 }
