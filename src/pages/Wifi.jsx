@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { setProgress } from "../store/actions/progressActions";
+import { setSerial } from "../store/actions/serialActions";
 import { SelectSSID, SelectSSID5 } from "../components/Select";
 import { Input } from "../components/Input";
 import { Button, UploadButton } from "../components/Button";
@@ -29,7 +30,16 @@ function Wifi() {
   const [password5, setPassword5] = useState("");
   const [selectSSID5, setSelectSSID5] = useState("auto");
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const formRef = useRef(null);
+
+  // Заполняем поле serial из параметров URL, если оно есть
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const serialFromUrl = queryParams.get("serial");
+    if (serialFromUrl) {
+      dispatch(setSerial(serialFromUrl)); // Обновляем serial в Redux
+      setSerialState(serialFromUrl); // Обновляем локальное состояние для отображения
+    }
+  }, [location.search, dispatch]); 
 
   // Обновление serialState при изменении serial из Redux
   useEffect(() => {
@@ -41,7 +51,6 @@ function Wifi() {
     const queryParams = new URLSearchParams(location.search);
     const taskIdFromUrl = queryParams.get("task");
 
-    // Если есть taskId, запрос еще не выполняется, и результат еще не получен
     if (taskIdFromUrl && !loading && !result) {
       setLoading(true);
       setResult(null);
@@ -58,22 +67,8 @@ function Wifi() {
     }
   }, [location.search, navigate, loading, dispatch, result, serialFromRedux]);
 
-  // Закрытие формы при клике вне
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (formRef.current && !formRef.current.contains(event.target)) {
-        setIsFormOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   const handleInputChange = (event) => {
-    setSerialState(event.target.value); // Обновляем local state для serial
+    setSerialState(event.target.value);
   };
 
   const handleSetWiFi = async () => {

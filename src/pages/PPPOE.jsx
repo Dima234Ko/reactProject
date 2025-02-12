@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { setSerial } from "../store/actions/serialActions";
 import { setProgress } from "../store/actions/progressActions";
+import { setSerial } from "../store/actions/serialActions"; // импортируем action
 import { Input } from "../components/Input";
-import { Button } from "../components/Button";
+import { Button, UserButton } from "../components/Button";
 import { Loader } from "../components/Loader";
 import Result from "../components/Result";
 import { setPppoe } from "../functions/pppoe";
@@ -25,12 +25,18 @@ function Pppoe() {
   const [result, setResult] = useState(null);
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
-
-  // Состояние для открытия формы
   const [isFormOpen, setIsFormOpen] = useState(false);
-
-  // Переменная для отслеживания предыдущего значения логина
   const [prevLogin, setPrevLogin] = useState("");
+
+  // Заполняем поле serial из параметров URL, если оно есть
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const serialFromUrl = queryParams.get("serial");
+    if (serialFromUrl) {
+      dispatch(setSerial(serialFromUrl)); // Обновляем serial в Redux
+      setSerialState(serialFromUrl); // Обновляем локальное состояние для отображения
+    }
+  }, [location.search, dispatch]); // Добавляем dispatch как зависимость
 
   // Обновление serialState при изменении serial из Redux
   useEffect(() => {
@@ -53,20 +59,25 @@ function Pppoe() {
         setResult,
         navigate,
         0,
-        80,
+        80
       );
     }
-  }, [location.search, dispatch, result, loading, navigate]);
+  }, [location.search, dispatch, result, loading, navigate, serialFromRedux]);
 
+  // Обработчик изменения serial
   const handleInputChange = (event) => {
-    setSerialState(event.target.value);
+    const newSerial = event.target.value;
+    setSerialState(newSerial);
+    dispatch(setSerial(newSerial)); // обновляем значение в Redux
   };
 
+  // Обработчик изменения логина
   const handleLoginChange = (e) => {
     const newLogin = e.target.value;
     setLogin(newLogin);
   };
 
+  // Отправка PPPoE запроса
   const handleSetPppoe = async () => {
     // Проверяем, был ли изменен логин
     if (login !== prevLogin) {
@@ -88,7 +99,7 @@ function Pppoe() {
         setResult,
         dispatch,
         navigate,
-        progressFromRedux,
+        progressFromRedux
       );
     } catch (error) {
       console.error("Ошибка применения параметров:", error);
@@ -96,7 +107,12 @@ function Pppoe() {
     }
   };
 
-  // Функция для закрытия формы
+  // Открытие формы
+  const openForm = () => {
+    setIsFormOpen(true);
+  };
+
+  // Закрытие формы
   const closeForm = () => {
     setIsFormOpen(false);
   };
@@ -135,6 +151,7 @@ function Pppoe() {
           </div>
         </div>
       )}
+      <UserButton onClick={openForm} />
       {result && <Result data={result} />}
       <NextButton
         to={`/wifi?serial=${serial}`}
