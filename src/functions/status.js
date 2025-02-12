@@ -4,6 +4,7 @@ import { setProgress } from "../store/actions/progressActions";
 // Главная функция для получения статуса
 export async function getStatus(
   serial,
+  isChecked,
   setLoading,
   setResult,
   dispatch,
@@ -11,12 +12,12 @@ export async function getStatus(
 ) {
   setLoading(true);
   setResult(null);
-  dispatch(setProgress(0)); // Устанавливаем прогресс в 0
+  dispatch(setProgress(0)); 
 
   if (!serial) {
     alert("Введите pon-serial");
     setLoading(false);
-    return null; // Если серийный номер не введен, возвращаем null
+    return null; 
   }
 
   let body = {
@@ -24,10 +25,16 @@ export async function getStatus(
     serialNewNtu: serial,
   };
 
+  
   try {
+    let action = "setNTU/statusNTU"
+    if (isChecked){
+      action = "setNTU/resetNTU"
+    } 
+
     // Получаем taskId
     const taskId = await getTaskId(
-      "setNTU/statusNTU",
+      action,
       body,
       dispatch,
       setLoading,

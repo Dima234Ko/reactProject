@@ -41,27 +41,22 @@ function Pppoe() {
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const taskIdFromUrl = queryParams.get("task");
-    dispatch(setSerial(queryParams.get("serial")));
-
-    if (taskIdFromUrl && !loading) {
-      // Если в URL есть taskId и запрос еще не выполняется
-      if (!result) {
-        // Проверка на то, что результат ещё не получен
-        setLoading(true);
-        setResult(null);
-        checkTask(
-          "setNTU/taskStatus",
-          taskIdFromUrl,
-          dispatch,
-          setLoading,
-          setResult,
-          navigate,
-          0,
-          80,
-        );
-      }
+  
+    if (taskIdFromUrl && !loading && !result) {
+      setLoading(true);
+      setResult(null);
+      checkTask(
+        "setNTU/taskStatus",
+        taskIdFromUrl,
+        dispatch,
+        setLoading,
+        setResult,
+        navigate,
+        0,
+        80,
+      );
     }
-  }, [location.search, navigate, loading, dispatch, progressFromRedux, result]);
+  }, [location.search, dispatch, result, loading, navigate]);  
 
   const handleInputChange = (event) => {
     setSerialState(event.target.value);

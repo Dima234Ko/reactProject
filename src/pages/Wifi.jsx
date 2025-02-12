@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { setProgress } from "../store/actions/progressActions";
-import { setSerial } from "../store/actions/serialActions";
 import { SelectSSID, SelectSSID5 } from "../components/Select";
 import { Input } from "../components/Input";
 import { Button, UploadButton } from "../components/Button";
@@ -30,6 +29,7 @@ function Wifi() {
   const [password5, setPassword5] = useState("");
   const [selectSSID5, setSelectSSID5] = useState("auto");
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const formRef = useRef(null);
 
   // Обновление serialState при изменении serial из Redux
   useEffect(() => {
@@ -40,27 +40,37 @@ function Wifi() {
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const taskIdFromUrl = queryParams.get("task");
-    dispatch(setSerial(queryParams.get("serial")));
-
-    if (taskIdFromUrl && !loading) {
-      // Если в URL есть taskId и запрос еще не выполняется
-      if (!result) {
-        // Проверка на то, что результат ещё не получен
-        setLoading(true);
-        setResult(null);
-        checkTask(
-          "setNTU/taskStatus",
-          taskIdFromUrl,
-          dispatch,
-          setLoading,
-          setResult,
-          navigate,
-          0,
-          50,
-        );
-      }
+  
+    // Если есть taskId, запрос еще не выполняется, и результат еще не получен
+    if (taskIdFromUrl && !loading && !result) {
+      setLoading(true);
+      setResult(null);
+      checkTask(
+        "setNTU/taskStatus",
+        taskIdFromUrl,
+        dispatch,
+        setLoading,
+        setResult,
+        navigate,
+        0,
+        50,
+      );
     }
-  }, [location.search, navigate, loading, dispatch, progressFromRedux, result]);
+  }, [location.search, navigate, loading, dispatch, result, serialFromRedux]);
+  
+  // Закрытие формы при клике вне
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (formRef.current && !formRef.current.contains(event.target)) {
+        setIsFormOpen(false); 
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside); 
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside); 
+    };
+  }, []);
 
   const handleInputChange = (event) => {
     setSerialState(event.target.value); // Обновляем local state для serial
@@ -103,7 +113,7 @@ function Wifi() {
   return (
     <div id="wifi">
       <h2>Настройка WiFi</h2>
-       <FormPhoto isFormOpen={isFormOpen} closeForm={closeForm} />
+      <FormPhoto isFormOpen={isFormOpen} closeForm={closeForm}/>
       <Input
         id="id_Ntu"
         type="text"

@@ -9,9 +9,9 @@ import { Loader } from "../components/Loader";
 import Result from "../components/Result";
 import { getStatus } from "../functions/status";
 import { checkTask } from "../functions/task";
-import { NextButton } from "../components/Link"
+import { NextButton } from "../components/Link";
 import { FormInfo } from "../components/Form";
-
+import { Checkbox } from "../components/Checkbox";
 
 function Status() {
   const dispatch = useDispatch();
@@ -24,6 +24,7 @@ function Status() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
   // Синхронизация serial с Redux
   useEffect(() => {
@@ -67,10 +68,12 @@ function Status() {
     setIsFormOpen(true);
     setResult(null);
     navigate(`?serial=${serial}`, { replace: true });
-
+  
     try {
+      // Передаем isChecked в getStatus
       await getStatus(
         serial,
+        isChecked, 
         setLoading,
         setResult,
         dispatch,
@@ -80,10 +83,15 @@ function Status() {
     } catch (error) {
       console.error("Ошибка при получении статуса:", error);
     }
-
+  
     setTimeout(() => {
       setIsFormOpen(false);
     }, 30000);
+  };
+  
+  // Функция для изменения состояния чекбокса
+  const handleCheckboxChange = (e) => {
+    setIsChecked(e.target.checked); // Обновляем состояние чекбокса
   };
 
   // Функция для закрытия формы
@@ -102,6 +110,14 @@ function Status() {
         value={serial}
         onChange={handleInputChange}
       />
+
+      <Checkbox
+        label="Сброс устройства"
+        id="reset"
+        checked={isChecked}
+        onChange={handleCheckboxChange}
+      />
+
       <Button
         name="Отправить запрос"
         onClick={handleGetStatus}
