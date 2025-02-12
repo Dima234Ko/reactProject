@@ -5,21 +5,10 @@ import { useState } from 'react';
 
 
 export function FormUser({ isFormOpen, closeForm }) {
-  const [input1, setInput1] = useState("");  // Для фамилии
-  const [input2, setInput2] = useState("");  // Для имени
-  const [input3, setInput3] = useState("");  // Для отчества
-
-  // Обработчик изменения значений инпутов
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    if (name === "input1") {
-      setInput1(value);
-    } else if (name === "input2") {
-      setInput2(value);
-    } else if (name === "input3") {
-      setInput3(value);
-    }
-  };
+  const [surname, setSurname] = useState("");  // Для фамилии
+  const [name, setName] = useState("");  // Для имени
+  const [patronymic, setPatronymic] = useState("");  // Для отчества
+  const [phone, setPhone] = useState(""); 
 
   // Обработчик закрытия формы
   const handleClose = () => {
@@ -39,32 +28,37 @@ export function FormUser({ isFormOpen, closeForm }) {
         <Input
           id="surname"
           type="text"
-          name="input1"
           placeholder="Введите фамилию"
-          value={input1}
-          onChange={handleInputChange}
+          value={surname}
+          onChange={(e) => setSurname(e.target.value)}
         />
         <Input
           id="name"
           type="text"
-          name="input2"
           placeholder="Введите имя"
-          value={input2}
-          onChange={handleInputChange}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <Input
           id="patronymic"
           type="text"
-          name="input3"
           placeholder="Введите отчество"
-          value={input3}
-          onChange={handleInputChange}
+          value={patronymic}
+          onChange={(e) => setPatronymic(e.target.value)}
+        />
+        <Input
+          id="phone"
+          type="text"
+          placeholder="Введите телефон"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
         />
         <Button name="Записать" />
       </div>
     </div>
   );
 }
+
 
 
 
