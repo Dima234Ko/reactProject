@@ -102,9 +102,12 @@ export function FormInfo({ isFormOpen, closeForm }) {
 
 
 
+
+
 export function FormPhoto({ isFormOpen, closeForm }) {
     const [file, setFile] = useState(null); // для хранения выбранного файла
     const [isUploading, setIsUploading] = useState(false); // для отслеживания процесса загрузки
+    const [result, setResult] = useState(''); // для вывода информационных сообщений
 
     const handleClose = () => {
       if (closeForm) closeForm();
@@ -115,17 +118,19 @@ export function FormPhoto({ isFormOpen, closeForm }) {
         const selectedFile = event.target.files[0];
         if (selectedFile) {
             setFile(selectedFile);
+            setResult(''); // Очистить сообщение при выборе нового файла
         }
     };
 
     // Функция для отправки фото
     const handleUpload = async () => {
         if (!file) {
-            alert('Пожалуйста, выберите файл для загрузки');
+            setResult('Пожалуйста, выберите файл для загрузки');
             return;
         }
 
         setIsUploading(true);
+        setResult('Загрузка началась...'); // Информируем о начале загрузки
 
         const formData = new FormData();
         formData.append('file', file);
@@ -142,9 +147,10 @@ export function FormPhoto({ isFormOpen, closeForm }) {
 
             const data = await response.json();
             console.log('Фото успешно загружено:', data);
-            handleClose();
+            setResult('Фото успешно загружено');
         } catch (error) {
             console.error('Ошибка при отправке фото:', error);
+            setResult('Произошла ошибка при загрузке фото. Попробуйте снова.');
         } finally {
             setIsUploading(false);
         }
@@ -175,7 +181,14 @@ export function FormPhoto({ isFormOpen, closeForm }) {
                         <strong>Выбран файл: </strong>{file.name}
                     </div>
                 )}
-                <Button name= 'Загрузить' onClick={handleUpload} disabled={isUploading} />
+
+                <Button 
+                    name="Загрузить" 
+                    onClick={handleUpload} 
+                    disabled={isUploading} 
+                />
+
+                {result && <pre className="upload-result">{result}</pre>}
             </div>
         </div>
     );

@@ -43,6 +43,10 @@ input[type="file"] {
   background-color: #45a049;
 }
 
+.custom-file-upload:active {
+  transform: scale(1.2);         /* Восстановление размера при нажатии */
+}
+
 /* Отображаем название файла */
 .file-name {
   margin-top: 10px;
