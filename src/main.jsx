@@ -13,7 +13,6 @@ import "./css/form.css";
 import "./css/checkbox.css";
 import "./css/mobile.css";
 
-
 // Создаем root для React 18
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

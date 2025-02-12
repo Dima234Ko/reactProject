@@ -15,9 +15,9 @@ function Result({ data }) {
 function removeQuotes(jsonString) {
   // Удаляем все пробелы и символы новой строки
   return jsonString
-    .replace(/[\{\},]/g, "")  
+    .replace(/[\{\},]/g, "")
     .replace(/^[\s\n]+/, "")
-    .replace(/"/g, "");       
+    .replace(/"/g, "");
 }
 
 function removeFields(data) {

@@ -68,12 +68,12 @@ function Status() {
     setIsFormOpen(true);
     setResult(null);
     navigate(`?serial=${serial}`, { replace: true });
-  
+
     try {
       // Передаем isChecked в getStatus
       await getStatus(
         serial,
-        isChecked, 
+        isChecked,
         setLoading,
         setResult,
         dispatch,
@@ -83,12 +83,12 @@ function Status() {
     } catch (error) {
       console.error("Ошибка при получении статуса:", error);
     }
-  
+
     setTimeout(() => {
       setIsFormOpen(false);
     }, 30000);
   };
-  
+
   // Функция для изменения состояния чекбокса
   const handleCheckboxChange = (e) => {
     setIsChecked(e.target.checked); // Обновляем состояние чекбокса

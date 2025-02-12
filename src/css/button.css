@@ -70,53 +70,33 @@
   opacity: 0.5; /* 50% прозрачности для картинки */
 }
 
-/* Основной стиль для кнопки */
-.upload-button {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  padding: 12px 20px;         /* Увеличенные отступы для удобства */
-  background-color: #4CAF50;  /* Зеленый фон */
-  color: white;               /* Белый цвет текста и иконки */
-  border: none;               /* Без рамки */
-  border-radius: 8px;         /* Закругленные углы */
-  font-size: 18px;            /* Размер текста */
-  cursor: pointer;           /* Указатель при наведении */
-  transition: background-color 0.3s, transform 0.2s; /* Плавный переход фона и эффекта нажатия */
-  outline: none;              /* Убираем стандартное обрамление фокуса */
-  margin-top: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.3s ease;
-}
-
-/* Эффект при наведении */
-.upload-button:hover {
-  background-color: #45a049;  /* Темнее зеленый при наведении */
-  transform: scale(1.05);      /* Легкое увеличение кнопки */
-}
-
 /* Эффект при нажатии */
-.button.blue:active,
-.upload-button:active {
-  transform: scale(1.2);         /* Восстановление размера при нажатии */
+.button.blue:active {
+  transform: scale(1.2); /* Восстановление размера при нажатии */
 }
 
-/* Стили для иконки внутри кнопки */
-.upload-button svg {
-  margin-right: 8px;           /* Отступ между иконкой и текстом */
+/* Notification.css */
+.upload-button {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #007bff;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }
 
-/* Поддержка дополнительных классов для модификации */
-.upload-button.secondary {
-  background-color: #007BFF;  /* Синий фон для второго варианта кнопки */
+.upload-button .upload-text {
+  margin-left: 8px;
+  font-size: 14px;
 }
 
-.upload-button.secondary:hover {
-  background-color: #0056b3;  /* Более темный синий при наведении */
-}
-
-/* Если кнопка маленькая */
-.upload-button.small {
-  padding: 8px 16px;           /* Меньше отступов */
-  font-size: 14px;             /* Меньший размер текста */
+.upload-button .fa-file-import {
+  font-size: 20px;
 }

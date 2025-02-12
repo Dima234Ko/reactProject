@@ -40,7 +40,7 @@ function Wifi() {
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const taskIdFromUrl = queryParams.get("task");
-  
+
     // Если есть taskId, запрос еще не выполняется, и результат еще не получен
     if (taskIdFromUrl && !loading && !result) {
       setLoading(true);
@@ -57,18 +57,18 @@ function Wifi() {
       );
     }
   }, [location.search, navigate, loading, dispatch, result, serialFromRedux]);
-  
+
   // Закрытие формы при клике вне
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (formRef.current && !formRef.current.contains(event.target)) {
-        setIsFormOpen(false); 
+        setIsFormOpen(false);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside); 
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside); 
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -113,7 +113,7 @@ function Wifi() {
   return (
     <div id="wifi">
       <h2>Настройка WiFi</h2>
-      <FormPhoto isFormOpen={isFormOpen} closeForm={closeForm}/>
+      <FormPhoto isFormOpen={isFormOpen} closeForm={closeForm} />
       <Input
         id="id_Ntu"
         type="text"
@@ -163,6 +163,7 @@ function Wifi() {
         value={password5}
         onChange={(e) => setPassword5(e.target.value)}
       />
+      <UploadButton onClick={openForm} />
       {loading && (
         <div className="overlay">
           <div className="spinner-container">
@@ -172,7 +173,6 @@ function Wifi() {
       )}
       {result && <Result data={result} />}
       <Button name="Отправить запрос" onClick={handleSetWiFi} />
-      <UploadButton onClick={openForm} />
     </div>
   );
 }

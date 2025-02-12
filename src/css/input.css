@@ -36,15 +36,11 @@ input[type="file"] {
 
 /* Создаем кнопку для выбора файла */
 .custom-file-upload {
-  background-color: #4CAF50;
-}
-
-.custom-file-upload:hover {
-  background-color: #45a049;
+  background-color: #4caf50;
 }
 
 .custom-file-upload:active {
-  transform: scale(1.2);         /* Восстановление размера при нажатии */
+  transform: scale(1.2); /* Восстановление размера при нажатии */
 }
 
 /* Отображаем название файла */

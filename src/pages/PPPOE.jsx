@@ -41,7 +41,7 @@ function Pppoe() {
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const taskIdFromUrl = queryParams.get("task");
-  
+
     if (taskIdFromUrl && !loading && !result) {
       setLoading(true);
       setResult(null);
@@ -56,7 +56,7 @@ function Pppoe() {
         80,
       );
     }
-  }, [location.search, dispatch, result, loading, navigate]);  
+  }, [location.search, dispatch, result, loading, navigate]);
 
   const handleInputChange = (event) => {
     setSerialState(event.target.value);
@@ -118,7 +118,7 @@ function Pppoe() {
         type="text"
         placeholder="Введите логин"
         value={login}
-        onChange={handleLoginChange}  
+        onChange={handleLoginChange}
       />
       <Input
         id="password"

@@ -40,7 +40,7 @@ pre {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center; 
+  text-align: center;
   margin-top: 20px;
   white-space: pre-wrap; /* Перенос строк, если текст выходит за пределы */
   word-wrap: break-word; /* Разрыв длинных слов */
@@ -48,7 +48,7 @@ pre {
 
 .input-container ul {
   padding-left: 15px; /* Убираем отступ слева для списка */
-  list-style-type: disc; 
+  list-style-type: disc;
 }
 
 .input-container ul li {
