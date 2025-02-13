@@ -10,7 +10,7 @@ import Result from "../components/Result";
 import { setPppoe } from "../functions/pppoe";
 import { checkTask } from "../functions/task";
 import { NextButton } from "../components/Link";
-import { FormUser } from "../components/Form";
+import { FormInfo } from "../components/Form";
 
 function Pppoe() {
   const dispatch = useDispatch();
@@ -28,6 +28,30 @@ function Pppoe() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [prevLogin, setPrevLogin] = useState("");
 
+  // Состояние для полей формы
+  const [formFields, setFormFields] = useState({
+    surname: "",
+    name: "",
+    patronymic: "",
+    phone: "",
+  });
+
+  // Функция при клике на кнопку "Записать"
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    console.log("Форма отправлена с данными:", formFields);
+    closeForm();
+  };
+
+  // Функция для обновления состояния полей формы
+  const handleInputChange = (event, fieldName) => {
+    const newValue = event.target.value;
+    setFormFields((prevFields) => ({
+      ...prevFields,
+      [fieldName]: newValue,
+    }));
+  };
+
   // Заполняем поле serial из параметров URL, если оно есть
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -36,7 +60,7 @@ function Pppoe() {
       dispatch(setSerial(serialFromUrl)); // Обновляем serial в Redux
       setSerialState(serialFromUrl); // Обновляем локальное состояние для отображения
     }
-  }, [location.search, dispatch]); 
+  }, [location.search, dispatch]);
 
   // Обновление serialState при изменении serial из Redux
   useEffect(() => {
@@ -64,13 +88,6 @@ function Pppoe() {
     }
   }, [location.search, dispatch, result, loading, navigate, serialFromRedux]);
 
-  // Обработчик изменения serial
-  const handleInputChange = (event) => {
-    const newSerial = event.target.value;
-    setSerialState(newSerial);
-    dispatch(setSerial(newSerial)); // обновляем значение в Redux
-  };
-
   // Обработчик изменения логина
   const handleLoginChange = (e) => {
     const newLogin = e.target.value;
@@ -81,10 +98,9 @@ function Pppoe() {
   const handleSetPppoe = async () => {
     // Проверяем, был ли изменен логин
     if (login !== prevLogin) {
-      setIsFormOpen(true); 
-      setPrevLogin(login); 
+      setIsFormOpen(true);
+      setPrevLogin(login);
     }
-
     dispatch(setProgress(0));
     setLoading(true);
     setResult(null);
@@ -120,13 +136,57 @@ function Pppoe() {
   return (
     <div id="pppoe">
       <h2>Настройка PPPoE</h2>
-      <FormUser isFormOpen={isFormOpen} closeForm={closeForm} />
+      <FormInfo
+        isFormOpen={isFormOpen}
+        closeForm={closeForm}
+        formData={
+          <div className="textForm">
+            <h2>Если абонент новый, заполните форму</h2>
+            <pre>если нет, просто закройте её</pre>
+            <form onSubmit={handleFormSubmit}>
+              <input
+                className="some-input"
+                id="surname"
+                type="text"
+                placeholder="Введите фамилию"
+                value={formFields.surname}
+                onChange={(e) => handleInputChange(e, 'surname')}
+              />
+              <input
+                className="some-input"
+                id="name"
+                type="text"
+                placeholder="Введите имя"
+                value={formFields.name}
+                onChange={(e) => handleInputChange(e, 'name')}
+              />
+              <input
+                className="some-input"
+                id="patronymic"
+                type="text"
+                placeholder="Введите отчество"
+                value={formFields.patronymic}
+                onChange={(e) => handleInputChange(e, 'patronymic')}
+              />
+              <input
+                className="some-input"
+                id="phone"
+                type="tel"
+                placeholder="Введите телефон"
+                value={formFields.phone}
+                onChange={(e) => handleInputChange(e, 'phone')}
+              />
+              <button className="button blue" type="submit">Записать</button>
+            </form>
+          </div>
+        }
+      />
       <Input
         id="id_Ntu"
         type="text"
         placeholder="Введите pon-serial"
         value={serial}
-        onChange={handleInputChange}
+        onChange={(e) => setSerialState(e.target.value)} 
         disabled={true}
       />
       <Input
@@ -134,14 +194,14 @@ function Pppoe() {
         type="text"
         placeholder="Введите логин"
         value={login}
-        onChange={handleLoginChange}
+        onChange={handleLoginChange} 
       />
       <Input
         id="password"
         type="text"
         placeholder="Введите пароль"
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e) => setPassword(e.target.value)} 
       />
       <Button name="Отправить запрос" onClick={handleSetPppoe} />
       {loading && (

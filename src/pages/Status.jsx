@@ -17,19 +17,16 @@ function Status() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const [serial, setSerialState] = useState(serialFromRedux || "");
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState(false);
+  const [result, setResult] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [error, setError] = useState("");
   const [formContent, setFormContent] = useState({
-    preText: "",
-    items: "",
-    errorMessage: ""
+    fromData: "",
   });
 
   // Синхронизация serial с Redux
@@ -46,7 +43,7 @@ function Status() {
     if (taskIdFromUrl && !loading) {
       if (!result) {
         setLoading(true);
-        setResult(false);
+        setResult(null); 
         checkTask(
           "setNTU/taskStatus",
           taskIdFromUrl,
@@ -70,19 +67,23 @@ function Status() {
   // Обработчик для получения статуса
   const handleGetStatus = async () => {
     setFormContent({
-      preText: 'В данной версии приложения:',
-      items: [
-        'Функции из расширенной настройки вынесены в меню в верхнем правом углу.',
-        'Решена проблема прерывания запроса при сворачивании браузера.',
-        'Добавлена возможность заполнения ФИО абонента для карточки в US.',
-        'Реализована возможность передачи ошибки (скопируйте ссылку, передайте её на 2ЛТП с описанием проблемы).'
-      ],
-      errorMessage: ""
-    });
-
+      fromData: 
+        <div className="textForm">
+          <h2>Внимание</h2>
+          <div>
+            <pre>В данной версии приложения:</pre>
+          </div>
+          <ul>
+            <li>Функции из расширенной настройки вынесены в меню в верхнем правом углу.</li>
+            <li>Решена проблема прерывания запроса при сворачивании браузера.</li>
+            <li>Добавлена возможность заполнения ФИО абонента для карточки в US.</li>
+            <li>Реализована возможность передачи ошибки (скопируйте ссылку, передайте её на 2ЛТП с описанием проблемы).</li>
+          </ul>
+        </div>,
+    });    
     dispatch(setProgress(0));
     setLoading(true);
-    setResult(false);
+    setResult(null);
     setError("");
     navigate(`?serial=${serial}`, { replace: true });
     setIsFormOpen(true);
@@ -99,10 +100,9 @@ function Status() {
         setError
       );
     } catch (error) {
+      // Обновление formContent при ошибке
       setFormContent({
-        preText: 'Произошёл сбой',
-        items: [],
-        errorMessage: error
+        fromData: <div class="textForm"><h2>Внимание</h2><div><pre>Произошёл сбой</pre></div><ul><li>Ошибка: {error.message}</li></ul></div>,
       });
       setLoading(false);
     }
@@ -128,14 +128,7 @@ function Status() {
       <FormInfo
         isFormOpen={isFormOpen}
         closeForm={closeForm}
-        formTitle="Внимание"
-        formContent={{
-          ...formContent,
-          items: [
-            ...formContent.items,
-            formContent.errorMessage && `Ошибка: ${formContent.errorMessage}`
-          ].filter(Boolean)  
-        }}
+        formData={formContent.fromData} 
       />
       <Input
         id="id_Ntu"
@@ -165,7 +158,7 @@ function Status() {
       {result && <Result data={result} />}
       <NextButton
         to={`/pppoe?serial=${serial}`}
-         disabled={ result?.success !== true }
+        disabled={result === null || result?.success !== true}
       />
     </div>
   );
