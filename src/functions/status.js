@@ -12,7 +12,7 @@ export async function getStatus(
   navigate,
 ) {
   setLoading(true);
-  setResult(null);
+  setResult(false);
   dispatch(setProgress(0));
 
   if (serial.length < 5) {

@@ -22,7 +22,7 @@ function Status() {
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const [serial, setSerialState] = useState(serialFromRedux || "");
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [error, setError] = useState("");
@@ -46,7 +46,7 @@ function Status() {
     if (taskIdFromUrl && !loading) {
       if (!result) {
         setLoading(true);
-        setResult(null);
+        setResult(false);
         checkTask(
           "setNTU/taskStatus",
           taskIdFromUrl,
@@ -82,7 +82,7 @@ function Status() {
 
     dispatch(setProgress(0));
     setLoading(true);
-    setResult(null);
+    setResult(false);
     setError("");
     navigate(`?serial=${serial}`, { replace: true });
     setIsFormOpen(true);
@@ -165,7 +165,7 @@ function Status() {
       {result && <Result data={result} />}
       <NextButton
         to={`/pppoe?serial=${serial}`}
-         disabled={ result?.success === true || true}
+         disabled={ result?.success !== true }
       />
     </div>
   );
