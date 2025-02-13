@@ -22,9 +22,17 @@ function Status() {
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const [serial, setSerialState] = useState(serialFromRedux || "");
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState("");
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [error, setError] = useState("");
+
+  // Обновляем formContent на основе ошибки
+  const [formContent, setFormContent] = useState({
+    preText: "",
+    items: "",
+    errorMessage: ""
+  });
 
   // Синхронизация serial с Redux
   useEffect(() => {
@@ -63,14 +71,24 @@ function Status() {
 
   // Обработчик для получения статуса
   const handleGetStatus = async () => {
-    dispatch(setProgress(0));
+    setFormContent({
+      preText: 'В данной версии приложения:',
+      items: [
+        'Функции из расширенной настройки вынесены в меню в верхнем правом углу.',
+        'Решена проблема прерывания запроса при сворачивании браузера.',
+        'Добавлена возможность заполнения ФИО абонента для карточки в US.',
+        'Реализована возможность передачи ошибки (скопируйте ссылку, передайте её на 2ЛТП с описанием проблемы).'
+      ],
+      errorMessage: ""
+    });
+
     setLoading(true);
-    setIsFormOpen(true);
     setResult(null);
+    setError("");
     navigate(`?serial=${serial}`, { replace: true });
+    setIsFormOpen(true);
 
     try {
-      // Передаем isChecked в getStatus
       await getStatus(
         serial,
         isChecked,
@@ -79,9 +97,14 @@ function Status() {
         dispatch,
         navigate,
         progressFromRedux,
+        setError
       );
     } catch (error) {
-      console.error("Ошибка при получении статуса:", error);
+      setFormContent({
+        preText: 'Произошёл сбой',
+        items: [],
+        errorMessage: error
+      });
     }
 
     setTimeout(() => {
@@ -91,7 +114,7 @@ function Status() {
 
   // Функция для изменения состояния чекбокса
   const handleCheckboxChange = (e) => {
-    setIsChecked(e.target.checked); // Обновляем состояние чекбокса
+    setIsChecked(e.target.checked);
   };
 
   // Функция для закрытия формы
@@ -102,7 +125,18 @@ function Status() {
   return (
     <div id="status">
       <h2>Статус NTU</h2>
-      <FormInfo isFormOpen={isFormOpen} closeForm={closeForm} />
+      <FormInfo
+        isFormOpen={isFormOpen}
+        closeForm={closeForm}
+        formTitle="Внимание"
+        formContent={{
+          ...formContent,
+          items: [
+            ...formContent.items,
+            formContent.errorMessage && `Ошибка: ${formContent.errorMessage}`
+          ].filter(Boolean)  
+        }}
+      />
       <Input
         id="id_Ntu"
         type="text"
@@ -110,20 +144,17 @@ function Status() {
         value={serial}
         onChange={handleInputChange}
       />
-
       <Checkbox
         label="Сброс устройства"
         id="reset"
         checked={isChecked}
         onChange={handleCheckboxChange}
       />
-
       <Button
         name="Отправить запрос"
         onClick={handleGetStatus}
         disabled={false}
       />
-
       {loading && (
         <div className="overlay">
           <div className="spinner-container">
@@ -131,9 +162,7 @@ function Status() {
           </div>
         </div>
       )}
-
       {result && <Result data={result} />}
-
       <NextButton
         to={`/pppoe?serial=${serial}`}
         disabled={result === null || result.success === false}

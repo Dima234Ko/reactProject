@@ -1,6 +1,7 @@
 import { getTaskId, checkTask } from "./task";
 import { setProgress } from "../store/actions/progressActions";
 
+
 // Главная функция для получения статуса
 export async function getStatus(
   serial,
@@ -14,10 +15,9 @@ export async function getStatus(
   setResult(null);
   dispatch(setProgress(0));
 
-  if (!serial) {
-    alert("Введите pon-serial");
+  if (serial.length < 5) {
     setLoading(false);
-    return null;
+    throw new Error("Введен некорректный pon serial");
   }
 
   let body = {
@@ -54,7 +54,7 @@ export async function getStatus(
       );
     }
   } catch (error) {
-    console.error("Ошибка при получении статуса:", error);
     setLoading(false);
+    throw new Error("Нет связи с сервером");
   }
 }

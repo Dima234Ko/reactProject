@@ -71,23 +71,28 @@ export function FormUser({ isFormOpen, closeForm }) {
 
 
 
-export function FormInfo({ isFormOpen, closeForm }) {
+
+export function FormInfo({ isFormOpen, closeForm, formTitle, formContent }) {
   const formRef = useRef(null);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (formRef.current && !formRef.current.contains(event.target)) {
         closeForm();
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [closeForm]);
+
   const handleClose = () => {
     if (closeForm) closeForm();
   };
+
   if (!isFormOpen) return null;
+
   return (
     <div className="custom-component" ref={formRef}>
       <div className="close-btn" onClick={handleClose}>
@@ -95,21 +100,21 @@ export function FormInfo({ isFormOpen, closeForm }) {
       </div>
       <div className="input-container">
         <div className="textForm">
-          <h2>Внимание</h2>
+          <h2>{formTitle}</h2>
           <div>
-            <pre>В данной версии приложения:</pre>
+            <pre>{formContent.preText}</pre>
           </div>
           <ul>
-            <li>Функции из расширенной настройки вынесены в меню в верхнем правом углу.</li>
-            <li>Решена проблема прерывания запроса при сворачивании браузера.</li>
-            <li>Добавлена возможность заполнения ФИО абонента для карточки в US.</li>
-            <li>Реализована возможность передачи ошибки (скопируйте ссылку, передайте её на 2ЛТП с описанием проблемы).</li>
+            {formContent.items.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
           </ul>
         </div>
       </div>
     </div>
   );
 }
+
 
 
 
