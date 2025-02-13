@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { setProgress } from "../store/actions/progressActions";
@@ -10,7 +10,7 @@ import { Loader } from "../components/Loader";
 import Result from "../components/Result";
 import { setWiFi } from "../functions/wifi";
 import { checkTask } from "../functions/task";
-import { FormPhoto } from "../components/Form";
+import { FormInfo } from "../components/Form";
 
 function Wifi() {
   const dispatch = useDispatch();
@@ -23,6 +23,7 @@ function Wifi() {
   const [serial, setSerialState] = useState(serialFromRedux || "");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
+  const [resultForm, setResultForm] = useState(null); // Результат формы
   const [ssid2_4, setSsid2_4] = useState("");
   const [password2_4, setPassword2_4] = useState("");
   const [selectSSID2_4, setSelectSSID2_4] = useState("auto");
@@ -30,16 +31,53 @@ function Wifi() {
   const [password5, setPassword5] = useState("");
   const [selectSSID5, setSelectSSID5] = useState("auto");
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [file, setFile] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
+
+  // Выбор файла
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      setResultForm(""); // Очистить результат формы при изменении файла
+    }
+  };
+
+  // Загрузка файла
+  const handleUpload = async () => {
+    if (!file) {
+      setResultForm("Пожалуйста, выберите файл для загрузки");
+      return;
+    }
+
+    setIsUploading(true);
+    setResultForm("Загрузка началась...");
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch("/upload", { method: "POST", body: formData });
+      if (!response.ok) throw new Error("Ошибка загрузки фото");
+
+      const data = await response.json();
+      setResultForm("Фото успешно загружено");
+    } catch (error) {
+      setResultForm("Произошла ошибка при загрузке фото. Попробуйте снова.");
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   // Заполняем поле serial из параметров URL, если оно есть
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const serialFromUrl = queryParams.get("serial");
     if (serialFromUrl) {
-      dispatch(setSerial(serialFromUrl)); // Обновляем serial в Redux
-      setSerialState(serialFromUrl); // Обновляем локальное состояние для отображения
+      dispatch(setSerial(serialFromUrl));
+      setSerialState(serialFromUrl);
     }
-  }, [location.search, dispatch]); 
+  }, [location.search, dispatch]);
 
   // Обновление serialState при изменении serial из Redux
   useEffect(() => {
@@ -62,7 +100,7 @@ function Wifi() {
         setResult,
         navigate,
         0,
-        50,
+        50
       );
     }
   }, [location.search, navigate, loading, dispatch, result, serialFromRedux]);
@@ -89,7 +127,7 @@ function Wifi() {
         setResult,
         dispatch,
         navigate,
-        progressFromRedux,
+        progressFromRedux
       );
     } catch (error) {
       console.error("Ошибка применения параметров:", error);
@@ -108,7 +146,34 @@ function Wifi() {
   return (
     <div id="wifi">
       <h2>Настройка WiFi</h2>
-      <FormPhoto isFormOpen={isFormOpen} closeForm={closeForm} />
+
+      {/* Форма с информацией (например, загрузка фото) */}
+      <FormInfo
+        isFormOpen={isFormOpen}
+        closeForm={closeForm}
+        formData={
+          <div className="input-container">
+            <div className="textForm">
+              <h2>Загрузить фото</h2>
+              <pre>Выберите скриншоты из приложения Analizator WiFi</pre>
+            </div>
+            <input type="file" id="file-upload" onChange={handleFileChange} />
+            <label htmlFor="file-upload" className="custom-file-upload">
+              Выбрать файл
+            </label>
+            {file && (
+              <div className="file-name">
+                <strong>Выбран файл: </strong>
+                {file.name}
+              </div>
+            )}
+            <Button name="Загрузить" onClick={handleUpload} disabled={isUploading} />
+            {resultForm && <div className="upload-result">{resultForm}</div>}
+          </div>
+        }
+      />
+
+      {/* Ввод pon-serial */}
       <Input
         id="id_Ntu"
         type="text"
@@ -117,6 +182,8 @@ function Wifi() {
         onChange={handleInputChange}
         disabled={true}
       />
+
+      {/* Ввод SSID и пароля для 2.4ГГц */}
       <div className="ssid-container">
         <Input
           id="SSID2_4"
@@ -138,6 +205,7 @@ function Wifi() {
         onChange={(e) => setPassword2_4(e.target.value)}
       />
 
+      {/* Ввод SSID и пароля для 5ГГц */}
       <div className="ssid-container">
         <Input
           id="SSID5"
@@ -158,7 +226,11 @@ function Wifi() {
         value={password5}
         onChange={(e) => setPassword5(e.target.value)}
       />
+
+      {/* Кнопка открытия формы для загрузки */}
       <UploadButton onClick={openForm} />
+
+      {/* Индикатор загрузки */}
       {loading && (
         <div className="overlay">
           <div className="spinner-container">
@@ -166,7 +238,11 @@ function Wifi() {
           </div>
         </div>
       )}
+
+      {/* Результат запроса на странице WiFi */}
       {result && <Result data={result} />}
+
+      {/* Кнопка отправки запроса */}
       <Button name="Отправить запрос" onClick={handleSetWiFi} />
     </div>
   );

@@ -49,6 +49,15 @@
   gap: 5px; /* Расстояние между элементами */
 }
 
+.upload-result{
+  font-family: monospace;
+  unicode-bidi: isolate;
+  margin-top: 20px;
+  font-size: 14px; /* Задаем размер шрифта */
+  color: #4CAF50; /* Цвет текста успешной загрузки */
+}
+
+
 .textForm h2,
 .textForm pre {
   margin: 0; /* Убирает стандартные отступы */
@@ -58,3 +67,8 @@ form{
   max-width: 100%;
   text-align: center;
 }
+
+
+
+
+
