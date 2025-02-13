@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { setProgress } from "../store/actions/progressActions";
-import { setSerial } from "../store/actions/serialActions"; // импортируем action
+import { setSerial } from "../store/actions/serialActions";
 import { Input } from "../components/Input";
 import { Button, UserButton } from "../components/Button";
 import { Loader } from "../components/Loader";
@@ -36,7 +36,7 @@ function Pppoe() {
       dispatch(setSerial(serialFromUrl)); // Обновляем serial в Redux
       setSerialState(serialFromUrl); // Обновляем локальное состояние для отображения
     }
-  }, [location.search, dispatch]); // Добавляем dispatch как зависимость
+  }, [location.search, dispatch]); 
 
   // Обновление serialState при изменении serial из Redux
   useEffect(() => {
@@ -81,8 +81,8 @@ function Pppoe() {
   const handleSetPppoe = async () => {
     // Проверяем, был ли изменен логин
     if (login !== prevLogin) {
-      setIsFormOpen(true); // Открываем форму, если логин изменился
-      setPrevLogin(login); // Обновляем значение предыдущего логина
+      setIsFormOpen(true); 
+      setPrevLogin(login); 
     }
 
     dispatch(setProgress(0));

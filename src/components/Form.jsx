@@ -69,15 +69,27 @@ export function FormUser({ isFormOpen, closeForm }) {
 }
 
 
+
+
 export function FormInfo({ isFormOpen, closeForm }) {
+  const formRef = useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (formRef.current && !formRef.current.contains(event.target)) {
+        closeForm();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [closeForm]);
   const handleClose = () => {
     if (closeForm) closeForm();
   };
-
   if (!isFormOpen) return null;
-
   return (
-    <div className="custom-component">
+    <div className="custom-component" ref={formRef}>
       <div className="close-btn" onClick={handleClose}>
         &times;
       </div>
@@ -98,6 +110,9 @@ export function FormInfo({ isFormOpen, closeForm }) {
     </div>
   );
 }
+
+
+
 
 export function FormPhoto({ isFormOpen, closeForm }) {
   const [file, setFile] = useState(null);
