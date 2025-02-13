@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux"; // Импортируем хук useSelector
 import Authorization from "./pages/Authorization";
 import Header from "./components/Header";
@@ -23,7 +18,6 @@ function App() {
 }
 
 function Main() {
-  // Получаем текущий путь
   const location = useLocation();
 
   // Проверка наличия параметра serial в URL
@@ -35,36 +29,37 @@ function Main() {
   const showBurgerMenu = location.pathname !== "/";
 
   // Получаем serial из Redux
-  const serialFromRedux = useSelector((state) => state.serial.serial); // Здесь предполагаем, что serial находится в state.serial
+  const serialFromRedux = useSelector((state) => state.serial.serial); 
+
   let menuItems = [];
 
-  switch (true) {
-    case location.pathname === "/settings" || location.pathname === "/region":
-      // Если на странице settings или region
-      menuItems = [
-        { id: "status", name: "Статус", to: "/status" },
-        { id: "home", name: "Выход", to: "/" },
-      ];
-      break;
+  const userRoot = () => {
+    return false; 
+  };
 
-    case location.pathname !== "/" && !hasSerial:
-      // Если нет serial в URL
-      menuItems = [
-        { id: "settings", name: "Настройки", to: "/settings" },
-        { id: "home", name: "Выход", to: "/" },
-      ];
-      break;
+  if (location.pathname === "/status" && userRoot()) {
+    return <Navigate to="/user" replace />; // Перенаправление на "/user"
+  }
 
-    default:
-      // Если serial есть в URL
-      menuItems = [
-        { id: "status", name: "Статус", to: "/status" },
-        { id: "pppoe", name: "PPPoE", to: `/pppoe?serial=${serialFromRedux}` },
-        { id: "wifi", name: "WiFi", to: `/wifi?serial=${serialFromRedux}` },
-        { id: "settings", name: "Настройки", to: "/settings" },
-        { id: "home", name: "Выход", to: "/" },
-      ];
-      break;
+  // Логика для меню на разных страницах
+  if (location.pathname === "/settings" || location.pathname === "/region") {
+    menuItems = [
+      { id: "status", name: "Статус", to: "/status" },
+      { id: "home", name: "Выход", to: "/" },
+    ];
+  } else if (location.pathname !== "/" && !hasSerial) {
+    menuItems = [
+      { id: "settings", name: "Настройки", to: "/settings" },
+      { id: "home", name: "Выход", to: "/" },
+    ];
+  } else {
+    menuItems = [
+      { id: "status", name: "Статус", to: "/status" },
+      { id: "pppoe", name: "PPPoE", to: `/pppoe?serial=${serialFromRedux}` },
+      { id: "wifi", name: "WiFi", to: `/wifi?serial=${serialFromRedux}` },
+      { id: "settings", name: "Настройки", to: "/settings" },
+      { id: "home", name: "Выход", to: "/" },
+    ];
   }
 
   return (
@@ -72,7 +67,7 @@ function Main() {
       <Header
         menuItems={menuItems}
         showBackButton={showBackButton}
-        showBurgerMenu={showBurgerMenu} // Передаем флаг showBurgerMenu в Header
+        showBurgerMenu={showBurgerMenu}
       />
       <div id="app">
         <Routes>

@@ -26,8 +26,6 @@ function Status() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [error, setError] = useState("");
-
-  // Обновляем formContent на основе ошибки
   const [formContent, setFormContent] = useState({
     preText: "",
     items: "",
@@ -82,6 +80,7 @@ function Status() {
       errorMessage: ""
     });
 
+    dispatch(setProgress(0));
     setLoading(true);
     setResult(null);
     setError("");
@@ -105,6 +104,7 @@ function Status() {
         items: [],
         errorMessage: error
       });
+      setLoading(false);
     }
 
     setTimeout(() => {
@@ -165,7 +165,7 @@ function Status() {
       {result && <Result data={result} />}
       <NextButton
         to={`/pppoe?serial=${serial}`}
-        disabled={result === null || result.success === false}
+         disabled={ result?.success === true || true}
       />
     </div>
   );
