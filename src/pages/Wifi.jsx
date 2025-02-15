@@ -9,7 +9,7 @@ import { Button, UploadButton } from "../components/Button";
 import { Loader } from "../components/Loader";
 import Result from "../components/Result";
 import { setWiFi } from "../functions/wifi";
-import { checkTask } from "../functions/task";
+import { checkTaskStatus } from "../functions/task";
 import { FormInfo } from "../components/Form";
 
 function Wifi() {
@@ -86,24 +86,17 @@ function Wifi() {
 
   // Проверка статуса задачи при изменении URL
   useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const taskIdFromUrl = queryParams.get("task");
-
-    if (taskIdFromUrl && !loading && !result) {
-      setLoading(true);
-      setResult(null);
-      checkTask(
-        "setNTU/taskStatus",
-        taskIdFromUrl,
-        dispatch,
-        setLoading,
-        setResult,
-        navigate,
-        0,
-        50
-      );
-    }
-  }, [location.search, navigate, loading, dispatch, result, serialFromRedux]);
+    checkTaskStatus(
+      location,
+      loading,
+      result,
+      dispatch,
+      setSerial,  
+      setLoading,
+      setResult,
+      navigate
+    );
+  }, [location.search, navigate, loading, dispatch, result]);
 
   const handleInputChange = (event) => {
     setSerialState(event.target.value);
@@ -130,8 +123,11 @@ function Wifi() {
         progressFromRedux
       );
     } catch (error) {
-      console.error("Ошибка применения параметров:", error);
-      setLoading(false);
+        // Обновление formContent при ошибке
+        setFormContent({
+          fromData: <div class="textForm"><h2>Внимание</h2><div><pre>Произошёл сбой</pre></div><ul><li>{error.message}</li></ul></div>,
+        });
+        setLoading(false);
     }
   };
 
@@ -190,7 +186,11 @@ function Wifi() {
           type="text"
           placeholder="Введите SSID 2.4Ггц"
           value={ssid2_4}
-          onChange={(e) => setSsid2_4(e.target.value)}
+          onChange={(e) => {
+            const newSsid = e.target.value;
+            setSsid2_4(newSsid);
+            setSsid5(newSsid + "_5G"); // Обновляем SSID для 5ГГц
+          }}
         />
         <SelectSSID
           value={selectSSID2_4}
@@ -204,14 +204,12 @@ function Wifi() {
         value={password2_4}
         onChange={(e) => setPassword2_4(e.target.value)}
       />
-
-      {/* Ввод SSID и пароля для 5ГГц */}
       <div className="ssid-container">
         <Input
           id="SSID5"
           type="text"
           placeholder="Введите SSID 5Ггц"
-          value={ssid5}
+          value={ssid5} // Значение автоматически обновляется на основе SSID2_4
           onChange={(e) => setSsid5(e.target.value)}
         />
         <SelectSSID5
@@ -223,7 +221,7 @@ function Wifi() {
         id="password5"
         type="text"
         placeholder="Введите пароль"
-        value={password5}
+        value={password5 || password2_4} // Если пароль для 5 ГГц не задан, используем пароль для 2.4 ГГц
         onChange={(e) => setPassword5(e.target.value)}
       />
 

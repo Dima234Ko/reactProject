@@ -16,11 +16,47 @@ export async function getTaskId(action, body, dispatch, setLoading, navigate) {
 
     return taskId; // Возвращаем taskId
   } catch (error) {
-    alert("Ошибка при запросе taskId:", error);
     setLoading(false);
-    return null;
+    throw new Error("Не удалось получить номер задачи");
   }
 }
+
+// Функция для проверки статуса задачи из URL
+export const checkTaskStatus = async (
+  location,
+  loading,
+  result,
+  dispatch,
+  setSerial,
+  setLoading,
+  setResult,
+  navigate
+) => {
+  const queryParams = new URLSearchParams(location.search);
+  const taskIdFromUrl = queryParams.get("task");
+  dispatch(setSerial(queryParams.get("serial")));
+
+  if (taskIdFromUrl && !loading) {
+    if (!result) {
+      setLoading(true);
+      setResult(null);
+      try {
+        await checkTask(
+          "setNTU/taskStatus",
+          taskIdFromUrl,
+          dispatch,
+          setLoading,
+          setResult,
+          navigate,
+          0,
+          50
+        );
+      } catch (error) {
+        setLoading(false);
+      }
+    }
+  }
+};
 
 // Функция для проверки статуса задачи
 export async function checkTask(
@@ -31,7 +67,7 @@ export async function checkTask(
   setResult,
   navigate,
   attempts = 0,
-  progress = 30,
+  progress = 30
 ) {
   const statusAction = `${action}/${taskId}`;
 
@@ -56,9 +92,9 @@ export async function checkTask(
             setResult,
             navigate,
             attempts + 1,
-            progress,
+            progress
           ),
-        10000,
+        10000
       ); // Повторяем через 10 секунд
     } else {
       dispatch(setProgress(100)); // Устанавливаем прогресс в 100%
@@ -70,7 +106,7 @@ export async function checkTask(
       dispatch(setProgress("NaN")); // Отображаем неопределенное значение прогресса
       setTimeout(
         () =>
-          checkTaskStatus(
+          checkTask(
             action,
             taskId,
             dispatch,
@@ -78,13 +114,13 @@ export async function checkTask(
             setResult,
             navigate,
             attempts + 1,
-            progress,
+            progress
           ),
-        10000,
+        10000
       ); // Повторяем запрос через 10 секунд
     } else {
-      alert("Ошибка при запросе статуса после 5 попыток: " + error);
-      setLoading(false); // Закрываем загрузку
+      setLoading(false);
+      throw new Error("Не удалось данные по номеру задачи");
     }
   }
 }

@@ -44,7 +44,7 @@ export async function setPppoe(
       );
     }
   } catch (error) {
-    console.error("Ошибка при получении статуса:", error);
     setLoading(false);
+    throw new Error (error);;
   }
 }

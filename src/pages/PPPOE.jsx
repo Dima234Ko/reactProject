@@ -8,7 +8,7 @@ import { Button, UserButton } from "../components/Button";
 import { Loader } from "../components/Loader";
 import Result from "../components/Result";
 import { setPppoe } from "../functions/pppoe";
-import { checkTask } from "../functions/task";
+import { checkTaskStatus } from "../functions/task";
 import { NextButton } from "../components/Link";
 import { FormInfo } from "../components/Form";
 
@@ -69,24 +69,17 @@ function Pppoe() {
 
   // Проверка статуса задачи при изменении URL
   useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const taskIdFromUrl = queryParams.get("task");
-
-    if (taskIdFromUrl && !loading && !result) {
-      setLoading(true);
-      setResult(null);
-      checkTask(
-        "setNTU/taskStatus",
-        taskIdFromUrl,
-        dispatch,
-        setLoading,
-        setResult,
-        navigate,
-        0,
-        80
-      );
-    }
-  }, [location.search, dispatch, result, loading, navigate, serialFromRedux]);
+    checkTaskStatus(
+      location,
+      loading,
+      result,
+      dispatch,
+      setSerial,  
+      setLoading,
+      setResult,
+      navigate
+    );
+  }, [location.search, navigate, loading, dispatch, result]);
 
   // Обработчик изменения логина
   const handleLoginChange = (e) => {
@@ -118,8 +111,11 @@ function Pppoe() {
         progressFromRedux
       );
     } catch (error) {
-      console.error("Ошибка применения параметров:", error);
-      setLoading(false);
+        // Обновление formContent при ошибке
+        setFormContent({
+          fromData: <div class="textForm"><h2>Внимание</h2><div><pre>Произошёл сбой</pre></div><ul><li>{error.message}</li></ul></div>,
+        });
+        setLoading(false);
     }
   };
 

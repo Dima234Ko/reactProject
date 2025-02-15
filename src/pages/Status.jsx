@@ -8,7 +8,8 @@ import { Button } from "../components/Button";
 import { Loader } from "../components/Loader";
 import Result from "../components/Result";
 import { getStatus } from "../functions/status";
-import { checkTask } from "../functions/task";
+import { checkTaskStatus
+ } from "../functions/task";
 import { NextButton } from "../components/Link";
 import { FormInfo } from "../components/Form";
 import { Checkbox } from "../components/Checkbox";
@@ -36,28 +37,18 @@ function Status() {
 
   // Проверка статуса задачи при изменении URL
   useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const taskIdFromUrl = queryParams.get("task");
-    dispatch(setSerial(queryParams.get("serial")));
-
-    if (taskIdFromUrl && !loading) {
-      if (!result) {
-        setLoading(true);
-        setResult(null); 
-        checkTask(
-          "setNTU/taskStatus",
-          taskIdFromUrl,
-          dispatch,
-          setLoading,
-          setResult,
-          navigate,
-          0,
-          50,
-        );
-      }
-    }
-  }, [location.search, navigate, loading, dispatch, progressFromRedux, result]);
-
+    checkTaskStatus(
+      location,
+      loading,
+      result,
+      dispatch,
+      setSerial,  
+      setLoading,
+      setResult,
+      navigate
+    );
+  }, [location.search, navigate, loading, dispatch, result]);
+    
   const handleInputChange = (event) => {
     const newSerial = event.target.value;
     setSerialState(newSerial);
@@ -100,11 +91,11 @@ function Status() {
         setError
       );
     } catch (error) {
-      // Обновление formContent при ошибке
-      setFormContent({
-        fromData: <div class="textForm"><h2>Внимание</h2><div><pre>Произошёл сбой</pre></div><ul><li>Ошибка: {error.message}</li></ul></div>,
-      });
-      setLoading(false);
+         // Обновление formContent при ошибке
+         setFormContent({
+          fromData: <div class="textForm"><h2>Внимание</h2><div><pre>Произошёл сбой</pre></div><ul><li>{error.message}</li></ul></div>,
+        });
+        setLoading(false);
     }
 
     setTimeout(() => {
