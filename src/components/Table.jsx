@@ -5,7 +5,7 @@ export function Table({ columns, className, id, children }) {
     <table className={className} id={id}>
       <thead>
         <tr>
-          <th></th>
+          {id !== "logTable" && <th></th>}
           {columns.map((column, index) => (
             <th key={index}>{column}</th>
           ))}

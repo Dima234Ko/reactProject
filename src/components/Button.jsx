@@ -2,6 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileImport } from "@fortawesome/free-solid-svg-icons";
 import { faUserPen } from "@fortawesome/free-solid-svg-icons";
+import { faFilterCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 export function Button({ name, id, onClick, className = "" }) {
   return (
@@ -33,6 +34,19 @@ export function UserButton({ onClick, className = "" }) {
     >
       <FontAwesomeIcon icon={faUserPen} />
       <span className="upload-text">Уточнить пользователя</span>
+    </button>
+  );
+}
+
+export function FiltrButton({ onClick, className = "" }) {
+  return (
+    <button
+      className={`upload-button ${className}`}
+      id="openForm"
+      onClick={onClick}
+    >
+      <FontAwesomeIcon icon={faFilterCircleXmark} />
+      <span className="upload-text">Отфильтровать запросы</span>
     </button>
   );
 }

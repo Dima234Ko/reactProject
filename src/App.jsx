@@ -15,6 +15,7 @@ import Wifi from "./pages/user/Wifi";
 import Settings from "./pages/user/Settings";
 import Region from "./pages/user/Region";
 import User from "./pages/admin/Accounts";
+import Log from "./pages/admin/Log";
 
 function App() {
   return (
@@ -53,12 +54,14 @@ function Main() {
     menuItems = [
       { id: "status", name: "Статус", to: "/status" },
       { id: "user", name: "Пользователи", to: "/user" },
+      { id: "log", name: "Логи", to: "/log" },
       { id: "home", name: "Выход", to: "/" },
     ];
   } else if (location.pathname !== "/" && !hasSerial) {
     menuItems = [
       { id: "settings", name: "Настройки", to: "/settings" },
       { id: "user", name: "Пользователи", to: "/user" },
+      { id: "log", name: "Логи", to: "/log" },
       { id: "home", name: "Выход", to: "/" },
     ];
   } else {
@@ -68,6 +71,7 @@ function Main() {
       { id: "wifi", name: "WiFi", to: `/wifi?serial=${serialFromRedux}` },
       { id: "settings", name: "Настройки", to: "/settings" },
       { id: "user", name: "Пользователи", to: "/user" },
+      { id: "log", name: "Логи", to: "/log" },
       { id: "home", name: "Выход", to: "/" },
     ];
   }
@@ -88,6 +92,7 @@ function Main() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/region" element={<Region />} />
           <Route path="/user" element={<User />} />
+          <Route path="/log" element={<Log />} />
         </Routes>
       </div>
     </>
