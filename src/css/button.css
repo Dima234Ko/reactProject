@@ -100,3 +100,9 @@
 .upload-button .fa-file-import {
   font-size: 20px;
 }
+
+#userButton {
+  display: flex; /* Используем flexbox для расположения кнопок в одну строку */
+  justify-content: center; /* Центрируем кнопки по горизонтали */
+  gap: 10px; /* Добавляем промежуток между кнопками */
+}

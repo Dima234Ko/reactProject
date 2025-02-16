@@ -11,8 +11,8 @@ const Header = ({
   showBackButton = true,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef(null);  
-  const burgerMenuRef = useRef(null);  
+  const menuRef = useRef(null);
+  const burgerMenuRef = useRef(null);
 
   const toggleMenu = () => {
     setIsMenuOpen((prevState) => !prevState);
@@ -27,8 +27,10 @@ const Header = ({
     const handleClickOutside = (event) => {
       // Проверяем, что клик не произошел на меню и кнопке бургера
       if (
-        menuRef.current && !menuRef.current.contains(event.target) &&
-        burgerMenuRef.current && !burgerMenuRef.current.contains(event.target)
+        menuRef.current &&
+        !menuRef.current.contains(event.target) &&
+        burgerMenuRef.current &&
+        !burgerMenuRef.current.contains(event.target)
       ) {
         closeMenu();
       }
@@ -54,18 +56,14 @@ const Header = ({
         <img src={logoIcon} alt="Логотип" />
       </a>
       {showBurgerMenu && (
-        <div
-          className="burger-menu"
-          onClick={toggleMenu}
-          ref={burgerMenuRef}  
-        >
+        <div className="burger-menu" onClick={toggleMenu} ref={burgerMenuRef}>
           <img src={menuIcon} alt="Меню" />
         </div>
       )}
       <div
         className="dropdown"
         style={{ display: isMenuOpen ? "block" : "none" }}
-        ref={menuRef} 
+        ref={menuRef}
         onClick={closeMenu}
       >
         {menuItems.map((item) => (

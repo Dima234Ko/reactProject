@@ -45,6 +45,6 @@ export async function setPppoe(
     }
   } catch (error) {
     setLoading(false);
-    throw new Error (error);;
+    throw new Error(error);
   }
 }

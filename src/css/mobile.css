@@ -37,4 +37,11 @@
   pre {
     font-size: 14px; /* Устанавливаем размер шрифта */
   }
+
+  #userButton {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
 }

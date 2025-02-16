@@ -30,7 +30,7 @@ export const checkTaskStatus = async (
   setSerial,
   setLoading,
   setResult,
-  navigate
+  navigate,
 ) => {
   const queryParams = new URLSearchParams(location.search);
   const taskIdFromUrl = queryParams.get("task");
@@ -49,7 +49,7 @@ export const checkTaskStatus = async (
           setResult,
           navigate,
           0,
-          50
+          50,
         );
       } catch (error) {
         setLoading(false);
@@ -67,7 +67,7 @@ export async function checkTask(
   setResult,
   navigate,
   attempts = 0,
-  progress = 30
+  progress = 30,
 ) {
   const statusAction = `${action}/${taskId}`;
 
@@ -92,9 +92,9 @@ export async function checkTask(
             setResult,
             navigate,
             attempts + 1,
-            progress
+            progress,
           ),
-        10000
+        10000,
       ); // Повторяем через 10 секунд
     } else {
       dispatch(setProgress(100)); // Устанавливаем прогресс в 100%
@@ -114,9 +114,9 @@ export async function checkTask(
             setResult,
             navigate,
             attempts + 1,
-            progress
+            progress,
           ),
-        10000
+        10000,
       ); // Повторяем запрос через 10 секунд
     } else {
       setLoading(false);

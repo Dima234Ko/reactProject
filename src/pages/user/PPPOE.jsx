@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { setProgress } from "../store/actions/progressActions";
-import { setSerial } from "../store/actions/serialActions";
-import { Input } from "../components/Input";
-import { Button, UserButton } from "../components/Button";
-import { Loader } from "../components/Loader";
-import Result from "../components/Result";
-import { setPppoe } from "../functions/pppoe";
-import { checkTaskStatus } from "../functions/task";
-import { NextButton } from "../components/Link";
-import { FormInfo } from "../components/Form";
+import { setProgress } from "../../store/actions/progressActions";
+import { setSerial } from "../../store/actions/serialActions";
+import { Input } from "../../components/Input";
+import { Button, UserButton } from "../../components/Button";
+import { Loader } from "../../components/Loader";
+import Result from "../../components/Result";
+import { setPppoe } from "../../functions/pppoe";
+import { checkTaskStatus } from "../../functions/task";
+import { NextButton } from "../../components/Link";
+import { FormInfo } from "../../components/Form";
 
 function Pppoe() {
   const dispatch = useDispatch();
@@ -74,10 +74,10 @@ function Pppoe() {
       loading,
       result,
       dispatch,
-      setSerial,  
+      setSerial,
       setLoading,
       setResult,
-      navigate
+      navigate,
     );
   }, [location.search, navigate, loading, dispatch, result]);
 
@@ -108,14 +108,24 @@ function Pppoe() {
         setResult,
         dispatch,
         navigate,
-        progressFromRedux
+        progressFromRedux,
       );
     } catch (error) {
-        // Обновление formContent при ошибке
-        setFormContent({
-          fromData: <div class="textForm"><h2>Внимание</h2><div><pre>Произошёл сбой</pre></div><ul><li>{error.message}</li></ul></div>,
-        });
-        setLoading(false);
+      // Обновление formContent при ошибке
+      setFormContent({
+        fromData: (
+          <div class="textForm">
+            <h2>Внимание</h2>
+            <div>
+              <pre>Произошёл сбой</pre>
+            </div>
+            <ul>
+              <li>{error.message}</li>
+            </ul>
+          </div>
+        ),
+      });
+      setLoading(false);
     }
   };
 
@@ -146,7 +156,7 @@ function Pppoe() {
                 type="text"
                 placeholder="Введите фамилию"
                 value={formFields.surname}
-                onChange={(e) => handleInputChange(e, 'surname')}
+                onChange={(e) => handleInputChange(e, "surname")}
               />
               <input
                 className="some-input"
@@ -154,7 +164,7 @@ function Pppoe() {
                 type="text"
                 placeholder="Введите имя"
                 value={formFields.name}
-                onChange={(e) => handleInputChange(e, 'name')}
+                onChange={(e) => handleInputChange(e, "name")}
               />
               <input
                 className="some-input"
@@ -162,7 +172,7 @@ function Pppoe() {
                 type="text"
                 placeholder="Введите отчество"
                 value={formFields.patronymic}
-                onChange={(e) => handleInputChange(e, 'patronymic')}
+                onChange={(e) => handleInputChange(e, "patronymic")}
               />
               <input
                 className="some-input"
@@ -170,9 +180,11 @@ function Pppoe() {
                 type="tel"
                 placeholder="Введите телефон"
                 value={formFields.phone}
-                onChange={(e) => handleInputChange(e, 'phone')}
+                onChange={(e) => handleInputChange(e, "phone")}
               />
-              <button className="button blue" type="submit">Записать</button>
+              <button className="button blue" type="submit">
+                Записать
+              </button>
             </form>
           </div>
         }
@@ -182,7 +194,7 @@ function Pppoe() {
         type="text"
         placeholder="Введите pon-serial"
         value={serial}
-        onChange={(e) => setSerialState(e.target.value)} 
+        onChange={(e) => setSerialState(e.target.value)}
         disabled={true}
       />
       <Input
@@ -190,14 +202,14 @@ function Pppoe() {
         type="text"
         placeholder="Введите логин"
         value={login}
-        onChange={handleLoginChange} 
+        onChange={handleLoginChange}
       />
       <Input
         id="password"
         type="text"
         placeholder="Введите пароль"
         value={password}
-        onChange={(e) => setPassword(e.target.value)} 
+        onChange={(e) => setPassword(e.target.value)}
       />
       <Button name="Отправить запрос" onClick={handleSetPppoe} />
       {loading && (

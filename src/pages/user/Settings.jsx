@@ -1,4 +1,4 @@
-import { LinkButton } from "../components/Link";
+import { LinkButton } from "../../components/Link";
 
 function Settings() {
   return (

@@ -1,7 +1,6 @@
 import { getTaskId, checkTask } from "./task";
 import { setProgress } from "../store/actions/progressActions";
 
-
 // Главная функция для получения статуса
 export async function getStatus(
   serial,

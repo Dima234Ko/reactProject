@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileImport } from "@fortawesome/free-solid-svg-icons";
-import { faUserPen } from "@fortawesome/free-solid-svg-icons"; 
+import { faUserPen } from "@fortawesome/free-solid-svg-icons";
 
 export function Button({ name, id, onClick, className = "" }) {
   return (
@@ -31,7 +31,7 @@ export function UserButton({ onClick, className = "" }) {
       id="openForm"
       onClick={onClick}
     >
-     <FontAwesomeIcon icon={faUserPen} />
+      <FontAwesomeIcon icon={faUserPen} />
       <span className="upload-text">Уточнить пользователя</span>
     </button>
   );

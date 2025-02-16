@@ -1,18 +1,17 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { setSerial } from "../store/actions/serialActions";
-import { setProgress } from "../store/actions/progressActions";
-import { Input } from "../components/Input";
-import { Button } from "../components/Button";
-import { Loader } from "../components/Loader";
-import Result from "../components/Result";
-import { getStatus } from "../functions/status";
-import { checkTaskStatus
- } from "../functions/task";
-import { NextButton } from "../components/Link";
-import { FormInfo } from "../components/Form";
-import { Checkbox } from "../components/Checkbox";
+import { setSerial } from "../../store/actions/serialActions";
+import { setProgress } from "../../store/actions/progressActions";
+import { Input } from "../../components/Input";
+import { Button } from "../../components/Button";
+import { Loader } from "../../components/Loader";
+import Result from "../../components/Result";
+import { getStatus } from "../../functions/status";
+import { checkTaskStatus } from "../../functions/task";
+import { NextButton } from "../../components/Link";
+import { FormInfo } from "../../components/Form";
+import { Checkbox } from "../../components/Checkbox";
 
 function Status() {
   const dispatch = useDispatch();
@@ -42,13 +41,13 @@ function Status() {
       loading,
       result,
       dispatch,
-      setSerial,  
+      setSerial,
       setLoading,
       setResult,
-      navigate
+      navigate,
     );
   }, [location.search, navigate, loading, dispatch, result]);
-    
+
   const handleInputChange = (event) => {
     const newSerial = event.target.value;
     setSerialState(newSerial);
@@ -58,20 +57,31 @@ function Status() {
   // Обработчик для получения статуса
   const handleGetStatus = async () => {
     setFormContent({
-      fromData: 
+      fromData: (
         <div className="textForm">
           <h2>Внимание</h2>
           <div>
             <pre>В данной версии приложения:</pre>
           </div>
           <ul>
-            <li>Функции из расширенной настройки вынесены в меню в верхнем правом углу.</li>
-            <li>Решена проблема прерывания запроса при сворачивании браузера.</li>
-            <li>Добавлена возможность заполнения ФИО абонента для карточки в US.</li>
-            <li>Реализована возможность передачи ошибки (скопируйте ссылку, передайте её на 2ЛТП с описанием проблемы).</li>
+            <li>
+              Функции из расширенной настройки вынесены в меню в верхнем правом
+              углу.
+            </li>
+            <li>
+              Решена проблема прерывания запроса при сворачивании браузера.
+            </li>
+            <li>
+              Добавлена возможность заполнения ФИО абонента для карточки в US.
+            </li>
+            <li>
+              Реализована возможность передачи ошибки (скопируйте ссылку,
+              передайте её на 2ЛТП с описанием проблемы).
+            </li>
           </ul>
-        </div>,
-    });    
+        </div>
+      ),
+    });
     dispatch(setProgress(0));
     setLoading(true);
     setResult(null);
@@ -88,14 +98,24 @@ function Status() {
         dispatch,
         navigate,
         progressFromRedux,
-        setError
+        setError,
       );
     } catch (error) {
-         // Обновление formContent при ошибке
-         setFormContent({
-          fromData: <div class="textForm"><h2>Внимание</h2><div><pre>Произошёл сбой</pre></div><ul><li>{error.message}</li></ul></div>,
-        });
-        setLoading(false);
+      // Обновление formContent при ошибке
+      setFormContent({
+        fromData: (
+          <div class="textForm">
+            <h2>Внимание</h2>
+            <div>
+              <pre>Произошёл сбой</pre>
+            </div>
+            <ul>
+              <li>{error.message}</li>
+            </ul>
+          </div>
+        ),
+      });
+      setLoading(false);
     }
 
     setTimeout(() => {
@@ -119,7 +139,7 @@ function Status() {
       <FormInfo
         isFormOpen={isFormOpen}
         closeForm={closeForm}
-        formData={formContent.fromData} 
+        formData={formContent.fromData}
       />
       <Input
         id="id_Ntu"

@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { setProgress } from "../store/actions/progressActions";
-import { setSerial } from "../store/actions/serialActions";
-import { SelectSSID, SelectSSID5 } from "../components/Select";
-import { Input } from "../components/Input";
-import { Button, UploadButton } from "../components/Button";
-import { Loader } from "../components/Loader";
-import Result from "../components/Result";
-import { setWiFi } from "../functions/wifi";
-import { checkTaskStatus } from "../functions/task";
-import { FormInfo } from "../components/Form";
+import { setProgress } from "../../store/actions/progressActions";
+import { setSerial } from "../../store/actions/serialActions";
+import { SelectSSID, SelectSSID5 } from "../../components/Select";
+import { Input } from "../../components/Input";
+import { Button, UploadButton } from "../../components/Button";
+import { Loader } from "../../components/Loader";
+import Result from "../../components/Result";
+import { setWiFi } from "../../functions/wifi";
+import { checkTaskStatus } from "../../functions/task";
+import { FormInfo } from "../../components/Form";
 
 function Wifi() {
   const dispatch = useDispatch();
@@ -57,7 +57,10 @@ function Wifi() {
     formData.append("file", file);
 
     try {
-      const response = await fetch("/upload", { method: "POST", body: formData });
+      const response = await fetch("/upload", {
+        method: "POST",
+        body: formData,
+      });
       if (!response.ok) throw new Error("Ошибка загрузки фото");
 
       const data = await response.json();
@@ -91,10 +94,10 @@ function Wifi() {
       loading,
       result,
       dispatch,
-      setSerial,  
+      setSerial,
       setLoading,
       setResult,
-      navigate
+      navigate,
     );
   }, [location.search, navigate, loading, dispatch, result]);
 
@@ -120,14 +123,24 @@ function Wifi() {
         setResult,
         dispatch,
         navigate,
-        progressFromRedux
+        progressFromRedux,
       );
     } catch (error) {
-        // Обновление formContent при ошибке
-        setFormContent({
-          fromData: <div class="textForm"><h2>Внимание</h2><div><pre>Произошёл сбой</pre></div><ul><li>{error.message}</li></ul></div>,
-        });
-        setLoading(false);
+      // Обновление formContent при ошибке
+      setFormContent({
+        fromData: (
+          <div class="textForm">
+            <h2>Внимание</h2>
+            <div>
+              <pre>Произошёл сбой</pre>
+            </div>
+            <ul>
+              <li>{error.message}</li>
+            </ul>
+          </div>
+        ),
+      });
+      setLoading(false);
     }
   };
 
@@ -163,7 +176,11 @@ function Wifi() {
                 {file.name}
               </div>
             )}
-            <Button name="Загрузить" onClick={handleUpload} disabled={isUploading} />
+            <Button
+              name="Загрузить"
+              onClick={handleUpload}
+              disabled={isUploading}
+            />
             {resultForm && <div className="upload-result">{resultForm}</div>}
           </div>
         }

@@ -1,4 +1,4 @@
-import {  useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 export function FormInfo({ isFormOpen, closeForm, formData }) {
   const formRef = useRef(null);
@@ -9,9 +9,9 @@ export function FormInfo({ isFormOpen, closeForm, formData }) {
         closeForm();
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [closeForm]);
 
@@ -27,9 +27,7 @@ export function FormInfo({ isFormOpen, closeForm, formData }) {
         &times;
       </div>
       <div className="input-container">
-        <div className="textForm">
-          {formData}
-        </div>
+        <div className="textForm">{formData}</div>
       </div>
     </div>
   );

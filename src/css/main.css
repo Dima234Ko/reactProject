@@ -32,6 +32,11 @@ h2 {
   align-items: center;
 }
 
+#user {
+  width: 100%;
+  align-items: center;
+}
+
 .result {
   width: 80%;
 }

@@ -1,5 +1,5 @@
-import { Select } from "../components/Select";
-import { Button } from "../components/Button";
+import { Select } from "../../components/Select";
+import { Button } from "../../components/Button";
 
 function Region() {
   let region = ["Кострома", "Мирный"];

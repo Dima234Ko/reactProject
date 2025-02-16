@@ -1,0 +1,37 @@
+/* Стили для таблицы */
+.user-table {
+  width: 100%; /* Таблица занимает всю ширину контейнера */
+  border-collapse: collapse; /* Убираем промежутки между ячейками */
+  border: 1px solid #ccc; /* Линии вокруг таблицы */
+  margin-top: 20px;
+}
+
+.user-table th,
+.user-table td {
+  padding: 10px;
+  border: 1px solid #ddd; /* Линии между ячейками */
+  text-align: left;
+}
+
+.user-table th {
+  background-color: #f4f4f4;
+}
+
+.user-table td input[type="checkbox"] {
+  width: 20px; /* Ширина чекбокса */
+  height: 20px; /* Высота чекбокса */
+}
+
+.user-table td:first-child {
+  width: 40px; /* Узкий столбец для чекбокса */
+}
+
+.user-table tr:hover {
+  background-color: #f1f1f1; /* Цвет строки при наведении */
+}
+
+.app {
+  max-width: 1200px; /* Ограничиваем ширину контейнера */
+  margin: 0 auto; /* Центрируем */
+  padding: 20px;
+}
