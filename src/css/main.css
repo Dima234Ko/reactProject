@@ -28,7 +28,7 @@ h2 {
 #region {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 30%;
   align-items: center;
 }
 

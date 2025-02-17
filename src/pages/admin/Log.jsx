@@ -53,7 +53,7 @@ function Log() {
               id="stop_data"
               type="date"
             />
-            <Select id="reg" options={user} />
+            <Select id="user" options={user} />
             <Input
               id="id_Ntu"
               type="text"

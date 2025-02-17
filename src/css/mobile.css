@@ -1,27 +1,21 @@
 /* Мобильные адаптивы (например, экраны до 768px) */
 @media (max-width: 768px) {
-  .some-input,
-  .button.blue {
-    max-width: 80%;
+  #authorization,
+  #status,
+  #pppoe,
+  #wifi,
+  #settings,
+  #region {
+    width: 100%;
+  }
+  
+  .textForm {
+    width: 100%;
   }
 
   h2 {
     font-size: 1.5rem;
     margin-bottom: 15px;
-  }
-
-  #SSID2_4,
-  #SSID5 {
-    width: 65%;
-  }
-
-  #selectSSID2_4,
-  #selectSSID5 {
-    width: 30%;
-  }
-
-  .ssid-container {
-    width: 86.03%;
   }
 
   .custom-component {

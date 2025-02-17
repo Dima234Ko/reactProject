@@ -52,27 +52,27 @@ function Main() {
   // Логика для меню на разных страницах
   if (location.pathname === "/settings" || location.pathname === "/region") {
     menuItems = [
-      { id: "status", name: "Статус", to: "/status" },
-      { id: "user", name: "Пользователи", to: "/user" },
-      { id: "log", name: "Логи", to: "/log" },
-      { id: "home", name: "Выход", to: "/" },
+      { id: "statusPage", name: "Статус", to: "/status" },
+      { id: "userPage", name: "Пользователи", to: "/user" },
+      { id: "logPage", name: "Логи", to: "/log" },
+      { id: "homePage", name: "Выход", to: "/" },
     ];
   } else if (location.pathname !== "/" && !hasSerial) {
     menuItems = [
-      { id: "settings", name: "Настройки", to: "/settings" },
-      { id: "user", name: "Пользователи", to: "/user" },
-      { id: "log", name: "Логи", to: "/log" },
-      { id: "home", name: "Выход", to: "/" },
+      { id: "settingsPage", name: "Настройки", to: "/settings" },
+      { id: "userPage", name: "Пользователи", to: "/user" },
+      { id: "logPage", name: "Логи", to: "/log" },
+      { id: "homePage", name: "Выход", to: "/" },
     ];
   } else {
     menuItems = [
-      { id: "status", name: "Статус", to: "/status" },
-      { id: "pppoe", name: "PPPoE", to: `/pppoe?serial=${serialFromRedux}` },
-      { id: "wifi", name: "WiFi", to: `/wifi?serial=${serialFromRedux}` },
-      { id: "settings", name: "Настройки", to: "/settings" },
-      { id: "user", name: "Пользователи", to: "/user" },
-      { id: "log", name: "Логи", to: "/log" },
-      { id: "home", name: "Выход", to: "/" },
+      { id: "statusPage", name: "Статус", to: "/status" },
+      { id: "pppoePage", name: "PPPoE", to: `/pppoe?serial=${serialFromRedux}` },
+      { id: "wifiPage", name: "WiFi", to: `/wifi?serial=${serialFromRedux}` },
+      { id: "settingsPage", name: "Настройки", to: "/settings" },
+      { id: "userPage", name: "Пользователи", to: "/user" },
+      { id: "logPage", name: "Логи", to: "/log" },
+      { id: "homePage", name: "Выход", to: "/" },
     ];
   }
 

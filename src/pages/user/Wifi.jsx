@@ -186,6 +186,7 @@ function Wifi() {
         }
       />
 
+      <div className="ssid-container">
       {/* Ввод pon-serial */}
       <Input
         id="id_Ntu"
@@ -195,6 +196,7 @@ function Wifi() {
         onChange={handleInputChange}
         disabled={true}
       />
+      </div>
 
       {/* Ввод SSID и пароля для 2.4ГГц */}
       <div className="ssid-container">
@@ -214,6 +216,8 @@ function Wifi() {
           onChange={(e) => setSelectSSID2_4(e.target.value)}
         />
       </div>
+
+      <div className="ssid-container">
       <Input
         id="password2_4"
         type="text"
@@ -221,6 +225,7 @@ function Wifi() {
         value={password2_4}
         onChange={(e) => setPassword2_4(e.target.value)}
       />
+      </div>
       <div className="ssid-container">
         <Input
           id="SSID5"
@@ -234,6 +239,7 @@ function Wifi() {
           onChange={(e) => setSelectSSID5(e.target.value)}
         />
       </div>
+      <div className="ssid-container">
       <Input
         id="password5"
         type="text"
@@ -241,7 +247,7 @@ function Wifi() {
         value={password5 || password2_4} // Если пароль для 5 ГГц не задан, используем пароль для 2.4 ГГц
         onChange={(e) => setPassword5(e.target.value)}
       />
-
+      </div>
       {/* Кнопка открытия формы для загрузки */}
       <UploadButton onClick={openForm} />
 

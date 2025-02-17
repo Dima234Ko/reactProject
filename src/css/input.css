@@ -1,28 +1,33 @@
-input.some-input {
+.some-input {
   margin-top: 20px;
-  height: 20px;
-  width: 50vh;
   padding: 10px;
   border: 2px solid #6b6b6b;
   border-radius: 10px;
 }
 
-.ssid-container {
+input {
   display: flex;
-  gap: 10px;
-  width: 52.54vh;
+  height: 18.2px;
+  width: 80%;
 }
 
-select#reg {
-  width: 50vh;
+.ssid-container {
+  width: 86.5%;
+  display: flex;
+  gap: 3%;
+}
+
+.ssid-container input {
+  width: 100%;
 }
 
 .ssid-container select {
-  width: 75px;
+  width: 40%;
 }
 
 select {
-  height: 44px;
+  width: 83%;
+  height: 42px;
   padding: 10px;
   border: 2px solid #6b6b6b;
   border-radius: 10px;
