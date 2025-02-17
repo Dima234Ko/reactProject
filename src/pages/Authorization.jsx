@@ -26,14 +26,30 @@ function Authorization() {
     setLoading(true);
     setResult(null);
     try {
-      await authorization(login, password);
-      navigate("/status");
+      let root = await authorization(login, password);
+      if (root.result) {
+        // Сохраняем результат в localStorage, если он существует
+        localStorage.setItem("authResult", JSON.stringify(root.root));
+
+        // Навигация на страницу "/status"
+        navigate("/user");
+      } else {
+        // Обработка случая, если нет результата (например, ошибка авторизации)
+        setResult({
+          success: false,
+          message: "Не удалось получить результат авторизации.",
+        });
+        // Удаление значения из localStorage при ошибке
+        localStorage.removeItem("authResult");
+      }
     } catch (error) {
       console.error("Ошибка авторизации:", error);
       setResult({
         success: false,
         message: "Ошибка авторизации. Попробуйте еще раз",
       });
+      // Удаление значения из localStorage при ошибке
+      localStorage.removeItem("authResult");
     } finally {
       setLoading(false);
     }

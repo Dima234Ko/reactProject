@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,7 +6,7 @@ import {
   useLocation,
   Navigate,
 } from "react-router-dom";
-import { useSelector } from "react-redux"; // Импортируем хук useSelector
+import { useSelector } from "react-redux";
 import Authorization from "./pages/Authorization";
 import Header from "./components/Header";
 import Status from "./pages/user/Status";
@@ -27,6 +27,7 @@ function App() {
 
 function Main() {
   const location = useLocation();
+  const [userRootFromLocalStorage, setUserRootFromLocalStorage] = React.useState(0); // Инициализация значением 0
 
   // Проверка наличия параметра serial в URL
   const params = new URLSearchParams(location.search);
@@ -39,14 +40,23 @@ function Main() {
   // Получаем serial из Redux
   const serialFromRedux = useSelector((state) => state.serial.serial);
 
+  useEffect(() => {
+    // Получаем значение из localStorage
+    const storedUserRoot = JSON.parse(localStorage.getItem("authResult"));
+    if (storedUserRoot !== null) {
+      setUserRootFromLocalStorage(storedUserRoot); // Перезаписываем переменную, если данные есть
+    }
+  }, []);
+  
+  if (location.pathname !== "/" && userRootFromLocalStorage === 0) {
+    return <Navigate to="/" replace />;
+  }
+
   let menuItems = [];
 
-  const userRoot = () => {
-    return false;
-  };
-
-  if (location.pathname === "/status" && userRoot()) {
-    return <Navigate to="/user" replace />; // Перенаправление на "/user"
+  // Логика для редиректа из /user на /status, если userRootFromLocalStorage === '3'
+  if (location.pathname === "/user" && userRootFromLocalStorage === '3') {
+    return <Navigate to="/status" replace />;
   }
 
   // Логика для меню на разных страницах

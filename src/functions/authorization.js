@@ -8,5 +8,5 @@ export async function authorization(login, password, setResult) {
   };
 
   let data = await requestAPI("POST", action, logPass);
-  // setResult(data.result);
+  return data;
 }
