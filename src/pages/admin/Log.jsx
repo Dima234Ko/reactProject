@@ -17,6 +17,10 @@ function Log() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isManualChecked, setIsManualChecked] = useState(false);
   const [isAutoChecked, setIsAutoChecked] = useState(false);
+  const [startDate, setStartDate] = useState(""); // Состояние для начальной даты
+  const [endDate, setEndDate] = useState(""); // Состояние для конечной даты
+  const [ponSerial, setPonSerial] = useState(""); // Состояние для pon-serial
+  const [login, setLogin] = useState(""); // Состояние для учетной записи
   const columns = ['Дата', 'Логин', 'ID устройства', 'Содержимое лога', 'Учетная запись'];
 
   const openForm = () => {
@@ -36,6 +40,24 @@ function Log() {
     setIsAutoChecked(e.target.checked);
   };
 
+  // Функции для изменения дат
+  const handleStartDateChange = (e) => {
+    setStartDate(e.target.value); // Обновляем значение начальной даты
+  };
+
+  const handleEndDateChange = (e) => {
+    setEndDate(e.target.value); // Обновляем значение конечной даты
+  };
+
+  // Функции для изменения значений полей ввода
+  const handlePonSerialChange = (e) => {
+    setPonSerial(e.target.value); // Обновляем значение поля pon-serial
+  };
+
+  const handleLoginChange = (e) => {
+    setLogin(e.target.value); // Обновляем значение поля учетной записи
+  };
+
   return (
     <div id="log">
       <h2>Логи запросов</h2>
@@ -44,27 +66,39 @@ function Log() {
         isFormOpen={isFormOpen}
         closeForm={closeForm}
         formData={
-        <div className="input-container">
+          <div className="input-container">
             <div className="date-container">
-                <Input
-                  id="start_data"
-                  type="date"
-                />
-                <Input
-                  id="stop_data"
-                  type="date"
-                />
+              {/* Инпут для начальной даты */}
+              <Input
+                id="start_data"
+                type="date"
+                value={startDate} // Значение для начальной даты
+                onChange={handleStartDateChange} // Обработчик изменения даты
+              />
+              {/* Инпут для конечной даты */}
+              <Input
+                id="stop_data"
+                type="date"
+                value={endDate} // Значение для конечной даты
+                onChange={handleEndDateChange} // Обработчик изменения даты
+              />
             </div>
             <Select id="user" options={user} />
+            {/* Инпут для pon-serial */}
             <Input
               id="id_Ntu"
               type="text"
               placeholder="Введите pon-serial"
+              value={ponSerial} // Значение для pon-serial
+              onChange={handlePonSerialChange} // Обработчик изменения pon-serial
             />
+            {/* Инпут для учетной записи */}
             <Input
               id="input_login"
               type="text"
               placeholder="Введите учетную запись (aks)"
+              value={login} // Значение для учетной записи
+              onChange={handleLoginChange} // Обработчик изменения учетной записи
             />
             <div className="wifiSearch">
               <h6>Выбор каналов WiFi</h6>
