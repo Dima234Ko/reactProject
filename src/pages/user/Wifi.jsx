@@ -223,7 +223,11 @@ function Wifi() {
         type="text"
         placeholder="Введите пароль"
         value={password2_4}
-        onChange={(e) => setPassword2_4(e.target.value)}
+        onChange={(e) => {
+          const newSsid = e.target.value;
+          setPassword2_4(e.target.value);
+          setPassword5(e.target.value); // Обновляем SSID для 5ГГц
+        }}
       />
       </div>
       <div className="ssid-container">
@@ -244,7 +248,7 @@ function Wifi() {
         id="password5"
         type="text"
         placeholder="Введите пароль"
-        value={password5 || password2_4} // Если пароль для 5 ГГц не задан, используем пароль для 2.4 ГГц
+        value={password5}
         onChange={(e) => setPassword5(e.target.value)}
       />
       </div>
