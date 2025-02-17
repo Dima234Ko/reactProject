@@ -44,15 +44,17 @@ function Log() {
         isFormOpen={isFormOpen}
         closeForm={closeForm}
         formData={
-          <div className="input-container">
-            <Input
-              id="start_data"
-              type="date"
-            />
-            <Input
-              id="stop_data"
-              type="date"
-            />
+        <div className="input-container">
+            <div className="date-container">
+                <Input
+                  id="start_data"
+                  type="date"
+                />
+                <Input
+                  id="stop_data"
+                  type="date"
+                />
+            </div>
             <Select id="user" options={user} />
             <Input
               id="id_Ntu"

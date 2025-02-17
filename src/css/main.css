@@ -25,6 +25,7 @@ h2 {
 #pppoe,
 #wifi,
 #settings,
+#settings,
 #region {
   display: flex;
   flex-direction: column;
@@ -32,7 +33,7 @@ h2 {
   align-items: center;
 }
 
-#user {
+#user, #log {
   width: 100%;
   align-items: center;
 }
@@ -60,3 +61,8 @@ pre {
   margin-bottom: 10px; /* Отступ между элементами списка */
   text-align: left; /* Текст будет выровнен по левому краю */
 }
+
+h6 {
+  text-align: center;
+}
+

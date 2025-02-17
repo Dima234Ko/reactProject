@@ -146,10 +146,9 @@ function Pppoe() {
         isFormOpen={isFormOpen}
         closeForm={closeForm}
         formData={
-          <div className="textForm">
+          <div className="input-container">
             <h2>Если абонент новый, заполните форму</h2>
             <pre>если нет, просто закройте её</pre>
-            <form onSubmit={handleFormSubmit}>
               <input
                 className="some-input"
                 id="surname"
@@ -185,7 +184,6 @@ function Pppoe() {
               <button className="button blue" type="submit">
                 Записать
               </button>
-            </form>
           </div>
         }
       />

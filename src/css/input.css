@@ -11,6 +11,11 @@ input {
   width: 80%;
 }
 
+.date-container{
+  width: 100%;
+  display: flex;
+}
+
 .ssid-container {
   width: 86.5%;
   display: flex;

@@ -21,8 +21,17 @@
   width: 100%; /* Можно добавить для обеспечения полной ширины контейнера */
 }
 
+#stop_data{
+  margin-left: 20px;
+}
+
+#start_data,
+#stop_data{
+  height: 20px;
+}
+
 .textForm .some-input {
-  width: 95%;
+  width: 93%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;

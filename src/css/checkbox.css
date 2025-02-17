@@ -6,6 +6,10 @@
   margin-top: 20px;
 }
 
+.input-container .checkbox-container{
+  margin-top: 0px;
+}
+
 .checkbox-input {
   width: 25px; /* Увеличиваем размер чекбокса */
   height: 25px; /* Увеличиваем размер чекбокса */

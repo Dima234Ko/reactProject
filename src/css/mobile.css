@@ -38,4 +38,40 @@
     width: 100%;
     align-items: center;
   }
+
+  /* Стили для ячеек таблицы */
+  .log-table th, .log-table td,
+  .user-table th, .user-table td {
+    padding: 10px;
+    text-align: left;
+    font-size: 0.9rem; /* Уменьшаем шрифт */
+    word-wrap: break-word; /* Перенос слов в ячейках */
+    min-width: 100%; /* Ячейки должны растягиваться на 100% */
+    box-sizing: border-box; /* Учет padding в ширине */
+  }
+
+  /* Сделаем заголовки таблицы более заметными */
+  .log-table th,
+  .user-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+
+  /* Добавим разделение между строками */
+  .log-table tr,
+  .user-table tr {
+    margin-bottom: 10px; /* Добавляем отступ между строками */
+  }
+
+  /* Улучшаем видимость при прокрутке */
+  .log-table td,
+  .user-table td {
+    border: 1px solid #ddd; /* Добавляем границу между ячейками */
+  }
+
+  /* Настройки для скрытия столбцов на мобильных */
+  .log-table th:nth-child(3), .log-table td:nth-child(3),
+  .log-table th:nth-child(5), .log-table td:nth-child(5) {
+    display: none; /* Скрыть 3-й и 5-й столбцы (ID устройства и Учетная запись) */
+  }
 }
