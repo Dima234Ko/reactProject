@@ -78,19 +78,6 @@ function Main() {
         { id: "statusPage", name: "Статус", to: "/status" },
         { id: "homePage", name: "Выход", to: "/" },
       ];
-  } else if (location.pathname !== "/" && !hasSerial) {
-    if (userRootFromLocalStorage === "1" ){
-      menuItems = [
-        { id: "settingsPage", name: "Настройки", to: "/settings" },
-        { id: "userPage", name: "Пользователи", to: "/user" },
-        { id: "logPage", name: "Логи", to: "/log" },
-        { id: "homePage", name: "Выход", to: "/" },
-      ];
-    } else
-    menuItems = [
-      { id: "settingsPage", name: "Настройки", to: "/status" },
-      { id: "homePage", name: "Выход", to: "/" },
-    ];
   } else {
     if (userRootFromLocalStorage === "1" ){
     menuItems = [
