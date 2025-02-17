@@ -30,9 +30,11 @@ function Authorization() {
       if (root.result) {
         // Сохраняем результат в localStorage, если он существует
         localStorage.setItem("authResult", JSON.stringify(root.root));
-
-        // Навигация на страницу "/status"
-        navigate("/user");
+        if (root.root === '1'){
+          navigate("/user");
+        } else if (root.root === '2' || root.root === '3'){
+          navigate("/status");
+        }
       } else {
         // Обработка случая, если нет результата (например, ошибка авторизации)
         setResult({

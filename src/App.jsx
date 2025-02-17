@@ -47,17 +47,26 @@ function Main() {
       setUserRootFromLocalStorage(storedUserRoot); // Перезаписываем переменную, если данные есть
     }
   }, []);
+
+  useEffect(() => {
+    const storedUserRoot = JSON.parse(localStorage.getItem("authResult"));
+    if (storedUserRoot !== null) {
+      setUserRootFromLocalStorage(storedUserRoot);
+    }
+  }, [location]);
+
+  if ((location.pathname === "/user" || location.pathname === "/log") && userRootFromLocalStorage !== "1") {
+    return <Navigate to="/status" replace />;
+  }
   
-  if (location.pathname !== "/" && userRootFromLocalStorage === 0) {
+  if (
+    location.pathname === "/status" &&
+    !["1", "2", "3"].includes(userRootFromLocalStorage.toString())
+  ) {
     return <Navigate to="/" replace />;
   }
 
   let menuItems = [];
-
-  // Логика для редиректа из /user на /status, если userRootFromLocalStorage === '3'
-  if (location.pathname === "/user" && userRootFromLocalStorage === '3') {
-    return <Navigate to="/status" replace />;
-  }
 
   // Логика для меню на разных страницах
   if (location.pathname === "/settings" || location.pathname === "/region") {
