@@ -55,15 +55,20 @@ function Main() {
     }
   }, [location]);
 
-  if ((location.pathname === "/user" || location.pathname === "/log") && userRootFromLocalStorage !== "1") {
-    return <Navigate to="/status" replace />;
-  }
-  
-  if (
-    location.pathname === "/status" &&
-    !["1", "2", "3"].includes(userRootFromLocalStorage.toString())
-  ) {
-    return <Navigate to="/" replace />;
+  // Функция для перенаправления на другие страницы на основе userRoot
+  const redirectTo = (pathname) => {
+    if (pathname === "/user" || pathname === "/log") {
+      return userRootFromLocalStorage !== "1" ? "/status" : null;
+    }
+    if (pathname === "/status" && !["1", "2", "3"].includes(userRootFromLocalStorage.toString())) {
+      return "/";
+    }
+    return null;
+  };
+
+  const redirectPath = redirectTo(location.pathname);
+  if (redirectPath) {
+    return <Navigate to={redirectPath} replace />;
   }
 
   let menuItems = [];
