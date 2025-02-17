@@ -77,16 +77,16 @@ function Main() {
       menuItems = [
         { id: "statusPage", name: "Статус", to: "/status" },
         { id: "homePage", name: "Выход", to: "/" },
-      ];
-  } else {
+    ];
+  } else if (location.pathname !== "/" && hasSerial) {
     if (userRootFromLocalStorage === "1" ){
     menuItems = [
       { id: "statusPage", name: "Статус", to: "/status" },
       { id: "pppoePage", name: "PPPoE", to: `/pppoe?serial=${serialFromRedux}` },
       { id: "wifiPage", name: "WiFi", to: `/wifi?serial=${serialFromRedux}` },
-      { id: "settingsPage", name: "Настройки", to: "/settings" },
       { id: "userPage", name: "Пользователи", to: "/user" },
       { id: "logPage", name: "Логи", to: "/log" },
+      { id: "settingsPage", name: "Настройки", to: "/settings" },
       { id: "homePage", name: "Выход", to: "/" },
     ];
     } else
@@ -96,6 +96,20 @@ function Main() {
       { id: "wifiPage", name: "WiFi", to: `/wifi?serial=${serialFromRedux}` },
       { id: "settingsPage", name: "Настройки", to: "/settings" },
       { id: "homePage", name: "Выход", to: "/" },
+    ];
+  } else {
+    if (userRootFromLocalStorage === "1" ){
+      menuItems = [
+        { id: "statusPage", name: "Статус", to: "/status" },
+        { id: "userPage", name: "Пользователи", to: "/user" },
+        { id: "logPage", name: "Логи", to: "/log" },
+        { id: "statusPage", name: "Настройки", to: "/settings" },
+        { id: "homePage", name: "Выход", to: "/" },
+      ];
+    }else
+      menuItems = [
+        { id: "statusPage", name: "Настройки", to: "/settings" },
+        { id: "homePage", name: "Выход", to: "/" },
     ];
   }
 
