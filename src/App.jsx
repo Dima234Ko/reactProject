@@ -27,8 +27,7 @@ function App() {
 
 function Main() {
   const location = useLocation();
-  const [userRootFromLocalStorage, setUserRootFromLocalStorage] = React.useState(0); // Инициализация значением 0
-
+ 
   // Проверка наличия параметра serial в URL
   const params = new URLSearchParams(location.search);
   const hasSerial = params.has("serial");
@@ -40,27 +39,19 @@ function Main() {
   // Получаем serial из Redux
   const serialFromRedux = useSelector((state) => state.serial.serial);
 
-  useEffect(() => {
-    // Получаем значение из localStorage
-    const storedUserRoot = JSON.parse(localStorage.getItem("authResult"));
-    if (storedUserRoot !== null) {
-      setUserRootFromLocalStorage(storedUserRoot); // Перезаписываем переменную, если данные есть
-    }
-  }, []);
+  let userRootFromLocalStorage = "0";
 
-  useEffect(() => {
-    const storedUserRoot = JSON.parse(localStorage.getItem("authResult"));
-    if (storedUserRoot !== null) {
-      setUserRootFromLocalStorage(storedUserRoot);
-    }
-  }, [location]);
+  function updateUserRootFromLocalStorage (){
+    userRootFromLocalStorage = JSON.parse(localStorage.getItem("authResult"));
+  }
 
   // Функция для перенаправления на другие страницы на основе userRoot
   const redirectTo = (pathname) => {
+    updateUserRootFromLocalStorage ();
     if (pathname === "/user" || pathname === "/log") {
       return userRootFromLocalStorage !== "1" ? "/status" : null;
     }
-    if (pathname === "/status" && !["1", "2", "3"].includes(userRootFromLocalStorage.toString())) {
+    if (pathname === "/status" && !["1", "2", "3"].includes(userRootFromLocalStorage)) {
       return "/";
     }
     return null;
