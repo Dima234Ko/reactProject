@@ -1,8 +1,8 @@
 import { getTaskId, checkTask } from "./task";
 import { setProgress } from "../store/actions/progressActions";
 import { requestAPI } from "./api";
-import { faL } from "@fortawesome/free-solid-svg-icons";
 
+//Получить информацию из US
 export async function searchIdUs(
     userLogin,
     setResult
@@ -30,8 +30,27 @@ export async function searchIdUs(
   }
 }
 
+//Записать данные в ЮС
+export async function setInfoToUs(
+  userLogin,
+  surname,
+  name,
+  patronymic,
+  phone
+){ 
+  let body = {
+  userLogin: userLogin,
+  userFullName: `${surname} ${name} ${patronymic}`,
+  userPhone: phone
+};
+try {
+  await requestAPI("POST", "userSide/setInfoToUs", body);
+} catch {
+  throw new Error(error);
+}
+}
 
-// Главная функция для получения статуса
+// Функция запроса
 export async function setPppoe(
   serial,
   login,

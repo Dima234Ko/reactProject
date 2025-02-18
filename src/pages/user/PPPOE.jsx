@@ -7,7 +7,7 @@ import { Input } from "../../components/Input";
 import { Button, UserButton } from "../../components/Button";
 import { Loader } from "../../components/Loader";
 import Result from "../../components/Result";
-import { setPppoe, searchIdUs } from "../../functions/pppoe";
+import { setPppoe, searchIdUs, setInfoToUs } from "../../functions/pppoe";
 import { checkTaskStatus } from "../../functions/task";
 import { NextButton } from "../../components/Link";
 import { FormInfo } from "../../components/Form";
@@ -27,6 +27,7 @@ function Pppoe() {
   const [password, setPassword] = useState("");
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [prevLogin, setPrevLogin] = useState("");
+  const [resultForm, setResultForm] = useState(null);
 
   // Состояние для полей формы
   const [formFields, setFormFields] = useState({
@@ -35,13 +36,6 @@ function Pppoe() {
     patronymic: "",
     phone: "",
   });
-
-  // Функция при клике на кнопку "Записать"
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    console.log("Форма отправлена с данными:", formFields);
-    closeForm();
-  };
 
   // Функция для обновления состояния полей формы
   const handleInputChange = (event, fieldName) => {
@@ -94,6 +88,26 @@ function Pppoe() {
       console.error('error');
     }
   };
+
+// Отправка ФИО в ЮС
+const handleSetInfoToUs = async () => {
+  const { surname, name, patronymic, phone} = formFields; 
+  setResultForm('');
+  try {
+    await setInfoToUs(
+      login,
+      surname,
+      name,
+      patronymic,
+      phone,
+    );
+    setResultForm('Данные записаны');
+  } catch (error) {
+    setResultForm('Ошибка при записи данных');
+    console.error('Ошибка при отправке данных: ', error);
+  }
+};
+
 
   // Отправка PPPoE запроса
   const handleSetPppoe = async () => {
@@ -189,9 +203,8 @@ function Pppoe() {
                 value={formFields.phone}
                 onChange={(e) => handleInputChange(e, "phone")}
               />
-              <button className="button blue" type="submit">
-                Записать
-              </button>
+               {resultForm && <div className="upload-result">{resultForm}</div>}
+              <Button name="Записать" onClick={handleSetInfoToUs} />
           </div>
         }
       />

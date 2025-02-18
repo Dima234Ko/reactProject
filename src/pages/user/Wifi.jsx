@@ -23,7 +23,7 @@ function Wifi() {
   const [serial, setSerialState] = useState(serialFromRedux || "");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
-  const [resultForm, setResultForm] = useState(null); // Результат формы
+  const [resultForm, setResultForm] = useState(null);
   const [ssid2_4, setSsid2_4] = useState("");
   const [password2_4, setPassword2_4] = useState("");
   const [selectSSID2_4, setSelectSSID2_4] = useState("auto");
