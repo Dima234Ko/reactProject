@@ -24,7 +24,7 @@
   }
 
   .result {
-    width: 80%; /* Устанавливаем ширину 90% от ширины экрана */
+    width: 80%; /* Устанавливаем ширину от ширины экрана */
     margin: 0 auto; /* Центрируем элемент по горизонтали */
   }
 
@@ -34,9 +34,10 @@
 
   #tableButton {
     display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
+    justify-content: space-around; /* Распределяет кнопки по горизонтали с равными промежутками */
+    align-items: center; /* Выравнивание по вертикали */
+    gap: 10px; /* Расстояние между кнопками */
+    flex-wrap: wrap; /* Обеспечивает перенос элементов на новую строку, если пространство ограничено */
   }
 
   /* Стили для ячеек таблицы */
@@ -73,5 +74,20 @@
   .log-table th:nth-child(3), .log-table td:nth-child(3),
   .log-table th:nth-child(5), .log-table td:nth-child(5) {
     display: none; /* Скрыть 3-й и 5-й столбцы (ID устройства и Учетная запись) */
+  }
+
+  #tableButton .upload-button .upload-text {
+    display: none;
+  }
+  
+  /* Расположить иконки в одну линию */
+  #tableButton .upload-button {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  #tableButton .upload-button svg {
+    width: 24px;
+    height: 24px;
   }
 }

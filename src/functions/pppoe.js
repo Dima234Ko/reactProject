@@ -1,5 +1,23 @@
 import { getTaskId, checkTask } from "./task";
 import { setProgress } from "../store/actions/progressActions";
+import { requestAPI } from "./api";
+
+export async function searchIdUs(
+  userLogin,
+  setResult
+){ setResult(null);  
+  let body = {
+  userLogin: userLogin,
+};
+  const data = await requestAPI("POST", "userSide/getUserId", body);
+  setResult(data);
+  console.log(data);
+  try {
+  } catch {
+    console.error('error')
+  }
+}
+
 
 // Главная функция для получения статуса
 export async function setPppoe(

@@ -1,6 +1,6 @@
 import React from "react";
 import { Table } from "../../components/Table";
-import { Button } from "../../components/Button";
+import { Button, AddUserButton, ChangePassButton, DeleteUserButton } from "../../components/Button";
 
 const data = [
   { login: "johndoe", fullname: "John Doe" },
@@ -28,9 +28,9 @@ function User() {
     <div id="user">
       <h2>Пользователи</h2>
       <div id="tableButton">
-        <Button name="Добавить пользователя" onClick={handleAddUser} />
-        <Button name="Изменить пароль" onClick={handleChangePass} />
-        <Button name="Удалить пользователя" onClick={handleDeleteUser} />
+        <AddUserButton onClick={handleAddUser} />
+        <ChangePassButton onClick={handleChangePass} />
+        <DeleteUserButton onClick={handleDeleteUser} />
       </div>
       <Table columns={columns} className="user-table" id="userTable">
         {data.map((row, index) => (

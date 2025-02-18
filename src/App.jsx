@@ -103,7 +103,7 @@ function Main() {
         { id: "statusPage", name: "Статус", to: "/status" },
         { id: "userPage", name: "Пользователи", to: "/user" },
         { id: "logPage", name: "Логи", to: "/log" },
-        { id: "statusPage", name: "Настройки", to: "/settings" },
+        { id: "settingsPage", name: "Настройки", to: "/settings" },
         { id: "homePage", name: "Выход", to: "/" },
       ];
     }else

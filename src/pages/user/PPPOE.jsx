@@ -7,7 +7,7 @@ import { Input } from "../../components/Input";
 import { Button, UserButton } from "../../components/Button";
 import { Loader } from "../../components/Loader";
 import Result from "../../components/Result";
-import { setPppoe } from "../../functions/pppoe";
+import { setPppoe, searchIdUs } from "../../functions/pppoe";
 import { checkTaskStatus } from "../../functions/task";
 import { NextButton } from "../../components/Link";
 import { FormInfo } from "../../components/Form";
@@ -82,9 +82,17 @@ function Pppoe() {
   }, [location.search, navigate, loading, dispatch, result]);
 
   // Обработчик изменения логина
-  const handleLoginChange = (e) => {
+  const handleLoginChange = async (e) => {
     const newLogin = e.target.value;
     setLogin(newLogin);
+    try {
+      await searchIdUs (
+        newLogin,
+        setResult
+      )
+    } catch {
+      console.error('error');
+    }
   };
 
   // Отправка PPPoE запроса
