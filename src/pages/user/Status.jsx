@@ -100,6 +100,7 @@ function Status() {
         progressFromRedux,
         setError,
       );
+      setIsChecked(false);
     } catch (error) {
       // Обновление formContent при ошибке
       setFormContent({
