@@ -116,18 +116,15 @@ function Pppoe() {
 
   // Отправка данных в ЮС
   const handleSetInfoToUs = async () => {
-    if(result.success){
-      const { surname, name, patronymic, phone } = formFields;
-      setResultForm("");
-      try {
+    try{
+      if(result.success){
+        const { surname, name, patronymic, phone } = formFields;
+        setResultForm("");
         await setInfoToUs(login, surname, name, patronymic, phone);
         setResultForm("Данные записаны");
-      } catch (error) {
-        setResultForm("Ошибка при записи данных");
-        console.error("Ошибка при отправке данных: ", error);
       }
-    } else {
-      setResultForm(`Учетная запись еще не создана, 
+    } catch {
+      setResultForm(`Не удалось обновить данные, 
         необходимо настроить PPPoE, 
         дождаться окончания запроса 
         и повторить попытку`);
@@ -203,8 +200,8 @@ function Pppoe() {
         closeForm={closeForm}
         formData={
           <div className="input-container">
-            <h2>Если абонент новый, заполните форму</h2>
-            <pre>если нет, просто закройте её</pre>
+            <h2>Данные {login} верны?</h2>
+            <pre>если нет, уточните</pre>
             <input
               className="some-input"
               id="surname"

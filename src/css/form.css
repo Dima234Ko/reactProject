@@ -71,7 +71,7 @@
 
 .textForm h2,
 .textForm pre {
-  margin: 0; /* Убирает стандартные отступы */
+  margin: 5px; 
 }
 
 form {
