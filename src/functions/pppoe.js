@@ -4,12 +4,20 @@ import { requestAPI } from "./api";
 
 //Получить информацию из US
 export async function searchIdUs(
-    userLogin,
-    setResult
+    userLoginSerial,
+    setResult,
+    param
   ){ setResult(null);  
-    let body = {
-    userLogin: userLogin,
-  };
+    let body
+    if (param === 'login')
+      body = {
+        userLogin: userLoginSerial,
+      };
+    else {
+      body = {
+        serialNewNtu: userLoginSerial,
+      };
+    }
   try {
     const data = await requestAPI("POST", "userSide/getUserId", body);
     if (data.idUserSideCard !== null ){

@@ -61,11 +61,12 @@
 }
 
 .upload-result {
+  text-align: center;
   font-family: monospace;
   unicode-bidi: isolate;
   margin-top: 20px;
   font-size: 14px; /* Задаем размер шрифта */
-  color: #4caf50; /* Цвет текста успешной загрузки */
+  color: #003597c5;
 }
 
 .textForm h2,

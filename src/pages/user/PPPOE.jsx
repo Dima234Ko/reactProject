@@ -93,7 +93,7 @@ function Pppoe() {
     let data = null; // Объявляем переменную data вне try-catch
     if (login !== "") {
       try {
-        data = await searchIdUs(login, setResult);
+        data = await searchIdUs(login, setResult, 'login');
       } catch (error) {
         console.error("Ошибка при проверке логина", error);
         setResult({

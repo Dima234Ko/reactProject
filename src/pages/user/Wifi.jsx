@@ -11,13 +11,13 @@ import Result from "../../components/Result";
 import { setWiFi } from "../../functions/wifi";
 import { checkTaskStatus } from "../../functions/task";
 import { FormInfo } from "../../components/Form";
+import { searchIdUs } from "../../functions/pppoe";
 
 function Wifi() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Получение serial из Redux
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const [serial, setSerialState] = useState(serialFromRedux || "");
@@ -34,7 +34,6 @@ function Wifi() {
   const [file, setFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
-  // Выбор файла
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
@@ -43,7 +42,6 @@ function Wifi() {
     }
   };
 
-  // Загрузка файла
   const handleUpload = async () => {
     if (!file) {
       setResultForm("Пожалуйста, выберите файл для загрузки");
@@ -62,7 +60,6 @@ function Wifi() {
         body: formData,
       });
       if (!response.ok) throw new Error("Ошибка загрузки фото");
-
       const data = await response.json();
       setResultForm("Фото успешно загружено");
     } catch (error) {
@@ -72,7 +69,6 @@ function Wifi() {
     }
   };
 
-  // Заполняем поле serial из параметров URL, если оно есть
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const serialFromUrl = queryParams.get("serial");
@@ -82,13 +78,11 @@ function Wifi() {
     }
   }, [location.search, dispatch]);
 
-  // Обновление serialState при изменении serial из Redux
   useEffect(() => {
     setSerialState(serialFromRedux);
   }, [serialFromRedux]);
 
-  // Проверка статуса задачи при изменении URL
-  useEffect(() => {
+  const checkTaskStatusEffect = () => {
     checkTaskStatus(
       location,
       loading,
@@ -99,6 +93,10 @@ function Wifi() {
       setResult,
       navigate,
     );
+  };
+
+  useEffect(() => {
+    checkTaskStatusEffect();
   }, [location.search, navigate, loading, dispatch, result]);
 
   const handleInputChange = (event) => {
@@ -126,7 +124,6 @@ function Wifi() {
         progressFromRedux,
       );
     } catch (error) {
-      // Обновление formContent при ошибке
       setFormContent({
         fromData: (
           <div class="textForm">
@@ -152,11 +149,32 @@ function Wifi() {
     setIsFormOpen(false);
   };
 
+  // Создаём асинхронную функцию для получения данных WiFi
+  const fetchDataWiFi = async () => {
+    try {
+      const data = await searchIdUs(serial, setResult, 'serial');
+      // Если данные получены успешно, устанавливаем ssid2_4
+      if (data) {
+        setSsid2_4(data.ssidWifi2);
+        setSsid5(data.ssidWifi5);
+        setPassword2_4(data.passWifi2);
+        setPassword5(data.passWifi5);
+      }
+    } catch (error) {
+      console.error("Ошибка при получении данных WiFi:", error);
+    }
+  };
+  
+
+  useEffect(() => {
+    // Выполняем fetchDataWiFi при загрузке страницы
+    fetchDataWiFi();
+  }, [serial]);  // Эта зависимость означает, что функция будет вызываться при изменении serial
+
   return (
     <div id="wifi">
       <h2>Настройка WiFi</h2>
 
-      {/* Форма с информацией (например, загрузка фото) */}
       <FormInfo
         isFormOpen={isFormOpen}
         closeForm={closeForm}
@@ -187,18 +205,16 @@ function Wifi() {
       />
 
       <div className="ssid-container">
-      {/* Ввод pon-serial */}
-      <Input
-        id="id_Ntu"
-        type="text"
-        placeholder="Введите pon-serial"
-        value={serial}
-        onChange={handleInputChange}
-        disabled={true}
-      />
+        <Input
+          id="id_Ntu"
+          type="text"
+          placeholder="Введите pon-serial"
+          value={serial}
+          onChange={handleInputChange}
+          disabled={true}
+        />
       </div>
 
-      {/* Ввод SSID и пароля для 2.4ГГц */}
       <div className="ssid-container">
         <Input
           id="SSID2_4"
@@ -218,24 +234,24 @@ function Wifi() {
       </div>
 
       <div className="ssid-container">
-      <Input
-        id="password2_4"
-        type="text"
-        placeholder="Введите пароль"
-        value={password2_4}
-        onChange={(e) => {
-          const newSsid = e.target.value;
-          setPassword2_4(e.target.value);
-          setPassword5(e.target.value); // Обновляем SSID для 5ГГц
-        }}
-      />
+        <Input
+          id="password2_4"
+          type="text"
+          placeholder="Введите пароль"
+          value={password2_4}
+          onChange={(e) => {
+            const newSsid = e.target.value;
+            setPassword2_4(e.target.value);
+            setPassword5(e.target.value); // Обновляем SSID для 5ГГц
+          }}
+        />
       </div>
       <div className="ssid-container">
         <Input
           id="SSID5"
           type="text"
           placeholder="Введите SSID 5Ггц"
-          value={ssid5} // Значение автоматически обновляется на основе SSID2_4
+          value={ssid5}
           onChange={(e) => setSsid5(e.target.value)}
         />
         <SelectSSID5
@@ -244,18 +260,16 @@ function Wifi() {
         />
       </div>
       <div className="ssid-container">
-      <Input
-        id="password5"
-        type="text"
-        placeholder="Введите пароль"
-        value={password5}
-        onChange={(e) => setPassword5(e.target.value)}
-      />
+        <Input
+          id="password5"
+          type="text"
+          placeholder="Введите пароль"
+          value={password5}
+          onChange={(e) => setPassword5(e.target.value)}
+        />
       </div>
-      {/* Кнопка открытия формы для загрузки */}
       <UploadButton onClick={openForm} />
 
-      {/* Индикатор загрузки */}
       {loading && (
         <div className="overlay">
           <div className="spinner-container">
@@ -264,10 +278,8 @@ function Wifi() {
         </div>
       )}
 
-      {/* Результат запроса на странице WiFi */}
       {result && <Result data={result} />}
 
-      {/* Кнопка отправки запроса */}
       <Button name="Отправить запрос" onClick={handleSetWiFi} />
     </div>
   );
