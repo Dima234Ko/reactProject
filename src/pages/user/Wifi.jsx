@@ -152,13 +152,15 @@ function Wifi() {
   // Создаём асинхронную функцию для получения данных WiFi
   const fetchDataWiFi = async () => {
     try {
-      const data = await searchIdUs(serial, setResult, 'serial');
+      if (serial !==""){
+        const data = await searchIdUs(serial, setResult, 'serial');
       // Если данные получены успешно, устанавливаем ssid2_4
-      if (data) {
-        setSsid2_4(data.ssidWifi2);
-        setSsid5(data.ssidWifi5);
-        setPassword2_4(data.passWifi2);
-        setPassword5(data.passWifi5);
+        if (data) {
+          setSsid2_4(data.ssidWifi2);
+          setSsid5(data.ssidWifi5);
+          setPassword2_4(data.passWifi2);
+          setPassword5(data.passWifi5);
+        }
       }
     } catch (error) {
       console.error("Ошибка при получении данных WiFi:", error);
