@@ -21,7 +21,7 @@ export async function searchIdUs(
     } else {
       setResult({
         result :'Учетная запись в US отсутствует',
-        success: true
+        success: false
         }
       );
     } 
@@ -62,7 +62,7 @@ export async function setPppoe(
 ) {
   setLoading(true);
   setResult(null);
-  dispatch(setProgress(0)); // Устанавливаем начальный прогресс
+  dispatch(setProgress(0));
   let body = {
     regionId: 1,
     serialNewNtu: serial,

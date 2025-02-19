@@ -35,8 +35,6 @@ function Pppoe() {
     phone: "",
   });
 
-  const loginInputRef = useRef(null);  // Ссылка на инпут логина
-
   const handleInputChange = (event, fieldName) => {
     const newValue = event.target.value;
     setFormFields((prevFields) => ({
@@ -93,60 +91,78 @@ function Pppoe() {
 
   // Отправка данных в ЮС
   const handleSetInfoToUs = async () => {
-    const { surname, name, patronymic, phone } = formFields;
-    setResultForm("");
-    try {
-      await setInfoToUs(login, surname, name, patronymic, phone);
-      setResultForm("Данные записаны");
-    } catch (error) {
-      setResultForm("Ошибка при записи данных");
-      console.error("Ошибка при отправке данных: ", error);
+    if(result.success){
+      const { surname, name, patronymic, phone } = formFields;
+      setResultForm("");
+      try {
+        await setInfoToUs(login, surname, name, patronymic, phone);
+        setResultForm("Данные записаны");
+      } catch (error) {
+        setResultForm("Ошибка при записи данных");
+        console.error("Ошибка при отправке данных: ", error);
+      }
+    } else {
+      setResultForm(`Учетная запись еще не создана, 
+        необходимо настроить PPPoE, 
+        дождаться окончания запроса 
+        и повторить попытку`);
     }
   };
 
   // Отправка PPPoE запроса
   const handleSetPppoe = async () => {
-    if (login !== prevLogin) {
-      setIsFormOpen(true);
-      setPrevLogin(login);
-    }
-    dispatch(setProgress(0));
-    setLoading(true);
-    setResult(null);
-    navigate(`?serial=${serial}`, { replace: true });
-
-    try {
-      await setPppoe(
-        serial,
-        login,
-        password,
-        setLoading,
-        setResult,
-        dispatch,
-        navigate,
-        progressFromRedux
-      );
-    } catch (error) {
-      setFormContent({
-        fromData: (
-          <div className="textForm">
-            <h2>Внимание</h2>
-            <div>
-              <pre>Произошёл сбой</pre>
+    if (login !==""){
+      if (login !== prevLogin) {
+        setIsFormOpen(true);
+        setPrevLogin(login);
+      }
+      dispatch(setProgress(0));
+      setLoading(true);
+      setResult(null);
+      navigate(`?serial=${serial}`, { replace: true });
+      try {
+        await setPppoe(
+          serial,
+          login,
+          password,
+          setLoading,
+          setResult,
+          dispatch,
+          navigate,
+          progressFromRedux
+        );
+      } catch (error) {
+        setFormContent({
+          fromData: (
+            <div className="textForm">
+              <h2>Внимание</h2>
+              <div>
+                <pre>Произошёл сбой</pre>
+              </div>
+              <ul>
+                <li>{error.message}</li>
+              </ul>
             </div>
-            <ul>
-              <li>{error.message}</li>
-            </ul>
-          </div>
-        ),
-      });
-      setLoading(false);
-    }
+          ),
+        });
+        setLoading(false);
+      }
+    }else
+      setResult({
+        result :'Введите логин',
+        success: false
+      })
   };
 
   // Открытие формы
   const openForm = () => {
+  if (login !== "") { 
     setIsFormOpen(true);
+  } else  
+    setResult({
+      result :'Введите логин',
+      success: false
+    })
   };
 
   // Закрытие формы
