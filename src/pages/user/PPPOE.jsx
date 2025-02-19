@@ -69,25 +69,50 @@ function Pppoe() {
     );
   }, [location.search, navigate, loading, dispatch, result]);
 
+  // Функция для заполнения формы данными, полученными из searchIdUs
+  const fillFormFromSearchIdUs = (data) => {
+    if (data) {
+      let parts = [];
+      try {
+        parts = data.userFullName.split(" "); // Попробуем разделить строку
+      } catch (error) {
+        console.error("Ошибка при разбиении имени на части", error);
+      }
+      setFormFields({
+        surname: parts[0] || "",      // Фамилия
+        name: parts[1] || "",         // Имя
+        patronymic: parts[2] || "",   // Отчество
+        phone: data.userPhone || "",  // Телефон
+      });
+    }
+  };
+  
+
   // Обработчик изменения логина при потере фокуса
   const handleLoginChange = async () => {
-    console.log("Login changed or blurred");
-    if (login !== ""){
+    let data = null; // Объявляем переменную data вне try-catch
+    if (login !== "") {
       try {
-        await searchIdUs(login, setResult);
+        data = await searchIdUs(login, setResult);
       } catch (error) {
         console.error("Ошибка при проверке логина", error);
         setResult({
-          result :'Ошибка при проверке логина',
-          success: false
-        })
+          result: 'Ошибка при проверке логина',
+          success: false,
+        });
+      } finally {
+        if (data) { // Если data успешно получена, вызываем fillFormFromSearchIdUs
+          fillFormFromSearchIdUs(data);
+        }
       }
-    } else 
+    } else {
       setResult({
-        result :'Введите логин',
-        success: false
-    })
+        result: 'Введите логин',
+        success: false,
+      });
+    }
   };
+  
 
   // Отправка данных в ЮС
   const handleSetInfoToUs = async () => {

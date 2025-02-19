@@ -15,7 +15,7 @@ export async function searchIdUs(
     if (data.idUserSideCard !== null ){
       setResult({
         result :'Найдена учетная запись в US',
-        success: false
+        success: true
         }
       );
     } else {
@@ -25,6 +25,7 @@ export async function searchIdUs(
         }
       );
     } 
+    return data;
   } catch {
     throw new Error(error);
   }
