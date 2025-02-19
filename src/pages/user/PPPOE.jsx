@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { setProgress } from "../../store/actions/progressActions";
@@ -17,7 +17,6 @@ function Pppoe() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Получаем значения serial и progress из Redux
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const [serial, setSerialState] = useState(serialFromRedux || "");
@@ -29,7 +28,6 @@ function Pppoe() {
   const [prevLogin, setPrevLogin] = useState("");
   const [resultForm, setResultForm] = useState(null);
 
-  // Состояние для полей формы
   const [formFields, setFormFields] = useState({
     surname: "",
     name: "",
@@ -37,7 +35,8 @@ function Pppoe() {
     phone: "",
   });
 
-  // Функция для обновления состояния полей формы
+  const loginInputRef = useRef(null);  // Ссылка на инпут логина
+
   const handleInputChange = (event, fieldName) => {
     const newValue = event.target.value;
     setFormFields((prevFields) => ({
@@ -46,22 +45,19 @@ function Pppoe() {
     }));
   };
 
-  // Заполняем поле serial из параметров URL, если оно есть
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const serialFromUrl = queryParams.get("serial");
     if (serialFromUrl) {
-      dispatch(setSerial(serialFromUrl)); // Обновляем serial в Redux
-      setSerialState(serialFromUrl); // Обновляем локальное состояние для отображения
+      dispatch(setSerial(serialFromUrl));
+      setSerialState(serialFromUrl);
     }
   }, [location.search, dispatch]);
 
-  // Обновление serialState при изменении serial из Redux
   useEffect(() => {
     setSerialState(serialFromRedux);
   }, [serialFromRedux]);
 
-  // Проверка статуса задачи при изменении URL
   useEffect(() => {
     checkTaskStatus(
       location,
@@ -71,47 +67,45 @@ function Pppoe() {
       setSerial,
       setLoading,
       setResult,
-      navigate,
+      navigate
     );
   }, [location.search, navigate, loading, dispatch, result]);
 
-  // Обработчик изменения логина
-  const handleLoginChange = async (e) => {
-    const newLogin = e.target.value;
-    setLogin(newLogin);
+  // Обработчик изменения логина при потере фокуса
+  const handleLoginChange = async () => {
+    console.log("Login changed or blurred");
+    if (login !== ""){
+      try {
+        await searchIdUs(login, setResult);
+      } catch (error) {
+        console.error("Ошибка при проверке логина", error);
+        setResult({
+          result :'Ошибка при проверке логина',
+          success: false
+        })
+      }
+    } else 
+      setResult({
+        result :'Введите логин',
+        success: false
+    })
+  };
+
+  // Отправка данных в ЮС
+  const handleSetInfoToUs = async () => {
+    const { surname, name, patronymic, phone } = formFields;
+    setResultForm("");
     try {
-      await searchIdUs (
-        newLogin,
-        setResult
-      )
-    } catch {
-      console.error('error');
+      await setInfoToUs(login, surname, name, patronymic, phone);
+      setResultForm("Данные записаны");
+    } catch (error) {
+      setResultForm("Ошибка при записи данных");
+      console.error("Ошибка при отправке данных: ", error);
     }
   };
 
-// Отправка ФИО в ЮС
-const handleSetInfoToUs = async () => {
-  const { surname, name, patronymic, phone} = formFields; 
-  setResultForm('');
-  try {
-    await setInfoToUs(
-      login,
-      surname,
-      name,
-      patronymic,
-      phone,
-    );
-    setResultForm('Данные записаны');
-  } catch (error) {
-    setResultForm('Ошибка при записи данных');
-    console.error('Ошибка при отправке данных: ', error);
-  }
-};
-
-
   // Отправка PPPoE запроса
   const handleSetPppoe = async () => {
-    // Проверяем, был ли изменен логин
     if (login !== prevLogin) {
       setIsFormOpen(true);
       setPrevLogin(login);
@@ -130,13 +124,12 @@ const handleSetInfoToUs = async () => {
         setResult,
         dispatch,
         navigate,
-        progressFromRedux,
+        progressFromRedux
       );
     } catch (error) {
-      // Обновление formContent при ошибке
       setFormContent({
         fromData: (
-          <div class="textForm">
+          <div className="textForm">
             <h2>Внимание</h2>
             <div>
               <pre>Произошёл сбой</pre>
@@ -171,40 +164,40 @@ const handleSetInfoToUs = async () => {
           <div className="input-container">
             <h2>Если абонент новый, заполните форму</h2>
             <pre>если нет, просто закройте её</pre>
-              <input
-                className="some-input"
-                id="surname"
-                type="text"
-                placeholder="Введите фамилию"
-                value={formFields.surname}
-                onChange={(e) => handleInputChange(e, "surname")}
-              />
-              <input
-                className="some-input"
-                id="name"
-                type="text"
-                placeholder="Введите имя"
-                value={formFields.name}
-                onChange={(e) => handleInputChange(e, "name")}
-              />
-              <input
-                className="some-input"
-                id="patronymic"
-                type="text"
-                placeholder="Введите отчество"
-                value={formFields.patronymic}
-                onChange={(e) => handleInputChange(e, "patronymic")}
-              />
-              <input
-                className="some-input"
-                id="phone"
-                type="tel"
-                placeholder="Введите телефон"
-                value={formFields.phone}
-                onChange={(e) => handleInputChange(e, "phone")}
-              />
-               {resultForm && <div className="upload-result">{resultForm}</div>}
-              <Button name="Записать" onClick={handleSetInfoToUs} />
+            <input
+              className="some-input"
+              id="surname"
+              type="text"
+              placeholder="Введите фамилию"
+              value={formFields.surname}
+              onChange={(e) => handleInputChange(e, "surname")}
+            />
+            <input
+              className="some-input"
+              id="name"
+              type="text"
+              placeholder="Введите имя"
+              value={formFields.name}
+              onChange={(e) => handleInputChange(e, "name")}
+            />
+            <input
+              className="some-input"
+              id="patronymic"
+              type="text"
+              placeholder="Введите отчество"
+              value={formFields.patronymic}
+              onChange={(e) => handleInputChange(e, "patronymic")}
+            />
+            <input
+              className="some-input"
+              id="phone"
+              type="tel"
+              placeholder="Введите телефон"
+              value={formFields.phone}
+              onChange={(e) => handleInputChange(e, "phone")}
+            />
+            {resultForm && <div className="upload-result">{resultForm}</div>}
+            <Button name="Записать" onClick={handleSetInfoToUs} />
           </div>
         }
       />
@@ -221,7 +214,8 @@ const handleSetInfoToUs = async () => {
         type="text"
         placeholder="Введите логин"
         value={login}
-        onChange={handleLoginChange}
+        onChange={(e) => setLogin(e.target.value)}
+        onBlur={handleLoginChange}
       />
       <Input
         id="password"
