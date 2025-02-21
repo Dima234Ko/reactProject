@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "../../components/Button";
 
-export function FormUser({ login, setResult, searchIdUs, setInfoToUs, result }) {
+export function FormUser({ login, data, setInfoToUs }) {
   const [formFields, setFormFields] = useState({
     surname: "",
     name: "",
@@ -35,36 +35,12 @@ export function FormUser({ login, setResult, searchIdUs, setInfoToUs, result }) 
     }
   };
 
-  const handleLoginChange = async () => {
-    if (login !== "") {
-      try {
-        const data = await searchIdUs(login, setResult, "login");
-        if (data) {
-          fillFormFromSearchIdUs(data);
-        }
-      } catch (error) {
-        console.error("Ошибка при проверке логина", error);
-        setResult({
-          result: "Ошибка при проверке логина",
-          success: false,
-        });
-      }
-    } else {
-      setResult({
-        result: "Введите логин",
-        success: false,
-      });
-    }
-  };
-
   const handleSetInfoToUs = async () => {
     try {
-      if (result?.success) {
-        const { surname, name, patronymic, phone } = formFields;
-        setResultForm("");
-        await setInfoToUs(login, surname, name, patronymic, phone);
-        setResultForm("Данные записаны");
-      }
+      const { surname, name, patronymic, phone } = formFields;
+      setResultForm("");
+      await setInfoToUs(login, surname, name, patronymic, phone);
+      setResultForm("Данные записаны");
     } catch {
       setResultForm(
         "Не удалось обновить данные, необходимо настроить PPPoE, дождаться окончания запроса и повторить попытку"
@@ -74,8 +50,10 @@ export function FormUser({ login, setResult, searchIdUs, setInfoToUs, result }) 
 
   // Автоматическая проверка логина при монтировании компонента
   useEffect(() => {
-    handleLoginChange();
-  }, [login]);
+    if (data) {
+      fillFormFromSearchIdUs(data);
+    }
+  }, [data]); // Следим за изменениями в data
 
   return (
     <div className="input-container">

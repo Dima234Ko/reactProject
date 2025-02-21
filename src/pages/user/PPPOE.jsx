@@ -39,6 +39,7 @@ function Pppoe() {
       </div>
     ),
   });
+  const [data, setData] = useState(null); 
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -67,21 +68,10 @@ function Pppoe() {
           navigate
         );
       } catch (error) {
-        setFormContent({
-          fromData: (
-            <div className="textForm">
-              <h2>Внимание</h2>
-              <div>
-                <pre>Произошёл сбой</pre>
-              </div>
-              <ul>
-                <li>{error.message}</li>
-              </ul>
-            </div>
-          ),
+        setResult({
+          result: error.message,
+          success: false,
         });
-        setIsFormOpen(true);
-        setLoading(false);
       }
     };
     fetchData();
@@ -96,15 +86,14 @@ function Pppoe() {
       setLoading(true);
       setResult(null);
       navigate(`?serial=${serial}`, { replace: true });
-
       setFormContent({
         fromData: (
           <FormUser
             login={login}
+            data={data}
             setResult={setResult}
             searchIdUs={searchIdUs}
             setInfoToUs={setInfoToUs}
-            result={result}
           />
         ),
       });
@@ -122,20 +111,43 @@ function Pppoe() {
           progressFromRedux
         );
       } catch (error) {
-        setFormContent({
-          fromData: (
-            <div className="textForm">
-              <h2>Внимание</h2>
-              <div>
-                <pre>Произошёл сбой</pre>
-              </div>
-              <ul>
-                <li>{error.message}</li>
-              </ul>
-            </div>
-          ),
+        setResult({
+          result: error.message,
+          success: false,
         });
-        setLoading(false);
+      }
+    } else {
+      setResult({
+        result: "Введите логин",
+        success: false,
+      });
+    }
+  };
+
+  const handleLoginChange = async () => {
+    setFormContent({
+      fromData: (
+        <div className="textForm">
+          <h2>Внимание</h2>
+          <div>
+            <pre>Произошёл сбой</pre>
+          </div>
+          <ul>
+            <li>Необходимо настроить PPPoE</li>
+          </ul>
+        </div>
+      ),
+    });
+    if (login !== "") {
+      try {
+        let fetchedData = await searchIdUs(login, setResult, "login");
+        setData(fetchedData);
+      } catch (error) {
+        console.error("Ошибка при проверке логина", error);
+        setResult({
+          result: "Ошибка при проверке логина",
+          success: false,
+        });
       }
     } else {
       setResult({
@@ -181,6 +193,7 @@ function Pppoe() {
         type="text"
         placeholder="Введите логин"
         value={login}
+        onBlur={handleLoginChange}
         onChange={(e) => setLogin(e.target.value)}
       />
       <Input

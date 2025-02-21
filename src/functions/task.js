@@ -83,44 +83,27 @@ export async function checkTask(
         dispatch(setProgress(progress)); // Обновляем прогресс в Redux
       }
 
-      setTimeout(
-        () =>
-          checkTask(
-            action,
-            taskId,
-            dispatch,
-            setLoading,
-            setResult,
-            navigate,
-            attempts + 1,
-            progress,
-          ),
-        10000,
-      ); // Повторяем через 10 секунд
+      // Используем задержку через Promise, чтобы использовать await
+      await new Promise((resolve) => setTimeout(resolve, 10000));
+
+      // Рекурсивный вызов checkTask
+      await checkTask(
+        action,
+        taskId,
+        dispatch,
+        setLoading,
+        setResult,
+        navigate,
+        attempts + 1,
+        progress,
+      );
     } else {
       dispatch(setProgress(100)); // Устанавливаем прогресс в 100%
       setLoading(false); // Закрываем загрузку
       setResult(taskData.result); // Обновляем результат
     }
   } catch (error) {
-    // if (attempts < 2) {
-    //   dispatch(setProgress("NaN")); // Отображаем неопределенное значение прогресса
-    //   setTimeout(
-    //     () =>
-    //       checkTask(
-    //         action,
-    //         taskId,
-    //         dispatch,
-    //         setLoading,
-    //         setResult,
-    //         navigate,
-    //         attempts + 1,
-    //         progress,
-    //       ),
-    //     10000,
-    //   ); // Повторяем запрос через 10 секунд
-    // } else {
-      setLoading(false);
-      throw error; 
+    setLoading(false);
+    throw error; // Пробрасываем ошибку дальше
   }
 }

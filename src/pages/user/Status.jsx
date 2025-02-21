@@ -50,21 +50,10 @@ function Status() {
           navigate,
         );
       } catch (error) {
-        setFormContent({
-          fromData: (
-            <div className="textForm">
-              <h2>Внимание</h2>
-              <div>
-                <pre>Произошёл сбой</pre>
-              </div>
-              <ul>
-                <li>{error.message}</li>
-              </ul>
-            </div>
-          ),
+        setResult({
+          result: error.message,
+          success: false,
         });
-        setIsFormOpen(true);
-        setLoading(false);
       }
     };
   
@@ -127,20 +116,10 @@ function Status() {
       setIsChecked(false);
     } catch (error) {
       // Обновление formContent при ошибке
-      setFormContent({
-        fromData: (
-          <div className="textForm">
-            <h2>Внимание</h2>
-            <div>
-              <pre>Произошёл сбой</pre>
-            </div>
-            <ul>
-              <li>{error.message}</li>
-            </ul>
-          </div>
-        ),
+      setResult({
+        result: error.message,
+        success: false,
       });
-      setLoading(false);
     }
 
     setTimeout(() => {

@@ -54,6 +54,6 @@ export async function getStatus(
     }
   } catch (error) {
     setLoading(false);
-    throw new Error(error);
+    throw error;
   }
 }

@@ -30,7 +30,7 @@ export async function searchIdUs(userLoginSerial, setResult, param) {
     }
     return data;
   } catch {
-    throw new Error(error);
+    throw error;
   }
 }
 
@@ -44,7 +44,7 @@ export async function setInfoToUs(userLogin, surname, name, patronymic, phone) {
   try {
     await requestAPI("POST", "userSide/setInfoToUs", body);
   } catch {
-    throw new Error(error);
+    throw error;
   }
 }
 
@@ -56,11 +56,12 @@ export async function setPppoe(
   setLoading,
   setResult,
   dispatch,
-  navigate,
+  navigate
 ) {
   setLoading(true);
-  setResult(null);
+  setResult(null); // Ожидаем результат в другом месте, не трогаем.
   dispatch(setProgress(0));
+
   let body = {
     regionId: 1,
     serialNewNtu: serial,
@@ -68,17 +69,22 @@ export async function setPppoe(
     userPassword: password,
   };
 
+  let taskId; 
+
   try {
-    // Получаем taskId
-    const taskId = await getTaskId(
+    taskId = await getTaskId(
       "setNTU/setNtuNewPppoe",
       body,
       dispatch,
       setLoading,
-      navigate,
+      navigate
     );
+  } catch (error) {
+    throw error;
+  }
+  
+  try {
     if (taskId) {
-      // Если taskId получен, начинаем отслеживание статуса
       await checkTask(
         "setNTU/taskStatus",
         taskId,
@@ -87,11 +93,13 @@ export async function setPppoe(
         setResult,
         navigate,
         0,
-        80,
+        80
       );
+    } else {
+      throw new Error("taskId не был получен");
     }
   } catch (error) {
-    setLoading(false);
-    throw new Error(error);
+    throw new Error(`Не удалось получить taskId: ${error.message || error}`);
   }
+  
 }
