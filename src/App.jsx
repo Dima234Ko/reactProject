@@ -27,7 +27,7 @@ function App() {
 
 function Main() {
   const location = useLocation();
- 
+
   // Проверка наличия параметра serial в URL
   const params = new URLSearchParams(location.search);
   const hasSerial = params.has("serial");
@@ -41,17 +41,20 @@ function Main() {
 
   let userRootFromLocalStorage = "0";
 
-  function updateUserRootFromLocalStorage (){
+  function updateUserRootFromLocalStorage() {
     userRootFromLocalStorage = JSON.parse(localStorage.getItem("authResult"));
   }
 
   // Функция для перенаправления на другие страницы на основе userRoot
   const redirectTo = (pathname) => {
-    updateUserRootFromLocalStorage ();
+    updateUserRootFromLocalStorage();
     if (pathname === "/user" || pathname === "/log") {
       return userRootFromLocalStorage !== "1" ? "/status" : null;
     }
-    if (pathname === "/status" && !["1", "2", "3"].includes(userRootFromLocalStorage)) {
+    if (
+      pathname === "/status" &&
+      !["1", "2", "3"].includes(userRootFromLocalStorage)
+    ) {
       return "/";
     }
     return null;
@@ -66,39 +69,47 @@ function Main() {
 
   // Логика для меню на разных страницах
   if (location.pathname === "/settings" || location.pathname === "/region") {
-    if (userRootFromLocalStorage === "1" ){
-    menuItems = [
-      { id: "statusPage", name: "Статус", to: "/status" },
-      { id: "userPage", name: "Пользователи", to: "/user" },
-      { id: "logPage", name: "Логи", to: "/log" },
-      { id: "homePage", name: "Выход", to: "/" },
-    ];
-    }else
+    if (userRootFromLocalStorage === "1") {
+      menuItems = [
+        { id: "statusPage", name: "Статус", to: "/status" },
+        { id: "userPage", name: "Пользователи", to: "/user" },
+        { id: "logPage", name: "Логи", to: "/log" },
+        { id: "homePage", name: "Выход", to: "/" },
+      ];
+    } else
       menuItems = [
         { id: "statusPage", name: "Статус", to: "/status" },
         { id: "homePage", name: "Выход", to: "/" },
-    ];
+      ];
   } else if (location.pathname !== "/" && hasSerial) {
-    if (userRootFromLocalStorage === "1" ){
-    menuItems = [
-      { id: "statusPage", name: "Статус", to: "/status" },
-      { id: "pppoePage", name: "PPPoE", to: `/pppoe?serial=${serialFromRedux}` },
-      { id: "wifiPage", name: "WiFi", to: `/wifi?serial=${serialFromRedux}` },
-      { id: "userPage", name: "Пользователи", to: "/user" },
-      { id: "logPage", name: "Логи", to: "/log" },
-      { id: "settingsPage", name: "Настройки", to: "/settings" },
-      { id: "homePage", name: "Выход", to: "/" },
-    ];
+    if (userRootFromLocalStorage === "1") {
+      menuItems = [
+        { id: "statusPage", name: "Статус", to: "/status" },
+        {
+          id: "pppoePage",
+          name: "PPPoE",
+          to: `/pppoe?serial=${serialFromRedux}`,
+        },
+        { id: "wifiPage", name: "WiFi", to: `/wifi?serial=${serialFromRedux}` },
+        { id: "userPage", name: "Пользователи", to: "/user" },
+        { id: "logPage", name: "Логи", to: "/log" },
+        { id: "settingsPage", name: "Настройки", to: "/settings" },
+        { id: "homePage", name: "Выход", to: "/" },
+      ];
     } else
-    menuItems = [
-      { id: "statusPage", name: "Статус", to: "/status" },
-      { id: "pppoePage", name: "PPPoE", to: `/pppoe?serial=${serialFromRedux}` },
-      { id: "wifiPage", name: "WiFi", to: `/wifi?serial=${serialFromRedux}` },
-      { id: "settingsPage", name: "Настройки", to: "/settings" },
-      { id: "homePage", name: "Выход", to: "/" },
-    ];
+      menuItems = [
+        { id: "statusPage", name: "Статус", to: "/status" },
+        {
+          id: "pppoePage",
+          name: "PPPoE",
+          to: `/pppoe?serial=${serialFromRedux}`,
+        },
+        { id: "wifiPage", name: "WiFi", to: `/wifi?serial=${serialFromRedux}` },
+        { id: "settingsPage", name: "Настройки", to: "/settings" },
+        { id: "homePage", name: "Выход", to: "/" },
+      ];
   } else {
-    if (userRootFromLocalStorage === "1" ){
+    if (userRootFromLocalStorage === "1") {
       menuItems = [
         { id: "statusPage", name: "Статус", to: "/status" },
         { id: "userPage", name: "Пользователи", to: "/user" },
@@ -106,11 +117,11 @@ function Main() {
         { id: "settingsPage", name: "Настройки", to: "/settings" },
         { id: "homePage", name: "Выход", to: "/" },
       ];
-    }else
+    } else
       menuItems = [
         { id: "statusPage", name: "Настройки", to: "/settings" },
         { id: "homePage", name: "Выход", to: "/" },
-    ];
+      ];
   }
 
   return (

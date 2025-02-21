@@ -1,6 +1,11 @@
 import React from "react";
 import { Table } from "../../components/Table";
-import { Button, AddUserButton, ChangePassButton, DeleteUserButton } from "../../components/Button";
+import {
+  Button,
+  AddUserButton,
+  ChangePassButton,
+  DeleteUserButton,
+} from "../../components/Button";
 
 const data = [
   { login: "johndoe", fullname: "John Doe" },

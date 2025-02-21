@@ -14,7 +14,12 @@ export async function requestAPI(method, action, body) {
 
     // Проверяем успешность ответа
     if (!response.ok) {
-      const errorMessage = `Error: ${response.status} ${response.statusText}`;
+      let errorMessage;
+      if (response.status === 403) {
+        errorMessage = `API ключ истек, пройдите авторизацию`;
+      } else {
+        errorMessage = `Error: ${response.status} ${response.statusText}`;
+      }
       throw new Error(errorMessage);
     }
 

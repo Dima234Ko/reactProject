@@ -1,7 +1,13 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileImport, faUserSlash,  faUnlock, faUserPen, faUserPlus, faFilterCircleXmark } from "@fortawesome/free-solid-svg-icons";
-
+import {
+  faFileImport,
+  faUserSlash,
+  faUnlock,
+  faUserPen,
+  faUserPlus,
+  faFilterCircleXmark,
+} from "@fortawesome/free-solid-svg-icons";
 
 export function Button({ name, id, onClick, className = "" }) {
   return (

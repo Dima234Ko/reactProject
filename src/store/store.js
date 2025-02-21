@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import serialReducer from "./reducers/serialReducer";
-import progressReducer from "./reducers/progressReducer"; 
+import progressReducer from "./reducers/progressReducer";
 
 const store = configureStore({
   reducer: {

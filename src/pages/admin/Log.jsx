@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Table } from '../../components/Table';
+import { Table } from "../../components/Table";
 import { Input } from "../../components/Input";
 import { Select } from "../../components/Select";
 import { Button, FiltrButton } from "../../components/Button";
@@ -7,8 +7,20 @@ import { Checkbox } from "../../components/Checkbox";
 import { FormInfo } from "../../components/Form";
 
 const data = [
-  { data: '2024-10-01 15:00:42', login: 'John', id: 'HWTCA641697C', info: 'Запрос статуса', acc: 'aks3222' },
-  { data: '2024-10-01 15:00:42', login: 'Doe', id: 'HWTCA641697C', info: 'Запрос статуса', acc: 'aks3222' }
+  {
+    data: "2024-10-01 15:00:42",
+    login: "John",
+    id: "HWTCA641697C",
+    info: "Запрос статуса",
+    acc: "aks3222",
+  },
+  {
+    data: "2024-10-01 15:00:42",
+    login: "Doe",
+    id: "HWTCA641697C",
+    info: "Запрос статуса",
+    acc: "aks3222",
+  },
 ];
 
 const user = ["Иванов", "Краснов"];
@@ -21,7 +33,13 @@ function Log() {
   const [endDate, setEndDate] = useState(""); // Состояние для конечной даты
   const [ponSerial, setPonSerial] = useState(""); // Состояние для pon-serial
   const [login, setLogin] = useState(""); // Состояние для учетной записи
-  const columns = ['Дата', 'Логин', 'ID устройства', 'Содержимое лога', 'Учетная запись'];
+  const columns = [
+    "Дата",
+    "Логин",
+    "ID устройства",
+    "Содержимое лога",
+    "Учетная запись",
+  ];
 
   const openForm = () => {
     setIsFormOpen(true);
@@ -115,10 +133,7 @@ function Log() {
                 onChange={handleAutoCheckboxChange}
               />
             </div>
-            <Button
-              name="Поиск"
-              onClick={console.log('button')}
-            />
+            <Button name="Поиск" onClick={console.log("button")} />
           </div>
         }
       />

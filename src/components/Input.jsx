@@ -1,4 +1,12 @@
-export const Input = ({ id, type, placeholder, value, onChange, disabled, onBlur }) => {
+export const Input = ({
+  id,
+  type,
+  placeholder,
+  value,
+  onChange,
+  disabled,
+  onBlur,
+}) => {
   const handleChange = (event) => {
     if (!disabled) {
       onChange(event);

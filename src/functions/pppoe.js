@@ -3,36 +3,31 @@ import { setProgress } from "../store/actions/progressActions";
 import { requestAPI } from "./api";
 
 //Получить информацию из US
-export async function searchIdUs(
-    userLoginSerial,
-    setResult,
-    param
-  ){ setResult(null);  
-    let body
-    if (param === 'login')
-      body = {
-        userLogin: userLoginSerial,
-      };
-    else {
-      body = {
-        serialNewNtu: userLoginSerial,
-      };
-    }
+export async function searchIdUs(userLoginSerial, setResult, param) {
+  setResult(null);
+  let body;
+  if (param === "login")
+    body = {
+      userLogin: userLoginSerial,
+    };
+  else {
+    body = {
+      serialNewNtu: userLoginSerial,
+    };
+  }
   try {
     const data = await requestAPI("POST", "userSide/getUserId", body);
-    if (data.idUserSideCard !== null ){
+    if (data.idUserSideCard !== null) {
       setResult({
-        result :'Найдена учетная запись в US',
-        success: true
-        }
-      );
+        result: "Найдена учетная запись в US",
+        success: true,
+      });
     } else {
       setResult({
-        result :'Учетная запись в US отсутствует',
-        success: false
-        }
-      );
-    } 
+        result: "Учетная запись в US отсутствует",
+        success: false,
+      });
+    }
     return data;
   } catch {
     throw new Error(error);
@@ -40,23 +35,17 @@ export async function searchIdUs(
 }
 
 //Записать данные в ЮС
-export async function setInfoToUs(
-  userLogin,
-  surname,
-  name,
-  patronymic,
-  phone
-){ 
+export async function setInfoToUs(userLogin, surname, name, patronymic, phone) {
   let body = {
-  userLogin: userLogin,
-  userFullName: `${surname} ${name} ${patronymic}`,
-  userPhone: phone
-};
-try {
-  await requestAPI("POST", "userSide/setInfoToUs", body);
-} catch {
-  throw new Error(error);
-}
+    userLogin: userLogin,
+    userFullName: `${surname} ${name} ${patronymic}`,
+    userPhone: phone,
+  };
+  try {
+    await requestAPI("POST", "userSide/setInfoToUs", body);
+  } catch {
+    throw new Error(error);
+  }
 }
 
 // Функция запроса

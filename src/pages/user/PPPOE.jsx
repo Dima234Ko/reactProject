@@ -35,6 +35,20 @@ function Pppoe() {
     phone: "",
   });
 
+  const [formContent, setFormContent] = useState({
+    fromData: (
+      <div className="textForm">
+        <h2>Внимание</h2>
+        <div>
+          <pre>Произошёл сбой</pre>
+        </div>
+        <ul>
+          <li>Необходимо настроить PPPoE</li>
+        </ul>
+      </div>
+    ),
+  });
+
   const handleInputChange = (event, fieldName) => {
     const newValue = event.target.value;
     setFormFields((prevFields) => ({
@@ -56,18 +70,38 @@ function Pppoe() {
     setSerialState(serialFromRedux);
   }, [serialFromRedux]);
 
-  useEffect(() => {
-    checkTaskStatus(
-      location,
-      loading,
-      result,
-      dispatch,
-      setSerial,
-      setLoading,
-      setResult,
-      navigate
-    );
-  }, [location.search, navigate, loading, dispatch, result]);
+  useEffect(async() => {
+    try {
+      await checkTaskStatus(
+        location,
+        loading,
+        result,
+        dispatch,
+        setSerial,
+        setLoading,
+        setResult,
+        navigate,
+      );
+    } catch (error) {
+      console.log('yes')
+      setFormContent({
+        fromData: (
+          <div className="textForm">
+            <h2>Внимание</h2>
+            <div>
+              <pre>Произошёл сбой</pre>
+            </div>
+            <ul>
+              <li>{error.message}</li>
+            </ul>
+          </div>
+        ),
+      });
+      setIsFormOpen(true);
+      setLoading(false);
+    }
+  }, [location.search, navigate]);
+    
 
   // Функция для заполнения формы данными, полученными из searchIdUs
   const fillFormFromSearchIdUs = (data) => {
@@ -79,45 +113,43 @@ function Pppoe() {
         console.error("Ошибка при разбиении имени на части", error);
       }
       setFormFields({
-        surname: parts[0] || "",      // Фамилия
-        name: parts[1] || "",         // Имя
-        patronymic: parts[2] || "",   // Отчество
-        phone: data.userPhone || "",  // Телефон
+        surname: parts[0] || "", // Фамилия
+        name: parts[1] || "", // Имя
+        patronymic: parts[2] || "", // Отчество
+        phone: data.userPhone || "", // Телефон
       });
     }
   };
-  
 
   // Обработчик изменения логина при потере фокуса
   const handleLoginChange = async () => {
-    let data = null; // Объявляем переменную data вне try-catch
+    let data = null;
     if (login !== "") {
       try {
-        data = await searchIdUs(login, setResult, 'login');
+        data = await searchIdUs(login, setResult, "login");
       } catch (error) {
         console.error("Ошибка при проверке логина", error);
         setResult({
-          result: 'Ошибка при проверке логина',
+          result: "Ошибка при проверке логина",
           success: false,
         });
       } finally {
-        if (data) { // Если data успешно получена, вызываем fillFormFromSearchIdUs
+        if (data) {
           fillFormFromSearchIdUs(data);
         }
       }
     } else {
       setResult({
-        result: 'Введите логин',
+        result: "Введите логин",
         success: false,
       });
     }
   };
-  
 
   // Отправка данных в ЮС
   const handleSetInfoToUs = async () => {
-    try{
-      if(result.success){
+    try {
+      if (result.success) {
         const { surname, name, patronymic, phone } = formFields;
         setResultForm("");
         await setInfoToUs(login, surname, name, patronymic, phone);
@@ -133,7 +165,7 @@ function Pppoe() {
 
   // Отправка PPPoE запроса
   const handleSetPppoe = async () => {
-    if (login !==""){
+    if (login !== "") {
       if (login !== prevLogin) {
         setIsFormOpen(true);
         setPrevLogin(login);
@@ -142,63 +174,9 @@ function Pppoe() {
       setLoading(true);
       setResult(null);
       navigate(`?serial=${serial}`, { replace: true });
-      try {
-        await setPppoe(
-          serial,
-          login,
-          password,
-          setLoading,
-          setResult,
-          dispatch,
-          navigate,
-          progressFromRedux
-        );
-      } catch (error) {
-        setFormContent({
-          fromData: (
-            <div className="textForm">
-              <h2>Внимание</h2>
-              <div>
-                <pre>Произошёл сбой</pre>
-              </div>
-              <ul>
-                <li>{error.message}</li>
-              </ul>
-            </div>
-          ),
-        });
-        setLoading(false);
-      }
-    }else
-      setResult({
-        result :'Введите логин',
-        success: false
-      })
-  };
-
-  // Открытие формы
-  const openForm = () => {
-  if (login !== "") { 
-    setIsFormOpen(true);
-  } else  
-    setResult({
-      result :'Введите логин',
-      success: false
-    })
-  };
-
-  // Закрытие формы
-  const closeForm = () => {
-    setIsFormOpen(false);
-  };
-
-  return (
-    <div id="pppoe">
-      <h2>Настройка PPPoE</h2>
-      <FormInfo
-        isFormOpen={isFormOpen}
-        closeForm={closeForm}
-        formData={
+  
+      setFormContent({
+        fromData: (
           <div className="input-container">
             <h2>Данные {login} верны?</h2>
             <pre>если нет, уточните</pre>
@@ -237,7 +215,68 @@ function Pppoe() {
             {resultForm && <div className="upload-result">{resultForm}</div>}
             <Button name="Записать" onClick={handleSetInfoToUs} />
           </div>
-        }
+        ),
+      });
+  
+      try {
+        await setPppoe(
+          serial,
+          login,
+          password,
+          setLoading,
+          setResult,
+          dispatch,
+          navigate,
+          progressFromRedux
+        );
+      } catch (error) {
+        setFormContent({
+          fromData: (
+            <div className="textForm">
+              <h2>Внимание</h2>
+              <div>
+                <pre>Произошёл сбой</pre>
+              </div>
+              <ul>
+                <li>{error.message}</li>
+              </ul>
+            </div>
+          ),
+        });
+        setLoading(false);
+      }
+    } else {
+      setResult({
+        result: "Введите логин",
+        success: false,
+      });
+    }
+  };
+  
+
+  // Открытие формы
+  const openForm = () => {
+    if (login !== "") {
+      setIsFormOpen(true);
+    } else
+      setResult({
+        result: "Введите логин",
+        success: false,
+      });
+  };
+
+  // Закрытие формы
+  const closeForm = () => {
+    setIsFormOpen(false);
+  };
+
+  return (
+    <div id="pppoe">
+      <h2>Настройка PPPoE</h2>
+      <FormInfo
+        isFormOpen={isFormOpen}
+        closeForm={closeForm}
+        formData={formContent.fromData}
       />
       <Input
         id="id_Ntu"

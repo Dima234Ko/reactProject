@@ -17,7 +17,7 @@ export async function getTaskId(action, body, dispatch, setLoading, navigate) {
     return taskId; // Возвращаем taskId
   } catch (error) {
     setLoading(false);
-    throw new Error("Не удалось получить номер задачи");
+    throw error;
   }
 }
 
@@ -53,6 +53,7 @@ export const checkTaskStatus = async (
         );
       } catch (error) {
         setLoading(false);
+        throw error; 
       }
     }
   }
@@ -102,25 +103,24 @@ export async function checkTask(
       setResult(taskData.result); // Обновляем результат
     }
   } catch (error) {
-    if (attempts < 5) {
-      dispatch(setProgress("NaN")); // Отображаем неопределенное значение прогресса
-      setTimeout(
-        () =>
-          checkTask(
-            action,
-            taskId,
-            dispatch,
-            setLoading,
-            setResult,
-            navigate,
-            attempts + 1,
-            progress,
-          ),
-        10000,
-      ); // Повторяем запрос через 10 секунд
-    } else {
+    // if (attempts < 2) {
+    //   dispatch(setProgress("NaN")); // Отображаем неопределенное значение прогресса
+    //   setTimeout(
+    //     () =>
+    //       checkTask(
+    //         action,
+    //         taskId,
+    //         dispatch,
+    //         setLoading,
+    //         setResult,
+    //         navigate,
+    //         attempts + 1,
+    //         progress,
+    //       ),
+    //     10000,
+    //   ); // Повторяем запрос через 10 секунд
+    // } else {
       setLoading(false);
-      throw new Error("Не удалось данные по номеру задачи");
-    }
+      throw error; 
   }
 }

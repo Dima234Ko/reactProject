@@ -152,9 +152,9 @@ function Wifi() {
   // Создаём асинхронную функцию для получения данных WiFi
   const fetchDataWiFi = async () => {
     try {
-      if (serial !==""){
-        const data = await searchIdUs(serial, setResult, 'serial');
-      // Если данные получены успешно, устанавливаем ssid2_4
+      if (serial !== "") {
+        const data = await searchIdUs(serial, setResult, "serial");
+        // Если данные получены успешно, устанавливаем ssid2_4
         if (data) {
           setSsid2_4(data.ssidWifi2);
           setSsid5(data.ssidWifi5);
@@ -166,12 +166,11 @@ function Wifi() {
       console.error("Ошибка при получении данных WiFi:", error);
     }
   };
-  
 
   useEffect(() => {
     // Выполняем fetchDataWiFi при загрузке страницы
     fetchDataWiFi();
-  }, [serial]);  // Эта зависимость означает, что функция будет вызываться при изменении serial
+  }, [serial]); // Эта зависимость означает, что функция будет вызываться при изменении serial
 
   return (
     <div id="wifi">

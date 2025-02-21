@@ -35,18 +35,37 @@ function Status() {
   }, [serialFromRedux]);
 
   // Проверка статуса задачи при изменении URL
-  useEffect(() => {
-    checkTaskStatus(
-      location,
-      loading,
-      result,
-      dispatch,
-      setSerial,
-      setLoading,
-      setResult,
-      navigate,
-    );
-  }, [location.search, navigate, loading, dispatch, result]);
+  useEffect(async() => {
+    try {
+      await checkTaskStatus(
+        location,
+        loading,
+        result,
+        dispatch,
+        setSerial,
+        setLoading,
+        setResult,
+        navigate,
+      );
+    } catch (error) {
+      console.log('yes')
+      setFormContent({
+        fromData: (
+          <div className="textForm">
+            <h2>Внимание</h2>
+            <div>
+              <pre>Произошёл сбой</pre>
+            </div>
+            <ul>
+              <li>{error.message}</li>
+            </ul>
+          </div>
+        ),
+      });
+      setIsFormOpen(true);
+      setLoading(false);
+    }
+  }, [location.search, navigate]);
 
   const handleInputChange = (event) => {
     const newSerial = event.target.value;

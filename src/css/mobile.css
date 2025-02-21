@@ -8,7 +8,7 @@
   #region {
     width: 100%;
   }
-  
+
   .textForm {
     width: 100%;
   }
@@ -41,8 +41,10 @@
   }
 
   /* Стили для ячеек таблицы */
-  .log-table th, .log-table td,
-  .user-table th, .user-table td {
+  .log-table th,
+  .log-table td,
+  .user-table th,
+  .user-table td {
     padding: 10px;
     text-align: left;
     font-size: 0.9rem; /* Уменьшаем шрифт */
@@ -71,15 +73,17 @@
   }
 
   /* Настройки для скрытия столбцов на мобильных */
-  .log-table th:nth-child(3), .log-table td:nth-child(3),
-  .log-table th:nth-child(5), .log-table td:nth-child(5) {
+  .log-table th:nth-child(3),
+  .log-table td:nth-child(3),
+  .log-table th:nth-child(5),
+  .log-table td:nth-child(5) {
     display: none; /* Скрыть 3-й и 5-й столбцы (ID устройства и Учетная запись) */
   }
 
   #tableButton .upload-button .upload-text {
     display: none;
   }
-  
+
   /* Расположить иконки в одну линию */
   #tableButton .upload-button {
     justify-content: center;

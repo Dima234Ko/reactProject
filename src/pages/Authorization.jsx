@@ -30,9 +30,9 @@ function Authorization() {
       if (root.result) {
         // Сохраняем результат в localStorage, если он существует
         localStorage.setItem("authResult", JSON.stringify(root.root));
-        if (root.root === '1'){
+        if (root.root === "1") {
           navigate("/user");
-        } else if (root.root === '2' || root.root === '3'){
+        } else if (root.root === "2" || root.root === "3") {
           navigate("/status");
         }
       } else {

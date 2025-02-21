@@ -21,12 +21,12 @@
   width: 100%; /* Можно добавить для обеспечения полной ширины контейнера */
 }
 
-#stop_data{
+#stop_data {
   margin-left: 20px;
 }
 
 #start_data,
-#stop_data{
+#stop_data {
   height: 20px;
 }
 
@@ -71,7 +71,7 @@
 
 .textForm h2,
 .textForm pre {
-  margin: 5px; 
+  margin: 5px;
 }
 
 form {

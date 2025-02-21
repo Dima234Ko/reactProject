@@ -21,7 +21,15 @@ function removeQuotes(jsonString) {
 }
 
 function removeFields(data) {
-  const { type, serialNewNtu, success, create_login_US, add_descr,tag_assign, ...newData } = data;
+  const {
+    type,
+    serialNewNtu,
+    success,
+    create_login_US,
+    add_descr,
+    tag_assign,
+    ...newData
+  } = data;
   return newData;
 }
 
