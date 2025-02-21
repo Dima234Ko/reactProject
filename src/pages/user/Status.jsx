@@ -10,7 +10,7 @@ import Result from "../../components/Result";
 import { getStatus } from "../../functions/status";
 import { checkTaskStatus } from "../../functions/task";
 import { NextButton } from "../../components/Link";
-import { FormInfo } from "../../components/Form";
+import { FormInfo } from "../../components/Form/Form";
 import { Checkbox } from "../../components/Checkbox";
 
 function Status() {
@@ -35,36 +35,41 @@ function Status() {
   }, [serialFromRedux]);
 
   // Проверка статуса задачи при изменении URL
-  useEffect(async() => {
-    try {
-      await checkTaskStatus(
-        location,
-        loading,
-        result,
-        dispatch,
-        setSerial,
-        setLoading,
-        setResult,
-        navigate,
-      );
-    } catch (error) {
-      console.log('yes')
-      setFormContent({
-        fromData: (
-          <div className="textForm">
-            <h2>Внимание</h2>
-            <div>
-              <pre>Произошёл сбой</pre>
+  useEffect(() => {
+    // Создаём асинхронную функцию
+    const fetchData = async () => {
+      try {
+        await checkTaskStatus(
+          location,
+          loading,
+          result,
+          dispatch,
+          setSerial,
+          setLoading,
+          setResult,
+          navigate,
+        );
+      } catch (error) {
+        setFormContent({
+          fromData: (
+            <div className="textForm">
+              <h2>Внимание</h2>
+              <div>
+                <pre>Произошёл сбой</pre>
+              </div>
+              <ul>
+                <li>{error.message}</li>
+              </ul>
             </div>
-            <ul>
-              <li>{error.message}</li>
-            </ul>
-          </div>
-        ),
-      });
-      setIsFormOpen(true);
-      setLoading(false);
-    }
+          ),
+        });
+        setIsFormOpen(true);
+        setLoading(false);
+      }
+    };
+  
+    // Вызываем асинхронную функцию
+    fetchData();
   }, [location.search, navigate]);
 
   const handleInputChange = (event) => {
@@ -124,7 +129,7 @@ function Status() {
       // Обновление formContent при ошибке
       setFormContent({
         fromData: (
-          <div class="textForm">
+          <div className="textForm">
             <h2>Внимание</h2>
             <div>
               <pre>Произошёл сбой</pre>

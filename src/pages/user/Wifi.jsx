@@ -10,7 +10,7 @@ import { Loader } from "../../components/Loader";
 import Result from "../../components/Result";
 import { setWiFi } from "../../functions/wifi";
 import { checkTaskStatus } from "../../functions/task";
-import { FormInfo } from "../../components/Form";
+import { FormInfo } from "../../components/Form/Form";
 import { searchIdUs } from "../../functions/pppoe";
 
 function Wifi() {
@@ -33,6 +33,19 @@ function Wifi() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [file, setFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [formContent, setFormContent] = useState({
+    fromData: (
+      <div className="textForm">
+        <h2>Внимание</h2>
+        <div>
+          <pre>Произошёл сбой</pre>
+        </div>
+        <ul>
+          <li>Необходимо настроить WiFi</li>
+        </ul>
+      </div>
+    ),
+  });
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -69,35 +82,48 @@ function Wifi() {
     }
   };
 
-  useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const serialFromUrl = queryParams.get("serial");
-    if (serialFromUrl) {
-      dispatch(setSerial(serialFromUrl));
-      setSerialState(serialFromUrl);
+ // Синхронизация serial с Redux
+ useEffect(() => {
+  setSerialState(serialFromRedux);
+}, [serialFromRedux]);
+
+// Проверка статуса задачи при изменении URL
+useEffect(() => {
+  // Создаём асинхронную функцию
+  const fetchData = async () => {
+    try {
+      await checkTaskStatus(
+        location,
+        loading,
+        result,
+        dispatch,
+        setSerial,
+        setLoading,
+        setResult,
+        navigate,
+      );
+    } catch (error) {
+      setFormContent({
+        fromData: (
+          <div className="textForm">
+            <h2>Внимание</h2>
+            <div>
+              <pre>Произошёл сбой</pre>
+            </div>
+            <ul>
+              <li>{error.message}</li>
+            </ul>
+          </div>
+        ),
+      });
+      setIsFormOpen(true);
+      setLoading(false);
     }
-  }, [location.search, dispatch]);
-
-  useEffect(() => {
-    setSerialState(serialFromRedux);
-  }, [serialFromRedux]);
-
-  const checkTaskStatusEffect = () => {
-    checkTaskStatus(
-      location,
-      loading,
-      result,
-      dispatch,
-      setSerial,
-      setLoading,
-      setResult,
-      navigate,
-    );
   };
 
-  useEffect(() => {
-    checkTaskStatusEffect();
-  }, [location.search, navigate, loading, dispatch, result]);
+  // Вызываем асинхронную функцию
+  fetchData();
+}, [location.search, navigate]);
 
   const handleInputChange = (event) => {
     setSerialState(event.target.value);
@@ -108,6 +134,33 @@ function Wifi() {
     setLoading(true);
     setResult(null);
     navigate(`?serial=${serial}`, { replace: true });
+
+    setFormContent({
+      fromData: (
+        <div className="input-container">
+            <div className="textForm">
+              <h2>Загрузить фото</h2>
+              <pre>Выберите скриншоты из приложения Analizator WiFi</pre>
+            </div>
+            <input type="file" id="file-upload" onChange={handleFileChange} />
+            <label htmlFor="file-upload" className="custom-file-upload">
+              Выбрать файл
+            </label>
+            {file && (
+              <div className="file-name">
+                <strong>Выбран файл: </strong>
+                {file.name}
+              </div>
+            )}
+            <Button
+              name="Загрузить"
+              onClick={handleUpload}
+              disabled={isUploading}
+            />
+            {resultForm && <div className="upload-result">{resultForm}</div>}
+          </div>
+        ),
+      });
     try {
       await setWiFi(
         serial,
@@ -175,36 +228,11 @@ function Wifi() {
   return (
     <div id="wifi">
       <h2>Настройка WiFi</h2>
-
       <FormInfo
         isFormOpen={isFormOpen}
         closeForm={closeForm}
-        formData={
-          <div className="input-container">
-            <div className="textForm">
-              <h2>Загрузить фото</h2>
-              <pre>Выберите скриншоты из приложения Analizator WiFi</pre>
-            </div>
-            <input type="file" id="file-upload" onChange={handleFileChange} />
-            <label htmlFor="file-upload" className="custom-file-upload">
-              Выбрать файл
-            </label>
-            {file && (
-              <div className="file-name">
-                <strong>Выбран файл: </strong>
-                {file.name}
-              </div>
-            )}
-            <Button
-              name="Загрузить"
-              onClick={handleUpload}
-              disabled={isUploading}
-            />
-            {resultForm && <div className="upload-result">{resultForm}</div>}
-          </div>
-        }
+        formData={formContent.fromData}
       />
-
       <div className="ssid-container">
         <Input
           id="id_Ntu"

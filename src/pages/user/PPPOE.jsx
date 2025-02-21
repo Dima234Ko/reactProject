@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { setProgress } from "../../store/actions/progressActions";
@@ -10,13 +10,13 @@ import Result from "../../components/Result";
 import { setPppoe, searchIdUs, setInfoToUs } from "../../functions/pppoe";
 import { checkTaskStatus } from "../../functions/task";
 import { NextButton } from "../../components/Link";
-import { FormInfo } from "../../components/Form";
+import { FormInfo } from "../../components/Form/Form";
+import { FormUser } from "../../components/Form/FormUser";
 
 function Pppoe() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const [serial, setSerialState] = useState(serialFromRedux || "");
@@ -26,15 +26,6 @@ function Pppoe() {
   const [password, setPassword] = useState("");
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [prevLogin, setPrevLogin] = useState("");
-  const [resultForm, setResultForm] = useState(null);
-
-  const [formFields, setFormFields] = useState({
-    surname: "",
-    name: "",
-    patronymic: "",
-    phone: "",
-  });
-
   const [formContent, setFormContent] = useState({
     fromData: (
       <div className="textForm">
@@ -49,14 +40,6 @@ function Pppoe() {
     ),
   });
 
-  const handleInputChange = (event, fieldName) => {
-    const newValue = event.target.value;
-    setFormFields((prevFields) => ({
-      ...prevFields,
-      [fieldName]: newValue,
-    }));
-  };
-
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const serialFromUrl = queryParams.get("serial");
@@ -70,154 +53,63 @@ function Pppoe() {
     setSerialState(serialFromRedux);
   }, [serialFromRedux]);
 
-  useEffect(async() => {
-    try {
-      await checkTaskStatus(
-        location,
-        loading,
-        result,
-        dispatch,
-        setSerial,
-        setLoading,
-        setResult,
-        navigate,
-      );
-    } catch (error) {
-      console.log('yes')
-      setFormContent({
-        fromData: (
-          <div className="textForm">
-            <h2>Внимание</h2>
-            <div>
-              <pre>Произошёл сбой</pre>
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await checkTaskStatus(
+          location,
+          loading,
+          result,
+          dispatch,
+          setSerial,
+          setLoading,
+          setResult,
+          navigate
+        );
+      } catch (error) {
+        setFormContent({
+          fromData: (
+            <div className="textForm">
+              <h2>Внимание</h2>
+              <div>
+                <pre>Произошёл сбой</pre>
+              </div>
+              <ul>
+                <li>{error.message}</li>
+              </ul>
             </div>
-            <ul>
-              <li>{error.message}</li>
-            </ul>
-          </div>
-        ),
-      });
-      setIsFormOpen(true);
-      setLoading(false);
-    }
-  }, [location.search, navigate]);
-    
-
-  // Функция для заполнения формы данными, полученными из searchIdUs
-  const fillFormFromSearchIdUs = (data) => {
-    if (data) {
-      let parts = [];
-      try {
-        parts = data.userFullName.split(" "); // Попробуем разделить строку
-      } catch (error) {
-        console.error("Ошибка при разбиении имени на части", error);
-      }
-      setFormFields({
-        surname: parts[0] || "", // Фамилия
-        name: parts[1] || "", // Имя
-        patronymic: parts[2] || "", // Отчество
-        phone: data.userPhone || "", // Телефон
-      });
-    }
-  };
-
-  // Обработчик изменения логина при потере фокуса
-  const handleLoginChange = async () => {
-    let data = null;
-    if (login !== "") {
-      try {
-        data = await searchIdUs(login, setResult, "login");
-      } catch (error) {
-        console.error("Ошибка при проверке логина", error);
-        setResult({
-          result: "Ошибка при проверке логина",
-          success: false,
+          ),
         });
-      } finally {
-        if (data) {
-          fillFormFromSearchIdUs(data);
-        }
+        setIsFormOpen(true);
+        setLoading(false);
       }
-    } else {
-      setResult({
-        result: "Введите логин",
-        success: false,
-      });
-    }
-  };
+    };
+    fetchData();
+  }, [location.search, navigate]);
 
-  // Отправка данных в ЮС
-  const handleSetInfoToUs = async () => {
-    try {
-      if (result.success) {
-        const { surname, name, patronymic, phone } = formFields;
-        setResultForm("");
-        await setInfoToUs(login, surname, name, patronymic, phone);
-        setResultForm("Данные записаны");
-      }
-    } catch {
-      setResultForm(`Не удалось обновить данные, 
-        необходимо настроить PPPoE, 
-        дождаться окончания запроса 
-        и повторить попытку`);
-    }
-  };
-
-  // Отправка PPPoE запроса
   const handleSetPppoe = async () => {
     if (login !== "") {
       if (login !== prevLogin) {
-        setIsFormOpen(true);
         setPrevLogin(login);
       }
       dispatch(setProgress(0));
       setLoading(true);
       setResult(null);
       navigate(`?serial=${serial}`, { replace: true });
-  
+
       setFormContent({
         fromData: (
-          <div className="input-container">
-            <h2>Данные {login} верны?</h2>
-            <pre>если нет, уточните</pre>
-            <input
-              className="some-input"
-              id="surname"
-              type="text"
-              placeholder="Введите фамилию"
-              value={formFields.surname}
-              onChange={(e) => handleInputChange(e, "surname")}
-            />
-            <input
-              className="some-input"
-              id="name"
-              type="text"
-              placeholder="Введите имя"
-              value={formFields.name}
-              onChange={(e) => handleInputChange(e, "name")}
-            />
-            <input
-              className="some-input"
-              id="patronymic"
-              type="text"
-              placeholder="Введите отчество"
-              value={formFields.patronymic}
-              onChange={(e) => handleInputChange(e, "patronymic")}
-            />
-            <input
-              className="some-input"
-              id="phone"
-              type="tel"
-              placeholder="Введите телефон"
-              value={formFields.phone}
-              onChange={(e) => handleInputChange(e, "phone")}
-            />
-            {resultForm && <div className="upload-result">{resultForm}</div>}
-            <Button name="Записать" onClick={handleSetInfoToUs} />
-          </div>
+          <FormUser
+            login={login}
+            setResult={setResult}
+            searchIdUs={searchIdUs}
+            setInfoToUs={setInfoToUs}
+            result={result}
+          />
         ),
       });
-  
+      setIsFormOpen(true);
+
       try {
         await setPppoe(
           serial,
@@ -252,20 +144,18 @@ function Pppoe() {
       });
     }
   };
-  
 
-  // Открытие формы
   const openForm = () => {
     if (login !== "") {
       setIsFormOpen(true);
-    } else
+    } else {
       setResult({
         result: "Введите логин",
         success: false,
       });
+    }
   };
 
-  // Закрытие формы
   const closeForm = () => {
     setIsFormOpen(false);
   };
@@ -292,7 +182,6 @@ function Pppoe() {
         placeholder="Введите логин"
         value={login}
         onChange={(e) => setLogin(e.target.value)}
-        onBlur={handleLoginChange}
       />
       <Input
         id="password"

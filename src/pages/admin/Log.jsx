@@ -4,7 +4,7 @@ import { Input } from "../../components/Input";
 import { Select } from "../../components/Select";
 import { Button, FiltrButton } from "../../components/Button";
 import { Checkbox } from "../../components/Checkbox";
-import { FormInfo } from "../../components/Form";
+import { FormInfo } from "../../components/Form/Form";
 
 const data = [
   {
