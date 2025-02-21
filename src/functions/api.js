@@ -31,3 +31,34 @@ export async function requestAPI(method, action, body) {
     throw error;
   }
 }
+
+
+export async function requestPhoto(method, action, body) {
+  try {
+    const headers = {
+      "Content-Type": "multipart/form-data", // Убираем content-type, FormData сам обрабатывает этот заголовок
+    };
+
+    const response = await fetch(`https://172.24.6.20:7449/${action}`, {
+      method: method,
+      credentials: "include",
+      headers: headers,
+      body: body, // Передаем formData напрямую
+    });
+
+    if (!response.ok) {
+      let errorMessage;
+      if (response.status === 403) {
+        errorMessage = `API ключ истек или у вас нет доступа к данной задаче, пройдите авторизацию`;
+      } else {
+        errorMessage = `Error: ${response.status} ${response.statusText}`;
+      }
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}

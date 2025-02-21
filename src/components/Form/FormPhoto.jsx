@@ -1,43 +1,42 @@
 import React, { useState } from "react";
 import { Button } from "../../components/Button";
-import { requestAPI } from "../../functions/api";
+import { requestPhoto } from "../../functions/api";
 
 export function FormPhoto({ isUploading, setIsUploading, setFile }) {
-  // Локальные состояния для файла и сообщения
   const [file, setLocalFile] = useState(null);
   const [resultForm, setResultForm] = useState("");
 
-  // Обработчик изменения файла
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
-      setLocalFile(selectedFile); // Сохраняем файл в локальное состояние
+      setLocalFile(selectedFile);
       setResultForm(""); // Очищаем сообщение об ошибке или успехе
     }
   };
 
-  // Обработчик загрузки файла
   const handleUpload = async () => {
     if (!file) {
       setResultForm("Пожалуйста, выберите файл для загрузки");
       return;
     }
 
-    setIsUploading(true); // Включаем индикатор загрузки
+    setIsUploading(true);
     setResultForm("Загрузка началась...");
 
     const formData = new FormData();
-    formData.append("file", file); // Добавляем файл в FormData
- 
-    try{
-        console.log('1')
-    response = await requestAPI("POST", photos, formData);
-    if (!response.ok) throw new Error("Ошибка загрузки фото");
+    formData.append("file", file);
+
+    try {
+      const response = await requestPhoto("POST", "photos", formData);
+      if (response.ok) {
         setResultForm("Фото успешно загружено");
+      } else {
+        setResultForm("Ошибка загрузки фото");
+      }
     } catch (error) {
       setResultForm("Произошла ошибка при загрузке фото. Попробуйте снова.");
     } finally {
-      setIsUploading(false); 
+      setIsUploading(false);
     }
   };
 
