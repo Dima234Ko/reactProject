@@ -56,7 +56,7 @@ function Status() {
         });
       }
     };
-  
+
     // Вызываем асинхронную функцию
     fetchData();
   }, [location.search, navigate]);

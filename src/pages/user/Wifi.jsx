@@ -12,18 +12,17 @@ import { setWiFi } from "../../functions/wifi";
 import { checkTaskStatus } from "../../functions/task";
 import { FormInfo } from "../../components/Form/Form";
 import { searchIdUs } from "../../functions/pppoe";
+import { FormPhoto } from "../../components/Form/FormPhoto"; // Импортируем компонент для загрузки фото
 
 function Wifi() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const [serial, setSerialState] = useState(serialFromRedux || "");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
-  const [resultForm, setResultForm] = useState(null);
   const [ssid2_4, setSsid2_4] = useState("");
   const [password2_4, setPassword2_4] = useState("");
   const [selectSSID2_4, setSelectSSID2_4] = useState("auto");
@@ -33,134 +32,43 @@ function Wifi() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [file, setFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
-  const [formContent, setFormContent] = useState({
-    fromData: (
-      <div className="textForm">
-        <h2>Внимание</h2>
-        <div>
-          <pre>Произошёл сбой</pre>
-        </div>
-        <ul>
-          <li>Необходимо настроить WiFi</li>
-        </ul>
-      </div>
-    ),
-  });
 
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-      setResultForm(""); // Очистить результат формы при изменении файла
-    }
-  };
+  // Синхронизация serial с Redux
+  useEffect(() => {
+    setSerialState(serialFromRedux);
+  }, [serialFromRedux]);
 
-  const handleUpload = async () => {
-    if (!file) {
-      setResultForm("Пожалуйста, выберите файл для загрузки");
-      return;
-    }
+  // Проверка статуса задачи при изменении URL
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await checkTaskStatus(
+          location,
+          loading,
+          result,
+          dispatch,
+          setSerial,
+          setLoading,
+          setResult,
+          navigate,
+        );
+      } catch (error) {
+        setResult({
+          result: error.message,
+          success: false,
+        });
+      }
+    };
+    fetchData();
+  }, [location.search, navigate]);
 
-    setIsUploading(true);
-    setResultForm("Загрузка началась...");
-
-    const formData = new FormData();
-    formData.append("file", file);
-
-    try {
-      const response = await fetch("/upload", {
-        method: "POST",
-        body: formData,
-      });
-      if (!response.ok) throw new Error("Ошибка загрузки фото");
-      const data = await response.json();
-      setResultForm("Фото успешно загружено");
-    } catch (error) {
-      setResultForm("Произошла ошибка при загрузке фото. Попробуйте снова.");
-    } finally {
-      setIsUploading(false);
-    }
-  };
-
- // Синхронизация serial с Redux
- useEffect(() => {
-  setSerialState(serialFromRedux);
-}, [serialFromRedux]);
-
-// Проверка статуса задачи при изменении URL
-useEffect(() => {
-  // Создаём асинхронную функцию
-  const fetchData = async () => {
-    try {
-      await checkTaskStatus(
-        location,
-        loading,
-        result,
-        dispatch,
-        setSerial,
-        setLoading,
-        setResult,
-        navigate,
-      );
-    } catch (error) {
-      setFormContent({
-        fromData: (
-          <div className="textForm">
-            <h2>Внимание</h2>
-            <div>
-              <pre>Произошёл сбой</pre>
-            </div>
-            <ul>
-              <li>{error.message}</li>
-            </ul>
-          </div>
-        ),
-      });
-      setIsFormOpen(true);
-      setLoading(false);
-    }
-  };
-
-  // Вызываем асинхронную функцию
-  fetchData();
-}, [location.search, navigate]);
-
-  const handleInputChange = (event) => {
-    setSerialState(event.target.value);
-  };
-
+  // Обработчик для настройки WiFi
   const handleSetWiFi = async () => {
     dispatch(setProgress(0));
     setLoading(true);
     setResult(null);
     navigate(`?serial=${serial}`, { replace: true });
 
-    setFormContent({
-      fromData: (
-        <div className="input-container">
-            <div className="textForm">
-              <h2>Загрузить фото</h2>
-              <pre>Выберите скриншоты из приложения Analizator WiFi</pre>
-            </div>
-            <input type="file" id="file-upload" onChange={handleFileChange} />
-            <label htmlFor="file-upload" className="custom-file-upload">
-              Выбрать файл
-            </label>
-            {file && (
-              <div className="file-name">
-                <strong>Выбран файл: </strong>
-                {file.name}
-              </div>
-            )}
-            <Button
-              name="Загрузить"
-              onClick={handleUpload}
-              disabled={isUploading}
-            />
-            {resultForm && <div className="upload-result">{resultForm}</div>}
-          </div>
-        ),
-      });
     try {
       await setWiFi(
         serial,
@@ -177,37 +85,28 @@ useEffect(() => {
         progressFromRedux,
       );
     } catch (error) {
-      setFormContent({
-        fromData: (
-          <div class="textForm">
-            <h2>Внимание</h2>
-            <div>
-              <pre>Произошёл сбой</pre>
-            </div>
-            <ul>
-              <li>{error.message}</li>
-            </ul>
-          </div>
-        ),
+      setResult({
+        result: error.message,
+        success: false,
       });
-      setLoading(false);
     }
   };
 
+  // Открыть форму для загрузки файла
   const openForm = () => {
     setIsFormOpen(true);
   };
 
+  // Закрыть форму для загрузки файла
   const closeForm = () => {
     setIsFormOpen(false);
   };
 
-  // Создаём асинхронную функцию для получения данных WiFi
+  // Асинхронная функция для получения данных WiFi по serial
   const fetchDataWiFi = async () => {
     try {
       if (serial !== "") {
         const data = await searchIdUs(serial, setResult, "serial");
-        // Если данные получены успешно, устанавливаем ssid2_4
         if (data) {
           setSsid2_4(data.ssidWifi2);
           setSsid5(data.ssidWifi5);
@@ -221,9 +120,8 @@ useEffect(() => {
   };
 
   useEffect(() => {
-    // Выполняем fetchDataWiFi при загрузке страницы
     fetchDataWiFi();
-  }, [serial]); // Эта зависимость означает, что функция будет вызываться при изменении serial
+  }, [serial]);
 
   return (
     <div id="wifi">
@@ -231,7 +129,13 @@ useEffect(() => {
       <FormInfo
         isFormOpen={isFormOpen}
         closeForm={closeForm}
-        formData={formContent.fromData}
+        formData={
+          <FormPhoto
+            isUploading={isUploading}
+            setIsUploading={setIsUploading}
+            setFile={setFile}
+          />
+        }
       />
       <div className="ssid-container">
         <Input
@@ -239,7 +143,7 @@ useEffect(() => {
           type="text"
           placeholder="Введите pon-serial"
           value={serial}
-          onChange={handleInputChange}
+          onChange={(e) => setSerialState(e.target.value)}
           disabled={true}
         />
       </div>
@@ -271,10 +175,11 @@ useEffect(() => {
           onChange={(e) => {
             const newSsid = e.target.value;
             setPassword2_4(e.target.value);
-            setPassword5(e.target.value); // Обновляем SSID для 5ГГц
+            setPassword5(e.target.value); // Обновляем пароль для 5ГГц
           }}
         />
       </div>
+
       <div className="ssid-container">
         <Input
           id="SSID5"
@@ -288,6 +193,7 @@ useEffect(() => {
           onChange={(e) => setSelectSSID5(e.target.value)}
         />
       </div>
+
       <div className="ssid-container">
         <Input
           id="password5"
@@ -297,6 +203,7 @@ useEffect(() => {
           onChange={(e) => setPassword5(e.target.value)}
         />
       </div>
+
       <UploadButton onClick={openForm} />
 
       {loading && (

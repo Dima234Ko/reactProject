@@ -53,7 +53,7 @@ export const checkTaskStatus = async (
         );
       } catch (error) {
         setLoading(false);
-        throw error; 
+        throw error;
       }
     }
   }

@@ -39,7 +39,7 @@ function Pppoe() {
       </div>
     ),
   });
-  const [data, setData] = useState(null); 
+  const [data, setData] = useState(null);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -65,7 +65,7 @@ function Pppoe() {
           setSerial,
           setLoading,
           setResult,
-          navigate
+          navigate,
         );
       } catch (error) {
         setResult({
@@ -108,7 +108,7 @@ function Pppoe() {
           setResult,
           dispatch,
           navigate,
-          progressFromRedux
+          progressFromRedux,
         );
       } catch (error) {
         setResult({

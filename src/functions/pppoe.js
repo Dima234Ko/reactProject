@@ -56,10 +56,10 @@ export async function setPppoe(
   setLoading,
   setResult,
   dispatch,
-  navigate
+  navigate,
 ) {
   setLoading(true);
-  setResult(null); // Ожидаем результат в другом месте, не трогаем.
+  setResult(null);
   dispatch(setProgress(0));
 
   let body = {
@@ -69,7 +69,7 @@ export async function setPppoe(
     userPassword: password,
   };
 
-  let taskId; 
+  let taskId;
 
   try {
     taskId = await getTaskId(
@@ -77,12 +77,12 @@ export async function setPppoe(
       body,
       dispatch,
       setLoading,
-      navigate
+      navigate,
     );
   } catch (error) {
     throw error;
   }
-  
+
   try {
     if (taskId) {
       await checkTask(
@@ -93,7 +93,7 @@ export async function setPppoe(
         setResult,
         navigate,
         0,
-        80
+        80,
       );
     } else {
       throw new Error("taskId не был получен");
@@ -101,5 +101,4 @@ export async function setPppoe(
   } catch (error) {
     throw new Error(`Не удалось получить taskId: ${error.message || error}`);
   }
-  
 }
