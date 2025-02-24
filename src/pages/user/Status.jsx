@@ -12,6 +12,8 @@ import { checkTaskStatus } from "../../functions/task";
 import { NextButton } from "../../components/Link";
 import { FormInfo } from "../../components/Form/Form";
 import { Checkbox } from "../../components/Checkbox";
+import { setRegion } from "../../store/actions/regionActions";
+import { getParamBrowserUrl } from "../../functions/url";
 
 function Status() {
   const dispatch = useDispatch();
@@ -19,7 +21,9 @@ function Status() {
   const location = useLocation();
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
+  const regionFromRedux = useSelector((state) => state.region.region);
   const [serial, setSerialState] = useState(serialFromRedux || "");
+  const [regionId, setRegionId] = useState(regionFromRedux || "");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -29,14 +33,18 @@ function Status() {
     fromData: "",
   });
 
-  // Синхронизация serial с Redux
+
+
+  // Синхронизация serial с Redux и regionId с URL
   useEffect(() => {
     setSerialState(serialFromRedux);
-  }, [serialFromRedux]);
+    const params = new URLSearchParams(location.search);
+    const regionFromUrl = getParamBrowserUrl("region");
+    setRegionId(regionFromUrl); 
+  }, [serialFromRedux, location.search]);
 
   // Проверка статуса задачи при изменении URL
   useEffect(() => {
-    // Создаём асинхронную функцию
     const fetchData = async () => {
       try {
         await checkTaskStatus(
@@ -57,7 +65,6 @@ function Status() {
       }
     };
 
-    // Вызываем асинхронную функцию
     fetchData();
   }, [location.search, navigate]);
 
@@ -99,7 +106,6 @@ function Status() {
     setLoading(true);
     setResult(null);
     setError("");
-    navigate(`?serial=${serial}`, { replace: true });
     setIsFormOpen(true);
 
     try {
@@ -109,13 +115,13 @@ function Status() {
         setLoading,
         setResult,
         dispatch,
-        navigate,
+        navigate, // Передаем функцию navigate без вызова
+        regionId,
         progressFromRedux,
         setError,
       );
       setIsChecked(false);
     } catch (error) {
-      // Обновление formContent при ошибке
       setResult({
         result: error.message,
         success: false,
@@ -172,7 +178,7 @@ function Status() {
       )}
       {result && <Result data={result} />}
       <NextButton
-        to={`/pppoe?serial=${serial}`}
+        to={`/pppoe?${regionId}&serial=${serial}`}
         disabled={result === null || result?.success !== true}
       />
     </div>

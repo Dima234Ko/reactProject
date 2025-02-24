@@ -3,8 +3,9 @@ import { Select } from "../../components/Select";
 import { Button } from "../../components/Button";
 import { requestAPI } from "../../functions/api";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux"; // Добавляем useDispatch
-import { setRegion } from "../../store/actions/regionActions"; // Импортируем экшен
+import { useDispatch } from "react-redux"; 
+import { setRegion } from "../../store/actions/regionActions"; 
+import { updateUrlWithParam } from "../../functions/url";
 
 function Region() {
   const [regions, setRegions] = useState([]); // Храним полные данные регионов
@@ -15,12 +16,12 @@ function Region() {
   useEffect(() => {
     const fetchRegion = async () => {
       try {
-        const result = await requestAPI("GET", "settings/getRegion");
-        setRegions(result);
+        const reg = await requestAPI("GET", "settings/getRegion");
+        setRegions(reg);
         // Устанавливаем дефолтное значение
-        if (result.length > 0) {
-          setSelectedRegion(result[0].regionName);
-          dispatch(setRegion(result[0].id)); // Сохраняем id первого региона в Redux
+        if (reg.length > 0) {
+          setSelectedRegion(reg[0].regionName);
+          dispatch(setRegion(reg[0].id)); // Сохраняем id первого региона в Redux
         }
       } catch (error) {
         console.error("Ошибка при загрузке данных региона:", error);
@@ -44,7 +45,7 @@ function Region() {
       // Сохраняем id региона в Redux
       dispatch(setRegion(regionId));
       // Обновляем URL с использованием id региона
-      navigate(`?region=${regionId}`);
+      updateUrlWithParam("region", regionId, navigate);
     }
   };
 

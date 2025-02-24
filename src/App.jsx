@@ -38,6 +38,7 @@ function Main() {
 
   // Получаем serial из Redux
   const serialFromRedux = useSelector((state) => state.serial.serial);
+  const regionFromRedux = useSelector((state) => state.region.region);
 
   let userRootFromLocalStorage = "0";
 
@@ -71,26 +72,26 @@ function Main() {
   if (location.pathname === "/settings" || location.pathname === "/region") {
     if (userRootFromLocalStorage === "1") {
       menuItems = [
-        { id: "statusPage", name: "Статус", to: "/status" },
+        { id: "statusPage", name: "Статус", to: `/status?region=${regionFromRedux}` },
         { id: "userPage", name: "Пользователи", to: "/user" },
         { id: "logPage", name: "Логи", to: "/log" },
         { id: "homePage", name: "Выход", to: "/" },
       ];
     } else
       menuItems = [
-        { id: "statusPage", name: "Статус", to: "/status" },
+        { id: "statusPage", name: "Статус", to: `/status?region=${regionFromRedux}`},
         { id: "homePage", name: "Выход", to: "/" },
       ];
   } else if (location.pathname !== "/" && hasSerial) {
     if (userRootFromLocalStorage === "1") {
       menuItems = [
-        { id: "statusPage", name: "Статус", to: "/status" },
+        { id: "statusPage", name: "Статус", to: `/status?region=${regionFromRedux}` },
         {
           id: "pppoePage",
           name: "PPPoE",
-          to: `/pppoe?serial=${serialFromRedux}`,
+          to: `/pppoe?region=${regionFromRedux}/serial=${serialFromRedux}`,
         },
-        { id: "wifiPage", name: "WiFi", to: `/wifi?serial=${serialFromRedux}` },
+        { id: "wifiPage", name: "WiFi", to: `/wifi?region=${regionFromRedux}/serial=${serialFromRedux}` },
         { id: "userPage", name: "Пользователи", to: "/user" },
         { id: "logPage", name: "Логи", to: "/log" },
         { id: "settingsPage", name: "Настройки", to: "/settings" },
@@ -98,20 +99,20 @@ function Main() {
       ];
     } else
       menuItems = [
-        { id: "statusPage", name: "Статус", to: "/status" },
+        { id: "statusPage", name: "Статус", to: `/status?region=${regionFromRedux}` },
         {
           id: "pppoePage",
           name: "PPPoE",
-          to: `/pppoe?serial=${serialFromRedux}`,
+          to: `/pppoe?region=${regionFromRedux}/serial=${serialFromRedux}`,
         },
-        { id: "wifiPage", name: "WiFi", to: `/wifi?serial=${serialFromRedux}` },
+        { id: "wifiPage", name: "WiFi", to: `/wifi?region=${regionFromRedux}/serial=${serialFromRedux}` },
         { id: "settingsPage", name: "Настройки", to: "/settings" },
         { id: "homePage", name: "Выход", to: "/" },
       ];
   } else {
     if (userRootFromLocalStorage === "1") {
       menuItems = [
-        { id: "statusPage", name: "Статус", to: "/status" },
+        { id: "statusPage", name: "Статус", to: `/status?region=${regionFromRedux}` },
         { id: "userPage", name: "Пользователи", to: "/user" },
         { id: "logPage", name: "Логи", to: "/log" },
         { id: "settingsPage", name: "Настройки", to: "/settings" },

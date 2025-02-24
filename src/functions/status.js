@@ -9,6 +9,7 @@ export async function getStatus(
   setResult,
   dispatch,
   navigate,
+  regionId
 ) {
   setLoading(true);
   setResult(false);
@@ -20,7 +21,7 @@ export async function getStatus(
   }
 
   let body = {
-    regionId: 1,
+    regionId: regionId,
     serialNewNtu: serial,
   };
 
@@ -37,6 +38,7 @@ export async function getStatus(
       dispatch,
       setLoading,
       navigate,
+      serial
     );
 
     if (taskId) {
