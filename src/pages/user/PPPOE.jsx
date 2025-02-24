@@ -14,6 +14,7 @@ import { NextButton } from "../../components/Link";
 import { FormInfo } from "../../components/Form/Form";
 import { FormUser } from "../../components/Form/FormUser";
 import { getParamBrowserUrl } from "../../functions/url";
+import { getRegion } from "../../functions/region";
 
 function Pppoe() {
   const dispatch = useDispatch();
@@ -49,7 +50,7 @@ function Pppoe() {
     setSerialState(serialFromRedux);
     const params = new URLSearchParams(location.search);
     const regionFromUrl = getParamBrowserUrl("region");
-    setRegionId(regionFromUrl); 
+    setRegionId(regionFromUrl);
     dispatch(setRegion(regionFromUrl));
   }, [serialFromRedux, location.search]);
 
@@ -107,7 +108,7 @@ function Pppoe() {
           setResult,
           dispatch,
           navigate,
-          regionId
+          regionId,
         );
       } catch (error) {
         setResult({
@@ -174,6 +175,7 @@ function Pppoe() {
   return (
     <div id="pppoe">
       <h2>Настройка PPPoE</h2>
+      <h5>{getRegion(regionId)}</h5>
       <FormInfo
         isFormOpen={isFormOpen}
         closeForm={closeForm}

@@ -3,7 +3,14 @@ import { setProgress } from "../store/actions/progressActions";
 import { updateUrlWithParam } from "./url";
 
 // Функция для получения taskId
-export async function getTaskId(action, body, dispatch, setLoading, navigate, serial) {
+export async function getTaskId(
+  action,
+  body,
+  dispatch,
+  setLoading,
+  navigate,
+  serial,
+) {
   try {
     // Запрашиваем номер задачи
     const data = await requestAPI("POST", action, body);
@@ -14,7 +21,6 @@ export async function getTaskId(action, body, dispatch, setLoading, navigate, se
     // Добавляем taskId в URL
     updateUrlWithParam("serial", serial, navigate);
     updateUrlWithParam("task", taskId, navigate);
-    
 
     return taskId; // Возвращаем taskId
   } catch (error) {

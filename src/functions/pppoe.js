@@ -14,7 +14,7 @@ export async function searchIdUs(userLoginSerial, setResult, param) {
         userLogin: userLoginSerial,
       };
       data = await requestAPI("POST", "userSide/getUserId", body);
-      
+
       if (data.idUserSideCard !== null) {
         setResult({
           result: "Найдена учетная запись в US",
@@ -30,12 +30,12 @@ export async function searchIdUs(userLoginSerial, setResult, param) {
       body = {
         serialNewNtu: userLoginSerial,
       };
-      data = await requestAPI("POST", "userSide/getUserId", body); 
+      data = await requestAPI("POST", "userSide/getUserId", body);
     }
-    
+
     return data;
   } catch (error) {
-    throw error; 
+    throw error;
   }
 }
 
@@ -62,7 +62,7 @@ export async function setPppoe(
   setResult,
   dispatch,
   navigate,
-  regionId
+  regionId,
 ) {
   setLoading(true);
   setResult(null);
@@ -84,7 +84,7 @@ export async function setPppoe(
       dispatch,
       setLoading,
       navigate,
-      serial
+      serial,
     );
   } catch (error) {
     throw error;

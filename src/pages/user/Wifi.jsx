@@ -15,6 +15,7 @@ import { FormInfo } from "../../components/Form/Form";
 import { searchIdUs } from "../../functions/pppoe";
 import { FormPhoto } from "../../components/Form/FormPhoto";
 import { getParamBrowserUrl } from "../../functions/url";
+import { getRegion } from "../../functions/region";
 
 function Wifi() {
   const dispatch = useDispatch();
@@ -56,10 +57,9 @@ function Wifi() {
     setSerialState(serialFromRedux);
     const params = new URLSearchParams(location.search);
     const regionFromUrl = getParamBrowserUrl("region");
-    setRegionId(regionFromUrl); 
+    setRegionId(regionFromUrl);
     dispatch(setRegion(regionFromUrl));
   }, [serialFromRedux, location.search]);
-
 
   // Асинхронная функция для получения данных WiFi по serial
   const fetchDataWiFi = async () => {
@@ -116,12 +116,12 @@ function Wifi() {
     setFormContent({
       fromData: (
         <FormPhoto
-        isUploading={isUploading}
-        setIsUploading={setIsUploading}
-        setFile={setFile}
-        login={login}  
-        idUserSideCard={idUserSideCard}  
-      />
+          isUploading={isUploading}
+          setIsUploading={setIsUploading}
+          setFile={setFile}
+          login={login}
+          idUserSideCard={idUserSideCard}
+        />
       ),
     });
 
@@ -138,7 +138,7 @@ function Wifi() {
         setResult,
         dispatch,
         navigate,
-        regionId
+        regionId,
       );
     } catch (error) {
       setResult({
@@ -161,6 +161,7 @@ function Wifi() {
   return (
     <div id="wifi">
       <h2>Настройка WiFi</h2>
+      <h5>{getRegion(regionId)}</h5>
       <FormInfo
         isFormOpen={isFormOpen}
         closeForm={closeForm}
@@ -186,7 +187,7 @@ function Wifi() {
           onChange={(e) => {
             const newSsid = e.target.value;
             setSsid2_4(newSsid);
-            setSsid5(newSsid + "_5G"); 
+            setSsid5(newSsid + "_5G");
           }}
         />
         <SelectSSID

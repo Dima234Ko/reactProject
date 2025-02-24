@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import { Button } from "../../components/Button";
 import { requestPhoto } from "../../functions/api";
 
-export function FormPhoto({ isUploading, setIsUploading, setFile, login, idUserSideCard }) {
+export function FormPhoto({
+  isUploading,
+  setIsUploading,
+  setFile,
+  login,
+  idUserSideCard,
+}) {
   const [file, setLocalFile] = useState(null);
   const [resultForm, setResultForm] = useState("");
 
@@ -10,7 +16,7 @@ export function FormPhoto({ isUploading, setIsUploading, setFile, login, idUserS
     const selectedFile = event.target.files[0];
     if (selectedFile) {
       setLocalFile(selectedFile);
-      setResultForm(""); 
+      setResultForm("");
     }
   };
 
@@ -20,17 +26,17 @@ export function FormPhoto({ isUploading, setIsUploading, setFile, login, idUserS
       setResultForm("Пожалуйста, выберите файл для загрузки");
       return;
     }
-  
+
     // Начинаем процесс загрузки
     setIsUploading(true);
     setResultForm("Загрузка началась...");
-  
+
     // Создаем FormData и добавляем файл
     const formData = new FormData();
     formData.append("file", file); // Добавляем файл
     formData.append("Installer", "RombTS"); // Добавляем поле Installer
     formData.append("idUserSideCard", idUserSideCard); // Добавляем поле idUserSideCard
-  
+
     try {
       // Отправляем запрос на сервер
       let response = await requestPhoto("POST", "photos/upload", formData);
@@ -51,8 +57,10 @@ export function FormPhoto({ isUploading, setIsUploading, setFile, login, idUserS
       <form>
         <div className="textForm">
           <h2>Загрузить фото</h2>
-          <pre>Выберите скриншоты из приложения Analizator WiFi для учетной записи</pre>
-          <h5>{login}</h5>
+          <pre>
+            Выберите скриншоты из приложения Analizator WiFi для учетной записи
+          </pre>
+          <h4>{login}</h4>
         </div>
         {/* Поле для выбора файла */}
         <input
@@ -66,7 +74,7 @@ export function FormPhoto({ isUploading, setIsUploading, setFile, login, idUserS
           Выбрать файл
         </label>
       </form>
-  
+
       {/* Отображение имени выбранного файла */}
       {file && (
         <div className="file-name">
@@ -74,14 +82,14 @@ export function FormPhoto({ isUploading, setIsUploading, setFile, login, idUserS
           {file.name}
         </div>
       )}
-  
+
       {/* Кнопка для загрузки файла */}
       <Button
         name="Загрузить"
         onClick={handleUpload}
         disabled={isUploading || !file} // Кнопка неактивна, если файл не выбран или идет загрузка
       />
-  
+
       {/* Отображение результата загрузки */}
       {resultForm && <div className="upload-result">{resultForm}</div>}
     </div>

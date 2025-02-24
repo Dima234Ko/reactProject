@@ -14,6 +14,7 @@ import { NextButton } from "../../components/Link";
 import { FormInfo } from "../../components/Form/Form";
 import { Checkbox } from "../../components/Checkbox";
 import { getParamBrowserUrl } from "../../functions/url";
+import { getRegion } from "../../functions/region";
 
 function Status() {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ function Status() {
     setSerialState(serialFromRedux);
     const params = new URLSearchParams(location.search);
     const regionFromUrl = getParamBrowserUrl("region");
-    setRegionId(regionFromUrl); 
+    setRegionId(regionFromUrl);
     dispatch(setRegion(regionFromUrl));
   }, [serialFromRedux, location.search]);
 
@@ -114,7 +115,7 @@ function Status() {
         setLoading,
         setResult,
         dispatch,
-        navigate, 
+        navigate,
         regionId,
         progressFromRedux,
         setError,
@@ -145,6 +146,7 @@ function Status() {
   return (
     <div id="status">
       <h2>Статус NTU</h2>
+      <h5>{getRegion(regionId)}</h5>
       <FormInfo
         isFormOpen={isFormOpen}
         closeForm={closeForm}

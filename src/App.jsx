@@ -50,17 +50,27 @@ function Main() {
   // Функция для перенаправления на другие страницы
   const redirectTo = (pathname) => {
     updateUserRootFromLocalStorage();
-  
+
     // Если отсутствует region и мы не на страницах /region, /, /log или /user, редиректим на /region
-    if (!hasRegion && !["/region", "/", "/log", "/user", "/settings"].includes(pathname)) {
+    if (
+      !hasRegion &&
+      ![
+        "/region",
+        "/",
+        "/log",
+        "/user",
+        "/settings",
+        "/change_password",
+      ].includes(pathname)
+    ) {
       return "/region";
     }
-  
+
     // Если отсутствует serial и мы на странице /pppoe или /wifi, редиректим на /status
     if (!hasSerial && (pathname === "/pppoe" || pathname === "/wifi")) {
       return "/status";
     }
-  
+
     // Логика редиректа на основе userRoot
     if (pathname === "/user" || pathname === "/log") {
       return userRootFromLocalStorage !== "1" ? "/status" : null;
@@ -85,26 +95,42 @@ function Main() {
   if (location.pathname === "/settings" || location.pathname === "/region") {
     if (userRootFromLocalStorage === "1") {
       menuItems = [
-        { id: "statusPage", name: "Статус", to: `/status?region=${regionFromRedux}` },
+        {
+          id: "statusPage",
+          name: "Статус",
+          to: `/status?region=${regionFromRedux}`,
+        },
         { id: "userPage", name: "Пользователи", to: "/user" },
         { id: "logPage", name: "Логи", to: "/log" },
         { id: "homePage", name: "Выход", to: "/" },
       ];
     } else
       menuItems = [
-        { id: "statusPage", name: "Статус", to: `/status?region=${regionFromRedux}`},
+        {
+          id: "statusPage",
+          name: "Статус",
+          to: `/status?region=${regionFromRedux}`,
+        },
         { id: "homePage", name: "Выход", to: "/" },
       ];
   } else if (location.pathname !== "/" && hasSerial) {
     if (userRootFromLocalStorage === "1") {
       menuItems = [
-        { id: "statusPage", name: "Статус", to: `/status?region=${regionFromRedux}` },
+        {
+          id: "statusPage",
+          name: "Статус",
+          to: `/status?region=${regionFromRedux}`,
+        },
         {
           id: "pppoePage",
           name: "PPPoE",
           to: `/pppoe?region=${regionFromRedux}&serial=${serialFromRedux}`,
         },
-        { id: "wifiPage", name: "WiFi", to: `/wifi?region=${regionFromRedux}&serial=${serialFromRedux}` },
+        {
+          id: "wifiPage",
+          name: "WiFi",
+          to: `/wifi?region=${regionFromRedux}&serial=${serialFromRedux}`,
+        },
         { id: "userPage", name: "Пользователи", to: "/user" },
         { id: "logPage", name: "Логи", to: "/log" },
         { id: "settingsPage", name: "Настройки", to: "/settings" },
@@ -112,20 +138,32 @@ function Main() {
       ];
     } else
       menuItems = [
-        { id: "statusPage", name: "Статус", to: `/status?region=${regionFromRedux}` },
+        {
+          id: "statusPage",
+          name: "Статус",
+          to: `/status?region=${regionFromRedux}`,
+        },
         {
           id: "pppoePage",
           name: "PPPoE",
           to: `/pppoe?region=${regionFromRedux}&serial=${serialFromRedux}`,
         },
-        { id: "wifiPage", name: "WiFi", to: `/wifi?region=${regionFromRedux}&serial=${serialFromRedux}` },
+        {
+          id: "wifiPage",
+          name: "WiFi",
+          to: `/wifi?region=${regionFromRedux}&serial=${serialFromRedux}`,
+        },
         { id: "settingsPage", name: "Настройки", to: "/settings" },
         { id: "homePage", name: "Выход", to: "/" },
       ];
   } else {
     if (userRootFromLocalStorage === "1") {
       menuItems = [
-        { id: "statusPage", name: "Статус", to: `/status?region=${regionFromRedux}` },
+        {
+          id: "statusPage",
+          name: "Статус",
+          to: `/status?region=${regionFromRedux}`,
+        },
         { id: "userPage", name: "Пользователи", to: "/user" },
         { id: "logPage", name: "Логи", to: "/log" },
         { id: "settingsPage", name: "Настройки", to: "/settings" },

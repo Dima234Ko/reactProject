@@ -4,5 +4,3 @@ export const setProgress = (progress) => ({
   type: SET_PROGRESS,
   payload: progress,
 });
-
-

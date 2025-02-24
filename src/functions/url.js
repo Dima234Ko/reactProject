@@ -16,7 +16,6 @@ export function removeUrlParam(key, navigate) {
   }); // Перезаписываем URL с обновленными параметрами, не перезагружая страницу
 }
 
-
 export function getParamBrowserUrl(param) {
   const params = new URLSearchParams(window.location.search);
   const region = params.get(param) || "";

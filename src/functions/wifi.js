@@ -13,7 +13,7 @@ export async function setWiFi(
   setResult,
   dispatch,
   navigate,
-  regionId
+  regionId,
 ) {
   setLoading(true);
   setResult(null);
@@ -37,7 +37,7 @@ export async function setWiFi(
       dispatch,
       setLoading,
       navigate,
-      serial
+      serial,
     );
     if (taskId) {
       // Если taskId получен, начинаем отслеживание статуса

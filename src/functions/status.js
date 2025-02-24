@@ -9,7 +9,7 @@ export async function getStatus(
   setResult,
   dispatch,
   navigate,
-  regionId
+  regionId,
 ) {
   setLoading(true);
   setResult(false);
@@ -38,7 +38,7 @@ export async function getStatus(
       dispatch,
       setLoading,
       navigate,
-      serial
+      serial,
     );
 
     if (taskId) {

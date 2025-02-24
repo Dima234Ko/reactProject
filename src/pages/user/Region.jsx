@@ -3,19 +3,17 @@ import { Select } from "../../components/Select";
 import { Button } from "../../components/Button";
 import { requestAPI } from "../../functions/api";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux"; 
-import { setRegion } from "../../store/actions/regionActions"; 
+import { useDispatch } from "react-redux";
+import { setRegion } from "../../store/actions/regionActions";
 import { updateUrlWithParam } from "../../functions/url";
 import Result from "../../components/Result";
 
-
 function Region() {
-  const [regions, setRegions] = useState([]); 
-  const [selectedRegion, setSelectedRegion] = useState(""); 
+  const [regions, setRegions] = useState([]);
+  const [selectedRegion, setSelectedRegion] = useState("");
   const navigate = useNavigate();
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const [result, setResult] = useState(null);
-
 
   useEffect(() => {
     const fetchRegion = async () => {
@@ -36,13 +34,13 @@ function Region() {
   }, [dispatch]); // Добавляем dispatch в зависимости
 
   // Извлекаем только regionName для Select
-  const regionNames = regions.map(item => item.regionName);
+  const regionNames = regions.map((item) => item.regionName);
 
   // Обработчик нажатия кнопки
   const handleApply = () => {
     // Находим id выбранного региона
     const selectedRegionData = regions.find(
-      item => item.regionName === selectedRegion
+      (item) => item.regionName === selectedRegion,
     );
     if (selectedRegionData) {
       const regionId = selectedRegionData.id;
@@ -51,12 +49,12 @@ function Region() {
       // Обновляем URL с использованием id региона
       updateUrlWithParam("region", regionId, navigate);
       setResult({
-        result: 'Регион изменен',
+        result: "Регион изменен",
         success: true,
       });
     } else {
       setResult({
-        result: 'Ошибка смены региона',
+        result: "Ошибка смены региона",
         success: false,
       });
     }
@@ -65,9 +63,9 @@ function Region() {
   return (
     <div id="region">
       <h2>Выбор региона</h2>
-      <Select 
-        id="reg" 
-        options={regionNames} 
+      <Select
+        id="reg"
+        options={regionNames}
         value={selectedRegion}
         onChange={(e) => setSelectedRegion(e.target.value)} // Обновляем выбранный регион
       />

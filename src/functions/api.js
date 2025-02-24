@@ -37,11 +37,11 @@ export async function requestPhoto(method, action, body) {
     const response = await fetch(`https://172.24.6.20:7449/${action}`, {
       method: method,
       credentials: "include",
-      body: body, 
+      body: body,
     });
 
     if (response.ok) {
-      const data = await response.text();;
+      const data = await response.text();
       return data;
     }
   } catch (error) {
