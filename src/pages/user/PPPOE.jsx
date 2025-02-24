@@ -12,6 +12,7 @@ import { checkTaskStatus } from "../../functions/task";
 import { NextButton } from "../../components/Link";
 import { FormInfo } from "../../components/Form/Form";
 import { FormUser } from "../../components/Form/FormUser";
+import { getParamBrowserUrl } from "../../functions/url";
 
 function Pppoe() {
   const dispatch = useDispatch();
@@ -19,7 +20,9 @@ function Pppoe() {
   const location = useLocation();
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
+  const regionFromRedux = useSelector((state) => state.region.region);
   const [serial, setSerialState] = useState(serialFromRedux || "");
+  const [regionId, setRegionId] = useState(regionFromRedux || "");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [login, setLogin] = useState("");
@@ -43,12 +46,14 @@ function Pppoe() {
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
-    const serialFromUrl = queryParams.get("serial");
+    const serialFromUrl = getParamBrowserUrl("serial");
+    const regionFromUrl = getParamBrowserUrl("region");
+    setRegionId(regionFromUrl);
     if (serialFromUrl) {
       dispatch(setSerial(serialFromUrl));
       setSerialState(serialFromUrl);
     }
-  }, [location.search, dispatch]);
+  },  [serialFromRedux, location.search]);
 
   useEffect(() => {
     setSerialState(serialFromRedux);
@@ -82,10 +87,10 @@ function Pppoe() {
       if (login !== prevLogin) {
         setPrevLogin(login);
       }
-      dispatch(setProgress(0));
       setLoading(true);
-      setResult(null);
-      navigate(`?serial=${serial}`, { replace: true });
+      setResult(false);
+      dispatch(setProgress(0));
+
       setFormContent({
         fromData: (
           <FormUser
@@ -108,6 +113,7 @@ function Pppoe() {
           setResult,
           dispatch,
           navigate,
+          regionId,
           progressFromRedux,
         );
       } catch (error) {
@@ -214,7 +220,7 @@ function Pppoe() {
       <UserButton onClick={openForm} />
       {result && <Result data={result} />}
       <NextButton
-        to={`/wifi?serial=${serial}`}
+        to={`/wifi?${regionId}&serial=${serial}`}
         disabled={result === null || result.success === false}
       />
     </div>

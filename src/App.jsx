@@ -102,9 +102,9 @@ function Main() {
         {
           id: "pppoePage",
           name: "PPPoE",
-          to: `/pppoe?region=${regionFromRedux}/serial=${serialFromRedux}`,
+          to: `/pppoe?region=${regionFromRedux}&serial=${serialFromRedux}`,
         },
-        { id: "wifiPage", name: "WiFi", to: `/wifi?region=${regionFromRedux}/serial=${serialFromRedux}` },
+        { id: "wifiPage", name: "WiFi", to: `/wifi?region=${regionFromRedux}&serial=${serialFromRedux}` },
         { id: "userPage", name: "Пользователи", to: "/user" },
         { id: "logPage", name: "Логи", to: "/log" },
         { id: "settingsPage", name: "Настройки", to: "/settings" },
@@ -116,9 +116,9 @@ function Main() {
         {
           id: "pppoePage",
           name: "PPPoE",
-          to: `/pppoe?region=${regionFromRedux}/serial=${serialFromRedux}`,
+          to: `/pppoe?region=${regionFromRedux}&serial=${serialFromRedux}`,
         },
-        { id: "wifiPage", name: "WiFi", to: `/wifi?region=${regionFromRedux}/serial=${serialFromRedux}` },
+        { id: "wifiPage", name: "WiFi", to: `/wifi?region=${regionFromRedux}&serial=${serialFromRedux}` },
         { id: "settingsPage", name: "Настройки", to: "/settings" },
         { id: "homePage", name: "Выход", to: "/" },
       ];

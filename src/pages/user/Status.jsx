@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { setSerial } from "../../store/actions/serialActions";
+import { setRegion } from "../../store/actions/regionActions";
 import { setProgress } from "../../store/actions/progressActions";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
@@ -12,7 +13,6 @@ import { checkTaskStatus } from "../../functions/task";
 import { NextButton } from "../../components/Link";
 import { FormInfo } from "../../components/Form/Form";
 import { Checkbox } from "../../components/Checkbox";
-import { setRegion } from "../../store/actions/regionActions";
 import { getParamBrowserUrl } from "../../functions/url";
 
 function Status() {
@@ -33,14 +33,13 @@ function Status() {
     fromData: "",
   });
 
-
-
   // Синхронизация serial с Redux и regionId с URL
   useEffect(() => {
     setSerialState(serialFromRedux);
     const params = new URLSearchParams(location.search);
     const regionFromUrl = getParamBrowserUrl("region");
     setRegionId(regionFromUrl); 
+    dispatch(setRegion(regionFromUrl));
   }, [serialFromRedux, location.search]);
 
   // Проверка статуса задачи при изменении URL
@@ -115,7 +114,7 @@ function Status() {
         setLoading,
         setResult,
         dispatch,
-        navigate, // Передаем функцию navigate без вызова
+        navigate, 
         regionId,
         progressFromRedux,
         setError,
@@ -178,7 +177,7 @@ function Status() {
       )}
       {result && <Result data={result} />}
       <NextButton
-        to={`/pppoe?${regionId}&serial=${serial}`}
+        to={`/pppoe?region=${regionId}&serial=${serial}`}
         disabled={result === null || result?.success !== true}
       />
     </div>

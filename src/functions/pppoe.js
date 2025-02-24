@@ -57,6 +57,7 @@ export async function setPppoe(
   setResult,
   dispatch,
   navigate,
+  regionId
 ) {
   setLoading(true);
   setResult(null);
@@ -78,6 +79,7 @@ export async function setPppoe(
       dispatch,
       setLoading,
       navigate,
+      regionId
     );
   } catch (error) {
     throw error;
