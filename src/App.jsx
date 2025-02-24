@@ -31,6 +31,7 @@ function Main() {
   // Проверка наличия параметра serial в URL
   const params = new URLSearchParams(location.search);
   const hasSerial = params.has("serial");
+  const hasRegion = params.has("region");
 
   // Логика отображения кнопки "назад" и бургер-меню
   const showBackButton = location.pathname !== "/";
@@ -46,9 +47,21 @@ function Main() {
     userRootFromLocalStorage = JSON.parse(localStorage.getItem("authResult"));
   }
 
-  // Функция для перенаправления на другие страницы на основе userRoot
+  // Функция для перенаправления на другие страницы
   const redirectTo = (pathname) => {
     updateUserRootFromLocalStorage();
+  
+    // Если отсутствует region и мы не на страницах /region, /, /log или /user, редиректим на /region
+    if (!hasRegion && !["/region", "/", "/log", "/user"].includes(pathname)) {
+      return "/region";
+    }
+  
+    // Если отсутствует serial и мы на странице /pppoe или /wifi, редиректим на /status
+    if (!hasSerial && (pathname === "/pppoe" || pathname === "/wifi")) {
+      return "/status";
+    }
+  
+    // Логика редиректа на основе userRoot
     if (pathname === "/user" || pathname === "/log") {
       return userRootFromLocalStorage !== "1" ? "/status" : null;
     }
