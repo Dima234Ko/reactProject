@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { setProgress } from "../../store/actions/progressActions";
 import { setSerial } from "../../store/actions/serialActions";
+import { setRegion } from "../../store/actions/regionActions";
 import { Input } from "../../components/Input";
 import { Button, UserButton } from "../../components/Button";
 import { Loader } from "../../components/Loader";
@@ -45,15 +46,12 @@ function Pppoe() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const serialFromUrl = getParamBrowserUrl("serial");
+    setSerialState(serialFromRedux);
+    const params = new URLSearchParams(location.search);
     const regionFromUrl = getParamBrowserUrl("region");
-    setRegionId(regionFromUrl);
-    if (serialFromUrl) {
-      dispatch(setSerial(serialFromUrl));
-      setSerialState(serialFromUrl);
-    }
-  },  [serialFromRedux, location.search]);
+    setRegionId(regionFromUrl); 
+    dispatch(setRegion(regionFromUrl));
+  }, [serialFromRedux, location.search]);
 
   useEffect(() => {
     setSerialState(serialFromRedux);
@@ -113,8 +111,7 @@ function Pppoe() {
           setResult,
           dispatch,
           navigate,
-          regionId,
-          progressFromRedux,
+          regionId
         );
       } catch (error) {
         setResult({

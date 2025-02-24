@@ -79,7 +79,7 @@ export async function setPppoe(
       dispatch,
       setLoading,
       navigate,
-      regionId
+      serial
     );
   } catch (error) {
     throw error;
