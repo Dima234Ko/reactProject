@@ -25,6 +25,8 @@ function Wifi() {
   const [result, setResult] = useState(null);
   const [ssid2_4, setSsid2_4] = useState("");
   const [password2_4, setPassword2_4] = useState("");
+  const [login, setlogin] = useState("");
+  const [idUserSideCard, setIdUserSideCard] = useState("");
   const [selectSSID2_4, setSelectSSID2_4] = useState("auto");
   const [ssid5, setSsid5] = useState("");
   const [password5, setPassword5] = useState("");
@@ -112,6 +114,8 @@ function Wifi() {
           setSsid5(data.ssidWifi5);
           setPassword2_4(data.passWifi2);
           setPassword5(data.passWifi5);
+          setIdUserSideCard(data.idUserSideCard);
+          setlogin(data.userLogin);
         }
       }
     } catch (error) {
@@ -134,6 +138,8 @@ function Wifi() {
             isUploading={isUploading}
             setIsUploading={setIsUploading}
             setFile={setFile}
+            login
+            idUserSideCard
           />
         }
       />
@@ -157,7 +163,7 @@ function Wifi() {
           onChange={(e) => {
             const newSsid = e.target.value;
             setSsid2_4(newSsid);
-            setSsid5(newSsid + "_5G"); // Обновляем SSID для 5ГГц
+            setSsid5(newSsid + "_5G"); 
           }}
         />
         <SelectSSID
@@ -175,7 +181,7 @@ function Wifi() {
           onChange={(e) => {
             const newSsid = e.target.value;
             setPassword2_4(e.target.value);
-            setPassword5(e.target.value); // Обновляем пароль для 5ГГц
+            setPassword5(e.target.value);
           }}
         />
       </div>

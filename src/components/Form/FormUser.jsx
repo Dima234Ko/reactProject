@@ -59,7 +59,7 @@ export function FormUser({ login, data, setInfoToUs }) {
     <div className="input-container">
       <h2>Данные {login} верны?</h2>
       <p className="subtitle">Если нет, уточните</p>
-      <div className="form-group">
+      <div className="input-container">
         <input
           className="some-input"
           id="surname"

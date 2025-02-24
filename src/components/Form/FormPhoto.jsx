@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "../../components/Button";
 import { requestPhoto } from "../../functions/api";
 
-export function FormPhoto({ isUploading, setIsUploading, setFile }) {
+export function FormPhoto({ isUploading, setIsUploading, setFile, login, idUserSideCard }) {
   const [file, setLocalFile] = useState(null);
   const [resultForm, setResultForm] = useState("");
 
@@ -10,57 +10,78 @@ export function FormPhoto({ isUploading, setIsUploading, setFile }) {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
       setLocalFile(selectedFile);
-      setResultForm(""); // Очищаем сообщение об ошибке или успехе
+      setResultForm(""); 
     }
   };
 
   const handleUpload = async () => {
+    // Проверяем, выбран ли файл
     if (!file) {
       setResultForm("Пожалуйста, выберите файл для загрузки");
       return;
     }
-
+  
+    // Начинаем процесс загрузки
     setIsUploading(true);
     setResultForm("Загрузка началась...");
-
+  
+    // Создаем FormData и добавляем файл
     const formData = new FormData();
-    formData.append("file", file);
-
+    formData.append("file", file); // Добавляем файл
+    formData.append("Installer", "RombTS"); // Добавляем поле Installer
+    formData.append("idUserSideCard", "78119"); // Добавляем поле idUserSideCard
+  
     try {
-      const response = await requestPhoto("POST", "photos", formData);
-      if (response.ok) {
-        setResultForm("Фото успешно загружено");
-      } else {
-        setResultForm("Ошибка загрузки фото");
-      }
+      // Отправляем запрос на сервер
+      let response = await requestPhoto("POST", "photos/upload", formData);
+      // Обрабатываем успешный ответ
+      setResultForm("Фото успешно загружено");
     } catch (error) {
+      // Обрабатываем ошибку
+      console.error("Ошибка при загрузке фото:", error); // Логируем ошибку для отладки
       setResultForm("Произошла ошибка при загрузке фото. Попробуйте снова.");
     } finally {
+      // Завершаем процесс загрузки
       setIsUploading(false);
     }
   };
 
   return (
     <div className="input-container">
-      <div className="textForm">
-        <h2>Загрузить фото</h2>
-        <pre>Выберите скриншоты из приложения Analizator WiFi</pre>
-      </div>
-      <input type="file" id="file-upload" onChange={handleFileChange} />
-      <label htmlFor="file-upload" className="custom-file-upload">
-        Выбрать файл
-      </label>
+      <form>
+        <div className="textForm">
+          <h2>Загрузить фото</h2>
+          <pre>Выберите скриншоты из приложения Analizator WiFi</pre>
+        </div>
+        {/* Поле для выбора файла */}
+        <input
+          type="file"
+          id="file-upload"
+          onChange={handleFileChange}
+          style={{ display: "none" }} // Скрываем стандартный input
+        />
+        {/* Кастомная кнопка для выбора файла */}
+        <label htmlFor="file-upload" className="custom-file-upload">
+          Выбрать файл
+        </label>
+      </form>
+  
+      {/* Отображение имени выбранного файла */}
       {file && (
         <div className="file-name">
           <strong>Выбран файл: </strong>
           {file.name}
         </div>
       )}
+  
+      {/* Кнопка для загрузки файла */}
       <Button
         name="Загрузить"
         onClick={handleUpload}
-        disabled={isUploading}
+        disabled={isUploading || !file} // Кнопка неактивна, если файл не выбран или идет загрузка
       />
+  
+      {/* Отображение результата загрузки */}
       {resultForm && <div className="upload-result">{resultForm}</div>}
     </div>
   );
