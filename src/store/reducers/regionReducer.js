@@ -1,7 +1,7 @@
 import { SET_REGION } from "../actions/regionActions";
 
 const initialState = {
-  region: "",
+  region: 1,
 };
 
 const regionReducer = (state = initialState, action) => {

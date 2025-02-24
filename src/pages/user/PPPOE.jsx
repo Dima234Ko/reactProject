@@ -38,7 +38,7 @@ function Pppoe() {
           <pre>Произошёл сбой</pre>
         </div>
         <ul>
-          <li>Необходимо настроить PPPoE</li>
+          <h4>Необходимо настроить PPPoE</h4>
         </ul>
       </div>
     ),
@@ -52,10 +52,6 @@ function Pppoe() {
     setRegionId(regionFromUrl); 
     dispatch(setRegion(regionFromUrl));
   }, [serialFromRedux, location.search]);
-
-  useEffect(() => {
-    setSerialState(serialFromRedux);
-  }, [serialFromRedux]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -136,7 +132,7 @@ function Pppoe() {
             <pre>Произошёл сбой</pre>
           </div>
           <ul>
-            <li>Необходимо настроить PPPoE</li>
+            <h4>Необходимо настроить PPPoE</h4>
           </ul>
         </div>
       ),

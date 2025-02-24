@@ -6,31 +6,36 @@ import { requestAPI } from "./api";
 export async function searchIdUs(userLoginSerial, setResult, param) {
   setResult(null);
   let body;
-  if (param === "login")
-    body = {
-      userLogin: userLoginSerial,
-    };
-  else {
-    body = {
-      serialNewNtu: userLoginSerial,
-    };
-  }
+  let data;
+
   try {
-    const data = await requestAPI("POST", "userSide/getUserId", body);
-    if (data.idUserSideCard !== null) {
-      setResult({
-        result: "Найдена учетная запись в US",
-        success: true,
-      });
+    if (param === "login") {
+      body = {
+        userLogin: userLoginSerial,
+      };
+      data = await requestAPI("POST", "userSide/getUserId", body);
+      
+      if (data.idUserSideCard !== null) {
+        setResult({
+          result: "Найдена учетная запись в US",
+          success: true,
+        });
+      } else {
+        setResult({
+          result: "Учетная запись в US отсутствует",
+          success: false,
+        });
+      }
     } else {
-      setResult({
-        result: "Учетная запись в US отсутствует",
-        success: false,
-      });
+      body = {
+        serialNewNtu: userLoginSerial,
+      };
+      data = await requestAPI("POST", "userSide/getUserId", body); 
     }
+    
     return data;
-  } catch {
-    throw error;
+  } catch (error) {
+    throw error; 
   }
 }
 
@@ -64,7 +69,7 @@ export async function setPppoe(
   dispatch(setProgress(0));
 
   let body = {
-    regionId: 1,
+    regionId: regionId,
     serialNewNtu: serial,
     userLogin: login,
     userPassword: password,

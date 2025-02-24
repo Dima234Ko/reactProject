@@ -6,12 +6,16 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux"; 
 import { setRegion } from "../../store/actions/regionActions"; 
 import { updateUrlWithParam } from "../../functions/url";
+import Result from "../../components/Result";
+
 
 function Region() {
-  const [regions, setRegions] = useState([]); // Храним полные данные регионов
-  const [selectedRegion, setSelectedRegion] = useState(""); // Храним выбранный регион
+  const [regions, setRegions] = useState([]); 
+  const [selectedRegion, setSelectedRegion] = useState(""); 
   const navigate = useNavigate();
-  const dispatch = useDispatch(); // Инициализируем dispatch
+  const dispatch = useDispatch(); 
+  const [result, setResult] = useState(null);
+
 
   useEffect(() => {
     const fetchRegion = async () => {
@@ -46,6 +50,15 @@ function Region() {
       dispatch(setRegion(regionId));
       // Обновляем URL с использованием id региона
       updateUrlWithParam("region", regionId, navigate);
+      setResult({
+        result: 'Регион изменен',
+        success: true,
+      });
+    } else {
+      setResult({
+        result: 'Ошибка смены региона',
+        success: false,
+      });
     }
   };
 
@@ -58,6 +71,8 @@ function Region() {
         value={selectedRegion}
         onChange={(e) => setSelectedRegion(e.target.value)} // Обновляем выбранный регион
       />
+      {result && <Result data={result} />}
+
       <Button name="Применить" onClick={handleApply} />
     </div>
   );

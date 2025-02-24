@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { setProgress } from "../../store/actions/progressActions";
 import { setSerial } from "../../store/actions/serialActions";
+import { setRegion } from "../../store/actions/regionActions";
 import { SelectSSID, SelectSSID5 } from "../../components/Select";
 import { Input } from "../../components/Input";
 import { Button, UploadButton } from "../../components/Button";
@@ -13,6 +14,7 @@ import { checkTaskStatus } from "../../functions/task";
 import { FormInfo } from "../../components/Form/Form";
 import { searchIdUs } from "../../functions/pppoe";
 import { FormPhoto } from "../../components/Form/FormPhoto";
+import { getParamBrowserUrl } from "../../functions/url";
 
 function Wifi() {
   const dispatch = useDispatch();
@@ -20,7 +22,9 @@ function Wifi() {
   const location = useLocation();
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
+  const regionFromRedux = useSelector((state) => state.region.region);
   const [serial, setSerialState] = useState(serialFromRedux || "");
+  const [regionId, setRegionId] = useState(regionFromRedux || "");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [ssid2_4, setSsid2_4] = useState("");
@@ -42,18 +46,44 @@ function Wifi() {
           <pre>Произошёл сбой</pre>
         </div>
         <ul>
-          <li>Необходимо настроить WIFI</li>
+          <h4>Необходимо настроить WIFI</h4>
         </ul>
       </div>
     ),
   });
 
-  // Синхронизация serial с Redux
   useEffect(() => {
     setSerialState(serialFromRedux);
-  }, [serialFromRedux]);
+    const params = new URLSearchParams(location.search);
+    const regionFromUrl = getParamBrowserUrl("region");
+    setRegionId(regionFromUrl); 
+    dispatch(setRegion(regionFromUrl));
+  }, [serialFromRedux, location.search]);
 
-  // Проверка статуса задачи при изменении URL
+
+  // Асинхронная функция для получения данных WiFi по serial
+  const fetchDataWiFi = async () => {
+    try {
+      if (serial !== "") {
+        const data = await searchIdUs(serial, setResult, "serial");
+        if (data) {
+          setSsid2_4(data.ssidWifi2);
+          setSsid5(data.ssidWifi5);
+          setPassword2_4(data.passWifi2);
+          setPassword5(data.passWifi5);
+          setIdUserSideCard(data.idUserSideCard);
+          setlogin(data.userLogin);
+        }
+      }
+    } catch (error) {
+      console.error("Ошибка при получении данных WiFi:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchDataWiFi();
+  }, [serial]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -79,10 +109,10 @@ function Wifi() {
 
   // Обработчик для настройки WiFi
   const handleSetWiFi = async () => {
-    dispatch(setProgress(0));
     setLoading(true);
-    setResult(null);
-    navigate(`?serial=${serial}`, { replace: true });
+    setResult(false);
+    dispatch(setProgress(0));
+
     setFormContent({
       fromData: (
         <FormPhoto
@@ -108,7 +138,7 @@ function Wifi() {
         setResult,
         dispatch,
         navigate,
-        progressFromRedux,
+        regionId
       );
     } catch (error) {
       setResult({
@@ -127,29 +157,6 @@ function Wifi() {
   const closeForm = () => {
     setIsFormOpen(false);
   };
-
-  // Асинхронная функция для получения данных WiFi по serial
-  const fetchDataWiFi = async () => {
-    try {
-      if (serial !== "") {
-        const data = await searchIdUs(serial, setResult, "serial");
-        if (data) {
-          setSsid2_4(data.ssidWifi2);
-          setSsid5(data.ssidWifi5);
-          setPassword2_4(data.passWifi2);
-          setPassword5(data.passWifi5);
-          setIdUserSideCard(data.idUserSideCard);
-          setlogin(data.userLogin);
-        }
-      }
-    } catch (error) {
-      console.error("Ошибка при получении данных WiFi:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchDataWiFi();
-  }, [serial]);
 
   return (
     <div id="wifi">

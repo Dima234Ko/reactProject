@@ -4,7 +4,3 @@ export const setSerial = (serial) => ({
   type: SET_SERIAL,
   payload: serial,
 });
-
-export const getSerial = () => ({
-  type: GET_SERIAL,
-});

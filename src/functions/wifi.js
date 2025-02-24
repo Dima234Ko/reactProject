@@ -1,7 +1,6 @@
 import { getTaskId, checkTask } from "./task";
 import { setProgress } from "../store/actions/progressActions";
 
-// Главная функция для получения статуса
 export async function setWiFi(
   serial,
   ssid2_4,
@@ -14,12 +13,13 @@ export async function setWiFi(
   setResult,
   dispatch,
   navigate,
+  regionId
 ) {
   setLoading(true);
   setResult(null);
   dispatch(setProgress(0));
   let body = {
-    regionId: 1,
+    regionId: regionId,
     serialNewNtu: serial,
     ssidWifi2: ssid2_4,
     passWifi2: password2_4,
@@ -37,6 +37,7 @@ export async function setWiFi(
       dispatch,
       setLoading,
       navigate,
+      serial
     );
     if (taskId) {
       // Если taskId получен, начинаем отслеживание статуса
@@ -52,7 +53,6 @@ export async function setWiFi(
       );
     }
   } catch (error) {
-    console.error("Ошибка при получении статуса:", error);
-    setLoading(false);
+    throw new Error(`Не удалось получить taskId: ${error.message || error}`);
   }
 }

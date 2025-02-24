@@ -55,7 +55,6 @@ export async function getStatus(
       );
     }
   } catch (error) {
-    setLoading(false);
-    throw error;
+    throw new Error(`Не удалось получить taskId: ${error.message || error}`);
   }
 }

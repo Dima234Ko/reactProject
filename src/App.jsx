@@ -52,7 +52,7 @@ function Main() {
     updateUserRootFromLocalStorage();
   
     // Если отсутствует region и мы не на страницах /region, /, /log или /user, редиректим на /region
-    if (!hasRegion && !["/region", "/", "/log", "/user"].includes(pathname)) {
+    if (!hasRegion && !["/region", "/", "/log", "/user", "/settings"].includes(pathname)) {
       return "/region";
     }
   
