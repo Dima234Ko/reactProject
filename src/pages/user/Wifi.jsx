@@ -12,7 +12,7 @@ import { setWiFi } from "../../functions/wifi";
 import { checkTaskStatus } from "../../functions/task";
 import { FormInfo } from "../../components/Form/Form";
 import { searchIdUs } from "../../functions/pppoe";
-import { FormPhoto } from "../../components/Form/FormPhoto"; // Импортируем компонент для загрузки фото
+import { FormPhoto } from "../../components/Form/FormPhoto";
 
 function Wifi() {
   const dispatch = useDispatch();
@@ -34,6 +34,19 @@ function Wifi() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [file, setFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [formContent, setFormContent] = useState({
+    fromData: (
+      <div className="textForm">
+        <h2>Внимание</h2>
+        <div>
+          <pre>Произошёл сбой</pre>
+        </div>
+        <ul>
+          <li>Необходимо настроить WIFI</li>
+        </ul>
+      </div>
+    ),
+  });
 
   // Синхронизация serial с Redux
   useEffect(() => {
@@ -70,6 +83,17 @@ function Wifi() {
     setLoading(true);
     setResult(null);
     navigate(`?serial=${serial}`, { replace: true });
+    setFormContent({
+      fromData: (
+        <FormPhoto
+        isUploading={isUploading}
+        setIsUploading={setIsUploading}
+        setFile={setFile}
+        login={login}  
+        idUserSideCard={idUserSideCard}  
+      />
+      ),
+    });
 
     try {
       await setWiFi(
@@ -133,15 +157,7 @@ function Wifi() {
       <FormInfo
         isFormOpen={isFormOpen}
         closeForm={closeForm}
-        formData={
-          <FormPhoto
-            isUploading={isUploading}
-            setIsUploading={setIsUploading}
-            setFile={setFile}
-            login
-            idUserSideCard
-          />
-        }
+        formData={formContent.fromData}
       />
       <div className="ssid-container">
         <Input

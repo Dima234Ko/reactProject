@@ -29,7 +29,7 @@ export function FormPhoto({ isUploading, setIsUploading, setFile, login, idUserS
     const formData = new FormData();
     formData.append("file", file); // Добавляем файл
     formData.append("Installer", "RombTS"); // Добавляем поле Installer
-    formData.append("idUserSideCard", "78119"); // Добавляем поле idUserSideCard
+    formData.append("idUserSideCard", idUserSideCard); // Добавляем поле idUserSideCard
   
     try {
       // Отправляем запрос на сервер
@@ -51,7 +51,8 @@ export function FormPhoto({ isUploading, setIsUploading, setFile, login, idUserS
       <form>
         <div className="textForm">
           <h2>Загрузить фото</h2>
-          <pre>Выберите скриншоты из приложения Analizator WiFi</pre>
+          <pre>Выберите скриншоты из приложения Analizator WiFi для учетной записи</pre>
+          <h5>{login}</h5>
         </div>
         {/* Поле для выбора файла */}
         <input
