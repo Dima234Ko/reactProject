@@ -41,9 +41,9 @@ export async function requestPhoto(method, action, body) {
     });
 
     if (response.ok) {
-      const data = await response.text();
-      return data;
-    }
+      return "Фото успешно загружено";
+    } else return 'Ошибка при загрузке на сервер'
+
   } catch (error) {
     console.error("Ошибка при выполнении запроса:", error);
     throw new Error(`Ошибка при выполнении запроса: ${error.message}`);

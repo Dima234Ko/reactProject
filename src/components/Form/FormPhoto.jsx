@@ -41,7 +41,7 @@ export function FormPhoto({
       // Отправляем запрос на сервер
       let response = await requestPhoto("POST", "photos/upload", formData);
       // Обрабатываем успешный ответ
-      setResultForm("Фото успешно загружено");
+      setResultForm(response);
     } catch (error) {
       // Обрабатываем ошибку
       console.error("Ошибка при загрузке фото:", error); // Логируем ошибку для отладки
