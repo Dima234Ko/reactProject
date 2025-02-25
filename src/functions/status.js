@@ -15,7 +15,7 @@ export async function getStatus(
   setResult(false);
   dispatch(setProgress(0));
 
-  if (serial.length < 5) {
+  if (serial == null || serial.length < 5) {
     setLoading(false);
     throw new Error("Введен некорректный pon serial");
   }
