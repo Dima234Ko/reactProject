@@ -13,6 +13,10 @@
   overflow: hidden;
 }
 
+#disablingForm{
+  margin-top: 20px;
+}
+
 .input-container {
   display: flex;
   flex-direction: column; /* Располагаем элементы в колонку */
@@ -72,7 +76,9 @@
 .textForm h2,
 .textForm pre {
   margin: 5px;
+  font-weight: 300;
 }
+
 
 form {
   max-width: 100%;

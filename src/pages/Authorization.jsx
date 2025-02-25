@@ -74,7 +74,7 @@ function Authorization() {
         value={password}
         onChange={handleInputChange}
       />
-      <Button name="Авторизоваться" onClick={handleAuthorization} />
+      <Button name="Войти" onClick={handleAuthorization} />
       {loading && <Loader />}
       {result && <Result data={result} />}
     </div>

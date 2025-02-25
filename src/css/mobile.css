@@ -5,7 +5,8 @@
   #pppoe,
   #wifi,
   #settings,
-  #region {
+  #region,
+  #disabling {
     width: 100%;
   }
 

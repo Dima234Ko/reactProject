@@ -34,7 +34,7 @@ export function FormPhoto({
     // Создаем FormData и добавляем файл
     const formData = new FormData();
     formData.append("file", file); // Добавляем файл
-    formData.append("Installer", "RombTS"); // Добавляем поле Installer
+    formData.append("Installer", "esipov"); // Добавляем поле Installer
     formData.append("idUserSideCard", idUserSideCard); // Добавляем поле idUserSideCard
 
     try {

@@ -16,6 +16,7 @@ import Settings from "./pages/user/Settings";
 import Region from "./pages/user/Region";
 import User from "./pages/admin/Accounts";
 import Log from "./pages/admin/Log";
+import Disabling from "./pages/user/Disabling";
 
 function App() {
   return (
@@ -51,16 +52,13 @@ function Main() {
   const redirectTo = (pathname) => {
     updateUserRootFromLocalStorage();
 
-    // Если отсутствует region и мы не на страницах /region, /, /log или /user, редиректим на /region
+    // Если отсутствует region редиректим на /region
     if (
       !hasRegion &&
-      ![
-        "/region",
-        "/",
-        "/log",
-        "/user",
-        "/settings",
-        "/change_password",
+      [
+        "/status",
+        "/wifi",
+        "/pppoe",
       ].includes(pathname)
     ) {
       return "/region";
@@ -76,7 +74,7 @@ function Main() {
       return userRootFromLocalStorage !== "1" ? "/status" : null;
     }
     if (
-      pathname === "/status" &&
+      pathname !== "/" &&
       !["1", "2", "3"].includes(userRootFromLocalStorage)
     ) {
       return "/";
@@ -100,6 +98,7 @@ function Main() {
           name: "Статус",
           to: `/status?region=${regionFromRedux}`,
         },
+        { id: "disable", name: "Демонтаж", to: "/disable" },
         { id: "userPage", name: "Пользователи", to: "/user" },
         { id: "logPage", name: "Логи", to: "/log" },
         { id: "homePage", name: "Выход", to: "/" },
@@ -111,6 +110,7 @@ function Main() {
           name: "Статус",
           to: `/status?region=${regionFromRedux}`,
         },
+        { id: "disable", name: "Демонтаж", to: "/disable" },
         { id: "homePage", name: "Выход", to: "/" },
       ];
   } else if (location.pathname !== "/" && hasSerial) {
@@ -131,6 +131,7 @@ function Main() {
           name: "WiFi",
           to: `/wifi?region=${regionFromRedux}&serial=${serialFromRedux}`,
         },
+        { id: "disable", name: "Демонтаж", to: "/disable" },
         { id: "userPage", name: "Пользователи", to: "/user" },
         { id: "logPage", name: "Логи", to: "/log" },
         { id: "settingsPage", name: "Настройки", to: "/settings" },
@@ -153,17 +154,25 @@ function Main() {
           name: "WiFi",
           to: `/wifi?region=${regionFromRedux}&serial=${serialFromRedux}`,
         },
+        { id: "disable", name: "Демонтаж", to: "/disable" },
         { id: "settingsPage", name: "Настройки", to: "/settings" },
         { id: "homePage", name: "Выход", to: "/" },
       ];
   } else {
     if (userRootFromLocalStorage === "1") {
       menuItems = [
-        {
-          id: "statusPage",
-          name: "Статус",
-          to: `/status?region=${regionFromRedux}`,
-        },
+        ...(location.pathname !== "/status"
+          ? [{
+              id: "statusPage",
+              name: "Статус",
+              to: `/status?region=${regionFromRedux}`,
+            }]
+          : []),
+        ...(location.pathname !== "/disable"
+          ? [{
+            id: "disable", name: "Демонтаж", to: "/disable"
+            }]
+        : []),
         { id: "userPage", name: "Пользователи", to: "/user" },
         { id: "logPage", name: "Логи", to: "/log" },
         { id: "settingsPage", name: "Настройки", to: "/settings" },
@@ -171,7 +180,19 @@ function Main() {
       ];
     } else
       menuItems = [
-        { id: "statusPage", name: "Настройки", to: "/settings" },
+        ...(location.pathname !== "/status"
+          ? [{
+              id: "statusPage",
+              name: "Статус",
+              to: `/status?region=${regionFromRedux}`,
+            }]
+          : []),
+        { id: "settingsPage", name: "Настройки", to: "/settings" },
+        ...(location.pathname !== "/disable"
+          ? [{
+            id: "disable", name: "Демонтаж", to: "/disable"
+            }]
+        : []),
         { id: "homePage", name: "Выход", to: "/" },
       ];
   }
@@ -193,6 +214,7 @@ function Main() {
           <Route path="/region" element={<Region />} />
           <Route path="/user" element={<User />} />
           <Route path="/log" element={<Log />} />
+          <Route path="/disable" element={<Disabling />} />
         </Routes>
       </div>
     </>

@@ -1,5 +1,5 @@
 .checkbox-container {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   font-size: 18px;
   cursor: pointer;
@@ -14,7 +14,6 @@
   width: 25px; /* Увеличиваем размер чекбокса */
   height: 25px; /* Увеличиваем размер чекбокса */
   margin-right: 12px; /* Отступ между чекбоксом и текстом */
-  border: 2px solid #007bff; /* Синий цвет рамки */
   position: relative;
   transition:
     background-color 0.3s,

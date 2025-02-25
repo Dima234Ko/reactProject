@@ -13,6 +13,7 @@ import "./css/form.css";
 import "./css/checkbox.css";
 import "./css/mobile.css";
 import "./css/table.css";
+import "./css/radio.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
