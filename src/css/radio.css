@@ -1,29 +1,29 @@
-  .radio-group {
-    margin-left: 10px; /* Сдвигаем блок вправо */
-    padding: 10px; /* Немного отступов внутри блока */
-    border-radius: 5px; /* Скругление углов рамки, можно убрать или изменить по желанию */
-  }
+.radio-group {
+  margin-left: 10px; /* Сдвигаем блок вправо */
+  padding: 10px; /* Немного отступов внутри блока */
+  border-radius: 5px; /* Скругление углов рамки, можно убрать или изменить по желанию */
+}
 
-  .radio-group label {
-    all: unset; /* Отключаем все дефолтные стили для label */
-    display: flex; /* Включаем flex для горизонтального расположения */
-    align-items: center; /* Выравнивание по вертикали */
-    margin: 10px 0; /* Отступы сверху и снизу */
-    direction: ltr; /* Направление слева направо */
-  }
-  
-  .radio-group input[type="radio"] {
-    all: unset; /* Отключаем все дефолтные стили для радио-кнопки */
-    margin-right: 8px; /* Отступ между радио-кнопкой и кнопкой */
-    appearance: auto; /* Возвращаем стандартный вид радио-кнопки */
-  }
-  
-  .radio-group button {
-    all: unset; /* Отключаем все дефолтные стили для кнопки */
-    margin-right: 8px; /* Отступ между кнопкой и текстом */
-    padding: 4px 8px; /* Внутренние отступы */
-    cursor: pointer; /* Указатель при наведении */
-    background-color: #f0f0f0; /* Светлый фон для видимости */
-    border: 1px solid #ccc; /* Граница */
-    border-radius: 4px; /* Скругленные углы */
-  }
+.radio-group label {
+  all: unset; /* Отключаем все дефолтные стили для label */
+  display: flex; /* Включаем flex для горизонтального расположения */
+  align-items: center; /* Выравнивание по вертикали */
+  margin: 10px 0; /* Отступы сверху и снизу */
+  direction: ltr; /* Направление слева направо */
+}
+
+.radio-group input[type="radio"] {
+  all: unset; /* Отключаем все дефолтные стили для радио-кнопки */
+  margin-right: 8px; /* Отступ между радио-кнопкой и кнопкой */
+  appearance: auto; /* Возвращаем стандартный вид радио-кнопки */
+}
+
+.radio-group button {
+  all: unset; /* Отключаем все дефолтные стили для кнопки */
+  margin-right: 8px; /* Отступ между кнопкой и текстом */
+  padding: 4px 8px; /* Внутренние отступы */
+  cursor: pointer; /* Указатель при наведении */
+  background-color: #f0f0f0; /* Светлый фон для видимости */
+  border: 1px solid #ccc; /* Граница */
+  border-radius: 4px; /* Скругленные углы */
+}

@@ -53,14 +53,7 @@ function Main() {
     updateUserRootFromLocalStorage();
 
     // Если отсутствует region редиректим на /region
-    if (
-      !hasRegion &&
-      [
-        "/status",
-        "/wifi",
-        "/pppoe",
-      ].includes(pathname)
-    ) {
+    if (!hasRegion && ["/status", "/wifi", "/pppoe"].includes(pathname)) {
       return "/region";
     }
 
@@ -162,17 +155,23 @@ function Main() {
     if (userRootFromLocalStorage === "1") {
       menuItems = [
         ...(location.pathname !== "/status"
-          ? [{
-              id: "statusPage",
-              name: "Статус",
-              to: `/status?region=${regionFromRedux}`,
-            }]
+          ? [
+              {
+                id: "statusPage",
+                name: "Статус",
+                to: `/status?region=${regionFromRedux}`,
+              },
+            ]
           : []),
         ...(location.pathname !== "/disable"
-          ? [{
-            id: "disable", name: "Демонтаж", to: "/disable"
-            }]
-        : []),
+          ? [
+              {
+                id: "disable",
+                name: "Демонтаж",
+                to: "/disable",
+              },
+            ]
+          : []),
         { id: "userPage", name: "Пользователи", to: "/user" },
         { id: "logPage", name: "Логи", to: "/log" },
         { id: "settingsPage", name: "Настройки", to: "/settings" },
@@ -181,17 +180,23 @@ function Main() {
     } else
       menuItems = [
         ...(location.pathname !== "/status"
-          ? [{
-              id: "statusPage",
-              name: "Статус",
-              to: `/status?region=${regionFromRedux}`,
-            }]
+          ? [
+              {
+                id: "statusPage",
+                name: "Статус",
+                to: `/status?region=${regionFromRedux}`,
+              },
+            ]
           : []),
         ...(location.pathname !== "/disable"
-          ? [{
-            id: "disable", name: "Демонтаж", to: "/disable"
-            }]
-        : []),
+          ? [
+              {
+                id: "disable",
+                name: "Демонтаж",
+                to: "/disable",
+              },
+            ]
+          : []),
         { id: "settingsPage", name: "Настройки", to: "/settings" },
         { id: "homePage", name: "Выход", to: "/" },
       ];

@@ -110,8 +110,11 @@ export async function checkTask(
       setLoading(false); // Закрываем загрузку
       setResult(taskData.result); // Обновляем результат
       // Сохраняем результат в localStorage, если он существует
-      if (taskData.result.RX_power){
-        localStorage.setItem("RX_power", JSON.stringify(taskData.result.RX_power));
+      if (taskData.result.RX_power) {
+        localStorage.setItem(
+          "RX_power",
+          JSON.stringify(taskData.result.RX_power),
+        );
       }
     }
   } catch (error) {

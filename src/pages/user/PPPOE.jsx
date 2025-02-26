@@ -190,10 +190,10 @@ function Pppoe() {
           onChange={(e) => setSerialState(e.target.value)}
           disabled={true}
         />
-         <Input
+        <Input
           id="level_Ntu"
           type="text"
-          value={JSON.parse(localStorage.getItem("RX_power"))||"-0.0"}
+          value={JSON.parse(localStorage.getItem("RX_power")) || "-0.0"}
           disabled={true}
         />
       </div>

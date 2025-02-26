@@ -1,20 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Table } from "../../components/Table";
 import {
-  Button,
   AddUserButton,
   ChangePassButton,
   DeleteUserButton,
 } from "../../components/Button";
-
-const data = [
-  { login: "johndoe", fullname: "John Doe" },
-  { login: "janesmith", fullname: "Jane Smith" },
-  { login: "carlosg", fullname: "Carlos Garcia" },
-];
+import { Loader } from "../../components/Loader";
 
 function User() {
-  // Заголовки для столбцов
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+
+  const getUserData = async () => {
+    const userData = [
+      { login: "johndoe", fullname: "John Doe" },
+      { login: "janesmith", fullname: "Jane Smith" },
+      { login: "carlosg", fullname: "Carlos Garcia" },
+    ];
+
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(userData);
+      }, 1000);
+    });
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const result = await getUserData();
+        setData(result);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const columns = ["Логин", "Фамилия Имя Отчество"];
 
   const handleAddUser = () => {
@@ -37,17 +63,24 @@ function User() {
         <ChangePassButton onClick={handleChangePass} />
         <DeleteUserButton onClick={handleDeleteUser} />
       </div>
-      <Table columns={columns} className="user-table" id="userTable">
-        {data.map((row, index) => (
-          <tr key={index}>
-            <td>
-              <input type="checkbox" />
-            </td>
-            <td>{row.login}</td>
-            <td>{row.fullname}</td>
-          </tr>
-        ))}
-      </Table>
+      <div className="table-container" style={{ position: "relative" }}>
+        {loading && (
+          <div className="spinner-container">
+            <Loader />
+          </div>
+        )}
+        <Table columns={columns} className="user-table" id="userTable">
+          {data.map((row, index) => (
+            <tr key={row.login}>
+              <td>
+                <input type="checkbox" />
+              </td>
+              <td>{row.login}</td>
+              <td>{row.fullname}</td>
+            </tr>
+          ))}
+        </Table>
+      </div>
     </div>
   );
 }

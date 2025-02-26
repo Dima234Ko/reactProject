@@ -16,7 +16,7 @@ function Authorization() {
   // Удаление authResult из localStorage при входе на страницу
   useEffect(() => {
     localStorage.removeItem("authResult");
-  }, []); 
+  }, []);
 
   const handleInputChange = (event) => {
     const { id, value } = event.target;
@@ -41,7 +41,7 @@ function Authorization() {
           navigate("/status");
         }
       } else {
-        // Обработка случая, если нет результата 
+        // Обработка случая, если нет результата
         setResult({
           success: false,
           message: "Не удалось получить результат авторизации.",
