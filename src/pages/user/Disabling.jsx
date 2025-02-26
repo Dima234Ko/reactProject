@@ -45,7 +45,8 @@ function Disabling() {
             <div className="textForm">
                 <h2>Внимание</h2>
                 <pre>Уточните причину</pre>
-                <div className="input-container" id="disablingForm">
+                <div className="input-container">
+                    <div className="container" id="disablingForm">
                     <Checkbox
                         label="Неисправность оборудования"
                         checked={isChecked}
@@ -57,6 +58,7 @@ function Disabling() {
                         checked={isAbonentChecked}
                         onChange={handleSecondCheckboxChange} 
                     />
+                    </div>
                     <Button name="Ок" onClick={console.log('кнопка нажата')} />
                     </div>
             </div>
