@@ -16,13 +16,15 @@ input {
   display: flex;
 }
 
-.ssid-container {
+.ssid-container,
+.pon-container {
   width: 86.5%;
   display: flex;
   gap: 3%;
 }
 
-.ssid-container input {
+.ssid-container input,
+.pon-container input {
   width: 100%;
 }
 
@@ -58,4 +60,8 @@ input[type="file"] {
   margin-top: 10px;
   font-size: 14px;
   color: #333;
+}
+
+#level_Ntu {
+  width: 30px;
 }

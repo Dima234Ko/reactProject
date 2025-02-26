@@ -167,13 +167,20 @@ function Wifi() {
         closeForm={closeForm}
         formData={formContent.fromData}
       />
-      <div className="ssid-container">
+
+     <div className="pon-container">
         <Input
           id="id_Ntu"
           type="text"
           placeholder="Введите pon-serial"
           value={serial}
           onChange={(e) => setSerialState(e.target.value)}
+          disabled={true}
+        />
+         <Input
+          id="level_Ntu"
+          type="text"
+          value={JSON.parse(localStorage.getItem("RX_power"))||"-0.0"}
           disabled={true}
         />
       </div>

@@ -109,6 +109,10 @@ export async function checkTask(
       dispatch(setProgress(100)); // Устанавливаем прогресс в 100%
       setLoading(false); // Закрываем загрузку
       setResult(taskData.result); // Обновляем результат
+      // Сохраняем результат в localStorage, если он существует
+      if (taskData.result.RX_power){
+        localStorage.setItem("RX_power", JSON.stringify(taskData.result.RX_power));
+      }
     }
   } catch (error) {
     setLoading(false);

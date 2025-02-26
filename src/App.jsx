@@ -187,12 +187,12 @@ function Main() {
               to: `/status?region=${regionFromRedux}`,
             }]
           : []),
-        { id: "settingsPage", name: "Настройки", to: "/settings" },
         ...(location.pathname !== "/disable"
           ? [{
             id: "disable", name: "Демонтаж", to: "/disable"
             }]
         : []),
+        { id: "settingsPage", name: "Настройки", to: "/settings" },
         { id: "homePage", name: "Выход", to: "/" },
       ];
   }
