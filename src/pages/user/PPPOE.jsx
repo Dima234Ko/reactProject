@@ -91,9 +91,10 @@ function Pppoe() {
           <FormUser
             login={login}
             data={data}
+            setInfoToUs={setInfoToUs}
+            closeForm={closeForm}
             setResult={setResult}
             searchIdUs={searchIdUs}
-            setInfoToUs={setInfoToUs}
           />
         ),
       });
@@ -197,21 +198,25 @@ function Pppoe() {
           disabled={true}
         />
       </div>
-      <Input
-        id="login"
-        type="text"
-        placeholder="Введите логин"
-        value={login}
-        onBlur={handleLoginChange}
-        onChange={(e) => setLogin(e.target.value)}
+      <div className="inp-contanier">
+        <Input
+          id="login"
+          type="text"
+          placeholder="Введите логин"
+          value={login}
+          onBlur={handleLoginChange}
+          onChange={(e) => setLogin(e.target.value)}
+        />
+        </div>
+        <div className="inp-contanier">
+        <Input
+          id="password"
+          type="text"
+          placeholder="Введите пароль"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
       />
-      <Input
-        id="password"
-        type="text"
-        placeholder="Введите пароль"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+      </div>
       <Button name="Отправить запрос" onClick={handleSetPppoe} />
       {loading && (
         <div className="overlay">

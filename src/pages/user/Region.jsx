@@ -8,6 +8,7 @@ import { setRegion } from "../../store/actions/regionActions";
 import { updateUrlWithParam } from "../../functions/url";
 import Result from "../../components/Result";
 
+// Убрано дублирование импорта useNavigate
 function Region() {
   const [regions, setRegions] = useState([]);
   const [selectedRegion, setSelectedRegion] = useState("");
@@ -20,10 +21,10 @@ function Region() {
       try {
         const reg = await requestAPI("GET", "settings/getRegion");
         setRegions(reg);
-        // Устанавливаем дефолтное значение
-        if (reg.length > 0) {
+        // Устанавливаем дефолтное значение только если массив не пустой
+        if (reg?.length > 0) {
           setSelectedRegion(reg[0].regionName);
-          dispatch(setRegion(reg[0].id)); // Сохраняем id первого региона в Redux
+          dispatch(setRegion(reg[0].id));
         }
       } catch (error) {
         console.error("Ошибка при загрузке данных региона:", error);
@@ -31,27 +32,26 @@ function Region() {
     };
 
     fetchRegion();
-  }, [dispatch]); // Добавляем dispatch в зависимости
+  }, [dispatch]);
 
-  // Извлекаем только regionName для Select
-  const regionNames = regions.map((item) => item.regionName);
+  // Извлекаем regionName для Select с проверкой на пустой массив
+  const regionNames = regions.length > 0 ? regions.map((item) => item.regionName) : [];
 
-  // Обработчик нажатия кнопки
   const handleApply = () => {
-    // Находим id выбранного региона
     const selectedRegionData = regions.find(
-      (item) => item.regionName === selectedRegion,
+      (item) => item.regionName === selectedRegion
     );
+    
     if (selectedRegionData) {
       const regionId = selectedRegionData.id;
-      // Сохраняем id региона в Redux
       dispatch(setRegion(regionId));
-      // Обновляем URL с использованием id региона
       updateUrlWithParam("region", regionId, navigate);
       setResult({
         result: "Регион изменен",
         success: true,
       });
+      // Исправлен синтаксис navigate и добавлена навигация
+      navigate(`/status?region=${regionId}`);
     } else {
       setResult({
         result: "Ошибка смены региона",
@@ -67,10 +67,9 @@ function Region() {
         id="reg"
         options={regionNames}
         value={selectedRegion}
-        onChange={(e) => setSelectedRegion(e.target.value)} // Обновляем выбранный регион
+        onChange={(e) => setSelectedRegion(e.target.value)}
       />
       {result && <Result data={result} />}
-
       <Button name="Применить" onClick={handleApply} />
     </div>
   );

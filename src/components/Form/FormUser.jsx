@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "../../components/Button";
 
-export function FormUser({ login, data, setInfoToUs }) {
+export function FormUser({ login, data, setInfoToUs, closeForm }) {
   const [formFields, setFormFields] = useState({
     surname: "",
     name: "",
@@ -41,6 +41,7 @@ export function FormUser({ login, data, setInfoToUs }) {
       setResultForm("");
       await setInfoToUs(login, surname, name, patronymic, phone);
       setResultForm("Данные записаны");
+      closeForm(true);
     } catch {
       setResultForm(
         "Не удалось обновить данные, необходимо настроить PPPoE, дождаться окончания запроса и повторить попытку",
@@ -105,7 +106,6 @@ export function FormUser({ login, data, setInfoToUs }) {
       <Button
         name="Записать"
         onClick={handleSetInfoToUs}
-        aria-label="Сохранить данные пользователя"
       />
     </div>
   );

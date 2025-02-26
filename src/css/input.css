@@ -17,14 +17,16 @@ input {
 }
 
 .ssid-container,
-.pon-container {
-  width: 86.5%;
+.pon-container,
+.inp-contanier {
   display: flex;
   gap: 3%;
+  width: 86.5%;
 }
 
 .ssid-container input,
-.pon-container input {
+.pon-container input,
+.inp-contanier input {
   width: 100%;
 }
 
