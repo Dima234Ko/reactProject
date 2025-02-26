@@ -215,6 +215,7 @@ function Main() {
           <Route path="/user" element={<User />} />
           <Route path="/log" element={<Log />} />
           <Route path="/disable" element={<Disabling />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
     </>
