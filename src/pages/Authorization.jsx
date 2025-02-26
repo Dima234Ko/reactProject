@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "../components/Input";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
@@ -12,6 +12,11 @@ function Authorization() {
   const [password, setPassword] = useState("");
   const [result, setResult] = useState(null);
   const navigate = useNavigate();
+
+  // Удаление authResult из localStorage при входе на страницу
+  useEffect(() => {
+    localStorage.removeItem("authResult");
+  }, []); 
 
   const handleInputChange = (event) => {
     const { id, value } = event.target;
@@ -36,13 +41,11 @@ function Authorization() {
           navigate("/status");
         }
       } else {
-        // Обработка случая, если нет результата (например, ошибка авторизации)
+        // Обработка случая, если нет результата 
         setResult({
           success: false,
           message: "Не удалось получить результат авторизации.",
         });
-        // Удаление значения из localStorage при ошибке
-        localStorage.removeItem("authResult");
       }
     } catch (error) {
       console.error("Ошибка авторизации:", error);
@@ -50,8 +53,6 @@ function Authorization() {
         success: false,
         message: "Ошибка авторизации. Попробуйте еще раз",
       });
-      // Удаление значения из localStorage при ошибке
-      localStorage.removeItem("authResult");
     } finally {
       setLoading(false);
     }
