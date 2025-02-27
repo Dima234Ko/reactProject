@@ -73,6 +73,8 @@ function Wifi() {
           setPassword5(data.passWifi5);
           setIdUserSideCard(data.idUserSideCard);
           setlogin(data.userLogin);
+          setSelectSSID2_4(data.channelWifi2);
+          setSelectSSID5(data.channelWifi5);;
         }
       }
     } catch (error) {
