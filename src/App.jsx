@@ -17,6 +17,7 @@ import Region from "./pages/user/Region";
 import User from "./pages/admin/Accounts";
 import Log from "./pages/admin/Log";
 import Disabling from "./pages/user/Disabling";
+import BarcodeScanner from "./pages/user/Scanner";
 
 function App() {
   return (
@@ -220,6 +221,7 @@ function Main() {
           <Route path="/user" element={<User />} />
           <Route path="/log" element={<Log />} />
           <Route path="/disable" element={<Disabling />} />
+          <Route path="/scanner" element={<BarcodeScanner />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
