@@ -7,6 +7,8 @@ import {
   faUserPen,
   faUserPlus,
   faFilterCircleXmark,
+  faCircleNodes,
+  faLandMineOn,
 } from "@fortawesome/free-solid-svg-icons";
 
 export function Button({ name, id, onClick, className = "" }) {
@@ -91,6 +93,45 @@ export function DeleteUserButton({ onClick, className = "" }) {
     >
       <FontAwesomeIcon icon={faUserSlash} />
       <span className="upload-text">Удалить пользователя</span>
+    </button>
+  );
+}
+
+export function NewConnectionButton({ onClick, className = "" }) {
+  return (
+    <button
+      className={`upload-button ${className}`}
+      id="startMenu"
+      onClick={onClick}
+    >
+      <FontAwesomeIcon icon={faCircleNodes} />
+      <span className="upload-text">Подключение</span>
+    </button>
+  );
+}
+
+export function MalfunctionButton({ onClick, className = "" }) {
+  return (
+    <button
+      className={`upload-button ${className}`}
+      id="startMenu"
+      onClick={onClick}
+    >
+      <FontAwesomeIcon icon={faLandMineOn} />
+      <span className="upload-text">Неисправность</span>
+    </button>
+  );
+}
+
+export function DisconnectButton({ onClick, className = "" }) {
+  return (
+    <button
+      className={`upload-button ${className}`}
+      id="startMenu"
+      onClick={onClick}
+    >
+      <FontAwesomeIcon icon={faUserSlash} />
+      <span className="upload-text">Отключение</span>
     </button>
   );
 }

@@ -1,16 +1,16 @@
 .button.blue,
-.custom-file-upload {
+.custom-file-upload,
+#startMenu {
   margin-top: 20px;
   text-decoration: none;
   border-radius: 10px;
-  background-color: #003597c5;
   height: 45px;
   width: 225px;
   border: none;
   cursor: pointer;
   align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, background-color 0.3s, color 0.3s;
   color: white;
   display: inline-flex;
   justify-content: center;
@@ -19,6 +19,57 @@
   font-size: 16px;
   font-weight: 400;
   text-align: center;
+  gap: 10px; /* Расстояние между иконкой и текстом */
+}
+
+/* Стили для .custom-file-upload */
+.button.blue,
+.custom-file-upload {
+  background-color: #003597c5; /* Синий фон */
+}
+
+/* Стили для #startMenu */
+#startMenu {
+  background-color: transparent; /* Прозрачный фон */
+  border: 2px solid #007bff; /* Обводка цвета #007bff */
+  color: #007bff; /* Цвет текста и иконки */
+}
+
+/* Общие стили при наведении */
+.button.blue:hover,
+.custom-file-upload:hover,
+#startMenu:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Стили при наведении для .custom-file-upload */
+.custom-file-upload:hover {
+  background-color: #002366c5; /* Темнее синий фон */
+}
+
+/* Стили при наведении для #startMenu */
+#startMenu:hover {
+  background-color: #007bff; /* Синий фон */
+  color: white; /* Белый текст и иконка */
+}
+
+/* Стили при нажатии для обеих кнопок */
+.button.blue:active,
+.custom-file-upload:active,
+#startMenu:active {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Стили при нажатии для .custom-file-upload */
+.button.blue:active
+.custom-file-upload:active {
+  background-color: #001a4dc5; /* Еще темнее синий фон */
+}
+
+/* Стили при нажатии для #startMenu */
+#startMenu:active {
+  background-color: #0056b3; /* Темнее синий фон */
+  border-color: #0056b3; /* Темнее синяя обводка */
 }
 
 .arrow {
