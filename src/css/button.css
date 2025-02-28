@@ -19,7 +19,17 @@
   font-size: 16px;
   font-weight: 400;
   text-align: center;
-  gap: 10px; /* Расстояние между иконкой и текстом */
+}
+
+#startMenu {
+  padding: 0 20px; 
+  display: flex; /* Используем flexbox для управления расположением */
+  align-items: center; /* Вертикальное выравнивание по центру */
+  justify-content: space-between; /* Распределяем пространство: иконка слева, текст по центру */
+}
+
+.buttonText {
+  width: 175px;
 }
 
 /* Стили для .custom-file-upload */
@@ -31,8 +41,8 @@
 /* Стили для #startMenu */
 #startMenu {
   background-color: transparent; /* Прозрачный фон */
-  border: 2px solid #007bff; /* Обводка цвета #007bff */
-  color: #007bff; /* Цвет текста и иконки */
+  border: 1px solid #002266c2; /* Обводка цвета #007bff */
+  color: #002266c2; /* Цвет текста и иконки */
 }
 
 /* Общие стили при наведении */
@@ -49,7 +59,7 @@
 
 /* Стили при наведении для #startMenu */
 #startMenu:hover {
-  background-color: #007bff; /* Синий фон */
+  background-color: #003597c5; /* Синий фон */
   color: white; /* Белый текст и иконка */
 }
 
@@ -68,8 +78,8 @@
 
 /* Стили при нажатии для #startMenu */
 #startMenu:active {
-  background-color: #0056b3; /* Темнее синий фон */
-  border-color: #0056b3; /* Темнее синяя обводка */
+  background-color: #003597c5; /* Темнее синий фон */
+  border-color: #003597c5; /* Темнее синяя обводка */
 }
 
 .arrow {

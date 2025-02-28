@@ -105,7 +105,9 @@ export function NewConnectionButton({ onClick, className = "" }) {
       onClick={onClick}
     >
       <FontAwesomeIcon icon={faCircleNodes} />
-      <span className="upload-text">Подключение</span>
+      <div className="buttonText">
+        <span className="upload-text">Подключение</span>
+      </div>
     </button>
   );
 }
@@ -118,7 +120,9 @@ export function MalfunctionButton({ onClick, className = "" }) {
       onClick={onClick}
     >
       <FontAwesomeIcon icon={faLandMineOn} />
-      <span className="upload-text">Неисправность</span>
+      <div className="buttonText">
+        <span className="upload-text">Неисправность</span>
+      </div>
     </button>
   );
 }
@@ -131,7 +135,9 @@ export function DisconnectButton({ onClick, className = "" }) {
       onClick={onClick}
     >
       <FontAwesomeIcon icon={faUserSlash} />
-      <span className="upload-text">Отключение</span>
+      <div className="buttonText">
+        <span className="upload-text">Отключение</span>
+      </div>
     </button>
   );
 }
