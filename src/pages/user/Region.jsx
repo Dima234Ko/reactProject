@@ -51,7 +51,7 @@ function Region() {
         success: true,
       });
       // Исправлен синтаксис navigate и добавлена навигация
-      navigate(`/status?region=${regionId}`);
+      navigate(`/work?region=${regionId}`);
     } else {
       setResult({
         result: "Ошибка смены региона",

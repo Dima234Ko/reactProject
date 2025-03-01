@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { setSerial } from "../../store/actions/serialActions";
 import { setRegion } from "../../store/actions/regionActions";
 import { setProgress } from "../../store/actions/progressActions";
+import { setWork } from "../../store/actions/workActions";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { Loader } from "../../components/Loader";
@@ -23,6 +24,7 @@ function Status() {
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const regionFromRedux = useSelector((state) => state.region.region);
+  const work = useSelector((state) => state.work.work);
   const [serial, setSerialState] = useState(serialFromRedux || "");
   const [regionId, setRegionId] = useState(regionFromRedux || "");
   const [loading, setLoading] = useState(false);
@@ -34,13 +36,15 @@ function Status() {
     fromData: "",
   });
 
-  // Синхронизация serial с Redux и regionId с URL
+  // Синхронизация с Redux
   useEffect(() => {
     setSerialState(serialFromRedux);
     const params = new URLSearchParams(location.search);
     const regionFromUrl = getParamBrowserUrl("region");
+    const workFromUrl = getParamBrowserUrl("work");
     setRegionId(regionFromUrl);
     dispatch(setRegion(regionFromUrl));
+    dispatch(setWork(workFromUrl));
   }, [serialFromRedux, location.search]);
 
   // Проверка статуса задачи при изменении URL
@@ -179,7 +183,7 @@ function Status() {
       )}
       {result && <Result data={result} />}
       <NextButton
-        to={`/pppoe?region=${regionId}&serial=${serial}`}
+        to={`/pppoe?region=${regionId}&work=${work}&serial=${serial}`}
         disabled={result === null || result?.success !== true}
       />
     </div>
