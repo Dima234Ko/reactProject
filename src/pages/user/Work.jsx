@@ -19,13 +19,18 @@ function Work() {
         navigate(`/status?region=${regionId}&work=${work}`);
     }
 
+    const malfunction = () => {
+        work = 2;
+        navigate(`/malfunction?region=${regionId}&work=${work}`);
+    }
+    
 
   return (
     <div id="work">
       <h2>Выбор действия</h2>
       <h5>{getRegion(regionId)}</h5>
         <NewConnectionButton  onClick={newConnection} />
-        <MalfunctionButton  onClick={console.log('Неисправность')} />
+        <MalfunctionButton  onClick={malfunction} />
         <DisconnectButton  onClick={console.log('Отключение')} />
     </div>
   );

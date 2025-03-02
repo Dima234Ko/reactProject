@@ -9,6 +9,8 @@ import {
   faFilterCircleXmark,
   faCircleNodes,
   faLandMineOn,
+  faUserCheck,
+  faNetworkWired
 } from "@fortawesome/free-solid-svg-icons";
 
 export function Button({ name, id, onClick, className = "" }) {
@@ -137,6 +139,36 @@ export function DisconnectButton({ onClick, className = "" }) {
       <FontAwesomeIcon icon={faUserSlash} />
       <div className="buttonText">
         <span className="upload-text">Отключение</span>
+      </div>
+    </button>
+  );
+}
+
+export function StatusButton({ onClick, className = "" }) {
+  return (
+    <button
+      className={`upload-button ${className}`}
+      id="startMenu"
+      onClick={onClick}
+    >
+      <FontAwesomeIcon icon={faUserCheck} />
+      <div className="buttonText">
+        <span className="upload-text">Статус</span>
+      </div>
+    </button>
+  );
+}
+
+export function PPPoEButton({ onClick, className = "" }) {
+  return (
+    <button
+      className={`upload-button ${className}`}
+      id="startMenu"
+      onClick={onClick}
+    >
+      <FontAwesomeIcon icon={faNetworkWired} />
+      <div className="buttonText">
+        <span className="upload-text">PPPoE</span>
       </div>
     </button>
   );

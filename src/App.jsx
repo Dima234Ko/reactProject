@@ -18,6 +18,7 @@ import User from "./pages/admin/Accounts";
 import Log from "./pages/admin/Log";
 import Disabling from "./pages/user/Disabling";
 import Work from "./pages/user/Work";
+import Malfunction from "./pages/user/Malfunction";
 
 function App() {
   return (
@@ -222,6 +223,7 @@ function Main() {
           <Route path="/log" element={<Log />} />
           <Route path="/disable" element={<Disabling />} />
           <Route path="/work" element={<Work/>} />
+          <Route path="/malfunction" element={<Malfunction/>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
