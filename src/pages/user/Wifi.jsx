@@ -4,9 +4,11 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { setProgress } from "../../store/actions/progressActions";
 import { setSerial } from "../../store/actions/serialActions";
 import { setRegion } from "../../store/actions/regionActions";
+import { setWork } from "../../store/actions/workActions";
 import { SelectSSID, SelectSSID5 } from "../../components/Select";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
+import { NextButton } from "../../components/Link";
 import { setLogin } from "../../store/actions/loginActions";
 import { Loader } from "../../components/Loader";
 import Result from "../../components/Result";
@@ -21,6 +23,7 @@ function Wifi() {
   const navigate = useNavigate();
   const location = useLocation();
   const loginFromRedux = useSelector((state) => state.login.login);
+  const workFromRedux = useSelector((state) => state.work.work);
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const regionFromRedux = useSelector((state) => state.region.region);
@@ -36,13 +39,20 @@ function Wifi() {
   const [selectSSID5, setSelectSSID5] = useState("auto");
   const regionFromUrl = getNumberBrowserUrl("region");
   const loginFromUrl = getParamBrowserUrl("login" || "");
+  const workFromUrl = getParamBrowserUrl("work");
 
   // Обработка параметров из URL
   useEffect(() => {
     setSerialState(serialFromRedux);
-    const params = new URLSearchParams(location.search);
-    setRegionId(regionFromUrl);
-    dispatch(setRegion(regionFromUrl));
+
+    if (workFromUrl){
+      dispatch(setWork(workFromUrl));
+    }
+
+    if (regionFromUrl) {
+      setRegionId(regionFromUrl);
+      dispatch(setRegion(regionFromUrl));
+    }
 
     if (loginFromUrl !== ""){
       dispatch(setLogin(loginFromUrl));
@@ -216,6 +226,7 @@ function Wifi() {
         />
       </div>
 
+      <Button name="Отправить запрос" onClick={handleSetWiFi} />
       {loading && (
         <div className="overlay">
           <div className="spinner-container">
@@ -223,10 +234,11 @@ function Wifi() {
           </div>
         </div>
       )}
-
       {result && <Result data={result} />}
-
-      <Button name="Отправить запрос" onClick={handleSetWiFi} />
+      <NextButton
+        to={`/info?region=${regionId}&work=${workFromRedux}&serial=${serialFromRedux}&login=${loginFromRedux}`}
+        disabled={result === null || result.success === false}
+      />
     </div>
   );
 }

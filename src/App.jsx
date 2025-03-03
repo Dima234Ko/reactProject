@@ -41,10 +41,11 @@ function Main() {
   const showBackButton = location.pathname !== "/";
   const showBurgerMenu = location.pathname !== "/";
 
-  // Получаем serial из Redux
+  // Получаем данные из Redux
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const regionFromRedux = useSelector((state) => state.region.region);
   const loginFromRedux = useSelector((state) => state.login.login);
+  const workFromRedux = useSelector((state) => state.work.work);
 
   let userRootFromLocalStorage = "0";
 
@@ -121,12 +122,12 @@ function Main() {
         {
           id: "pppoePage",
           name: "PPPoE",
-          to: `/pppoe?region=${regionFromRedux}&serial=${serialFromRedux}`,
+          to: `/pppoe?region=${regionFromRedux}&work=${workFromRedux}&serial=${serialFromRedux}`,
         },
         {
           id: "wifiPage",
           name: "WiFi",
-          to: `/wifi?region=${regionFromRedux}&serial=${serialFromRedux}&login=${loginFromRedux}`,
+          to: `/wifi?region=${regionFromRedux}&work=${workFromRedux}&serial=${serialFromRedux}&login=${loginFromRedux}`,
         },
         { id: "disable", name: "Демонтаж", to: "/disable" },
         { id: "userPage", name: "Пользователи", to: "/user" },
@@ -144,12 +145,12 @@ function Main() {
         {
           id: "pppoePage",
           name: "PPPoE",
-          to: `/pppoe?region=${regionFromRedux}&serial=${serialFromRedux}`,
+          to: `/pppoe?region=${regionFromRedux}&work=${workFromRedux}&serial=${serialFromRedux}`,
         },
         {
           id: "wifiPage",
           name: "WiFi",
-          to: `/wifi?region=${regionFromRedux}&serial=${serialFromRedux}&login=${loginFromRedux}`,
+          to: `/wifi?region=${regionFromRedux}&work=${workFromRedux}&serial=${serialFromRedux}&login=${loginFromRedux}`,
         },
         { id: "disable", name: "Демонтаж", to: "/disable" },
         { id: "settingsPage", name: "Настройки", to: "/settings" },

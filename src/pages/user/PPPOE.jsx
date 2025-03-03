@@ -5,6 +5,7 @@ import { setProgress } from "../../store/actions/progressActions";
 import { setSerial } from "../../store/actions/serialActions";
 import { setRegion } from "../../store/actions/regionActions";
 import { setLogin } from "../../store/actions/loginActions";
+import { setWork } from "../../store/actions/workActions";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { Loader } from "../../components/Loader";
@@ -23,20 +24,24 @@ function Pppoe() {
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const regionFromRedux = useSelector((state) => state.region.region);
   const loginFromRedux = useSelector((state) => state.login.login);
+  const workFromRedux = useSelector((state) => state.work.work);
   const [serial, setSerialState] = useState(serialFromRedux || "");
   const [regionId, setRegionId] = useState(regionFromRedux || "");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [login, setLoginInp] = useState(loginFromRedux || "");
   const [password, setPassword] = useState("");
-  const [prevLogin, setPrevLogin] = useState("");
+  const regionFromUrl = getNumberBrowserUrl("region");
+  const loginFromUrl = getParamBrowserUrl("login");
+  const workFromUrl = getParamBrowserUrl("work");
 
   useEffect(() => {
     setSerialState(serialFromRedux);
-    const params = new URLSearchParams(location.search);
-    const regionFromUrl = getNumberBrowserUrl("region");
-    const loginFromUrl = getParamBrowserUrl("login");
-  
+
+    if (workFromUrl){
+      dispatch(setWork(workFromUrl));
+    }
+
     if (regionFromUrl) {
       setRegionId(regionFromUrl);
       dispatch(setRegion(regionFromUrl));
@@ -73,9 +78,7 @@ function Pppoe() {
 
   const handleSetPppoe = async () => {
     if (login !== "") {
-      if (login !== prevLogin) {
-        setPrevLogin(login);
-      }
+      dispatch(setLogin(login)); 
       setLoading(true);
       setResult(false);
       dispatch(setProgress(0));
@@ -173,7 +176,7 @@ function Pppoe() {
       )}
       {result && <Result data={result} />}
       <NextButton
-        to={`/wifi?region=${regionId}&serial=${serial}&login=${login}`}
+        to={`/info?region=${regionId}&work=${workFromRedux}&serial=${serialFromRedux}&login=${loginFromRedux}`}
         disabled={result === null || result.success === false}
       />
     </div>
