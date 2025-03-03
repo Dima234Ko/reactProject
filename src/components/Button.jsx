@@ -10,7 +10,8 @@ import {
   faCircleNodes,
   faLandMineOn,
   faUserCheck,
-  faNetworkWired
+  faNetworkWired,
+  faHandsAslInterpreting
 } from "@fortawesome/free-solid-svg-icons";
 
 export function Button({ name, id, onClick, className = "" }) {
@@ -153,7 +154,22 @@ export function StatusButton({ onClick, className = "" }) {
     >
       <FontAwesomeIcon icon={faUserCheck} />
       <div className="buttonText">
-        <span className="upload-text">Статус</span>
+        <span className="upload-text">Статус NTU</span>
+      </div>
+    </button>
+  );
+}
+
+export function ChangeButton({ onClick, className = "" }) {
+  return (
+    <button
+      className={`upload-button ${className}`}
+      id="startMenu"
+      onClick={onClick}
+    >
+      <FontAwesomeIcon icon={faHandsAslInterpreting} />
+      <div className="buttonText">
+        <span className="upload-text">Замена NTU</span>
       </div>
     </button>
   );

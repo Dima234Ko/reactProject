@@ -1,25 +1,47 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { StatusButton } from "../../components/Button";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
+import { StatusButton, ChangeButton } from "../../components/Button";
 import { getRegion } from "../../functions/region";
 import { setWork } from "../../store/actions/workActions";
+import { setRegion } from "../../store/actions/regionActions"; // Добавьте этот импорт, если setRegion существует
 
 function Malfunction() {
-    const regionFromRedux = useSelector((state) => state.region.region);
-    const [regionId, setRegionId] = useState(regionFromRedux || "");
-    const navigate = useNavigate();
     const dispatch = useDispatch();
-    let work = 0;
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [regionId, setRegionId] = useState("");
+    const work = useSelector((state) => state.work.work);
 
-  return (
-    <div id="work">
-      <h2>Выбор действия</h2>
-      <h5>{getRegion(regionId)}</h5>
-        <StatusButton  onClick={console.log('Неисправность')} />
-    </div>
-  );
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const regionFromUrl = params.get("region"); // Используем params.get для получения параметров
+        const workFromUrl = params.get("work");
+        if (regionFromUrl) {
+            setRegionId(regionFromUrl);
+            dispatch(setRegion(regionFromUrl)); // Убедитесь, что setRegion определён в ваших actions
+        }
+        if (workFromUrl) {
+            dispatch(setWork(workFromUrl));
+        }
+    }, [location.search, dispatch]);
+
+    const newStatus = () => {
+        navigate(`/status?region=${regionId}&work=${work}`);
+    };
+
+    const newChange = () => {
+        navigate(`/change?region=${regionId}&work=${work}`);
+    };
+
+    return (
+        <div id="work">
+            <h2>Выбор действия</h2>
+            <h5>{getRegion(regionId)}</h5>
+            <StatusButton onClick={newStatus} />
+            <ChangeButton onClick={newChange} />
+        </div>
+    );
 }
 
 export default Malfunction;

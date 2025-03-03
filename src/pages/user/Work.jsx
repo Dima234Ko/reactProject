@@ -19,9 +19,16 @@ function Work() {
         navigate(`/status?region=${regionId}&work=${work}`);
     }
 
-    const malfunction = () => {
+    const newMalfunction = () => {
         work = 2;
+        dispatch(setWork(work));
         navigate(`/malfunction?region=${regionId}&work=${work}`);
+    }
+
+    const newDisable = () => {
+        work = 3;
+        dispatch(setWork(work));
+        navigate(`/disable?region=${regionId}&work=${work}`);
     }
     
 
@@ -30,8 +37,8 @@ function Work() {
       <h2>Выбор действия</h2>
       <h5>{getRegion(regionId)}</h5>
         <NewConnectionButton  onClick={newConnection} />
-        <MalfunctionButton  onClick={malfunction} />
-        <DisconnectButton  onClick={console.log('Отключение')} />
+        <MalfunctionButton  onClick={newMalfunction} />
+        <DisconnectButton  onClick={newDisable} />
     </div>
   );
 }
