@@ -44,6 +44,7 @@ function Main() {
   // Получаем serial из Redux
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const regionFromRedux = useSelector((state) => state.region.region);
+  const loginFromRedux = useSelector((state) => state.login.login);
 
   let userRootFromLocalStorage = "0";
 
@@ -125,7 +126,7 @@ function Main() {
         {
           id: "wifiPage",
           name: "WiFi",
-          to: `/wifi?region=${regionFromRedux}&serial=${serialFromRedux}`,
+          to: `/wifi?region=${regionFromRedux}&serial=${serialFromRedux}&login=${loginFromRedux}`,
         },
         { id: "disable", name: "Демонтаж", to: "/disable" },
         { id: "userPage", name: "Пользователи", to: "/user" },
@@ -148,7 +149,7 @@ function Main() {
         {
           id: "wifiPage",
           name: "WiFi",
-          to: `/wifi?region=${regionFromRedux}&serial=${serialFromRedux}`,
+          to: `/wifi?region=${regionFromRedux}&serial=${serialFromRedux}&login=${loginFromRedux}`,
         },
         { id: "disable", name: "Демонтаж", to: "/disable" },
         { id: "settingsPage", name: "Настройки", to: "/settings" },

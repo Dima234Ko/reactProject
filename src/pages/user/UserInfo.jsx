@@ -27,7 +27,7 @@ function UserInfo() {
         patronymic: "",
         phone: "",
     });
-    const [result, setResult] = useState(null); // Добавлено состояние для результата
+    const [result, setResult] = useState(null); 
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);

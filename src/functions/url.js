@@ -25,5 +25,5 @@ export function getNumberBrowserUrl(param) {
 export function getParamBrowserUrl(param) {
   const params = new URLSearchParams(window.location.search);
   const data = params.get(param) || "";
-  return data.match(/^.{1,8}$/) ? data : "";
+  return data;
 }

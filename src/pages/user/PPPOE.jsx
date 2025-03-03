@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { setProgress } from "../../store/actions/progressActions";
 import { setSerial } from "../../store/actions/serialActions";
 import { setRegion } from "../../store/actions/regionActions";
+import { setLogin } from "../../store/actions/loginActions";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { Loader } from "../../components/Loader";
@@ -26,7 +27,7 @@ function Pppoe() {
   const [regionId, setRegionId] = useState(regionFromRedux || "");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
-  const [login, setLogin] = useState(loginFromRedux || "");
+  const [login, setLoginInp] = useState(loginFromRedux || "");
   const [password, setPassword] = useState("");
   const [prevLogin, setPrevLogin] = useState("");
 
@@ -34,18 +35,18 @@ function Pppoe() {
     setSerialState(serialFromRedux);
     const params = new URLSearchParams(location.search);
     const regionFromUrl = getNumberBrowserUrl("region");
-    // const loginFromUrl = getParamBrowserUrl("login");
-
+    const loginFromUrl = getParamBrowserUrl("login");
+  
     if (regionFromUrl) {
       setRegionId(regionFromUrl);
       dispatch(setRegion(regionFromUrl));
     }
-
+  
     if (loginFromUrl) {
-      setLogin(loginFromUrl); 
+      setLoginInp(loginFromUrl); 
       dispatch(setLogin(loginFromUrl)); 
     }
-  }, [serialFromRedux, location.search, dispatch]);
+  }, [serialFromRedux]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -150,7 +151,7 @@ function Pppoe() {
           placeholder="Введите логин"
           value={login}
           onBlur={handleLoginChange}
-          onChange={(e) => setLogin(e.target.value)}
+          onChange={(e) => setLoginInp(e.target.value)}
         />
       </div>
       <div className="inp-contanier">
@@ -172,7 +173,7 @@ function Pppoe() {
       )}
       {result && <Result data={result} />}
       <NextButton
-        to={`/wifi?region=${regionId}&serial=${serial}`}
+        to={`/wifi?region=${regionId}&serial=${serial}&login=${login}`}
         disabled={result === null || result.success === false}
       />
     </div>

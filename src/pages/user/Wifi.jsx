@@ -6,21 +6,21 @@ import { setSerial } from "../../store/actions/serialActions";
 import { setRegion } from "../../store/actions/regionActions";
 import { SelectSSID, SelectSSID5 } from "../../components/Select";
 import { Input } from "../../components/Input";
-import { Button, UploadButton } from "../../components/Button";
+import { Button } from "../../components/Button";
+import { setLogin } from "../../store/actions/loginActions";
 import { Loader } from "../../components/Loader";
 import Result from "../../components/Result";
 import { setWiFi } from "../../functions/wifi";
 import { checkTaskStatus } from "../../functions/task";
-import { FormInfo } from "../../components/Form/Form";
 import { searchIdUs } from "../../functions/pppoe";
-import { FormPhoto } from "../../components/Form/FormPhoto";
-import { getParamBrowserUrl } from "../../functions/url";
+import { getNumberBrowserUrl, getParamBrowserUrl } from "../../functions/url";
 import { getRegion } from "../../functions/region";
 
 function Wifi() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const loginFromRedux = useSelector((state) => state.login.login);
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const regionFromRedux = useSelector((state) => state.region.region);
@@ -30,62 +30,30 @@ function Wifi() {
   const [result, setResult] = useState(null);
   const [ssid2_4, setSsid2_4] = useState("");
   const [password2_4, setPassword2_4] = useState("");
-  const [login, setlogin] = useState("");
-  const [idUserSideCard, setIdUserSideCard] = useState("");
   const [selectSSID2_4, setSelectSSID2_4] = useState("auto");
   const [ssid5, setSsid5] = useState("");
   const [password5, setPassword5] = useState("");
   const [selectSSID5, setSelectSSID5] = useState("auto");
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [file, setFile] = useState(null);
-  const [isUploading, setIsUploading] = useState(false);
-  const [formContent, setFormContent] = useState({
-    fromData: (
-      <div className="textForm">
-        <h2>Внимание</h2>
-        <div>
-          <pre>Произошёл сбой</pre>
-        </div>
-        <ul>
-          <h4>Необходимо настроить WIFI</h4>
-        </ul>
-      </div>
-    ),
-  });
+  const regionFromUrl = getNumberBrowserUrl("region");
+  const loginFromUrl = getParamBrowserUrl("login" || "");
 
+  // Обработка параметров из URL
   useEffect(() => {
     setSerialState(serialFromRedux);
     const params = new URLSearchParams(location.search);
-    const regionFromUrl = getParamBrowserUrl("region");
     setRegionId(regionFromUrl);
     dispatch(setRegion(regionFromUrl));
-  }, [serialFromRedux, location.search]);
 
-  // Асинхронная функция для получения данных WiFi по serial
-  const fetchDataWiFi = async () => {
-    try {
-      if (serial !== "") {
-        const data = await searchIdUs(serial, setResult, "serial");
-        if (data) {
-          setSsid2_4(data.ssidWifi2);
-          setSsid5(data.ssidWifi5);
-          setPassword2_4(data.passWifi2);
-          setPassword5(data.passWifi5);
-          setIdUserSideCard(data.idUserSideCard);
-          setlogin(data.userLogin);
-          setSelectSSID2_4(data.channelWifi2);
-          setSelectSSID5(data.channelWifi5);;
-        }
-      }
-    } catch (error) {
-      console.error("Ошибка при получении данных WiFi:", error);
+    if (loginFromUrl !== ""){
+      dispatch(setLogin(loginFromUrl));
     }
-  };
 
-  useEffect(() => {
-    fetchDataWiFi();
-  }, [serial]);
+    if (serialFromRedux !== ""){
+      fetchDataWiFi();
+    }
 
+  }, [serialFromRedux]);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -97,7 +65,7 @@ function Wifi() {
           setSerial,
           setLoading,
           setResult,
-          navigate,
+          navigate
         );
       } catch (error) {
         setResult({
@@ -109,23 +77,45 @@ function Wifi() {
     fetchData();
   }, [location.search, navigate]);
 
+  // Асинхронная функция для получения данных WiFi
+  const fetchDataWiFi = async () => {
+    try {
+      let data;
+      if (loginFromRedux !== null) {
+        data = await searchIdUs(loginFromRedux, setResult, "login");
+      } else if (loginFromUrl === "") {
+        data = await searchIdUs(serialFromRedux, setResult, "serial");
+      }
+      if (data) {
+        setSsid2_4(data.ssidWifi2 || "");
+        setSsid5(data.ssidWifi5 || "");
+        setPassword2_4(data.passWifi2 || "");
+        setPassword5(data.passWifi5 || "");
+        setSelectSSID2_4(data.channelWifi2 || "auto");
+        setSelectSSID5(data.channelWifi5 || "auto");
+      }
+    } catch (error) {
+      console.error("Ошибка при получении данных WiFi:", error);
+      setResult({
+        result: "Ошибка при получении данных WiFi",
+        success: false,
+      });
+    }
+  };
+
   // Обработчик для настройки WiFi
   const handleSetWiFi = async () => {
+    if (!ssid2_4 || !password2_4 || !ssid5 || !password5) {
+      setResult({
+        result: "Заполните все поля",
+        success: false,
+      });
+      return;
+    }
+
     setLoading(true);
     setResult(false);
     dispatch(setProgress(0));
-
-    setFormContent({
-      fromData: (
-        <FormPhoto
-          isUploading={isUploading}
-          setIsUploading={setIsUploading}
-          setFile={setFile}
-          login={login}
-          idUserSideCard={idUserSideCard}
-        />
-      ),
-    });
 
     try {
       await setWiFi(
@@ -140,7 +130,7 @@ function Wifi() {
         setResult,
         dispatch,
         navigate,
-        regionId,
+        regionId
       );
     } catch (error) {
       setResult({
@@ -150,26 +140,10 @@ function Wifi() {
     }
   };
 
-  // Открыть форму для загрузки файла
-  const openForm = () => {
-    setIsFormOpen(true);
-  };
-
-  // Закрыть форму для загрузки файла
-  const closeForm = () => {
-    setIsFormOpen(false);
-  };
-
   return (
     <div id="wifi">
       <h2>Настройка WiFi</h2>
       <h5>{getRegion(regionId)}</h5>
-      <FormInfo
-        isFormOpen={isFormOpen}
-        closeForm={closeForm}
-        formData={formContent.fromData}
-      />
-
       <div className="pon-container">
         <Input
           id="id_Ntu"
@@ -212,7 +186,6 @@ function Wifi() {
           placeholder="Введите пароль"
           value={password2_4}
           onChange={(e) => {
-            const newSsid = e.target.value;
             setPassword2_4(e.target.value);
             setPassword5(e.target.value);
           }}
@@ -242,8 +215,6 @@ function Wifi() {
           onChange={(e) => setPassword5(e.target.value)}
         />
       </div>
-
-      <UploadButton onClick={openForm} />
 
       {loading && (
         <div className="overlay">
