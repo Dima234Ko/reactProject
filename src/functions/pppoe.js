@@ -1,6 +1,7 @@
 import { getTaskId, checkTask } from "./task";
 import { setProgress } from "../store/actions/progressActions";
 import { requestAPI } from "./api";
+import { updateUrlWithParam } from "./url";
 
 //Получить информацию из US
 export async function searchIdUs(userLoginSerial, setResult, param) {
@@ -64,7 +65,6 @@ export async function setPppoe(
   navigate,
   regionId,
 ) {
-  setLoading(true);
   setResult(null);
   dispatch(setProgress(0));
 
@@ -76,6 +76,7 @@ export async function setPppoe(
   };
 
   let taskId;
+  updateUrlWithParam("login", login, navigate);
 
   try {
     taskId = await getTaskId(

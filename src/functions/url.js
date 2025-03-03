@@ -16,8 +16,14 @@ export function removeUrlParam(key, navigate) {
   }); // Перезаписываем URL с обновленными параметрами, не перезагружая страницу
 }
 
+export function getNumberBrowserUrl(param) {
+  const params = new URLSearchParams(window.location.search);
+  const data = params.get(param) || "";
+  return data.match(/^\d+$/) ? data : "";
+}
+
 export function getParamBrowserUrl(param) {
   const params = new URLSearchParams(window.location.search);
-  const region = params.get(param) || "";
-  return region.match(/^\d+$/) ? region : "";
+  const data = params.get(param) || "";
+  return data.match(/^.{1,8}$/) ? data : "";
 }

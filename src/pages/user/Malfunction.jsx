@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { StatusButton, ChangeButton } from "../../components/Button";
 import { getRegion } from "../../functions/region";
 import { setWork } from "../../store/actions/workActions";
-import { setRegion } from "../../store/actions/regionActions"; // Добавьте этот импорт, если setRegion существует
+import { setRegion } from "../../store/actions/regionActions"; 
 
 function Malfunction() {
     const dispatch = useDispatch();
@@ -15,11 +15,11 @@ function Malfunction() {
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
-        const regionFromUrl = params.get("region"); // Используем params.get для получения параметров
+        const regionFromUrl = params.get("region"); 
         const workFromUrl = params.get("work");
         if (regionFromUrl) {
             setRegionId(regionFromUrl);
-            dispatch(setRegion(regionFromUrl)); // Убедитесь, что setRegion определён в ваших actions
+            dispatch(setRegion(regionFromUrl));
         }
         if (workFromUrl) {
             dispatch(setWork(workFromUrl));
