@@ -20,7 +20,7 @@ import Disabling from "./pages/user/Disabling";
 import Work from "./pages/user/Work";
 import Malfunction from "./pages/user/Malfunction";
 import UserInfo from "./pages/user/UserInfo";
-import {TaskButton} from "./components/Button";
+import { TaskButton } from "./components/Button";
 
 function App() {
   return (
@@ -32,197 +32,113 @@ function App() {
 
 function Main() {
   const location = useLocation();
-
-  // Проверка наличия параметра serial в URL
   const params = new URLSearchParams(location.search);
+  const { pathname } = location;
+
+  // Параметры из URL
   const hasSerial = params.has("serial");
   const hasRegion = params.has("region");
   const hasWork = params.has("work");
   const hasLogin = params.has("login");
 
-  // Логика отображения кнопки "назад" и бургер-меню
-  const showBackButton = location.pathname !== "/" && !(params.get("work") === "1");
-  const showBurgerMenu = location.pathname !== "/" && !(params.get("work") === "1");
+  // Состояние UI
+  const showBackButton = pathname !== "/";
+  const showBurgerMenu = pathname !== "/";
 
-  // Получаем данные из Redux
+  // Redux state
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const regionFromRedux = useSelector((state) => state.region.region);
   const loginFromRedux = useSelector((state) => state.login.login);
   const workFromRedux = useSelector((state) => state.work.work);
 
-  let userRootFromLocalStorage = "0";
+  // Получение userRoot из localStorage
+  const getUserRoot = () => JSON.parse(localStorage.getItem("authResult")) || "0";
+  const userRoot = getUserRoot();
 
-  function updateUserRootFromLocalStorage() {
-    userRootFromLocalStorage = JSON.parse(localStorage.getItem("authResult"));
-  }
+  // Функция редиректа
+  const getRedirectPath = (pathname) => {
+    const needWork = ["/status", "/wifi", "/pppoe", "/malfunction", "/info"];
+    const needRegion = [...needWork, "/work"];
+    const needSerial = ["/pppoe", "/wifi", "/info"];
+    const rootOnly = ["/user", "/log"];
 
-  // Функция для перенаправления на другие страницы
-  const redirectTo = (pathname) => {
-    updateUserRootFromLocalStorage();
-
-    // Если отсутствует параметр редиректим
-    if (!hasWork && ["/status", "/wifi", "/pppoe", "/malfunction", "/info" ].includes(pathname)) {
-      return "/work";
-    }
-
-    if (!hasRegion && ["/status", "/wifi", "/pppoe", "/work", "/malfunction", "/info" ].includes(pathname)) {
-      return "/region";
-    }
-
-    if (!hasSerial && (pathname === "/pppoe" || pathname === "/wifi" || pathname === "/info")) {
-      return "/status";
-    }
-
+    if (!hasWork && needWork.includes(pathname)) return "/work";
+    if (!hasRegion && needRegion.includes(pathname)) return "/region";
+    if (!hasSerial && needSerial.includes(pathname)) return "/status";
+    if ((!hasLogin || !loginFromRedux) && pathname === "/info") return "/pppoe";
     
-    if ((!hasLogin || !loginFromRedux === null) && (pathname === "/info")) {
-      return "/pppoe";
-    }
-
-    // Логика редиректа на основе userRoot
-    if (pathname === "/user" || pathname === "/log") {
-      return userRootFromLocalStorage !== "1" ? "/region" : null;
-    }
-    if (
-      pathname !== "/" &&
-      !["1", "2", "3"].includes(userRootFromLocalStorage)
-    ) {
-      return "/";
-    }
+    if (rootOnly.includes(pathname) && userRoot !== "1") return "/region";
+    if (pathname !== "/" && !["1", "2", "3"].includes(userRoot)) return "/";
+    
     return null;
   };
 
-  const redirectPath = redirectTo(location.pathname);
+  // Функция получения пунктов меню
+  const getMenuItems = () => {
+    const isRoot = userRoot === "1";
+    const isSettingsOrRegion = pathname === "/settings" || pathname === "/region";
+    const isNotRootPage = pathname !== "/";
+    const isWorkParam = (params.get("work") !== "1");
+
+    return [
+      {
+        id: "workPage",
+        name: "Главная",
+        to: isSettingsOrRegion && isRoot ? "/disable" : "/work",
+        show: !isSettingsOrRegion || (isSettingsOrRegion && isRoot) || pathname !== "/work"
+      },
+      {
+        id: "statusPage",
+        name: "Статус",
+        to: `/status?region=${regionFromRedux}`,
+        show: (isNotRootPage && hasSerial) || 
+              (pathname !== "/status" && !["/work", "/malfunction"].includes(pathname))
+      },
+      {
+        id: "pppoePage",
+        name: "PPPoE",
+        to: `/pppoe?region=${regionFromRedux}&work=${workFromRedux}&serial=${serialFromRedux}`,
+        show: isNotRootPage && hasSerial && isWorkParam
+      },
+      {
+        id: "wifiPage",
+        name: "WiFi",
+        to: `/wifi?region=${regionFromRedux}&work=${workFromRedux}&serial=${serialFromRedux}${loginFromRedux ? `&login=${loginFromRedux}` : ''}`,
+        show: isNotRootPage && hasSerial && isWorkParam
+      },
+      {
+        id: "userPage",
+        name: "Пользователи",
+        to: "/user",
+        show: isRoot
+      },
+      {
+        id: "logPage",
+        name: "Логи",
+        to: "/log",
+        show: isRoot
+      },
+      {
+        id: "settingsPage",
+        name: "Настройки",
+        to: "/settings",
+        show: !isSettingsOrRegion || (isNotRootPage && (!hasSerial || !isWorkParam))
+      },
+      {
+        id: "homePage",
+        name: "Выход",
+        to: "/",
+        show: true
+      }
+    ].filter(item => item.show);
+  };
+
+  const redirectPath = getRedirectPath(pathname);
   if (redirectPath) {
     return <Navigate to={redirectPath} replace />;
   }
 
-  let menuItems = [];
-
-  // Логика для меню на разных страницах
-  if (location.pathname === "/settings" || location.pathname === "/region") {
-    if (userRootFromLocalStorage === "1") {
-      menuItems = [
-        {
-          id: "statusPage",
-          name: "Статус",
-          to: `/status?region=${regionFromRedux}`,
-        },
-        { id: "disable", name: "Демонтаж", to: "/disable" },
-        { id: "userPage", name: "Пользователи", to: "/user" },
-        { id: "logPage", name: "Логи", to: "/log" },
-        { id: "homePage", name: "Выход", to: "/" },
-      ];
-    } else
-      menuItems = [
-        {
-          id: "statusPage",
-          name: "Статус",
-          to: `/status?region=${regionFromRedux}`,
-        },
-        { id: "disable", name: "Демонтаж", to: "/disable" },
-        { id: "homePage", name: "Выход", to: "/" },
-      ];
-  } else if (location.pathname !== "/" && hasSerial) {
-    if (userRootFromLocalStorage === "1") {
-      menuItems = [
-        {
-          id: "statusPage",
-          name: "Статус",
-          to: `/status?region=${regionFromRedux}`,
-        },
-        {
-          id: "pppoePage",
-          name: "PPPoE",
-          to: `/pppoe?region=${regionFromRedux}&work=${workFromRedux}&serial=${serialFromRedux}`,
-        },
-        {
-          id: "wifiPage",
-          name: "WiFi",
-          to: `/wifi?region=${regionFromRedux}&work=${workFromRedux}&serial=${serialFromRedux}${
-            loginFromRedux !== null ? `&login=${loginFromRedux}` : ''
-          }`,
-        },
-        { id: "disable", name: "Демонтаж", to: "/disable" },
-        { id: "userPage", name: "Пользователи", to: "/user" },
-        { id: "logPage", name: "Логи", to: "/log" },
-        { id: "settingsPage", name: "Настройки", to: "/settings" },
-        { id: "homePage", name: "Выход", to: "/" },
-      ];
-    } else
-      menuItems = [
-        { id: "workPage", name: "Главная", to: "/work" },
-        {
-          id: "statusPage",
-          name: "Статус",
-          to: `/status?region=${regionFromRedux}`,
-        },
-        {
-          id: "pppoePage",
-          name: "PPPoE",
-          to: `/pppoe?region=${regionFromRedux}&work=${workFromRedux}&serial=${serialFromRedux}`,
-        },
-        {
-          id: "wifiPage",
-          name: "WiFi",
-          to: `/wifi?region=${regionFromRedux}&work=${workFromRedux}&serial=${serialFromRedux}${
-            loginFromRedux !== null ? `&login=${loginFromRedux}` : ''
-          }`,
-        },
-        { id: "settingsPage", name: "Настройки", to: "/settings" },
-        { id: "homePage", name: "Выход", to: "/" },
-      ];
-  } else {
-    if (userRootFromLocalStorage === "1") {
-      menuItems = [
-        ...(location.pathname !== "/status"
-          ? [
-              {
-                id: "statusPage",
-                name: "Статус",
-                to: `/status?region=${regionFromRedux}`,
-              },
-            ]
-          : []),
-        ...(location.pathname !== "/disable"
-          ? [
-              {
-                id: "disable",
-                name: "Демонтаж",
-                to: "/disable",
-              },
-            ]
-          : []),
-        { id: "userPage", name: "Пользователи", to: "/user" },
-        { id: "logPage", name: "Логи", to: "/log" },
-        { id: "settingsPage", name: "Настройки", to: "/settings" },
-        { id: "homePage", name: "Выход", to: "/" },
-      ];
-    } else
-    menuItems = [
-        ...(location.pathname !== "/work"
-        ? [
-            {
-              id: "workPage",
-              name: "Главная",
-              to: "/work",
-            },
-          ]
-        : []),
-        ...(location.pathname !== "/status" && 
-          location.pathname !== "/work" && 
-          location.pathname !== "/malfunction"
-        ? [
-            {
-              id: "statusPage",
-              name: "Статус",
-              to: `/status?region=${regionFromRedux}`,
-            },
-          ]
-        : []),
-        { id: "settingsPage", name: "Настройки", to: "/settings" },
-        { id: "homePage", name: "Выход", to: "/" },
-      ];
-  }
+  const menuItems = getMenuItems();
 
   return (
     <>
@@ -242,15 +158,15 @@ function Main() {
           <Route path="/user" element={<User />} />
           <Route path="/log" element={<Log />} />
           <Route path="/disable" element={<Disabling />} />
-          <Route path="/work" element={<Work/>} />
-          <Route path="/malfunction" element={<Malfunction/>} />
-          <Route path="/info" element={<UserInfo/>} />
+          <Route path="/work" element={<Work />} />
+          <Route path="/malfunction" element={<Malfunction />} />
+          <Route path="/info" element={<UserInfo />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
       <TaskButton
         onClick={() => console.log("click")}
-        isHidden={location.pathname !== "/work"} 
+        isHidden={pathname !== "/work"}
       />
     </>
   );
