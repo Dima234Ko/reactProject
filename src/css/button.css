@@ -1,6 +1,7 @@
 .button.blue,
 .custom-file-upload,
-#startMenu {
+#startMenu,
+#activeButton {
   margin-top: 20px;
   text-decoration: none;
   border-radius: 10px;
@@ -21,7 +22,8 @@
   text-align: center;
 }
 
-#startMenu {
+#startMenu,
+#activeButton {
   padding: 0 20px; 
   display: flex; /* Используем flexbox для управления расположением */
   align-items: center; /* Вертикальное выравнивание по центру */
@@ -45,10 +47,15 @@
   color: #002266c2; /* Цвет текста и иконки */
 }
 
+#activeButton{
+  background-color: transparent; /* Прозрачный фон */
+  border: 1px solid red; /* Обводка цвета #007bff */
+  color: red; /* Цвет текста и иконки */
+}
+
 /* Общие стили при наведении */
 .button.blue:hover,
-.custom-file-upload:hover,
-#startMenu:hover {
+.custom-file-upload:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -61,6 +68,15 @@
 #startMenu:hover {
   background-color: #003597c5; /* Синий фон */
   color: white; /* Белый текст и иконка */
+}
+
+#activeButton:hover {
+  background-color: red; /* Синий фон */
+  color: white; /* Белый текст и иконка */
+}
+
+#activeButton:hover{
+  background-color:red
 }
 
 /* Стили при нажатии для обеих кнопок */
@@ -166,4 +182,11 @@
   display: flex; /* Используем flexbox для расположения кнопок в одну строку */
   justify-content: center; /* Центрируем кнопки по горизонтали */
   gap: 10px; /* Добавляем промежуток между кнопками */
+}
+
+.upload-button.action-btn#activeButton {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%); /* Центрируем по горизонтали */
+  margin-top: 20px; /* Отступ сверху */
 }

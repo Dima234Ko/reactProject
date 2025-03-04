@@ -93,3 +93,7 @@ h4 {
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
+#root{
+  min-height: 100vh;
+}

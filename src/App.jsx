@@ -20,6 +20,7 @@ import Disabling from "./pages/user/Disabling";
 import Work from "./pages/user/Work";
 import Malfunction from "./pages/user/Malfunction";
 import UserInfo from "./pages/user/UserInfo";
+import {TaskButton} from "./components/Button";
 
 function App() {
   return (
@@ -231,6 +232,10 @@ function Main() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
+      <TaskButton
+        onClick={() => console.log("click")}
+        isHidden={location.pathname !== "/work"} 
+      />
     </>
   );
 }

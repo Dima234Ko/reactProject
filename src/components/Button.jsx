@@ -11,7 +11,8 @@ import {
   faLandMineOn,
   faUserCheck,
   faNetworkWired,
-  faHandsAslInterpreting
+  faHandsAslInterpreting,
+  faChartLine
 } from "@fortawesome/free-solid-svg-icons";
 
 export function Button({ name, id, onClick, className = "" }) {
@@ -186,6 +187,26 @@ export function PPPoEButton({ onClick, className = "" }) {
       <div className="buttonText">
         <span className="upload-text">PPPoE</span>
       </div>
+    </button>
+  );
+}
+
+export function TaskButton({ onClick, isSmall, isHidden }) {
+  if (isHidden) {
+    return null;
+  }
+
+  return (
+    <button
+      className={`upload-button action-btn ${isSmall ? 'action-btn--small' : ''}`}
+      id="activeButton"
+      onClick={onClick}
+    >
+      <FontAwesomeIcon icon={faChartLine} />
+        <div className="buttonText">
+          <span className="upload-text">Активная задача</span>
+        </div>
+ 
     </button>
   );
 }
