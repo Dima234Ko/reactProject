@@ -1,4 +1,5 @@
 import { SET_LOGIN } from "../actions/loginActions";
+import { CLEAR_LOGIN } from "../actions/loginActions";
 
 const initialState = {
   login: null,
@@ -10,6 +11,11 @@ const loginReducer = (state = initialState, action) => {
       return {
         ...state,
         login: action.payload,
+      };
+    case CLEAR_LOGIN:
+      return {
+        ...state,
+        login: null,
       };
     default:
       return state;

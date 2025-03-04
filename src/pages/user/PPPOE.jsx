@@ -176,7 +176,7 @@ function Pppoe() {
       )}
       {result && <Result data={result} />}
       <NextButton
-        to={`/info?region=${regionId}&work=${workFromRedux}&serial=${serialFromRedux}&login=${loginFromRedux}`}
+        to={`/wifi?region=${regionId}&work=${workFromRedux}&serial=${serialFromRedux}&login=${loginFromRedux}`}
         disabled={result === null || result.success === false}
       />
     </div>

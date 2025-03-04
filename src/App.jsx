@@ -37,10 +37,12 @@ function Main() {
   const params = new URLSearchParams(location.search);
   const hasSerial = params.has("serial");
   const hasRegion = params.has("region");
+  const hasWork = params.has("work");
+  const hasLogin = params.has("login");
 
   // Логика отображения кнопки "назад" и бургер-меню
-  const showBackButton = location.pathname !== "/";
-  const showBurgerMenu = location.pathname !== "/";
+  const showBackButton = location.pathname !== "/" && !(params.get("work") === "1");
+  const showBurgerMenu = location.pathname !== "/" && !(params.get("work") === "1");
 
   // Получаем данные из Redux
   const serialFromRedux = useSelector((state) => state.serial.serial);
@@ -58,19 +60,27 @@ function Main() {
   const redirectTo = (pathname) => {
     updateUserRootFromLocalStorage();
 
-    // Если отсутствует region редиректим на /region
+    // Если отсутствует параметр редиректим
+    if (!hasWork && ["/status", "/wifi", "/pppoe", "/malfunction", "/info" ].includes(pathname)) {
+      return "/work";
+    }
+
     if (!hasRegion && ["/status", "/wifi", "/pppoe", "/work", "/malfunction", "/info" ].includes(pathname)) {
       return "/region";
     }
 
-    // Если отсутствует serial и мы на странице /pppoe или /wifi, редиректим на /status
-    if (!hasSerial && (pathname === "/pppoe" || pathname === "/wifi")) {
+    if (!hasSerial && (pathname === "/pppoe" || pathname === "/wifi" || pathname === "/info")) {
       return "/status";
+    }
+
+    
+    if ((!hasLogin || !loginFromRedux === null) && (pathname === "/info")) {
+      return "/pppoe";
     }
 
     // Логика редиректа на основе userRoot
     if (pathname === "/user" || pathname === "/log") {
-      return userRootFromLocalStorage !== "1" ? "/status" : null;
+      return userRootFromLocalStorage !== "1" ? "/region" : null;
     }
     if (
       pathname !== "/" &&
@@ -128,7 +138,9 @@ function Main() {
         {
           id: "wifiPage",
           name: "WiFi",
-          to: `/wifi?region=${regionFromRedux}&work=${workFromRedux}&serial=${serialFromRedux}&login=${loginFromRedux}`,
+          to: `/wifi?region=${regionFromRedux}&work=${workFromRedux}&serial=${serialFromRedux}${
+            loginFromRedux !== null ? `&login=${loginFromRedux}` : ''
+          }`,
         },
         { id: "disable", name: "Демонтаж", to: "/disable" },
         { id: "userPage", name: "Пользователи", to: "/user" },
@@ -138,6 +150,7 @@ function Main() {
       ];
     } else
       menuItems = [
+        { id: "workPage", name: "Главная", to: "/work" },
         {
           id: "statusPage",
           name: "Статус",
@@ -151,9 +164,10 @@ function Main() {
         {
           id: "wifiPage",
           name: "WiFi",
-          to: `/wifi?region=${regionFromRedux}&work=${workFromRedux}&serial=${serialFromRedux}&login=${loginFromRedux}`,
+          to: `/wifi?region=${regionFromRedux}&work=${workFromRedux}&serial=${serialFromRedux}${
+            loginFromRedux !== null ? `&login=${loginFromRedux}` : ''
+          }`,
         },
-        { id: "disable", name: "Демонтаж", to: "/disable" },
         { id: "settingsPage", name: "Настройки", to: "/settings" },
         { id: "homePage", name: "Выход", to: "/" },
       ];
@@ -184,25 +198,27 @@ function Main() {
         { id: "homePage", name: "Выход", to: "/" },
       ];
     } else
-      menuItems = [
-        ...(location.pathname !== "/status"
-          ? [
-              {
-                id: "statusPage",
-                name: "Статус",
-                to: `/status?region=${regionFromRedux}`,
-              },
-            ]
-          : []),
-        ...(location.pathname !== "/disable"
-          ? [
-              {
-                id: "disable",
-                name: "Демонтаж",
-                to: "/disable",
-              },
-            ]
-          : []),
+    menuItems = [
+        ...(location.pathname !== "/work"
+        ? [
+            {
+              id: "workPage",
+              name: "Главная",
+              to: "/work",
+            },
+          ]
+        : []),
+        ...(location.pathname !== "/status" && 
+          location.pathname !== "/work" && 
+          location.pathname !== "/malfunction"
+        ? [
+            {
+              id: "statusPage",
+              name: "Статус",
+              to: `/status?region=${regionFromRedux}`,
+            },
+          ]
+        : []),
         { id: "settingsPage", name: "Настройки", to: "/settings" },
         { id: "homePage", name: "Выход", to: "/" },
       ];

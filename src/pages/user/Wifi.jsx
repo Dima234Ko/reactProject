@@ -235,10 +235,14 @@ function Wifi() {
         </div>
       )}
       {result && <Result data={result} />}
-      <NextButton
-        to={`/info?region=${regionId}&work=${workFromRedux}&serial=${serialFromRedux}&login=${loginFromRedux}`}
-        disabled={result === null || result.success === false}
-      />
+      {workFromRedux === "1" && (
+        <NextButton
+          to={`/info?region=${regionId}&work=${workFromRedux}&serial=${serialFromRedux}${
+            loginFromRedux !== null ? `&login=${loginFromRedux}` : ''
+          }`}
+          disabled={result === null || result.success === false}
+        />
+      )}
     </div>
   );
 }

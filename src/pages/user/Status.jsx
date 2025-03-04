@@ -5,6 +5,7 @@ import { setSerial } from "../../store/actions/serialActions";
 import { setRegion } from "../../store/actions/regionActions";
 import { setProgress } from "../../store/actions/progressActions";
 import { setWork } from "../../store/actions/workActions";
+import {clearLogin} from "../../store/actions/loginActions"
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { Loader } from "../../components/Loader";
@@ -38,6 +39,7 @@ function Status() {
 
   // Синхронизация с Redux
   useEffect(() => {
+    dispatch(clearLogin());
     setSerialState(serialFromRedux);
     const params = new URLSearchParams(location.search);
     const regionFromUrl = getParamBrowserUrl("region");
