@@ -27,7 +27,6 @@ export function UploadButton({ onClick, className = "" }) {
   return (
     <button
       className={`upload-button ${className}`}
-      id="openForm"
       onClick={onClick}
     >
       <FontAwesomeIcon icon={faFileImport} />
@@ -40,7 +39,6 @@ export function UserButton({ onClick, className = "" }) {
   return (
     <button
       className={`upload-button ${className}`}
-      id="openForm"
       onClick={onClick}
     >
       <FontAwesomeIcon icon={faUserPen} />
@@ -53,7 +51,6 @@ export function FiltrButton({ onClick, className = "" }) {
   return (
     <button
       className={`upload-button ${className}`}
-      id="openForm"
       onClick={onClick}
     >
       <FontAwesomeIcon icon={faFilterCircleXmark} />
@@ -66,7 +63,6 @@ export function AddUserButton({ onClick, className = "" }) {
   return (
     <button
       className={`upload-button ${className}`}
-      id="openForm"
       onClick={onClick}
     >
       <FontAwesomeIcon icon={faUserPlus} />
@@ -79,7 +75,6 @@ export function ChangePassButton({ onClick, className = "" }) {
   return (
     <button
       className={`upload-button ${className}`}
-      id="openForm"
       onClick={onClick}
     >
       <FontAwesomeIcon icon={faUnlock} />
@@ -92,7 +87,6 @@ export function DeleteUserButton({ onClick, className = "" }) {
   return (
     <button
       className={`upload-button ${className}`}
-      id="openForm"
       onClick={onClick}
     >
       <FontAwesomeIcon icon={faUserSlash} />

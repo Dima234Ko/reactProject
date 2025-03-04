@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button, UploadButton } from "../../components/Button";
+import { Input } from "../../components/Input";
 import { getRegion } from "../../functions/region";
 import { setWork } from "../../store/actions/workActions";
 import { setRegion } from "../../store/actions/regionActions";
@@ -73,7 +74,7 @@ function UserInfo() {
     };
 
     return (
-        <div className="input-container">
+        <div id="info">
             <h2>Данные верны?</h2>
             <h5>{getRegion(regionId)}</h5>
             <FormInfo
@@ -84,46 +85,38 @@ function UserInfo() {
                         isUploading={isUploading}
                         setIsUploading={setIsUploading}
                         setFile={setFile}
-                        login="aks34447" // Замените на динамическое значение, если нужно
+                        login="aks34447" 
                     />
                 }
             />
             <div className="input-container">
-                <input
-                    className="some-input"
+                <Input
                     id="surname"
                     type="text"
                     placeholder="Введите фамилию"
                     value={formFields.surname}
                     onChange={(e) => handleInputChange(e, "surname")}
-                    aria-label="Фамилия"
                 />
-                <input
-                    className="some-input"
+                <Input
                     id="name"
                     type="text"
                     placeholder="Введите имя"
                     value={formFields.name}
                     onChange={(e) => handleInputChange(e, "name")}
-                    aria-label="Имя"
                 />
-                <input
-                    className="some-input"
+                <Input
                     id="patronymic"
                     type="text"
                     placeholder="Введите отчество"
                     value={formFields.patronymic}
                     onChange={(e) => handleInputChange(e, "patronymic")}
-                    aria-label="Отчество"
                 />
-                <input
-                    className="some-input"
+                <Input
                     id="phone"
                     type="tel"
                     placeholder="Введите телефон"
                     value={formFields.phone}
                     onChange={(e) => handleInputChange(e, "phone")}
-                    aria-label="Номер телефона"
                 />
             </div>
             <UploadButton onClick={openForm} />
@@ -140,7 +133,7 @@ function UserInfo() {
 
             <Button
                 name="Записать"
-                onClick={handleSubmit} // Исправлено: передаём функцию, а не вызов console.log
+                onClick={handleSubmit}
             />
         </div>
     );

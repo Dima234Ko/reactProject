@@ -59,7 +59,7 @@ function Main() {
     updateUserRootFromLocalStorage();
 
     // Если отсутствует region редиректим на /region
-    if (!hasRegion && ["/status", "/wifi", "/pppoe"].includes(pathname)) {
+    if (!hasRegion && ["/status", "/wifi", "/pppoe", "/work", "/malfunction", "/info" ].includes(pathname)) {
       return "/region";
     }
 
