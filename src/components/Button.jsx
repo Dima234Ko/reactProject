@@ -185,20 +185,16 @@ export function PPPoEButton({ onClick, className = "" }) {
   );
 }
 
-export function TaskButton({ onClick, isSmall, isHidden }) {
-  if (isHidden) {
-    return null;
-  }
-
+export function TaskButton({ onClick, text, isHidden }) {
   return (
     <button
-      className={`upload-button action-btn ${isSmall ? 'action-btn--small' : ''}`}
+      className={`upload-button action-btn`}
       id="activeButton"
       onClick={onClick}
     >
       <FontAwesomeIcon icon={faChartLine} />
         <div className="buttonText">
-          <span className="upload-text">Активная задача</span>
+          <span className="upload-text">{text}</span>
         </div>
  
     </button>

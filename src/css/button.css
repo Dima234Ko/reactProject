@@ -20,6 +20,14 @@
   font-size: 16px;
   font-weight: 400;
   text-align: center;
+  /* Тень для выпуклости */
+  box-shadow: 
+      0 4px 6px rgba(0, 0, 0, 0.1),    /* Внешняя тень */
+      inset 0 2px 2px rgba(255, 255, 255, 0.8),  /* Верхний блик */
+      inset 0 -2px 2px rgba(0, 0, 0, 0.2);      /* Нижняя тень */
+  background: #0d398d;
+  color: white; 
+  
 }
 
 #startMenu,
@@ -34,68 +42,18 @@
   width: 175px;
 }
 
-/* Стили для .custom-file-upload */
-.button.blue,
-.custom-file-upload {
-  background-color: #003597c5; /* Синий фон */
-}
-
-/* Стили для #startMenu */
-#startMenu {
-  background-color: transparent; /* Прозрачный фон */
-  border: 1px solid #002266c2; /* Обводка цвета #007bff */
-  color: #002266c2; /* Цвет текста и иконки */
-}
-
 #activeButton{
-  background-color: transparent; /* Прозрачный фон */
-  border: 1px solid red; /* Обводка цвета #007bff */
-  color: red; /* Цвет текста и иконки */
+  background: red; /* Прозрачный фон */
+  color: white; /* Цвет текста и иконки */
 }
 
-/* Общие стили при наведении */
-.button.blue:hover,
-.custom-file-upload:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
 
-/* Стили при наведении для .custom-file-upload */
-.custom-file-upload:hover {
-  background-color: #002366c5; /* Темнее синий фон */
-}
-
-/* Стили при наведении для #startMenu */
-#startMenu:hover {
-  background-color: #003597c5; /* Синий фон */
-  color: white; /* Белый текст и иконка */
-}
-
-#activeButton:hover {
-  background-color: red; /* Синий фон */
-  color: white; /* Белый текст и иконка */
-}
-
-#activeButton:hover{
-  background-color:red
-}
-
-/* Стили при нажатии для обеих кнопок */
-.button.blue:active,
+/* Эффект при нажатии */
 .custom-file-upload:active,
-#startMenu:active {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-/* Стили при нажатии для .custom-file-upload */
-.button.blue:active
-.custom-file-upload:active {
-  background-color: #001a4dc5; /* Еще темнее синий фон */
-}
-
-/* Стили при нажатии для #startMenu */
-#startMenu:active {
-  background-color: #003597c5; /* Темнее синий фон */
-  border-color: #003597c5; /* Темнее синяя обводка */
+#startMenu:active,
+#activeButton:active,
+.button.blue:active {
+  transform: scale(1.2); /* Восстановление размера при нажатии */
 }
 
 .arrow {
@@ -145,11 +103,6 @@
 /* Прозрачность для картинки внутри кнопки */
 .next-button.disabled img {
   opacity: 0.5; /* 50% прозрачности для картинки */
-}
-
-/* Эффект при нажатии */
-.button.blue:active {
-  transform: scale(1.2); /* Восстановление размера при нажатии */
 }
 
 /* Notification.css */

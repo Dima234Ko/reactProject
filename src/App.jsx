@@ -40,6 +40,7 @@ function Main() {
   const hasRegion = params.has("region");
   const hasWork = params.has("work");
   const hasLogin = params.has("login");
+  const isWorkParam = params.get("work") !== "1"; // Исправлено определение
 
   // Состояние UI
   const showBackButton = pathname !== "/";
@@ -78,7 +79,6 @@ function Main() {
     const isRoot = userRoot === "1";
     const isSettingsOrRegion = pathname === "/settings" || pathname === "/region";
     const isNotRootPage = pathname !== "/";
-    const isWorkParam = (params.get("work") !== "1");
 
     return [
       {
@@ -122,7 +122,7 @@ function Main() {
         id: "settingsPage",
         name: "Настройки",
         to: "/settings",
-        show: !isSettingsOrRegion || (isNotRootPage && (!hasSerial || !isWorkParam))
+        show: !isSettingsOrRegion || (isNotRootPage && (!hasSerial || isWorkParam))
       },
       {
         id: "homePage",
@@ -164,10 +164,18 @@ function Main() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
-      <TaskButton
-        onClick={() => console.log("click")}
-        isHidden={pathname !== "/work"}
-      />
+      {pathname === "/work" && (
+        <TaskButton
+          onClick={() => console.log("click")}
+          text="Активная задача"
+        />
+      )}
+      {(pathname === "/status" || pathname === "/pppoe" || pathname === "/wifi" || pathname === "/repalcment")&& isWorkParam && (
+        <TaskButton
+          onClick={() => console.log("click")}
+          text="Завершить задачу"
+        />
+      )}
     </>
   );
 }
