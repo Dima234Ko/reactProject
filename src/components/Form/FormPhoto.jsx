@@ -27,6 +27,11 @@ export function FormPhoto({
       return;
     }
 
+    if (!idUserSideCard){
+      setResultForm("Карточка в US не определена");
+      return;
+    }
+
     // Начинаем процесс загрузки
     setIsUploading(true);
     setResultForm("Загрузка началась...");

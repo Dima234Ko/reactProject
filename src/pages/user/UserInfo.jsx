@@ -8,6 +8,7 @@ import { setLogin } from "../../store/actions/loginActions";
 import { getRegion } from "../../functions/region";
 import { setWork } from "../../store/actions/workActions";
 import { setRegion } from "../../store/actions/regionActions";
+import { setId } from "../../store/actions/idActions";
 import { FormInfo } from "../../components/Form/Form";
 import { FormPhoto } from "../../components/Form/FormPhoto";
 import { Loader } from "../../components/Loader";
@@ -23,6 +24,7 @@ function UserInfo() {
     const workFromRedux = useSelector((state) => state.work.work);
     const loginFromRedux = useSelector((state) => state.login.login);
     const progressFromRedux = useSelector((state) => state.progress.progress);
+    const idFromRedux = useSelector((state) => state.id.id);
     
     const [regionId, setRegionId] = useState("");
     const [serial, setSerialState] = useState(serialFromRedux || "");
@@ -75,7 +77,10 @@ function UserInfo() {
             } else if (serialFromRedux) {
                 data = await searchIdUs(serialFromRedux, setResult, "serial");
             }
-            
+            if (data?.idUserSideCard) {
+                dispatch(setId(data.idUserSideCard))
+            }
+
             if (data?.userFullName) {
                 const [surname = "", name = "", patronymic = ""] = data.userFullName.split(" ");
                 setSurname(surname);
@@ -130,6 +135,7 @@ function UserInfo() {
                         setIsUploading={setIsUploading}
                         setFile={setFile}
                         login={loginFromRedux}
+                        idUserSideCard={idFromRedux}
                     />
                 }
             />
