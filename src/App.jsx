@@ -66,7 +66,7 @@ function Main() {
     if (!hasWork && needWork.includes(pathname)) return "/work";
     if (!hasRegion && needRegion.includes(pathname)) return "/region";
     if (!hasSerial && needSerial.includes(pathname)) return "/status";
-    if ((!hasLogin || !loginFromRedux) && pathname === "/info") return "/pppoe";
+    if ((!hasLogin) && pathname === "/info") return "/pppoe";
     
     if (rootOnly.includes(pathname) && userRoot !== "1") return "/region";
     if (pathname !== "/" && !["1", "2", "3"].includes(userRoot)) return "/";

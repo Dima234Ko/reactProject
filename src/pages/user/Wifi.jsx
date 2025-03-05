@@ -90,6 +90,8 @@ function Wifi() {
   // Асинхронная функция для получения данных WiFi
   const fetchDataWiFi = async () => {
     try {
+      setLoading(true);
+      setResult(null);
       let data;
       if (loginFromRedux !== null) {
         data = await searchIdUs(loginFromRedux, setResult, "login");
@@ -110,6 +112,8 @@ function Wifi() {
         result: "Ошибка при получении данных WiFi",
         success: false,
       });
+    } finally {
+      setLoading(false);
     }
   };
 

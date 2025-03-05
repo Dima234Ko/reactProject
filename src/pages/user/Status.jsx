@@ -144,10 +144,7 @@ function Status() {
     setIsChecked(e.target.checked);
   };
 
-  // Функция для закрытия формы
-  const closeForm = () => {
-    setIsFormOpen(false);
-  };
+  const closeForm = () => setIsFormOpen(false);
 
   return (
     <div id="status">

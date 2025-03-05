@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button, UploadButton } from "../../components/Button";
+import { setSerial } from "../../store/actions/serialActions";
 import { Input } from "../../components/Input";
+import { setLogin } from "../../store/actions/loginActions";
 import { getRegion } from "../../functions/region";
 import { setWork } from "../../store/actions/workActions";
 import { setRegion } from "../../store/actions/regionActions";
@@ -10,17 +12,20 @@ import { FormInfo } from "../../components/Form/Form";
 import { FormPhoto } from "../../components/Form/FormPhoto";
 import { Loader } from "../../components/Loader";
 import Result from "../../components/Result"; 
+import { getNumberBrowserUrl, getParamBrowserUrl } from "../../functions/url";
 import { searchIdUs, setInfoToUs } from "../../functions/pppoe";
 
 function UserInfo() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const [regionId, setRegionId] = useState("");
-    const work = useSelector((state) => state.work.work);
     const serialFromRedux = useSelector((state) => state.serial.serial);
+    const workFromRedux = useSelector((state) => state.work.work);
     const loginFromRedux = useSelector((state) => state.login.login);
     const progressFromRedux = useSelector((state) => state.progress.progress);
+    
+    const [regionId, setRegionId] = useState("");
+    const [serial, setSerialState] = useState(serialFromRedux || "");
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
     const [file, setFile] = useState(null);
@@ -29,81 +34,93 @@ function UserInfo() {
     const [name, setName] = useState("");
     const [patronymic, setPatronymic] = useState("");
     const [phone, setPhone] = useState("");
-    const [result, setResult] = useState(null); 
+    const [result, setResult] = useState(null);
+    const serialFromUrl = getParamBrowserUrl("serial");
+    const loginFromUrl = getParamBrowserUrl("login") || "";
+    const workFromUrl = getParamBrowserUrl("work");
+    const regionFromUrl = getNumberBrowserUrl("region");
 
     useEffect(() => {
-        const params = new URLSearchParams(location.search);
-        const regionFromUrl = params.get("region");
-        const workFromUrl = params.get("work");
+        if (serialFromUrl) {
+            dispatch(setSerial(serialFromUrl))
+        }
+    }, [location.search, navigate]);
+
+    useEffect(() => {
+        if (workFromUrl) {
+            dispatch(setWork(workFromUrl));
+        }
+    
         if (regionFromUrl) {
             setRegionId(regionFromUrl);
             dispatch(setRegion(regionFromUrl));
         }
-        if (workFromUrl) {
-            dispatch(setWork(workFromUrl));
+    
+        if (loginFromUrl) {
+            dispatch(setLogin(loginFromUrl));
         }
-
-        if (serialFromRedux !== ""){
+    
+        if (loginFromRedux !== ""){
             fetchDataUser();
         }
-    }, [location.search, dispatch]);
 
-    // Асинхронная функция для получения данных WiFi
+    }, [serialFromRedux]);
+
     const fetchDataUser = async () => {
-      try {
-        let data;
-        if (loginFromRedux !== null) {
-          data = await searchIdUs(loginFromRedux, setResult, "login");
-        } else if (loginFromUrl === "") {
-          data = await searchIdUs(serialFromRedux, setResult, "serial");
-        }
-        if (data) {
-            let result = data.userFullName.split(' ');
-            setSurname(result[0] || ""),
-            setName(result[1] || ""),
-            setPatronymic(result[2] || "")
-        }
-      } catch (error) {
-        console.error("Ошибка при получении данных", error);
-        setResult({
-          result: "Ошибка при получении данных",
-          success: false,
-        });
-      }
-    };
-
-    // Открыть форму для загрузки файла
-    const openForm = () => {
-        setIsFormOpen(true);
-    };
-
-    // Закрыть форму для загрузки файла
-    const closeForm = () => {
-        setIsFormOpen(false);
-    };
-
-    // Обработчик кнопки "Записать"
-    const handleSubmit = async () => {
         try {
-            setResult("");
-            await setInfoToUs(loginFromRedux, surname, name, patronymic, phone);
+            setLoading(true);
+            let data;
+            if (loginFromRedux) {
+                data = await searchIdUs(loginFromRedux, setResult, "login");
+            } else if (serialFromRedux) {
+                data = await searchIdUs(serialFromRedux, setResult, "serial");
+            }
+            
+            if (data?.userFullName) {
+                const [surname = "", name = "", patronymic = ""] = data.userFullName.split(" ");
+                setSurname(surname);
+                setName(name);
+                setPatronymic(patronymic);
+            }
+        } catch (error) {
+            console.error("Ошибка при получении данных:", error);
             setResult({
-                result: "Данные записаны",
-                success: true,
-              });
-          } catch (error) {
-            setResult({
-                result: `Ошибка при записи данных ${error}`,
+                result: "Ошибка при получении данных",
                 success: false,
             });
-            console.error(error);
-          }
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const openForm = () => setIsFormOpen(true);
+    const closeForm = () => setIsFormOpen(false);
+
+    const handleSubmit = async () => {
+        try {
+            setLoading(true);
+            setResult(null);
+            await setInfoToUs(loginFromRedux, surname, name, patronymic, phone);
+            setResult({
+                result: "Данные успешно записаны",
+                success: true,
+            });
+        } catch (error) {
+            console.error("Ошибка при записи данных:", error);
+            setResult({
+                result: `Ошибка при записи данных: ${error.message}`,
+                success: false,
+            });
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <div id="info">
             <h2>Данные верны?</h2>
-            <h5>{getRegion(regionId)}</h5>
+            {regionId && <h5>{getRegion(regionId)}</h5>}
+            
             <FormInfo
                 isFormOpen={isFormOpen}
                 closeForm={closeForm}
@@ -112,10 +129,11 @@ function UserInfo() {
                         isUploading={isUploading}
                         setIsUploading={setIsUploading}
                         setFile={setFile}
-                        login="aks34447" 
+                        login={loginFromRedux}
                     />
                 }
             />
+            
             <div className="input-container">
                 <Input
                     id="surname"
@@ -146,8 +164,9 @@ function UserInfo() {
                     onChange={(e) => setPhone(e.target.value)}
                 />
             </div>
-            <UploadButton onClick={openForm} />
 
+            <UploadButton onClick={openForm} />
+            
             {loading && (
                 <div className="overlay">
                     <div className="spinner-container">
@@ -161,6 +180,7 @@ function UserInfo() {
             <Button
                 name="Записать"
                 onClick={handleSubmit}
+                disabled={loading || !surname || !name}
             />
         </div>
     );
