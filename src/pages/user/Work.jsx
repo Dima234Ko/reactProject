@@ -6,7 +6,7 @@ import { setRegion } from "../../store/actions/regionActions";
 import { NewConnectionButton, MalfunctionButton, DisconnectButton } from "../../components/Button";
 import { getRegion } from "../../functions/region";
 import { setWork } from "../../store/actions/workActions";
-import { connection } from "../../functions/work";
+import { connection, getActiveTask } from "../../functions/work";
 import { getParamBrowserUrl } from "../../functions/url";
 
 function Work() {
@@ -18,6 +18,7 @@ function Work() {
     const regionFromUrl = getParamBrowserUrl("region");
 
     useEffect(() => {
+      getActiveTask();
       if (regionFromUrl) {
         setRegionId(regionFromUrl);
         dispatch(setRegion(regionFromUrl));

@@ -1,6 +1,15 @@
 import { requestAPI } from "./api";
 
 
+// Функция
+export async function getActiveTask(){
+  try {
+    const data = await requestAPI('GET', 'task/findTaskInProcess'); 
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 // Функция для создания нового подключения
 export async function connection(
   method,
