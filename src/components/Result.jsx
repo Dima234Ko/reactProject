@@ -28,6 +28,7 @@ function removeFields(data) {
     create_login_US,
     add_descr,
     tag_assign,
+    buttonVisible,
     ...newData
   } = data;
   return newData;

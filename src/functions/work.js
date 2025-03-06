@@ -5,10 +5,13 @@ import { requestAPI } from "./api";
 export async function connection(
   method,
   action,
-  body,
+  regionId,
   setLoading,
 ) {
     setLoading(true);
+    let body = {
+        regionId: regionId,
+    };
     try {
         const data = await requestAPI(method, action, body);
         setLoading(false); 

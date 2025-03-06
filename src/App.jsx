@@ -40,7 +40,7 @@ function Main() {
   const hasRegion = params.has("region");
   const hasWork = params.has("work");
   const hasLogin = params.has("login");
-  const isWorkParam = params.get("work") !== "1"; // Исправлено определение
+  const isWorkParam = params.get("work") !== "newConnection"; // Исправлено определение
 
   // Состояние UI
   const showBackButton = pathname !== "/";

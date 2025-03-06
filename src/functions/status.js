@@ -10,6 +10,7 @@ export async function getStatus(
   dispatch,
   navigate,
   regionId,
+  workFromRedux
 ) {
   setLoading(true);
   setResult(false);
@@ -26,7 +27,7 @@ export async function getStatus(
   };
 
   try {
-    let action = "setNTU/statusNTU";
+    let action = `${workFromRedux}/statusNTU`;
     if (isChecked) {
       action = "setNTU/resetNTU";
     }
@@ -44,7 +45,7 @@ export async function getStatus(
     if (taskId) {
       // Если taskId получен, начинаем отслеживание статуса
       await checkTask(
-        "setNTU/taskStatus",
+        `task/taskStatus`,
         taskId,
         dispatch,
         setLoading,

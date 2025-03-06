@@ -25,7 +25,7 @@ function Status() {
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const regionFromRedux = useSelector((state) => state.region.region);
-  const work = useSelector((state) => state.work.work);
+  const workFromRedux = useSelector((state) => state.work.work);
   const [serial, setSerialState] = useState(serialFromRedux || "");
   const [regionId, setRegionId] = useState(regionFromRedux || "");
   const [loading, setLoading] = useState(false);
@@ -36,18 +36,17 @@ function Status() {
   const [formContent, setFormContent] = useState({
     fromData: "",
   });
+  const regionFromUrl = getParamBrowserUrl("region");
+  const workFromUrl = getParamBrowserUrl("work");
 
   // Синхронизация с Redux
   useEffect(() => {
     dispatch(clearLogin());
     setSerialState(serialFromRedux);
-    const params = new URLSearchParams(location.search);
-    const regionFromUrl = getParamBrowserUrl("region");
-    const workFromUrl = getParamBrowserUrl("work");
     setRegionId(regionFromUrl);
     dispatch(setRegion(regionFromUrl));
     dispatch(setWork(workFromUrl));
-  }, [serialFromRedux, location.search]);
+  }, [serialFromRedux]);
 
   // Проверка статуса задачи при изменении URL
   useEffect(() => {
@@ -61,7 +60,7 @@ function Status() {
           setSerial,
           setLoading,
           setResult,
-          navigate,
+          navigate
         );
       } catch (error) {
         setResult({
@@ -123,8 +122,7 @@ function Status() {
         dispatch,
         navigate,
         regionId,
-        progressFromRedux,
-        setError,
+        workFromRedux
       );
       setIsChecked(false);
     } catch (error) {
@@ -182,8 +180,8 @@ function Status() {
       )}
       {result && <Result data={result} />}
       <NextButton
-        to={`/pppoe?region=${regionId}&work=${work}&serial=${serial}`}
-        disabled={result === null || result?.success !== true}
+        to={`/pppoe?region=${regionId}&work=${workFromRedux}&serial=${serial}`}
+        disabled={result === null || result?.buttonVisible !== true}
       />
     </div>
   );

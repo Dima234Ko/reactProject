@@ -28,15 +28,11 @@ function Work() {
     // Функция для создания нового подключения
     const newConnection = async () => {
         try {
-          let body = {
-            regionId: regionId,
-          };
-
           await connection("POST", 
             "newConnection/createNewConnection", 
-            body,
+            regionId,
             setLoading);
-          const work = 1;
+          const work = 'newConnection';
           dispatch(setWork(work)); 
           navigate(`/status?region=${regionId}&work=${work}`);
         } catch (error) {

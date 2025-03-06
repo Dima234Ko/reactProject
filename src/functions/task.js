@@ -50,7 +50,7 @@ export const checkTaskStatus = async (
       setResult(null);
       try {
         await checkTask(
-          "setNTU/taskStatus",
+          `task/taskStatus`,
           taskIdFromUrl,
           dispatch,
           setLoading,
@@ -108,12 +108,12 @@ export async function checkTask(
     } else {
       dispatch(setProgress(100)); // Устанавливаем прогресс в 100%
       setLoading(false); // Закрываем загрузку
-      setResult(taskData.result); // Обновляем результат
+      setResult(taskData.result.respResult); // Обновляем результат
       // Сохраняем результат
-      if (taskData.result.RX_power) {
+      if (taskData.result.rxPower) {
         localStorage.setItem(
           "RX_power",
-          JSON.stringify(taskData.result.RX_power),
+          JSON.stringify(taskData.result.rxPower),
         );
       }
     }
