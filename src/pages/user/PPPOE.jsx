@@ -88,6 +88,7 @@ function Pppoe() {
           serial,
           login,
           password,
+          workFromRedux,
           setLoading,
           setResult,
           dispatch,
@@ -177,7 +178,7 @@ function Pppoe() {
       {result && <Result data={result} />}
       <NextButton
         to={`/wifi?region=${regionId}&work=${workFromRedux}&serial=${serialFromRedux}&login=${loginFromRedux}`}
-        disabled={result === null || result.success === false}
+        disabled={result === null || result?.buttonVisible !== true}
       />
     </div>
   );

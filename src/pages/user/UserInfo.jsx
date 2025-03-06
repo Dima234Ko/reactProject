@@ -14,7 +14,8 @@ import { FormPhoto } from "../../components/Form/FormPhoto";
 import { Loader } from "../../components/Loader";
 import Result from "../../components/Result"; 
 import { getNumberBrowserUrl, getParamBrowserUrl } from "../../functions/url";
-import { searchIdUs, setInfoToUs } from "../../functions/pppoe";
+import { searchIdUs } from "../../functions/pppoe";
+import { setInfoToUs } from "../../functions/userInfo";
 
 function UserInfo() {
     const dispatch = useDispatch();
@@ -70,7 +71,6 @@ function UserInfo() {
 
     const fetchDataUser = async () => {
         try {
-            setLoading(true);
             let data;
             if (loginFromRedux) {
                 data = await searchIdUs(loginFromRedux, setResult, "login");
@@ -93,9 +93,7 @@ function UserInfo() {
                 result: "Ошибка при получении данных",
                 success: false,
             });
-        } finally {
-            setLoading(false);
-        }
+        } 
     };
 
     const openForm = () => setIsFormOpen(true);
@@ -105,7 +103,7 @@ function UserInfo() {
         try {
             setLoading(true);
             setResult(null);
-            await setInfoToUs(loginFromRedux, surname, name, patronymic, phone);
+            await setInfoToUs(loginFromRedux, surname, name, patronymic, phone, workFromRedux);
             setResult({
                 result: "Данные успешно записаны",
                 success: true,
@@ -136,6 +134,7 @@ function UserInfo() {
                         setFile={setFile}
                         login={loginFromRedux}
                         idUserSideCard={idFromRedux}
+                        workFromRedux={workFromRedux}
                     />
                 }
             />

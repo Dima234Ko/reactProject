@@ -40,25 +40,12 @@ export async function searchIdUs(userLoginSerial, setResult, param) {
   }
 }
 
-//Записать данные в ЮС
-export async function setInfoToUs(userLogin, surname, name, patronymic, phone) {
-  let body = {
-    userLogin: userLogin,
-    userFullName: `${surname} ${name} ${patronymic}`,
-    userPhone: phone,
-  };
-  try {
-    await requestAPI("POST", "userSide/setInfoToUs", body);
-  } catch {
-    throw error;
-  }
-}
-
 // Функция запроса
 export async function setPppoe(
   serial,
   login,
   password,
+  workFromRedux,
   setLoading,
   setResult,
   dispatch,
@@ -80,7 +67,7 @@ export async function setPppoe(
 
   try {
     taskId = await getTaskId(
-      "setNTU/setNtuNewPppoe",
+      `${workFromRedux}/setNtuNewPppoe`,
       body,
       dispatch,
       setLoading,
@@ -94,7 +81,7 @@ export async function setPppoe(
   try {
     if (taskId) {
       await checkTask(
-        "setNTU/taskStatus",
+        `task/taskStatus`,
         taskId,
         dispatch,
         setLoading,

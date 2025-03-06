@@ -8,51 +8,49 @@ export function FormPhoto({
   setFile,
   login,
   idUserSideCard,
+  workFromRedux
 }) {
-  const [file, setLocalFile] = useState(null);
+  const [files, setFiles] = useState([]); 
   const [resultForm, setResultForm] = useState("");
 
+  // Обработка выбора файлов
   const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    if (selectedFile) {
-      setLocalFile(selectedFile);
+    const selectedFiles = Array.from(event.target.files); 
+    if (selectedFiles.length > 0) {
+      setFiles(selectedFiles);
       setResultForm("");
     }
   };
 
+  // Загрузка всех выбранных файлов
   const handleUpload = async () => {
-    // Проверяем, выбран ли файл
-    if (!file) {
-      setResultForm("Пожалуйста, выберите файл для загрузки");
+    if (files.length === 0) {
+      setResultForm("Пожалуйста, выберите хотя бы один файл для загрузки");
       return;
     }
 
-    if (!idUserSideCard){
+    if (!idUserSideCard) {
       setResultForm("Карточка в US не определена");
       return;
     }
 
-    // Начинаем процесс загрузки
     setIsUploading(true);
     setResultForm("Загрузка началась...");
 
-    // Создаем FormData и добавляем файл
     const formData = new FormData();
-    formData.append("file", file); // Добавляем файл
-    formData.append("Installer", "esipov"); // Добавляем поле Installer
-    formData.append("idUserSideCard", idUserSideCard); // Добавляем поле idUserSideCard
+    files.forEach(file => {
+      formData.append("files", file); 
+    });
+    formData.append("Installer", "esipov");
+    formData.append("idUserSideCard", idUserSideCard);
 
     try {
-      // Отправляем запрос на сервер
-      let response = await requestPhoto("POST", "photos/upload", formData);
-      // Обрабатываем успешный ответ
+      const response = await requestPhoto("POST", `${workFromRedux}/upload`, formData);
       setResultForm(response);
     } catch (error) {
-      // Обрабатываем ошибку
-      console.error("Ошибка при загрузке фото:", error); // Логируем ошибку для отладки
-      setResultForm("Произошла ошибка при загрузке фото. Попробуйте снова.");
+      console.error("Ошибка при загрузке фото:", error);
+      setResultForm("Произошла ошибка при загрузке файлов. Попробуйте снова.");
     } finally {
-      // Завершаем процесс загрузки
       setIsUploading(false);
     }
   };
@@ -63,36 +61,39 @@ export function FormPhoto({
         <div className="textForm">
           <h2>Загрузить фото</h2>
           <pre>
-            Выберите скриншоты из приложения Analizator WiFi для учетной записи
+            Выберите скриншоты из приложения Analizator WiFi и заказ-наряд
           </pre>
           <h4>{login}</h4>
         </div>
-        {/* Поле для выбора файла */}
+        {/* Поле для выбора нескольких файлов */}
         <input
           type="file"
           id="file-upload"
           onChange={handleFileChange}
-          style={{ display: "none" }} // Скрываем стандартный input
+          multiple // Разрешаем выбор нескольких файлов
+          style={{ display: "none" }}
         />
-        {/* Кастомная кнопка для выбора файла */}
         <label htmlFor="file-upload" className="custom-file-upload">
-          Выбрать файл
+          Выбрать файлы
         </label>
       </form>
 
-      {/* Отображение имени выбранного файла */}
-      {file && (
-        <div className="file-name">
-          <strong>Выбран файл: </strong>
-          {file.name}
+      {/* Отображение списка выбранных файлов */}
+      {files.length > 0 && (
+        <div className="file-list">
+          <ul>
+            {files.map((file, index) => (
+              <li key={index}>{file.name}</li> 
+            ))}
+          </ul>
         </div>
       )}
 
-      {/* Кнопка для загрузки файла */}
+      {/* Кнопка для загрузки файлов */}
       <Button
-        name="Загрузить"
+        name="Загрузить все"
         onClick={handleUpload}
-        disabled={isUploading || !file} // Кнопка неактивна, если файл не выбран или идет загрузка
+        disabled={isUploading || files.length === 0}
       />
 
       {/* Отображение результата загрузки */}

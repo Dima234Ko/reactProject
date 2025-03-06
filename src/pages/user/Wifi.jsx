@@ -90,7 +90,6 @@ function Wifi() {
   // Асинхронная функция для получения данных WiFi
   const fetchDataWiFi = async () => {
     try {
-      setLoading(true);
       setResult(null);
       let data;
       if (loginFromRedux !== null) {
@@ -112,8 +111,6 @@ function Wifi() {
         result: "Ошибка при получении данных WiFi",
         success: false,
       });
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -140,6 +137,7 @@ function Wifi() {
         ssid5,
         password5,
         selectSSID5,
+        workFromRedux,
         setLoading,
         setResult,
         dispatch,
@@ -239,12 +237,12 @@ function Wifi() {
         </div>
       )}
       {result && <Result data={result} />}
-      {workFromRedux === "1" && (
+      {workFromRedux === "newConnection" && (
         <NextButton
           to={`/info?region=${regionId}&work=${workFromRedux}&serial=${serialFromRedux}${
             loginFromRedux !== null ? `&login=${loginFromRedux}` : ''
           }`}
-          disabled={result === null || result.success === false}
+          disabled={result === null || result?.buttonVisible !== true}
         />
       )}
     </div>

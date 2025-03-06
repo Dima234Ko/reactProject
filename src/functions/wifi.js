@@ -9,6 +9,7 @@ export async function setWiFi(
   ssid5,
   password5,
   selectSSID5,
+  workFromRedux,
   setLoading,
   setResult,
   dispatch,
@@ -32,7 +33,7 @@ export async function setWiFi(
   try {
     // Получаем taskId
     const taskId = await getTaskId(
-      "setNTU/setNtuWifi",
+      `${workFromRedux}/setNtuWifi`,
       body,
       dispatch,
       setLoading,
@@ -42,7 +43,7 @@ export async function setWiFi(
     if (taskId) {
       // Если taskId получен, начинаем отслеживание статуса
       await checkTask(
-        "setNTU/taskStatus",
+        "task/taskStatus",
         taskId,
         dispatch,
         setLoading,
