@@ -35,13 +35,14 @@ function Region() {
   }, [dispatch]);
 
   // Извлекаем regionName для Select с проверкой на пустой массив
-  const regionNames = regions.length > 0 ? regions.map((item) => item.regionName) : [];
+  const regionNames =
+    regions.length > 0 ? regions.map((item) => item.regionName) : [];
 
   const handleApply = () => {
     const selectedRegionData = regions.find(
-      (item) => item.regionName === selectedRegion
+      (item) => item.regionName === selectedRegion,
     );
-    
+
     if (selectedRegionData) {
       const regionId = selectedRegionData.id;
       dispatch(setRegion(regionId));

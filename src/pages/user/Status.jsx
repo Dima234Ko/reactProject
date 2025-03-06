@@ -5,7 +5,7 @@ import { setSerial } from "../../store/actions/serialActions";
 import { setRegion } from "../../store/actions/regionActions";
 import { setProgress } from "../../store/actions/progressActions";
 import { setWork } from "../../store/actions/workActions";
-import {clearLogin} from "../../store/actions/loginActions"
+import { clearLogin } from "../../store/actions/loginActions";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { Loader } from "../../components/Loader";
@@ -60,7 +60,7 @@ function Status() {
           setSerial,
           setLoading,
           setResult,
-          navigate
+          navigate,
         );
       } catch (error) {
         setResult({
@@ -122,7 +122,7 @@ function Status() {
         dispatch,
         navigate,
         regionId,
-        workFromRedux
+        workFromRedux,
       );
       setIsChecked(false);
     } catch (error) {

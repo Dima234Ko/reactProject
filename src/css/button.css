@@ -11,7 +11,10 @@
   cursor: pointer;
   align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.3s ease, background-color 0.3s, color 0.3s;
+  transition:
+    box-shadow 0.3s ease,
+    background-color 0.3s,
+    color 0.3s;
   color: white;
   display: inline-flex;
   justify-content: center;
@@ -21,18 +24,17 @@
   font-weight: 400;
   text-align: center;
   /* Тень для выпуклости */
-  box-shadow: 
-      0 4px 6px rgba(0, 0, 0, 0.1),    /* Внешняя тень */
-      inset 0 2px 2px rgba(255, 255, 255, 0.8),  /* Верхний блик */
-      inset 0 -2px 2px rgba(0, 0, 0, 0.2);      /* Нижняя тень */
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.1),
+    /* Внешняя тень */ inset 0 2px 2px rgba(255, 255, 255, 0.8),
+    /* Верхний блик */ inset 0 -2px 2px rgba(0, 0, 0, 0.2); /* Нижняя тень */
   background: #0d398d;
-  color: white; 
-  
+  color: white;
 }
 
 #startMenu,
 #activeButton {
-  padding: 0 20px; 
+  padding: 0 20px;
   display: flex; /* Используем flexbox для управления расположением */
   align-items: center; /* Вертикальное выравнивание по центру */
   justify-content: space-between; /* Распределяем пространство: иконка слева, текст по центру */
@@ -42,11 +44,10 @@
   width: 175px;
 }
 
-#activeButton{
+#activeButton {
   background: red; /* Прозрачный фон */
   color: white; /* Цвет текста и иконки */
 }
-
 
 /* Эффект при нажатии */
 .custom-file-upload:active,

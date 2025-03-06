@@ -45,7 +45,7 @@ function Wifi() {
   useEffect(() => {
     setSerialState(serialFromRedux);
 
-    if (workFromUrl){
+    if (workFromUrl) {
       dispatch(setWork(workFromUrl));
     }
 
@@ -54,16 +54,15 @@ function Wifi() {
       dispatch(setRegion(regionFromUrl));
     }
 
-    if (loginFromUrl !== ""){
+    if (loginFromUrl !== "") {
       dispatch(setLogin(loginFromUrl));
     }
 
-    if (serialFromRedux !== ""){
+    if (serialFromRedux !== "") {
       fetchDataWiFi();
     }
-
   }, [serialFromRedux]);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -75,7 +74,7 @@ function Wifi() {
           setSerial,
           setLoading,
           setResult,
-          navigate
+          navigate,
         );
       } catch (error) {
         setResult({
@@ -142,7 +141,7 @@ function Wifi() {
         setResult,
         dispatch,
         navigate,
-        regionId
+        regionId,
       );
     } catch (error) {
       setResult({
@@ -240,7 +239,7 @@ function Wifi() {
       {workFromRedux === "newConnection" && (
         <NextButton
           to={`/info?region=${regionId}&work=${workFromRedux}&serial=${serialFromRedux}${
-            loginFromRedux !== null ? `&login=${loginFromRedux}` : ''
+            loginFromRedux !== null ? `&login=${loginFromRedux}` : ""
           }`}
           disabled={result === null || result?.buttonVisible !== true}
         />

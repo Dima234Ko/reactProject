@@ -8,14 +8,14 @@ export function FormPhoto({
   setFile,
   login,
   idUserSideCard,
-  workFromRedux
+  workFromRedux,
 }) {
-  const [files, setFiles] = useState([]); 
+  const [files, setFiles] = useState([]);
   const [resultForm, setResultForm] = useState("");
 
   // Обработка выбора файлов
   const handleFileChange = (event) => {
-    const selectedFiles = Array.from(event.target.files); 
+    const selectedFiles = Array.from(event.target.files);
     if (selectedFiles.length > 0) {
       setFiles(selectedFiles);
       setResultForm("");
@@ -38,14 +38,18 @@ export function FormPhoto({
     setResultForm("Загрузка началась...");
 
     const formData = new FormData();
-    files.forEach(file => {
-      formData.append("files", file); 
+    files.forEach((file) => {
+      formData.append("files", file);
     });
     formData.append("Installer", "esipov");
     formData.append("idUserSideCard", idUserSideCard);
 
     try {
-      const response = await requestPhoto("POST", `${workFromRedux}/upload`, formData);
+      const response = await requestPhoto(
+        "POST",
+        `${workFromRedux}/upload`,
+        formData,
+      );
       setResultForm(response);
     } catch (error) {
       console.error("Ошибка при загрузке фото:", error);
@@ -83,7 +87,7 @@ export function FormPhoto({
         <div className="file-list">
           <ul>
             {files.map((file, index) => (
-              <li key={index}>{file.name}</li> 
+              <li key={index}>{file.name}</li>
             ))}
           </ul>
         </div>

@@ -12,7 +12,7 @@ import {
   faUserCheck,
   faNetworkWired,
   faHandsAslInterpreting,
-  faChartLine
+  faChartLine,
 } from "@fortawesome/free-solid-svg-icons";
 
 export function Button({ name, id, onClick, className = "" }) {
@@ -25,10 +25,7 @@ export function Button({ name, id, onClick, className = "" }) {
 
 export function UploadButton({ onClick, className = "" }) {
   return (
-    <button
-      className={`upload-button ${className}`}
-      onClick={onClick}
-    >
+    <button className={`upload-button ${className}`} onClick={onClick}>
       <FontAwesomeIcon icon={faFileImport} />
       <span className="upload-text">Добавить фото</span>
     </button>
@@ -37,10 +34,7 @@ export function UploadButton({ onClick, className = "" }) {
 
 export function UserButton({ onClick, className = "" }) {
   return (
-    <button
-      className={`upload-button ${className}`}
-      onClick={onClick}
-    >
+    <button className={`upload-button ${className}`} onClick={onClick}>
       <FontAwesomeIcon icon={faUserPen} />
       <span className="upload-text">Уточнить пользователя</span>
     </button>
@@ -49,10 +43,7 @@ export function UserButton({ onClick, className = "" }) {
 
 export function FiltrButton({ onClick, className = "" }) {
   return (
-    <button
-      className={`upload-button ${className}`}
-      onClick={onClick}
-    >
+    <button className={`upload-button ${className}`} onClick={onClick}>
       <FontAwesomeIcon icon={faFilterCircleXmark} />
       <span className="upload-text">Отфильтровать запросы</span>
     </button>
@@ -61,10 +52,7 @@ export function FiltrButton({ onClick, className = "" }) {
 
 export function AddUserButton({ onClick, className = "" }) {
   return (
-    <button
-      className={`upload-button ${className}`}
-      onClick={onClick}
-    >
+    <button className={`upload-button ${className}`} onClick={onClick}>
       <FontAwesomeIcon icon={faUserPlus} />
       <span className="upload-text">Добавить пользователя</span>
     </button>
@@ -73,10 +61,7 @@ export function AddUserButton({ onClick, className = "" }) {
 
 export function ChangePassButton({ onClick, className = "" }) {
   return (
-    <button
-      className={`upload-button ${className}`}
-      onClick={onClick}
-    >
+    <button className={`upload-button ${className}`} onClick={onClick}>
       <FontAwesomeIcon icon={faUnlock} />
       <span className="upload-text">Изменить пароль</span>
     </button>
@@ -85,10 +70,7 @@ export function ChangePassButton({ onClick, className = "" }) {
 
 export function DeleteUserButton({ onClick, className = "" }) {
   return (
-    <button
-      className={`upload-button ${className}`}
-      onClick={onClick}
-    >
+    <button className={`upload-button ${className}`} onClick={onClick}>
       <FontAwesomeIcon icon={faUserSlash} />
       <span className="upload-text">Удалить пользователя</span>
     </button>
@@ -185,7 +167,7 @@ export function PPPoEButton({ onClick, className = "" }) {
   );
 }
 
-export function TaskButton({ onClick, text, isHidden }) {
+export function TaskButton({ onClick, text }) {
   return (
     <button
       className={`upload-button action-btn`}
@@ -193,10 +175,23 @@ export function TaskButton({ onClick, text, isHidden }) {
       onClick={onClick}
     >
       <FontAwesomeIcon icon={faChartLine} />
-        <div className="buttonText">
-          <span className="upload-text">{text}</span>
-        </div>
- 
+      <div className="buttonText">
+        <span className="upload-text">{text}</span>
+      </div>
+    </button>
+  );
+}
+
+export function ExpressButton({ onClick, text, closeButton }) {
+  return (
+    <button
+      className="button blue"
+      id={closeButton ? "activeButton" : false}
+      onClick={onClick}
+    >
+      <div className="buttonText">
+        <span className="upload-text">{text}</span>
+      </div>
     </button>
   );
 }

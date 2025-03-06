@@ -38,7 +38,7 @@ function Pppoe() {
   useEffect(() => {
     setSerialState(serialFromRedux);
 
-    if (workFromUrl){
+    if (workFromUrl) {
       dispatch(setWork(workFromUrl));
     }
 
@@ -46,10 +46,10 @@ function Pppoe() {
       setRegionId(regionFromUrl);
       dispatch(setRegion(regionFromUrl));
     }
-  
+
     if (loginFromUrl) {
-      setLoginInp(loginFromUrl); 
-      dispatch(setLogin(loginFromUrl)); 
+      setLoginInp(loginFromUrl);
+      dispatch(setLogin(loginFromUrl));
     }
   }, [serialFromRedux]);
 
@@ -78,7 +78,7 @@ function Pppoe() {
 
   const handleSetPppoe = async () => {
     if (login !== "") {
-      dispatch(setLogin(login)); 
+      dispatch(setLogin(login));
       setLoading(true);
       setResult(false);
       dispatch(setProgress(0));

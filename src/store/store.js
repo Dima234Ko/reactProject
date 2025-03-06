@@ -5,6 +5,7 @@ import regionReducer from "./reducers/regionReducer";
 import workReducer from "./reducers/workReducer";
 import loginReducer from "./reducers/loginReducer";
 import idReducer from "./reducers/idReducer";
+import taskReducer from "./reducers/taskReducer";
 
 const store = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ const store = configureStore({
     region: regionReducer,
     work: workReducer,
     login: loginReducer,
-    id: idReducer
+    id: idReducer,
+    task: taskReducer,
   },
 });
 

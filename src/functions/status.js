@@ -10,7 +10,7 @@ export async function getStatus(
   dispatch,
   navigate,
   regionId,
-  workFromRedux
+  workFromRedux,
 ) {
   setLoading(true);
   setResult(false);

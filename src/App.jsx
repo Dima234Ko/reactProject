@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   useLocation,
   Navigate,
+  useNavigate,  // Добавили useNavigate
 } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Authorization from "./pages/Authorization";
@@ -20,7 +21,9 @@ import Disabling from "./pages/user/Disabling";
 import Work from "./pages/user/Work";
 import Malfunction from "./pages/user/Malfunction";
 import UserInfo from "./pages/user/UserInfo";
-import { TaskButton } from "./components/Button";
+import { TaskButton, ExpressButton } from "./components/Button";
+import { FormInfo } from "./components/Form/Form";
+import {closeTask} from "./functions/work"
 
 function App() {
   return (
@@ -32,6 +35,7 @@ function App() {
 
 function Main() {
   const location = useLocation();
+  const navigate = useNavigate();  
   const params = new URLSearchParams(location.search);
   const { pathname } = location;
 
@@ -40,7 +44,7 @@ function Main() {
   const hasRegion = params.has("region");
   const hasWork = params.has("work");
   const hasLogin = params.has("login");
-  const isWorkParam = params.get("work") !== "newConnection"; // Исправлено определение
+  const isWorkParam = params.get("work") !== "newConnection";
 
   // Состояние UI
   const showBackButton = pathname !== "/";
@@ -51,9 +55,13 @@ function Main() {
   const regionFromRedux = useSelector((state) => state.region.region);
   const loginFromRedux = useSelector((state) => state.login.login);
   const workFromRedux = useSelector((state) => state.work.work);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   // Получение userRoot из localStorage
-  const getUserRoot = () => JSON.parse(localStorage.getItem("authResult")) || "0";
+  const getUserRoot = () => {
+    const authResult = localStorage.getItem("authResult");
+    return authResult ? JSON.parse(authResult) : "0";
+  };
   const userRoot = getUserRoot();
 
   // Функция редиректа
@@ -66,18 +74,19 @@ function Main() {
     if (!hasWork && needWork.includes(pathname)) return "/work";
     if (!hasRegion && needRegion.includes(pathname)) return "/region";
     if (!hasSerial && needSerial.includes(pathname)) return "/status";
-    if ((!hasLogin) && pathname === "/info") return "/pppoe";
-    
+    if (!hasLogin && pathname === "/info") return "/pppoe";
+
     if (rootOnly.includes(pathname) && userRoot !== "1") return "/region";
     if (pathname !== "/" && !["1", "2", "3"].includes(userRoot)) return "/";
-    
+
     return null;
   };
 
   // Функция получения пунктов меню
   const getMenuItems = () => {
     const isRoot = userRoot === "1";
-    const isSettingsOrRegion = pathname === "/settings" || pathname === "/region";
+    const isSettingsOrRegion =
+      pathname === "/settings" || pathname === "/region";
     const isNotRootPage = pathname !== "/";
 
     return [
@@ -85,52 +94,58 @@ function Main() {
         id: "workPage",
         name: "Главная",
         to: isSettingsOrRegion && isRoot ? "/disable" : "/work",
-        show: !isSettingsOrRegion || (isSettingsOrRegion && isRoot) || pathname !== "/work"
+        show:
+          !isSettingsOrRegion ||
+          (isSettingsOrRegion && isRoot) ||
+          pathname !== "/work",
       },
       {
         id: "statusPage",
         name: "Статус",
-        to: `/status?region=${regionFromRedux}`,
-        show: (isNotRootPage && hasSerial) || 
-              (pathname !== "/status" && !["/work", "/malfunction"].includes(pathname))
+        to: `/status?region=${regionFromRedux || ""}`,
+        show:
+          (isNotRootPage && hasSerial) ||
+          (pathname !== "/status" &&
+            !["/work", "/malfunction"].includes(pathname)),
       },
       {
         id: "pppoePage",
         name: "PPPoE",
-        to: `/pppoe?region=${regionFromRedux}&work=${workFromRedux}&serial=${serialFromRedux}`,
-        show: isNotRootPage && hasSerial && isWorkParam
+        to: `/pppoe?region=${regionFromRedux || ""}&work=${workFromRedux || ""}&serial=${serialFromRedux || ""}`,
+        show: isNotRootPage && hasSerial && isWorkParam,
       },
       {
         id: "wifiPage",
         name: "WiFi",
-        to: `/wifi?region=${regionFromRedux}&work=${workFromRedux}&serial=${serialFromRedux}${loginFromRedux ? `&login=${loginFromRedux}` : ''}`,
-        show: isNotRootPage && hasSerial && isWorkParam
+        to: `/wifi?region=${regionFromRedux || ""}&work=${workFromRedux || ""}&serial=${serialFromRedux || ""}${loginFromRedux ? `&login=${loginFromRedux}` : ""}`,
+        show: isNotRootPage && hasSerial && isWorkParam,
       },
       {
         id: "userPage",
         name: "Пользователи",
         to: "/user",
-        show: isRoot
+        show: isRoot,
       },
       {
         id: "logPage",
         name: "Логи",
         to: "/log",
-        show: isRoot
+        show: isRoot,
       },
       {
         id: "settingsPage",
         name: "Настройки",
         to: "/settings",
-        show: !isSettingsOrRegion || (isNotRootPage && (!hasSerial || isWorkParam))
+        show:
+          !isSettingsOrRegion || (isNotRootPage && (!hasSerial || isWorkParam)),
       },
       {
         id: "homePage",
         name: "Выход",
         to: "/",
-        show: true
-      }
-    ].filter(item => item.show);
+        show: true,
+      },
+    ].filter((item) => item.show);
   };
 
   const redirectPath = getRedirectPath(pathname);
@@ -139,6 +154,9 @@ function Main() {
   }
 
   const menuItems = getMenuItems();
+
+  const openForm = () => setIsFormOpen(true);
+  const closeForm = () => setIsFormOpen(false);
 
   return (
     <>
@@ -164,18 +182,40 @@ function Main() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
+      {isFormOpen && (
+        <FormInfo
+          isFormOpen={isFormOpen}
+          closeForm={closeForm}
+          formData={
+            <>
+              <h2>Подтвердите</h2>
+              <pre>Выберите действие</pre>
+              <div className="input-container">
+                <ExpressButton
+                  onClick={() => console.log("Ext")}
+                  text="Продолжить"
+                  closeButton={false}
+                />
+                <ExpressButton
+                  onClick={() => closeTask(navigate, regionFromRedux)}  
+                  text="Завершить"
+                  closeButton={true}
+                />
+              </div>
+            </>
+          }
+        />
+      )}
       {pathname === "/work" && (
-        <TaskButton
-          onClick={() => console.log("click")}
-          text="Активная задача"
-        />
+        <TaskButton onClick={openForm} text="Активная задача" />
       )}
-      {(pathname === "/status" || pathname === "/pppoe" || pathname === "/wifi" || pathname === "/repalcment")&& isWorkParam && (
-        <TaskButton
-          onClick={() => console.log("click")}
-          text="Завершить задачу"
-        />
-      )}
+      {(pathname === "/status" ||
+        pathname === "/pppoe" ||
+        pathname === "/wifi" ||
+        pathname === "/malfunction") &&
+        isWorkParam && (
+          <TaskButton onClick={openForm} text="Завершить задачу" />
+        )}
     </>
   );
 }

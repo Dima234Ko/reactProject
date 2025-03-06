@@ -107,27 +107,35 @@ function Log() {
 
     // Фильтр по дате начала
     if (startDate) {
-      filtered = filtered.filter(row => new Date(row.data) >= new Date(startDate));
+      filtered = filtered.filter(
+        (row) => new Date(row.data) >= new Date(startDate),
+      );
     }
 
     // Фильтр по дате окончания
     if (endDate) {
-      filtered = filtered.filter(row => new Date(row.data) <= new Date(endDate));
+      filtered = filtered.filter(
+        (row) => new Date(row.data) <= new Date(endDate),
+      );
     }
 
     // Фильтр по PON-серийнику
     if (ponSerial) {
-      filtered = filtered.filter(row => row.id.toLowerCase().includes(ponSerial.toLowerCase()));
+      filtered = filtered.filter((row) =>
+        row.id.toLowerCase().includes(ponSerial.toLowerCase()),
+      );
     }
 
     // Фильтр по логину
     if (login) {
-      filtered = filtered.filter(row => row.acc.toLowerCase().includes(login.toLowerCase()));
+      filtered = filtered.filter((row) =>
+        row.acc.toLowerCase().includes(login.toLowerCase()),
+      );
     }
 
     // Фильтр по выбранному пользователю
     if (selectedUser) {
-      filtered = filtered.filter(row => row.login === selectedUser);
+      filtered = filtered.filter((row) => row.login === selectedUser);
     }
 
     setFilteredData(filtered);
