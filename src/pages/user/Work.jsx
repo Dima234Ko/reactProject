@@ -1,46 +1,83 @@
-import { useState } from "react";
-import {  useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Loader } from "../../components/Loader";
+import { setRegion } from "../../store/actions/regionActions";
 import { NewConnectionButton, MalfunctionButton, DisconnectButton } from "../../components/Button";
 import { getRegion } from "../../functions/region";
 import { setWork } from "../../store/actions/workActions";
+import { connection } from "../../functions/work";
+import { getParamBrowserUrl } from "../../functions/url";
 
 function Work() {
+    const [loading, setLoading] = useState(false);
     const regionFromRedux = useSelector((state) => state.region.region);
     const [regionId, setRegionId] = useState(regionFromRedux || "");
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    let work = 0;
+    const regionFromUrl = getParamBrowserUrl("region");
 
-    const newConnection = () => {
-        work = 1;
-        dispatch(setWork(work));
-        navigate(`/status?region=${regionId}&work=${work}`);
-    }
+    useEffect(() => {
+      if (regionFromUrl) {
+        setRegionId(regionFromUrl);
+        dispatch(setRegion(regionFromUrl));
+      }
+    }, [location.search, navigate]);
 
+
+    // Функция для создания нового подключения
+    const newConnection = async () => {
+        try {
+          let body = {
+            regionId: regionId,
+          };
+
+          await connection("POST", 
+            "newConnection/createNewConnection", 
+            body,
+            setLoading);
+          const work = 1;
+          dispatch(setWork(work)); 
+          navigate(`/status?region=${regionId}&work=${work}`);
+        } catch (error) {
+            console.error("Ошибка при создании подключения:", error);
+        }
+    };
+
+    // Функция для регистрации неисправности
     const newMalfunction = () => {
-        work = 2;
+        const work = 2;
         dispatch(setWork(work));
         navigate(`/malfunction?region=${regionId}&work=${work}`);
-    }
+    };
 
+    // Функция для отключения
     const newDisable = () => {
-        work = 3;
+        const work = 3;
         dispatch(setWork(work));
         navigate(`/disable?region=${regionId}&work=${work}`);
-    }
-    
+    };
 
-  return (
-    <div id="work">
-      <h2>Выбор действия</h2>
-      <h5>{getRegion(regionId)}</h5>
-        <NewConnectionButton  onClick={newConnection} />
-        <MalfunctionButton  onClick={newMalfunction} />
-        <DisconnectButton  onClick={newDisable} />
-    </div>
-  );
+    return (
+        <div id="work">
+            <h2>Выбор действия</h2>
+            <h5>{getRegion(regionId)}</h5>
+            {/* Кнопка нового подключения */}
+            <NewConnectionButton onClick={newConnection} />
+            {/* Кнопка регистрации неисправности */}
+            <MalfunctionButton onClick={newMalfunction} />
+            {/* Кнопка отключения */}
+            <DisconnectButton onClick={newDisable} />
+            {/* Показываем индикатор загрузки при активном состоянии */}
+            {loading && (
+                <div className="overlay">
+                    <div className="spinner-container">
+                        <Loader />
+                    </div>
+                </div>
+            )}
+        </div>
+    );
 }
 
 export default Work;
