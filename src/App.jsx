@@ -7,7 +7,7 @@ import {
   Navigate,
   useNavigate,
 } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Authorization from "./pages/Authorization";
 import Header from "./components/Header";
 import Status from "./pages/user/Status";
@@ -35,7 +35,8 @@ function App() {
 
 function Main() {
   const location = useLocation();
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
+  const dispatch = useDispatch();  
   const params = new URLSearchParams(location.search);
   const { pathname } = location;
 
@@ -55,6 +56,7 @@ function Main() {
   const regionFromRedux = useSelector((state) => state.region.region);
   const loginFromRedux = useSelector((state) => state.login.login);
   const workFromRedux = useSelector((state) => state.work.work);
+  const taskFromRedux = useSelector((state) => state.task.task);
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   // Получение userRoot из localStorage
@@ -197,7 +199,7 @@ function Main() {
                   closeButton={false}
                 />
                 <ExpressButton
-                  onClick={() => closeTask(navigate, regionFromRedux)}  
+                  onClick={() => closeTask(navigate, regionFromRedux, dispatch)}  
                   text="Завершить"
                   closeButton={true}
                 />
@@ -206,7 +208,7 @@ function Main() {
           }
         />
       )}
-      {pathname === "/work" && (
+      {pathname === "/work" && taskFromRedux !== null && (
         <TaskButton onClick={openForm} text="Активная задача" />
       )}
       {(pathname === "/status" ||

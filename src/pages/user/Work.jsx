@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Loader } from "../../components/Loader";
 import { setRegion } from "../../store/actions/regionActions";
-import { setTask } from "../../store/actions/taskActions";
 import {
   NewConnectionButton,
   MalfunctionButton,
@@ -17,46 +16,61 @@ import { getParamBrowserUrl } from "../../functions/url";
 function Work() {
   const [loading, setLoading] = useState(false);
   const regionFromRedux = useSelector((state) => state.region.region);
-  const [regionId, setRegionId] = useState(regionFromRedux || "");
   const taskFromRedux = useSelector((state) => state.task.task);
+  const [regionId, setRegionId] = useState(regionFromRedux || "");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
   const regionFromUrl = getParamBrowserUrl("region");
 
   useEffect(() => {
-    getActiveTask();
-    if (regionFromUrl) {
+    const fetchActiveTask = async () => {
+      try {
+        await getActiveTask(dispatch);
+      } catch (error) {
+        console.error("Ошибка при получении активной задачи:", error);
+      }
+    };
+    fetchActiveTask();
+
+    if (regionFromUrl && regionFromUrl !== regionId) {
       setRegionId(regionFromUrl);
       dispatch(setRegion(regionFromUrl));
     }
-  }, [location.search, navigate]);
+  }, [location.search, dispatch, regionFromUrl]);
 
-  // Функция для создания нового подключения
   const newConnection = async () => {
+    if (!regionId) {
+      console.error("Не выбран регион");
+      return;
+    }
     try {
-      await connection(
-        "POST",
-        "newConnection/createNewConnection",
-        regionId,
-        setLoading,
-      );
+      setLoading(true);
+      await connection("POST", "newConnection/createNewConnection", regionId, setLoading);
       const work = "newConnection";
       dispatch(setWork(work));
       navigate(`/status?region=${regionId}&work=${work}`);
     } catch (error) {
       console.error("Ошибка при создании подключения:", error);
+      setLoading(false);
     }
   };
 
-  // Функция для регистрации неисправности
   const newMalfunction = () => {
+    if (!regionId) {
+      console.error("Не выбран регион");
+      return;
+    }
     const work = 2;
     dispatch(setWork(work));
     navigate(`/malfunction?region=${regionId}&work=${work}`);
   };
 
-  // Функция для отключения
   const newDisable = () => {
+    if (!regionId) {
+      console.error("Не выбран регион");
+      return;
+    }
     const work = 3;
     dispatch(setWork(work));
     navigate(`/disable?region=${regionId}&work=${work}`);
@@ -65,14 +79,10 @@ function Work() {
   return (
     <div id="work">
       <h2>Выбор действия</h2>
-      <h5>{getRegion(regionId)}</h5>
-      {/* Кнопка нового подключения */}
-      <NewConnectionButton onClick={newConnection} />
-      {/* Кнопка регистрации неисправности */}
-      <MalfunctionButton onClick={newMalfunction} />
-      {/* Кнопка отключения */}
-      <DisconnectButton onClick={newDisable} />
-      {/* Показываем индикатор загрузки при активном состоянии */}
+      <h5>{regionId ? getRegion(regionId) : "Регион не выбран"}</h5>
+      <NewConnectionButton onClick={newConnection} disabled={!regionId} />
+      <MalfunctionButton onClick={newMalfunction} disabled={!regionId} />
+      <DisconnectButton onClick={newDisable} disabled={!regionId} />
       {loading && (
         <div className="overlay">
           <div className="spinner-container">

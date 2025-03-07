@@ -1,21 +1,28 @@
 import { requestAPI } from "./api";
 import { useNavigate } from "react-router-dom";
+import { setTask } from "../store/actions/taskActions";
 
 // Функция получения активной задачи
-export async function getActiveTask() {
+export async function getActiveTask(dispatch) {
   try {
-    const task = await requestAPI("GET", "task/findTaskInProcess");
-    return task;
+    const response = await requestAPI("GET", "task/findTaskInProcess");
+    if (response && response.headerTaskName) {
+      dispatch(setTask(response.headerTaskName));
+    } else {
+      dispatch(setTask(null));
+    }
+    return null;
   } catch (error) {
-    console.error(error);
+    dispatch(setTask(null));
   }
 }
 
 // Функция завершения задачи
-export async function closeTask(navigate, regionFromRedux) {
+export async function closeTask(navigate, regionFromRedux, dispatch) {
   try {
     const task = await requestAPI("GET", "task/closedTask");
     navigate(`/work?region=${regionFromRedux}`);
+    dispatch(setTask(null));
   } catch (error) {
     console.error(error);
   }
