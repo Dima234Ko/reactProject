@@ -5,7 +5,7 @@ import {
   Route,
   useLocation,
   Navigate,
-  useNavigate,  // Добавили useNavigate
+  useNavigate,
 } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Authorization from "./pages/Authorization";

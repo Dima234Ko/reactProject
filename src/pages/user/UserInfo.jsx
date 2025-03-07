@@ -16,6 +16,7 @@ import Result from "../../components/Result";
 import { getNumberBrowserUrl, getParamBrowserUrl } from "../../functions/url";
 import { searchIdUs } from "../../functions/pppoe";
 import { setInfoToUs } from "../../functions/userInfo";
+import { closeTask } from "../../functions/work";
 
 function UserInfo() {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ function UserInfo() {
   const loginFromRedux = useSelector((state) => state.login.login);
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const idFromRedux = useSelector((state) => state.id.id);
-
+  const regionFromRedux = useSelector((state) => state.region.region);
   const [regionId, setRegionId] = useState("");
   const [serial, setSerialState] = useState(serialFromRedux || "");
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -115,6 +116,8 @@ function UserInfo() {
         result: "Данные успешно записаны",
         success: true,
       });
+      closeTask();
+      navigate(`/work?region=${regionFromRedux}`);
     } catch (error) {
       console.error("Ошибка при записи данных:", error);
       setResult({
