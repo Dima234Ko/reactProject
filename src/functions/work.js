@@ -14,7 +14,7 @@ export async function getActiveTask(dispatch, body) {
       dispatch(setAction(response.headerTaskCompleted));
       dispatch(setWork(response.headerWorkName));
       dispatch(setRegion(response.regionId));
-      dispatch(setSerial("HWTCA64157D0"));
+      dispatch(setSerial(response.ponSerial));
       dispatch(setTransition(true));
     } else {
       dispatch(setTask(null));
