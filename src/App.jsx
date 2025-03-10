@@ -23,7 +23,7 @@ import Malfunction from "./pages/user/Malfunction";
 import UserInfo from "./pages/user/UserInfo";
 import { TaskButton, ExpressButton } from "./components/Button";
 import { FormInfo } from "./components/Form/Form";
-import {closeTask} from "./functions/work"
+import {openTask, closeTask} from "./functions/work"
 
 function App() {
   return (
@@ -56,7 +56,7 @@ function Main() {
   const regionFromRedux = useSelector((state) => state.region.region);
   const loginFromRedux = useSelector((state) => state.login.login);
   const workFromRedux = useSelector((state) => state.work.work);
-  const taskFromRedux = useSelector((state) => state.task.task);
+  const taskFromRedux = useSelector((state) => state.task);
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   // Получение userRoot из localStorage
@@ -194,7 +194,7 @@ function Main() {
               <pre>Выберите действие</pre>
               <div className="input-container">
                 <ExpressButton
-                  onClick={() => console.log("Ext")}
+                  onClick={() =>  openTask(navigate, taskFromRedux, serialFromRedux)}  
                   text="Продолжить"
                   closeButton={false}
                 />
@@ -208,7 +208,7 @@ function Main() {
           }
         />
       )}
-      {pathname === "/work" && taskFromRedux !== null && (
+      {pathname === "/work" && taskFromRedux.task !== null && (
         <TaskButton onClick={openForm} text="Активная задача" />
       )}
       {(pathname === "/status" ||

@@ -26,7 +26,10 @@ function Work() {
   useEffect(() => {
     const fetchActiveTask = async () => {
       try {
-        await getActiveTask(dispatch);
+        let body = {
+          regionId: regionId,
+        };
+        await getActiveTask(dispatch, body);
       } catch (error) {
         console.error("Ошибка при получении активной задачи:", error);
       }

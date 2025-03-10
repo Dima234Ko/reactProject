@@ -186,7 +186,7 @@ export function ExpressButton({ onClick, text, closeButton }) {
   return (
     <button
       className="button blue"
-      id={closeButton ? "activeButton" : false}
+      id={closeButton ? "activeButton" : "false"}
       onClick={onClick}
     >
       <div className="buttonText">

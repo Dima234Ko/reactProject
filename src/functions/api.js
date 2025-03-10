@@ -27,6 +27,7 @@ export async function requestAPI(method, action, body) {
     const data = await response.json();
     return data;
   } catch (error) {
+    console.error(error);
     // Обработка ошибок
     throw error;
   }
