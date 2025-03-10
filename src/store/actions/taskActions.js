@@ -2,7 +2,7 @@ export const SET_TASK = "SET_TASK";
 export const SET_SUBTASK = "SET_SUBTASK";
 export const SET_ACTION = "SET_ACTION";
 export const SET_WORK = "SET_WORK";
-export const SET_REGION = "SET_REGION";
+export const SET_REG_TASK = "SET_REG_TASK";
 export const SET_TRANSITION = "SET_TRANSITION";
 
 
@@ -26,8 +26,8 @@ export const setWork = (work) => ({
   payload: work,
 });
 
-export const setRegion = (reg) => ({
-  type: SET_REGION,
+export const setRegTask = (reg) => ({
+  type: SET_REG_TASK,
   payload: reg,
 });
 

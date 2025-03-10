@@ -1,4 +1,4 @@
-import { SET_TASK, SET_SUBTASK, SET_ACTION, SET_WORK, SET_REGION, SET_TRANSITION } from "../actions/taskActions"; // Добавили SET_SUBTASK
+import { SET_TASK, SET_SUBTASK, SET_ACTION, SET_WORK, SET_REG_TASK, SET_TRANSITION } from "../actions/taskActions"; // Добавили SET_SUBTASK
 
 const initialState = {
   task: null,
@@ -31,7 +31,7 @@ const taskReducer = (state = initialState, action) => {
         ...state,
         work: action.payload,
       };
-    case SET_REGION:
+    case SET_REG_TASK:
       return {
         ...state,
         reg: action.payload,

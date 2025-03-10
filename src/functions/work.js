@@ -1,6 +1,6 @@
 import { requestAPI } from "./api";
 import { useNavigate } from "react-router-dom";
-import { setTask, setSubtask, setAction, setWork, setRegion, setTransition } from "../store/actions/taskActions";
+import { setTask, setSubtask, setAction, setWork, setRegTask, setTransition } from "../store/actions/taskActions";
 import { setSerial } from "../store/actions/serialActions";
 
 
@@ -13,7 +13,7 @@ export async function getActiveTask(dispatch, body) {
       dispatch(setSubtask(response.lastCompletedTask));
       dispatch(setAction(response.headerTaskCompleted));
       dispatch(setWork(response.headerWorkName));
-      dispatch(setRegion(response.regionId));
+      dispatch(setRegTask(response.regionId));
       dispatch(setSerial(response.ponSerial));
       dispatch(setTransition(true));
     } else {
@@ -21,7 +21,7 @@ export async function getActiveTask(dispatch, body) {
       dispatch(setSubtask(null));
       dispatch(setAction(null));
       dispatch(setWork(null));
-      dispatch(setRegion(null));
+      dispatch(setRegTask(null));
       dispatch(setSerial(null));
       dispatch(setTransition(false));
     }
@@ -30,7 +30,7 @@ export async function getActiveTask(dispatch, body) {
     dispatch(setSubtask(null));
     dispatch(setAction(null));
     dispatch(setWork(null));
-    dispatch(setRegion(null));
+    dispatch(setRegTask(null));
     dispatch(setSerial(null));
     dispatch(setTransition(false));
   }
@@ -44,7 +44,7 @@ export async function closeTask(navigate, regionFromRedux, dispatch, closeForm) 
     dispatch(setSubtask(null));
     dispatch(setAction(null));
     dispatch(setWork(null));
-    dispatch(setRegion(null));
+    dispatch(setRegTask(null));
     dispatch(setSerial(null));
     dispatch(setTransition(false));
     navigate(`/work?region=${regionFromRedux}`);
