@@ -3,6 +3,8 @@ export const SET_SUBTASK = "SET_SUBTASK";
 export const SET_ACTION = "SET_ACTION";
 export const SET_WORK = "SET_WORK";
 export const SET_REGION = "SET_REGION";
+export const SET_TRANSITION = "SET_TRANSITION";
+
 
 export const setTask = (task) => ({
   type: SET_TASK,
@@ -27,4 +29,9 @@ export const setWork = (work) => ({
 export const setRegion = (reg) => ({
   type: SET_REGION,
   payload: reg,
+});
+
+export const setTransition = (transition) => ({
+  type: SET_TRANSITION,
+  payload: transition,
 });

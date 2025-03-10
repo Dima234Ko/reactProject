@@ -1,6 +1,6 @@
 import { requestAPI } from "./api";
 import { useNavigate } from "react-router-dom";
-import { setTask, setSubtask, setAction, setWork, setRegion } from "../store/actions/taskActions";
+import { setTask, setSubtask, setAction, setWork, setRegion, setTransition } from "../store/actions/taskActions";
 import { setSerial } from "../store/actions/serialActions";
 
 
@@ -14,14 +14,16 @@ export async function getActiveTask(dispatch, body) {
       dispatch(setAction(response.headerTaskCompleted));
       dispatch(setWork(response.headerWorkName));
       dispatch(setRegion(response.regionId));
-      dispatch(setSerial("HWTCA64157D0"))
+      dispatch(setSerial("HWTCA64157D0"));
+      dispatch(setTransition(true));
     } else {
       dispatch(setTask(null));
       dispatch(setSubtask(null));
       dispatch(setAction(null));
       dispatch(setWork(null));
       dispatch(setRegion(null));
-      dispatch(setSerial(null))
+      dispatch(setSerial(null));
+      dispatch(setTransition(false));
     }
   } catch (error) {
     dispatch(setTask(null));
@@ -29,25 +31,38 @@ export async function getActiveTask(dispatch, body) {
     dispatch(setAction(null));
     dispatch(setWork(null));
     dispatch(setRegion(null));
-    dispatch(setSerial(null))
+    dispatch(setSerial(null));
+    dispatch(setTransition(false));
   }
 }
 
 // Функция завершения задачи
-export async function closeTask(navigate, regionFromRedux, dispatch) {
+export async function closeTask(navigate, regionFromRedux, dispatch, closeForm) {
   try {
     const task = await requestAPI("GET", "task/closedTask");
-    navigate(`/work?region=${regionFromRedux}`);
     dispatch(setTask(null));
+    dispatch(setSubtask(null));
+    dispatch(setAction(null));
+    dispatch(setWork(null));
+    dispatch(setRegion(null));
+    dispatch(setSerial(null));
+    dispatch(setTransition(false));
+    navigate(`/work?region=${regionFromRedux}`);
+    closeForm();
   } catch (error) {
     console.error(error);
   }
 }
 
 // Функция открытия задачи
-export async function openTask(navigate, taskFromRedux, serialFromRedux) {
+export async function openTask(navigate, taskFromRedux, serialFromRedux, closeForm) {
   try {
-    navigate(`/${taskFromRedux.action}?region=${taskFromRedux.reg}&work=${taskFromRedux.work}&serial=${serialFromRedux}&task=${taskFromRedux.subtask}`);
+    if (taskFromRedux.action !== 'NEW'){
+      navigate(`/${taskFromRedux.action}?region=${taskFromRedux.reg}&work=${taskFromRedux.work}&serial=${serialFromRedux}&task=${taskFromRedux.subtask}`);
+    } else {
+      navigate(`/status?region=${taskFromRedux.reg}&work=${taskFromRedux.work}`);
+    }
+    closeForm();
   } catch (error) {
     console.error(error);
   }

@@ -194,12 +194,12 @@ function Main() {
               <pre>Выберите действие</pre>
               <div className="input-container">
                 <ExpressButton
-                  onClick={() =>  openTask(navigate, taskFromRedux, serialFromRedux)}  
+                  onClick={() =>  openTask(navigate, taskFromRedux, serialFromRedux, closeForm)}  
                   text="Продолжить"
                   closeButton={false}
                 />
                 <ExpressButton
-                  onClick={() => closeTask(navigate, regionFromRedux, dispatch)}  
+                  onClick={() => closeTask(navigate, regionFromRedux, dispatch, closeForm)}  
                   text="Завершить"
                   closeButton={true}
                 />
@@ -208,7 +208,7 @@ function Main() {
           }
         />
       )}
-      {pathname === "/work" && taskFromRedux.task !== null && (
+      {pathname === "/work" && taskFromRedux.transition && (
         <TaskButton onClick={openForm} text="Активная задача" />
       )}
       {(pathname === "/status" ||

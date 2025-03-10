@@ -77,12 +77,13 @@ export function DeleteUserButton({ onClick, className = "" }) {
   );
 }
 
-export function NewConnectionButton({ onClick, className = "" }) {
+export function NewConnectionButton({ onClick, className = "", disabled}) {
   return (
     <button
-      className={`upload-button ${className}`}
+      className={`upload-button ${className} ${disabled ? 'disabled' : ''}`}
       id="startMenu"
       onClick={onClick}
+      disabled={disabled}
     >
       <FontAwesomeIcon icon={faCircleNodes} />
       <div className="buttonText">
@@ -92,12 +93,13 @@ export function NewConnectionButton({ onClick, className = "" }) {
   );
 }
 
-export function MalfunctionButton({ onClick, className = "" }) {
+export function MalfunctionButton({ onClick, className = "", disabled }) {
   return (
     <button
-      className={`upload-button ${className}`}
+      className={`upload-button ${className} ${disabled ? 'disabled' : ''}`}
       id="startMenu"
       onClick={onClick}
+      disabled={disabled}
     >
       <FontAwesomeIcon icon={faLandMineOn} />
       <div className="buttonText">
@@ -107,12 +109,13 @@ export function MalfunctionButton({ onClick, className = "" }) {
   );
 }
 
-export function DisconnectButton({ onClick, className = "" }) {
+export function DisconnectButton({ onClick, className = "", disabled }) {
   return (
     <button
-      className={`upload-button ${className}`}
+      className={`upload-button ${className} ${disabled ? 'disabled' : ''}`}
       id="startMenu"
       onClick={onClick}
+      disabled={disabled}
     >
       <FontAwesomeIcon icon={faUserSlash} />
       <div className="buttonText">

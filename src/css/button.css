@@ -132,6 +132,20 @@
   font-size: 20px;
 }
 
+/* Стили для неактивного состояния */
+.upload-button.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #cccccc; /* или другой цвет для неактивного состояния */
+}
+
+/* Опционально: убрать hover-эффекты для неактивной кнопки */
+.upload-button.disabled:hover {
+  /* отменяем любые hover-эффекты */
+  transform: none;
+  box-shadow: none;
+}
+
 #tableButton {
   display: flex; /* Используем flexbox для расположения кнопок в одну строку */
   justify-content: center; /* Центрируем кнопки по горизонтали */

@@ -16,7 +16,7 @@ import { getParamBrowserUrl } from "../../functions/url";
 function Work() {
   const [loading, setLoading] = useState(false);
   const regionFromRedux = useSelector((state) => state.region.region);
-  const taskFromRedux = useSelector((state) => state.task.task);
+  const taskFromRedux = useSelector((state) => state.task);
   const [regionId, setRegionId] = useState(regionFromRedux || "");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -83,9 +83,9 @@ function Work() {
     <div id="work">
       <h2>Выбор действия</h2>
       <h5>{regionId ? getRegion(regionId) : "Регион не выбран"}</h5>
-      <NewConnectionButton onClick={newConnection} disabled={!regionId} />
-      <MalfunctionButton onClick={newMalfunction} disabled={!regionId} />
-      <DisconnectButton onClick={newDisable} disabled={!regionId} />
+      <NewConnectionButton onClick={newConnection} disabled={taskFromRedux.transition} />
+      <MalfunctionButton onClick={newMalfunction} disabled={taskFromRedux.transition} />
+      <DisconnectButton onClick={newDisable} disabled={taskFromRedux.transition} />
       {loading && (
         <div className="overlay">
           <div className="spinner-container">
