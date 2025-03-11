@@ -47,7 +47,7 @@ export function FormPhoto({
     try {
       const response = await requestPhoto(
         "POST",
-        `${workFromRedux}/upload`,
+        `photos/uploads`,
         formData,
       );
       setResultForm(response);

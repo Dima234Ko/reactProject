@@ -25,7 +25,7 @@ export async function disableNTU (
         );
         
     if (taskId) {
-      // Если taskId получен, начинаем отслеживание статуса
+      // Если taskId получен, начинаем отслеживание
       await checkTask(
         `task/taskStatus`,
         taskId,
@@ -60,7 +60,7 @@ function getBody (isChecked, selectedRadioOption, radioOptions, serial){
       }
 
       let body = {
-        serial: serial,
+        serialNewNtu: serial,
         work: checkboxText,
         info: radioText
       }

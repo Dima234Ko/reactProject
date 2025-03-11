@@ -47,7 +47,7 @@ function Work() {
       setLoading(true);
       await connection(
         "POST",
-        "newConnection/createNewConnection",
+        "startHeader/createNewConnection",
         regionId,
         setLoading,
       );
@@ -60,26 +60,34 @@ function Work() {
     }
   };
 
-  const newMalfunction = () => {
-    if (!regionId) {
-      console.error("Не выбран регион");
-      return;
+  const newMalfunction = async () => {
+    try {
+      setLoading(true);
+      await connection(
+        "POST",
+        "startHeader/createNewMalfunction ",
+        regionId,
+        setLoading,
+      );
+      const work = "createNewMalfunction";
+      dispatch(setWork(work));
+      navigate(`/malfunction?region=${regionId}&work=${work}`);
+    } catch (error) {
+      console.error("Ошибка при создании подключения:", error);
+      setLoading(false);
     }
-    const work = 2;
-    dispatch(setWork(work));
-    navigate(`/malfunction?region=${regionId}&work=${work}`);
   };
 
   const newDisable = async () => {
     try {
       setLoading(true);
-      // await connection(
-      //   "POST",
-      //   "newDisable/createNewDisable",
-      //   regionId,
-      //   setLoading,
-      // );
-      const work = "newDisable";
+      await connection(
+        "POST",
+        "startHeader/createEquipmentShutdown",
+        regionId,
+        setLoading,
+      );
+      const work = "equipmentShutdown";
       dispatch(setWork(work));
       navigate(`/disable?region=${regionId}&work=${work}`);
     } catch (error) {
