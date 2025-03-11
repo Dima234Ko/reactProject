@@ -5,6 +5,7 @@ import { Button } from "../../components/Button";
 import { Loader } from "../../components/Loader";
 import { Checkbox } from "../../components/Checkbox";
 import Result from "../../components/Result";
+import {disableNTU} from "../../functions/disabling";
 import { RadioButtonGroup } from "../../components/RadioButtonGroup";
 
 function Disabling() {
@@ -13,8 +14,9 @@ function Disabling() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [progress, setProgress] = useState(0);
-  const [isChecked, setIsChecked] = useState(false); // Состояние для первого чекбокса (Неисправность)
-  const [isAbonentChecked, setIsAbonentChecked] = useState(false); // Состояние для второго чекбокса (Отключение абонента)
+  const [isChecked, setIsChecked] = useState(false);
+  const [isAbonentChecked, setIsAbonentChecked] = useState(false);
+  const [selectedRadioOption, setSelectedRadioOption] = useState(""); 
 
   const radioOptions = {
     option1: "Проблемы с Wi-Fi соединением",
@@ -23,22 +25,29 @@ function Disabling() {
     option4: "Механическое повреждение",
   };
 
-  // Обработчик для первого чекбокса
   const handleFirstCheckboxChange = (e) => {
     setIsChecked(e.target.checked);
     if (e.target.checked) {
-      // Если включен первый чекбокс, сбрасываем второй
       setIsAbonentChecked(false);
+      setSelectedRadioOption(""); 
     }
   };
 
-  // Обработчик для второго чекбокса
   const handleSecondCheckboxChange = (e) => {
     setIsAbonentChecked(e.target.checked);
     if (e.target.checked) {
-      // Если включен второй чекбокс, сбрасываем первый
       setIsChecked(false);
+      setSelectedRadioOption(""); 
     }
+  };
+
+  const handleRadioChange = (optionKey) => {
+    setSelectedRadioOption(optionKey); 
+  };
+
+  const handleSubmit = () => {
+    disableNTU (isChecked, selectedRadioOption, radioOptions, serial);
+    setIsFormOpen(false);
   };
 
   const formContent = {
@@ -54,14 +63,19 @@ function Disabling() {
               checked={isChecked}
               onChange={handleFirstCheckboxChange}
             />
-            <RadioButtonGroup options={radioOptions} isVisible={isChecked} />
+            <RadioButtonGroup 
+              options={radioOptions} 
+              isVisible={isChecked}
+              onChange={handleRadioChange}
+              selectedValue={selectedRadioOption} 
+            />
             <Checkbox
               label="Отключение абонентской линии"
               checked={isAbonentChecked}
               onChange={handleSecondCheckboxChange}
             />
           </div>
-          <Button name="Ок" onClick={console.log("кнопка нажата")} />
+          <Button name="Ок" onClick={handleSubmit} />
         </div>
       </div>
     ),
