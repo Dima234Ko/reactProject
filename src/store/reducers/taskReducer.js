@@ -1,4 +1,11 @@
-import { SET_TASK, SET_SUBTASK, SET_ACTION, SET_WORK, SET_REG_TASK, SET_TRANSITION } from "../actions/taskActions"; // Добавили SET_SUBTASK
+import {
+  SET_TASK,
+  SET_SUBTASK,
+  SET_ACTION,
+  SET_WORK,
+  SET_REG_TASK,
+  SET_TRANSITION,
+} from "../actions/taskActions"; // Добавили SET_SUBTASK
 
 const initialState = {
   task: null,
@@ -6,7 +13,7 @@ const initialState = {
   action: null,
   work: null,
   reg: null,
-  transition: false 
+  transition: false,
 };
 
 const taskReducer = (state = initialState, action) => {

@@ -5,7 +5,6 @@ export const SET_WORK = "SET_WORK";
 export const SET_REG_TASK = "SET_REG_TASK";
 export const SET_TRANSITION = "SET_TRANSITION";
 
-
 export const setTask = (task) => ({
   type: SET_TASK,
   payload: task,

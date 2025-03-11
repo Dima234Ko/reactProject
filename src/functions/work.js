@@ -1,8 +1,14 @@
 import { requestAPI } from "./api";
 import { useNavigate } from "react-router-dom";
-import { setTask, setSubtask, setAction, setWork, setRegTask, setTransition } from "../store/actions/taskActions";
+import {
+  setTask,
+  setSubtask,
+  setAction,
+  setWork,
+  setRegTask,
+  setTransition,
+} from "../store/actions/taskActions";
 import { setSerial } from "../store/actions/serialActions";
-
 
 // Функция получения активной задачи
 export async function getActiveTask(dispatch, body) {
@@ -37,7 +43,12 @@ export async function getActiveTask(dispatch, body) {
 }
 
 // Функция завершения задачи
-export async function closeTask(navigate, regionFromRedux, dispatch, closeForm) {
+export async function closeTask(
+  navigate,
+  regionFromRedux,
+  dispatch,
+  closeForm,
+) {
   try {
     const task = await requestAPI("GET", "task/closedTask");
     dispatch(setTask(null));
@@ -55,12 +66,21 @@ export async function closeTask(navigate, regionFromRedux, dispatch, closeForm) 
 }
 
 // Функция открытия задачи
-export async function openTask(navigate, taskFromRedux, serialFromRedux, closeForm) {
+export async function openTask(
+  navigate,
+  taskFromRedux,
+  serialFromRedux,
+  closeForm,
+) {
   try {
-    if (taskFromRedux.action !== 'NEW'){
-      navigate(`/${taskFromRedux.action}?region=${taskFromRedux.reg}&work=${taskFromRedux.work}&serial=${serialFromRedux}&task=${taskFromRedux.subtask}`);
+    if (taskFromRedux.action !== "NEW") {
+      navigate(
+        `/${taskFromRedux.action}?region=${taskFromRedux.reg}&work=${taskFromRedux.work}&serial=${serialFromRedux}&task=${taskFromRedux.subtask}`,
+      );
     } else {
-      navigate(`/status?region=${taskFromRedux.reg}&work=${taskFromRedux.work}`);
+      navigate(
+        `/status?region=${taskFromRedux.reg}&work=${taskFromRedux.work}`,
+      );
     }
     closeForm();
   } catch (error) {

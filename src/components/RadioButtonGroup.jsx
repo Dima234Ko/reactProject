@@ -1,9 +1,14 @@
 import React from "react";
 
-export function RadioButtonGroup({ options, isVisible, onChange, selectedValue }) {
+export function RadioButtonGroup({
+  options,
+  isVisible,
+  onChange,
+  selectedValue,
+}) {
   const handleChange = (e) => {
     if (onChange) {
-      onChange(e.target.value); 
+      onChange(e.target.value);
     }
   };
 
@@ -17,8 +22,8 @@ export function RadioButtonGroup({ options, isVisible, onChange, selectedValue }
                 type="radio"
                 name="radioGroup"
                 value={value}
-                checked={selectedValue === value} 
-                onChange={handleChange} 
+                checked={selectedValue === value}
+                onChange={handleChange}
               />
               {label}
             </label>

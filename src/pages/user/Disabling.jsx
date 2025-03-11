@@ -1,22 +1,25 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Input } from "../../components/Input";
 import { FormInfo } from "../../components/Form/Form";
 import { Button } from "../../components/Button";
 import { Loader } from "../../components/Loader";
 import { Checkbox } from "../../components/Checkbox";
 import Result from "../../components/Result";
-import {disableNTU} from "../../functions/disabling";
+import { disableNTU } from "../../functions/disabling";
 import { RadioButtonGroup } from "../../components/RadioButtonGroup";
 
 function Disabling() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [serial, setSerial] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
-  const [progress, setProgress] = useState(0);
   const [isChecked, setIsChecked] = useState(false);
   const [isAbonentChecked, setIsAbonentChecked] = useState(false);
-  const [selectedRadioOption, setSelectedRadioOption] = useState(""); 
+  const [selectedRadioOption, setSelectedRadioOption] = useState("");
 
   const radioOptions = {
     option1: "Проблемы с Wi-Fi соединением",
@@ -29,7 +32,7 @@ function Disabling() {
     setIsChecked(e.target.checked);
     if (e.target.checked) {
       setIsAbonentChecked(false);
-      setSelectedRadioOption(""); 
+      setSelectedRadioOption("");
     }
   };
 
@@ -37,16 +40,25 @@ function Disabling() {
     setIsAbonentChecked(e.target.checked);
     if (e.target.checked) {
       setIsChecked(false);
-      setSelectedRadioOption(""); 
+      setSelectedRadioOption("");
     }
   };
 
   const handleRadioChange = (optionKey) => {
-    setSelectedRadioOption(optionKey); 
+    setSelectedRadioOption(optionKey);
   };
 
   const handleSubmit = () => {
-    disableNTU (isChecked, selectedRadioOption, radioOptions, serial);
+    disableNTU(
+      isChecked,
+      selectedRadioOption,
+      radioOptions,
+      serial,
+      navigate, 
+      dispatch,
+      setResult,
+      setLoading,
+    );
     setIsFormOpen(false);
   };
 
@@ -63,11 +75,11 @@ function Disabling() {
               checked={isChecked}
               onChange={handleFirstCheckboxChange}
             />
-            <RadioButtonGroup 
-              options={radioOptions} 
+            <RadioButtonGroup
+              options={radioOptions}
               isVisible={isChecked}
               onChange={handleRadioChange}
-              selectedValue={selectedRadioOption} 
+              selectedValue={selectedRadioOption}
             />
             <Checkbox
               label="Отключение абонентской линии"
@@ -118,7 +130,7 @@ function Disabling() {
       {loading && (
         <div className="overlay">
           <div className="spinner-container">
-            <Loader progress={progress} />
+            <Loader />
           </div>
         </div>
       )}

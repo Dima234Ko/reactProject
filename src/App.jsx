@@ -23,7 +23,7 @@ import Malfunction from "./pages/user/Malfunction";
 import UserInfo from "./pages/user/UserInfo";
 import { TaskButton, ExpressButton } from "./components/Button";
 import { FormInfo } from "./components/Form/Form";
-import {openTask, closeTask} from "./functions/work"
+import { openTask, closeTask } from "./functions/work";
 
 function App() {
   return (
@@ -36,7 +36,7 @@ function App() {
 function Main() {
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();  
+  const dispatch = useDispatch();
   const params = new URLSearchParams(location.search);
   const { pathname } = location;
 
@@ -194,12 +194,21 @@ function Main() {
               <pre>Выберите действие</pre>
               <div className="input-container">
                 <ExpressButton
-                  onClick={() =>  openTask(navigate, taskFromRedux, serialFromRedux, closeForm)}  
+                  onClick={() =>
+                    openTask(
+                      navigate,
+                      taskFromRedux,
+                      serialFromRedux,
+                      closeForm,
+                    )
+                  }
                   text="Продолжить"
                   closeButton={false}
                 />
                 <ExpressButton
-                  onClick={() => closeTask(navigate, regionFromRedux, dispatch, closeForm)}  
+                  onClick={() =>
+                    closeTask(navigate, regionFromRedux, dispatch, closeForm)
+                  }
                   text="Завершить"
                   closeButton={true}
                 />

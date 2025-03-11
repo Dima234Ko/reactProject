@@ -77,10 +77,10 @@ export function DeleteUserButton({ onClick, className = "" }) {
   );
 }
 
-export function NewConnectionButton({ onClick, className = "", disabled}) {
+export function NewConnectionButton({ onClick, className = "", disabled }) {
   return (
     <button
-      className={`upload-button ${className} ${disabled ? 'disabled' : ''}`}
+      className={`upload-button ${className} ${disabled ? "disabled" : ""}`}
       id="startMenu"
       onClick={onClick}
       disabled={disabled}
@@ -96,7 +96,7 @@ export function NewConnectionButton({ onClick, className = "", disabled}) {
 export function MalfunctionButton({ onClick, className = "", disabled }) {
   return (
     <button
-      className={`upload-button ${className} ${disabled ? 'disabled' : ''}`}
+      className={`upload-button ${className} ${disabled ? "disabled" : ""}`}
       id="startMenu"
       onClick={onClick}
       disabled={disabled}
@@ -112,7 +112,7 @@ export function MalfunctionButton({ onClick, className = "", disabled }) {
 export function DisconnectButton({ onClick, className = "", disabled }) {
   return (
     <button
-      className={`upload-button ${className} ${disabled ? 'disabled' : ''}`}
+      className={`upload-button ${className} ${disabled ? "disabled" : ""}`}
       id="startMenu"
       onClick={onClick}
       disabled={disabled}

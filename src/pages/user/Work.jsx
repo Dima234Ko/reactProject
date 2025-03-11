@@ -43,13 +43,14 @@ function Work() {
   }, [location.search, dispatch, regionFromUrl]);
 
   const newConnection = async () => {
-    if (!regionId) {
-      console.error("Не выбран регион");
-      return;
-    }
     try {
       setLoading(true);
-      await connection("POST", "newConnection/createNewConnection", regionId, setLoading);
+      await connection(
+        "POST",
+        "newConnection/createNewConnection",
+        regionId,
+        setLoading,
+      );
       const work = "newConnection";
       dispatch(setWork(work));
       navigate(`/status?region=${regionId}&work=${work}`);
@@ -69,23 +70,40 @@ function Work() {
     navigate(`/malfunction?region=${regionId}&work=${work}`);
   };
 
-  const newDisable = () => {
-    if (!regionId) {
-      console.error("Не выбран регион");
-      return;
+  const newDisable = async () => {
+    try {
+      setLoading(true);
+      // await connection(
+      //   "POST",
+      //   "newDisable/createNewDisable",
+      //   regionId,
+      //   setLoading,
+      // );
+      const work = "newDisable";
+      dispatch(setWork(work));
+      navigate(`/disable?region=${regionId}&work=${work}`);
+    } catch (error) {
+      console.error("Ошибка при создании подключения:", error);
+      setLoading(false);
     }
-    const work = 3;
-    dispatch(setWork(work));
-    navigate(`/disable?region=${regionId}&work=${work}`);
   };
 
   return (
     <div id="work">
       <h2>Выбор действия</h2>
       <h5>{regionId ? getRegion(regionId) : "Регион не выбран"}</h5>
-      <NewConnectionButton onClick={newConnection} disabled={taskFromRedux.transition} />
-      <MalfunctionButton onClick={newMalfunction} disabled={taskFromRedux.transition} />
-      <DisconnectButton onClick={newDisable} disabled={taskFromRedux.transition} />
+      <NewConnectionButton
+        onClick={newConnection}
+        disabled={taskFromRedux.transition}
+      />
+      <MalfunctionButton
+        onClick={newMalfunction}
+        disabled={taskFromRedux.transition}
+      />
+      <DisconnectButton
+        onClick={newDisable}
+        disabled={taskFromRedux.transition}
+      />
       {loading && (
         <div className="overlay">
           <div className="spinner-container">
