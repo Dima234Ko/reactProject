@@ -39,10 +39,12 @@ function UserInfo() {
   const [patronymic, setPatronymic] = useState("");
   const [phone, setPhone] = useState("");
   const [result, setResult] = useState(null);
+  const [isUploadSuccessful, setUploadSuccess] = useState(false);
   const serialFromUrl = getParamBrowserUrl("serial");
   const loginFromUrl = getParamBrowserUrl("login") || "";
   const workFromUrl = getParamBrowserUrl("work");
   const regionFromUrl = getNumberBrowserUrl("region");
+
 
   useEffect(() => {
     if (serialFromUrl) {
@@ -145,6 +147,7 @@ function UserInfo() {
             login={loginFromRedux}
             idUserSideCard={idFromRedux}
             workFromRedux={workFromRedux}
+            setUploadSuccess={setUploadSuccess}
           />
         }
       />
@@ -195,7 +198,7 @@ function UserInfo() {
       <Button
         name="Записать"
         onClick={handleSubmit}
-        disabled={loading || !surname || !name}
+        disabled={loading || !surname || !name || !isUploadSuccessful}
       />
     </div>
   );

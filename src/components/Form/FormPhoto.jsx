@@ -9,6 +9,7 @@ export function FormPhoto({
   login,
   idUserSideCard,
   workFromRedux,
+  setUploadSuccess
 }) {
   const [files, setFiles] = useState([]);
   const [resultForm, setResultForm] = useState("");
@@ -36,6 +37,7 @@ export function FormPhoto({
 
     setIsUploading(true);
     setResultForm("Загрузка началась...");
+    setUploadSuccess(true);
 
     const formData = new FormData();
     files.forEach((file) => {
