@@ -29,6 +29,18 @@ const taskReducer = (state = initialState, action) => {
         subtask: action.payload,
       };
     case SET_ACTION:
+      if (action.payload === "reset") {
+        return {
+          ...state,
+          action: "status",
+        };
+      }
+      if (action.payload === "photo") {
+        return {
+          ...state,
+          action: "wifi",
+        };
+      }
       return {
         ...state,
         action: action.payload,
