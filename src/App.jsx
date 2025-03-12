@@ -21,6 +21,7 @@ import Disabling from "./pages/user/Disabling";
 import Work from "./pages/user/Work";
 import Malfunction from "./pages/user/Malfunction";
 import UserInfo from "./pages/user/UserInfo";
+import Replcement from "./pages/user/Replacement";
 import { TaskButton, ExpressButton } from "./components/Button";
 import { FormInfo } from "./components/Form/Form";
 import { openTask, closeTask } from "./functions/work";
@@ -180,6 +181,7 @@ function Main() {
           <Route path="/disable" element={<Disabling />} />
           <Route path="/work" element={<Work />} />
           <Route path="/malfunction" element={<Malfunction />} />
+          <Route path="/replcement" element={<Replcement />} />
           <Route path="/info" element={<UserInfo />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

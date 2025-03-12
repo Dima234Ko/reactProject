@@ -31,7 +31,7 @@ function Malfunction() {
   };
 
   const newChange = () => {
-    navigate(`/change?region=${regionId}&work=${work}`);
+    navigate(`/replcement?region=${regionId}&work=${work}`);
   };
 
   return (
