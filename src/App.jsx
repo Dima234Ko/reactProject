@@ -114,7 +114,7 @@ function Main() {
       {
         id: "replcementPage",
         name: "Замена NTU",
-        to: `/replcement?region=${regionFromRedux || ""}&work=${workFromRedux || ""}}`,
+        to: `/replcement?region=${regionFromRedux || ""}&work=${workFromRedux || ""}`,
         show: 
           (isWorkParam) && (isWorkParam !=="newConnection") &&
           (pathname !== "/replcement" &&
