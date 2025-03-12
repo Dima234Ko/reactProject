@@ -4,28 +4,30 @@ import { requestAPI } from "./api";
 import { updateUrlWithParam } from "./url";
 
 //Получить информацию из US
-export async function searchIdUs(userLoginSerial, setResult, page) {
+export async function searchIdUs(userLoginSerial, setResult,param, page) {
   setResult(null);
   let body;
   let data;
 
   try {
-    if (page !== "wifi") {
+    if (param === "login") {
       body = {
         userLogin: userLoginSerial,
       };
       data = await requestAPI("POST", "userSide/getUserId", body);
 
-      if (data.idUserSideCard !== null) {
-        setResult({
-          result: "Найдена учетная запись в US",
-          success: true,
-        });
-      } else {
-        setResult({
-          result: "Учетная запись в US отсутствует",
-          success: false,
-        });
+      if (page !== "wifi"){
+        if (data.idUserSideCard !== null) {
+          setResult({
+            result: "Найдена учетная запись в US",
+            success: true,
+          });
+        } else {
+          setResult({
+            result: "Учетная запись в US отсутствует",
+            success: false,
+          });
+        }
       }
     } else {
       body = {
