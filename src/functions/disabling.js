@@ -10,7 +10,7 @@ export async function disableNTU (
     setLoading
 ) {
     try {
-        let action = `newDisable/disableNTU`;    
+        let action = `newConnection/equipmentShutdown`;    
         let body = getBody (isChecked, selectedRadioOption, radioOptions, serial);
         setLoading(true);
 

@@ -77,8 +77,11 @@ export async function openTask(
       navigate(
         `/${taskFromRedux.action}?region=${taskFromRedux.reg}&work=${taskFromRedux.work}&serial=${serialFromRedux}&task=${taskFromRedux.subtask}`,
       );
-    } else {
+    } else if (taskFromRedux.work === 'Equipment shutdown') {
       navigate(
+        `/disable?region=${taskFromRedux.reg}&work=${taskFromRedux.work}`,
+      );
+     } else { navigate(
         `/status?region=${taskFromRedux.reg}&work=${taskFromRedux.work}`,
       );
     }
