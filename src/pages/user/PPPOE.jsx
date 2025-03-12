@@ -112,7 +112,7 @@ function Pppoe() {
   const handleLoginChange = async () => {
     if (login !== "") {
       try {
-        await searchIdUs(login, setResult, "login");
+        await searchIdUs(login, setResult, "pppoe");
       } catch (error) {
         console.error("Ошибка при проверке логина", error);
         setResult({

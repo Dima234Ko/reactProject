@@ -92,9 +92,10 @@ function Wifi() {
       setResult(null);
       let data;
       if (loginFromRedux !== null) {
-        data = await searchIdUs(loginFromRedux, setResult, "login");
+        data = await searchIdUs(loginFromRedux, setResult, "wifi");
       } else if (loginFromUrl === "") {
-        data = await searchIdUs(serialFromRedux, setResult, "serial");
+        data = await searchIdUs(serialFromRedux, setResult, "wifi");
+        dispatch(setLogin(data.userLogin));
       }
       if (data) {
         setSsid2_4(data.ssidWifi2 || "");

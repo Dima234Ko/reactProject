@@ -4,13 +4,13 @@ import { requestAPI } from "./api";
 import { updateUrlWithParam } from "./url";
 
 //Получить информацию из US
-export async function searchIdUs(userLoginSerial, setResult, param) {
+export async function searchIdUs(userLoginSerial, setResult, page) {
   setResult(null);
   let body;
   let data;
 
   try {
-    if (param === "login") {
+    if (page !== "wifi") {
       body = {
         userLogin: userLoginSerial,
       };
