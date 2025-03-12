@@ -46,7 +46,7 @@ function Main() {
   const hasRegion = params.has("region");
   const hasWork = params.has("work");
   const hasLogin = params.has("login");
-  const isWorkParam = params.get("work") !== "newConnection";
+  const isWorkParam = params.get("work");
 
   // Состояние UI
   const showBackButton = pathname !== "/";
@@ -96,7 +96,7 @@ function Main() {
       {
         id: "workPage",
         name: "Главная",
-        to: isSettingsOrRegion && isRoot ? "/disable" : "/work",
+        to: "/work",
         show:
           !isSettingsOrRegion ||
           (isSettingsOrRegion && isRoot) ||
@@ -105,11 +105,20 @@ function Main() {
       {
         id: "statusPage",
         name: "Статус",
-        to: `/status?region=${regionFromRedux || ""}`,
+        to: `/status?region=${regionFromRedux}&work=${workFromRedux}`,
         show:
-          (isNotRootPage && hasSerial) ||
+          (isWorkParam) &&
           (pathname !== "/status" &&
-            !["/work", "/malfunction"].includes(pathname)),
+            !["/work", "/malfunction", "/disable"].includes(pathname)),
+      },
+      {
+        id: "replcementPage",
+        name: "Замена NTU",
+        to: `/replcement?region=${regionFromRedux || ""}&work=${workFromRedux || ""}}`,
+        show: 
+          (isWorkParam) && (isWorkParam !=="newConnection") &&
+          (pathname !== "/replcement" &&
+          !["/work", "/malfunction", "/disable"].includes(pathname)),
       },
       {
         id: "pppoePage",
@@ -224,8 +233,9 @@ function Main() {
       {(pathname === "/status" ||
         pathname === "/pppoe" ||
         pathname === "/wifi" ||
-        pathname === "/malfunction") &&
-        isWorkParam && (
+        pathname === "/malfunction" ||
+        pathname === "/replcement") &&
+        (isWorkParam !== "newConnection") && (
           <TaskButton onClick={openForm} text="Завершить задачу" />
         )}
     </>
