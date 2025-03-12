@@ -193,15 +193,14 @@ function Main() {
               <h2>Подтвердите</h2>
               <pre>Выберите действие</pre>
               <div className="input-container">
-                <ExpressButton
-                  onClick={() =>
-                    openTask(
-                      navigate,
-                      taskFromRedux,
-                      serialFromRedux,
-                      closeForm,
-                    )
-                  }
+              <ExpressButton
+                  onClick={() => {
+                    if (pathname === "/work") {
+                      openTask(navigate, taskFromRedux, serialFromRedux, closeForm);
+                    } else {
+                      closeForm();
+                    }
+                  }}
                   text="Продолжить"
                   closeButton={false}
                 />

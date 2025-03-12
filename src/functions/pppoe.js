@@ -69,7 +69,7 @@ export async function setPppoe(
 
   try {
     taskId = await getTaskId(
-      `${workFromRedux}/setNtuNewPppoe`,
+      `newConnection/setNtuNewPppoe`,
       body,
       dispatch,
       setLoading,

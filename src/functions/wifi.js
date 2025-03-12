@@ -33,7 +33,7 @@ export async function setWiFi(
   try {
     // Получаем taskId
     const taskId = await getTaskId(
-      `${workFromRedux}/setNtuWifi`,
+      `newConnection/setNtuWifi`,
       body,
       dispatch,
       setLoading,

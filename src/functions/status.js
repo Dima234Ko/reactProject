@@ -27,9 +27,9 @@ export async function getStatus(
   };
 
   try {
-    let action = `${workFromRedux}/statusNTU`;
+    let action = `newConnection/statusNTU`;
     if (isChecked) {
-      action = `${workFromRedux}/resetNTU`;
+      action = `newConnection/resetNTU`;
     }
 
     // Получаем taskId
