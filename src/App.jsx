@@ -124,13 +124,13 @@ function Main() {
         id: "pppoePage",
         name: "PPPoE",
         to: `/pppoe?region=${regionFromRedux || ""}&work=${workFromRedux || ""}&serial=${serialFromRedux || ""}`,
-        show: isNotRootPage && hasSerial && isWorkParam,
+        show: isNotRootPage && hasSerial && (isWorkParam !=="newConnection"),
       },
       {
         id: "wifiPage",
         name: "WiFi",
         to: `/wifi?region=${regionFromRedux || ""}&work=${workFromRedux || ""}&serial=${serialFromRedux || ""}${loginFromRedux ? `&login=${loginFromRedux}` : ""}`,
-        show: isNotRootPage && hasSerial && isWorkParam,
+        show: isNotRootPage && hasSerial && (isWorkParam !=="newConnection"),
       },
       {
         id: "userPage",
