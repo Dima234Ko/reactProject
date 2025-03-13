@@ -6,23 +6,20 @@ import {
   DeleteUserButton,
 } from "../../components/Button";
 import { Loader } from "../../components/Loader";
+import { getAllUsers } from "../../functions/account";
+import { FormAddUser } from "../../components/Form/FormAddUser";
+import { FormInfo } from "../../components/Form/Form";
 
 function User() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [createSuccess, setCreateSuccess] = useState(false);
+  const [formContent, setFormContent] = useState(null); // Состояние для контента формы
 
   const getUserData = async () => {
-    const userData = [
-      { login: "johndoe", fullname: "John Doe" },
-      { login: "janesmith", fullname: "Jane Smith" },
-      { login: "carlosg", fullname: "Carlos Garcia" },
-    ];
-
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(userData);
-      }, 1000);
-    });
+    let userData = await getAllUsers();
+    return userData;
   };
 
   useEffect(() => {
@@ -41,10 +38,40 @@ function User() {
     fetchData();
   }, []);
 
+  // Обновление списка пользователей после успешного создания
+  useEffect(() => {
+    if (createSuccess) {
+      const fetchData = async () => {
+        try {
+          const result = await getUserData();
+          setData(result);
+          setCreateSuccess(false);
+        } catch (error) {
+          console.error("Error refreshing data:", error);
+        }
+      };
+      fetchData();
+    }
+  }, [createSuccess]);
+
   const columns = ["Логин", "Фамилия Имя Отчество"];
 
+  const openForm = () => setIsFormOpen(true);
+  const closeForm = () => {
+    setIsFormOpen(false);
+    setFormContent(null); // Очищаем контент при закрытии
+  };
+
   const handleAddUser = () => {
-    console.log("add user");
+    // Устанавливаем контент формы непосредственно в этой функции
+    setFormContent(
+      <FormAddUser
+        isCreating={loading}
+        setIsCreating={setLoading}
+        setCreateSuccess={setCreateSuccess}
+      />
+    );
+    openForm(); // Открываем форму
   };
 
   const handleChangePass = () => {
@@ -81,6 +108,20 @@ function User() {
           ))}
         </Table>
       </div>
+
+      {/* Форма создания пользователя */}
+      {isFormOpen && (
+        <div className="form-overlay">
+          <FormInfo
+            isFormOpen={isFormOpen}
+            closeForm={closeForm}
+            formData={formContent}
+          />
+          <button onClick={closeForm} className="close-form-button">
+            Закрыть
+          </button>
+        </div>
+      )}
     </div>
   );
 }
