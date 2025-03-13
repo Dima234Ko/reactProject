@@ -1,7 +1,7 @@
 /* CustomComponent.css */
 .custom-component {
   position: fixed;
-  top: 23%;
+  top: 13%;
   left: 50%;
   transform: translateX(-50%);
   width: 53vh; /* Занимает 2/3 экрана */
@@ -80,6 +80,11 @@
 }
 
 form {
-  max-width: 100%;
+  width: 80%;
   text-align: center;
+}
+
+.selectRoot{
+  width: 108%;
+  text-align: left;
 }

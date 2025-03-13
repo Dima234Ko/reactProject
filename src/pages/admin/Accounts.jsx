@@ -103,7 +103,7 @@ function User() {
                 <input type="checkbox" />
               </td>
               <td>{row.login}</td>
-              <td>{row.fullname}</td>
+              <td>{row.fullName}</td>
             </tr>
           ))}
         </Table>

@@ -96,6 +96,14 @@ h4 {
   margin-bottom: 5px;
 }
 
+h3 {
+  font-family: "Georgia", "Times New Roman", serif;
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 0px;
+  font-size: 12px;
+}
+
 #root {
   min-height: 100vh;
 }
