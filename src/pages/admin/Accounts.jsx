@@ -8,6 +8,7 @@ import {
 } from "../../components/Button";
 import { Loader } from "../../components/Loader";
 import { getAllUsers } from "../../functions/account";
+import { FormEditUser } from "../../components/Form/FormEditUser";
 import { FormAddUser } from "../../components/Form/FormAddUser";
 import { FormInfo } from "../../components/Form/Form";
 import { setCheckedValue } from "../../store/actions/checkboxUserActions";
@@ -79,7 +80,7 @@ function User() {
 
   const handleEditUser = () => {
     setFormContent(
-      <FormAddUser
+      <FormEditUser
         isCreating={loading}
         setIsCreating={setLoading}
         setCreateSuccess={setCreateSuccess}
