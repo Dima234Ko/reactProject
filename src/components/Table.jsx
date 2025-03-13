@@ -1,6 +1,6 @@
 import React from "react";
 
-export function Table({ columns, className, id, children }) {
+export function Table({ columns, className, id, children, onCheckboxChange }) {
   return (
     <table className={className} id={id}>
       <thead>
@@ -11,7 +11,7 @@ export function Table({ columns, className, id, children }) {
           ))}
         </tr>
       </thead>
-      <tbody>{children}</tbody>
+      <tbody>{children(onCheckboxChange)}</tbody>
     </table>
   );
 }

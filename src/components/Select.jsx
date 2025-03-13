@@ -15,7 +15,7 @@ export function Select({ id, options, value, onChange }) {
 
 export function SelectRoot({ onChange, value }) {
   const options = [ 
-    { label: "Без прав", value: '0' }, 
+    { label: "Без прав", value: 'noRoles' }, 
     { label: "Монтажник", value: 'installer' }, 
     { label: "Инженер", value: 'engineer' },
     { label: "Администратор", value: 'admin' },

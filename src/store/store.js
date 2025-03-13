@@ -6,6 +6,7 @@ import workReducer from "./reducers/workReducer";
 import loginReducer from "./reducers/loginReducer";
 import idReducer from "./reducers/idReducer";
 import taskReducer from "./reducers/taskReducer";
+import checkboxUserReducer from "./reducers/checkboxUserReducer"
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     login: loginReducer,
     id: idReducer,
     task: taskReducer,
+    checkboxUser: checkboxUserReducer
   },
 });
 

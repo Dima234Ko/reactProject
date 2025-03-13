@@ -70,11 +70,11 @@ export function AddUserButton({ onClick, className = "" }) {
   );
 }
 
-export function ChangePassButton({ onClick, className = "" }) {
+export function ChangeEditUser({ onClick, className = "" }) {
   return (
     <button className={`upload-button ${className}`} onClick={onClick}>
       <FontAwesomeIcon icon={faUnlock} />
-      <span className="upload-text">Изменить пароль</span>
+      <span className="upload-text">Изменить пользователя</span>
     </button>
   );
 }

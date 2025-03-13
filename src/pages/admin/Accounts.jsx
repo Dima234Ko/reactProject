@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Table } from "../../components/Table";
 import {
   AddUserButton,
-  ChangePassButton,
+  ChangeEditUser,
   DeleteUserButton,
 } from "../../components/Button";
 import { Loader } from "../../components/Loader";
 import { getAllUsers } from "../../functions/account";
 import { FormAddUser } from "../../components/Form/FormAddUser";
 import { FormInfo } from "../../components/Form/Form";
+import { setCheckedValue } from "../../store/actions/checkboxUserActions";
 
 function User() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [createSuccess, setCreateSuccess] = useState(false);
-  const [formContent, setFormContent] = useState(null); // Состояние для контента формы
+  const [formContent, setFormContent] = useState(null);
+
+  const dispatch = useDispatch();
+  const checkedValue = useSelector((state) => state.checkboxUser.checkedValue);
 
   const getUserData = async () => {
     let userData = await getAllUsers();
@@ -30,7 +35,7 @@ function User() {
         setData(result);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Ошибка при загрузке данных:", error);
         setLoading(false);
       }
     };
@@ -38,7 +43,6 @@ function User() {
     fetchData();
   }, []);
 
-  // Обновление списка пользователей после успешного создания
   useEffect(() => {
     if (createSuccess) {
       const fetchData = async () => {
@@ -47,7 +51,7 @@ function User() {
           setData(result);
           setCreateSuccess(false);
         } catch (error) {
-          console.error("Error refreshing data:", error);
+          console.error("Ошибка при обновлении данных:", error);
         }
       };
       fetchData();
@@ -59,27 +63,38 @@ function User() {
   const openForm = () => setIsFormOpen(true);
   const closeForm = () => {
     setIsFormOpen(false);
-    setFormContent(null); // Очищаем контент при закрытии
+    setFormContent(null);
   };
 
   const handleAddUser = () => {
-    // Устанавливаем контент формы непосредственно в этой функции
     setFormContent(
       <FormAddUser
         isCreating={loading}
         setIsCreating={setLoading}
         setCreateSuccess={setCreateSuccess}
-      />,
+      />
     );
-    openForm(); // Открываем форму
+    openForm();
   };
 
-  const handleChangePass = () => {
-    console.log("change password");
+  const handleEditUser = () => {
+    setFormContent(
+      <FormAddUser
+        isCreating={loading}
+        setIsCreating={setLoading}
+        setCreateSuccess={setCreateSuccess}
+      />
+    );
+    openForm();
   };
 
   const handleDeleteUser = () => {
-    console.log("delete user");
+    console.log("удалить пользователя");
+  };
+
+  const handleCheckboxChange = (e) => {
+    const value = e.target.value; 
+    dispatch(setCheckedValue(value)); 
   };
 
   return (
@@ -87,7 +102,7 @@ function User() {
       <h2>Пользователи</h2>
       <div id="tableButton">
         <AddUserButton onClick={handleAddUser} />
-        <ChangePassButton onClick={handleChangePass} />
+        <ChangeEditUser onClick={handleEditUser} />
         <DeleteUserButton onClick={handleDeleteUser} />
       </div>
       <div className="table-container" style={{ position: "relative" }}>
@@ -96,16 +111,28 @@ function User() {
             <Loader />
           </div>
         )}
-        <Table columns={columns} className="user-table" id="userTable">
-          {data.map((row, index) => (
-            <tr key={row.login}>
-              <td>
-                <input type="checkbox" />
-              </td>
-              <td>{row.login}</td>
-              <td>{row.fullName}</td>
-            </tr>
-          ))}
+        <Table
+          columns={columns}
+          className="user-table"
+          id="userTable"
+          onCheckboxChange={handleCheckboxChange}
+        >
+          {(onCheckboxChange) =>
+            data.map((row, index) => (
+              <tr key={row.login}>
+                <td>
+                  <input
+                    type="checkbox"
+                    value={row.id}
+                    onChange={onCheckboxChange}
+                    checked={String(checkedValue) === String(row.id)} 
+                  />
+                </td>
+                <td>{row.login}</td>
+                <td>{row.fullName}</td>
+              </tr>
+            ))
+          }
         </Table>
       </div>
 
@@ -117,9 +144,6 @@ function User() {
             closeForm={closeForm}
             formData={formContent}
           />
-          <button onClick={closeForm} className="close-form-button">
-            Закрыть
-          </button>
         </div>
       )}
     </div>
