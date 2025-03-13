@@ -9,7 +9,7 @@ export function FormPhoto({
   login,
   idUserSideCard,
   workFromRedux,
-  setUploadSuccess
+  setUploadSuccess,
 }) {
   const [files, setFiles] = useState([]);
   const [resultForm, setResultForm] = useState("");
@@ -47,11 +47,7 @@ export function FormPhoto({
     formData.append("idUserSideCard", idUserSideCard);
 
     try {
-      const response = await requestPhoto(
-        "POST",
-        `photos/uploads`,
-        formData,
-      );
+      const response = await requestPhoto("POST", `photos/uploads`, formData);
       setResultForm(response);
     } catch (error) {
       console.error("Ошибка при загрузке фото:", error);

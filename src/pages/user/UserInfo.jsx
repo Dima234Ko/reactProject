@@ -45,7 +45,6 @@ function UserInfo() {
   const workFromUrl = getParamBrowserUrl("work");
   const regionFromUrl = getNumberBrowserUrl("region");
 
-
   useEffect(() => {
     if (serialFromUrl) {
       dispatch(setSerial(serialFromUrl));

@@ -12,6 +12,30 @@ export function Select({ id, options, value, onChange }) {
   );
 }
 
+
+export function SelectRoot({ onChange, value }) {
+  const options = [
+    { label: "Администратор", value: 1 },
+    { label: "Инженер", value: 2 },
+    { label: "Монтажник", value: 3 },
+  ];
+
+  return (
+    <select
+      className="some-input"
+      value={value}
+      onChange={onChange}
+    >
+      {options.map((option) => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </select>
+  );
+}
+
+
 export function SelectSSID({ value, onChange }) {
   const options = [
     "auto",

@@ -69,7 +69,7 @@ function User() {
         isCreating={loading}
         setIsCreating={setLoading}
         setCreateSuccess={setCreateSuccess}
-      />
+      />,
     );
     openForm(); // Открываем форму
   };

@@ -1,29 +1,29 @@
 import { getTaskId, checkTask } from "./task";
-export async function disableNTU (
-    isChecked, 
-    selectedRadioOption, 
-    radioOptions,
-    serial,
-    navigate, 
-    dispatch,
-    setResult, 
-    setLoading
+export async function disableNTU(
+  isChecked,
+  selectedRadioOption,
+  radioOptions,
+  serial,
+  navigate,
+  dispatch,
+  setResult,
+  setLoading,
 ) {
-    try {
-        let action = `newConnection/equipmentShutdown`;    
-        let body = getBody (isChecked, selectedRadioOption, radioOptions, serial);
-        setLoading(true);
+  try {
+    let action = `newConnection/equipmentShutdown`;
+    let body = getBody(isChecked, selectedRadioOption, radioOptions, serial);
+    setLoading(true);
 
-        // Получаем taskId
-        const taskId = await getTaskId(
-          action,
-          body,
-          dispatch,
-          setLoading,
-          navigate,
-          serial,
-        );
-        
+    // Получаем taskId
+    const taskId = await getTaskId(
+      action,
+      body,
+      dispatch,
+      setLoading,
+      navigate,
+      serial,
+    );
+
     if (taskId) {
       // Если taskId получен, начинаем отслеживание
       await checkTask(
@@ -42,28 +42,27 @@ export async function disableNTU (
   }
 }
 
+function getBody(isChecked, selectedRadioOption, radioOptions, serial) {
+  let checkboxText = "";
+  let radioText = "";
+  if (isChecked) {
+    checkboxText = "Неисправность оборудования";
+  } else {
+    checkboxText = "Отключение абонентской линии";
+  }
 
-function getBody (isChecked, selectedRadioOption, radioOptions, serial){
-      let checkboxText = "";
-      let radioText = "";  
-      if (isChecked) {
-        checkboxText = "Неисправность оборудования";
-      } else  {
-        checkboxText = "Отключение абонентской линии";
-      }
-  
-      // Определяем текст выбранной радиокнопки
-      if (isChecked && selectedRadioOption) {
-        radioText = radioOptions[selectedRadioOption];
-      } else {
-        radioText = "Радиокнопка не выбрана";
-      }
+  // Определяем текст выбранной радиокнопки
+  if (isChecked && selectedRadioOption) {
+    radioText = radioOptions[selectedRadioOption];
+  } else {
+    radioText = "Радиокнопка не выбрана";
+  }
 
-      let body = {
-        serialNewNtu: serial,
-        work: checkboxText,
-        info: radioText
-      }
+  let body = {
+    serialNewNtu: serial,
+    work: checkboxText,
+    info: radioText,
+  };
 
-      return body;
+  return body;
 }

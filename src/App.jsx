@@ -107,30 +107,31 @@ function Main() {
         name: "Статус",
         to: `/status?region=${regionFromRedux}&work=${workFromRedux}`,
         show:
-          (isWorkParam) &&
-          (pathname !== "/status" &&
-            !["/work", "/malfunction", "/disable"].includes(pathname)),
+          isWorkParam &&
+          pathname !== "/status" &&
+          !["/work", "/malfunction", "/disable"].includes(pathname),
       },
       {
         id: "replcementPage",
         name: "Замена NTU",
         to: `/replcement?region=${regionFromRedux || ""}&work=${workFromRedux || ""}`,
-        show: 
-          (isWorkParam) && (isWorkParam !=="newConnection") &&
-          (pathname !== "/replcement" &&
-          !["/work", "/malfunction", "/disable"].includes(pathname)),
+        show:
+          isWorkParam &&
+          isWorkParam !== "newConnection" &&
+          pathname !== "/replcement" &&
+          !["/work", "/malfunction", "/disable"].includes(pathname),
       },
       {
         id: "pppoePage",
         name: "PPPoE",
         to: `/pppoe?region=${regionFromRedux || ""}&work=${workFromRedux || ""}&serial=${serialFromRedux || ""}`,
-        show: isNotRootPage && hasSerial && (isWorkParam !=="newConnection"),
+        show: isNotRootPage && hasSerial && isWorkParam !== "newConnection",
       },
       {
         id: "wifiPage",
         name: "WiFi",
         to: `/wifi?region=${regionFromRedux || ""}&work=${workFromRedux || ""}&serial=${serialFromRedux || ""}${loginFromRedux ? `&login=${loginFromRedux}` : ""}`,
-        show: isNotRootPage && hasSerial && (isWorkParam !=="newConnection"),
+        show: isNotRootPage && hasSerial && isWorkParam !== "newConnection",
       },
       {
         id: "userPage",
@@ -204,10 +205,15 @@ function Main() {
               <h2>Подтвердите</h2>
               <pre>Выберите действие</pre>
               <div className="input-container">
-              <ExpressButton
+                <ExpressButton
                   onClick={() => {
                     if (pathname === "/work") {
-                      openTask(navigate, taskFromRedux, serialFromRedux, closeForm);
+                      openTask(
+                        navigate,
+                        taskFromRedux,
+                        serialFromRedux,
+                        closeForm,
+                      );
                     } else {
                       closeForm();
                     }
@@ -235,7 +241,7 @@ function Main() {
         pathname === "/wifi" ||
         pathname === "/malfunction" ||
         pathname === "/replcement") &&
-        (isWorkParam !== "newConnection") && (
+        isWorkParam !== "newConnection" && (
           <TaskButton onClick={openForm} text="Завершить задачу" />
         )}
     </>

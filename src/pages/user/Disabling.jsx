@@ -54,7 +54,7 @@ function Disabling() {
       selectedRadioOption,
       radioOptions,
       serial,
-      navigate, 
+      navigate,
       dispatch,
       setResult,
       setLoading,
