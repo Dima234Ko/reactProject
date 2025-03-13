@@ -79,6 +79,11 @@
   font-weight: 300;
 }
 
+.textForm pre {
+  margin-top: 25px;
+  margin-bottom: 0px;
+}
+
 form {
   width: 80%;
   text-align: center;

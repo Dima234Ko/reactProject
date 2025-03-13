@@ -19,14 +19,10 @@ export function FormAddUser({
     root: "",
   });
   const [resultForm, setResultForm] = useState("");
-  const [selectRoot, setSelectRoot] = useState("");
-  const rootNames = ["Администратор", "Инженер", "Монтажник"];
-  const rootValue = [1, 2, 3];
 
   // Обработка изменения полей ввода
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    console.log(`Изменение поля ${name}: ${value}`); // Отладка
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -38,7 +34,7 @@ export function FormAddUser({
   const handleCreate = async () => {
     const requiredFields = ["lastName", "firstName", "login", "password"];
     const hasEmptyFields = requiredFields.some(
-      (field) => !formData[field].trim(),
+      (field) => !formData[field].trim()
     );
 
     if (hasEmptyFields) {
@@ -49,8 +45,18 @@ export function FormAddUser({
     setIsCreating(true);
     setResultForm("Создание пользователя...");
 
+    // Формируем объект body из formData
+    const body = {
+      lastName: formData.lastName,
+      firstName: formData.firstName,
+      middleName: formData.middleName,
+      login: formData.login,
+      password: formData.password,
+      root: formData.root,
+    };
+
     try {
-      const response = await requestAPI("POST", "users/create", formData);
+      const response = await requestAPI("POST", "ADMIN/createUser", body);
       setResultForm("Пользователь успешно создан");
       setCreateSuccess(true);
       setFormData({
@@ -67,7 +73,7 @@ export function FormAddUser({
     } catch (error) {
       console.error("Ошибка при создании пользователя:", error);
       setResultForm(
-        "Произошла ошибка при создании пользователя. Попробуйте снова.",
+        "Произошла ошибка при создании пользователя. Попробуйте снова."
       );
     } finally {
       setIsCreating(false);
@@ -76,87 +82,92 @@ export function FormAddUser({
 
   return (
     <div className="input-container">
-      <div className="textForm">
-        <h2>Создать пользователя</h2>
-        <pre>Заполните данные нового пользователя</pre>
-
-        <h3>Укажите права доступа</h3>
-        <div className="selectRoot">
-          <SelectRoot
-           value={formData.root}
-           onChange={(e) => handleInputChange({ target: { name: "root", value: e.target.value } })}
-          />
+      <form onSubmit={(e) => e.preventDefault()}>
+        <div className="textForm">
+          <h2>Создать пользователя</h2>
+          <pre>Укажите права доступа</pre>
+          <div className="selectRoot">
+            <SelectRoot
+              value={formData.root}
+              onChange={(e) =>
+                handleInputChange({ target: { name: "root", value: e.target.value } })
+              }
+            />
+          </div>
+          <pre>Укажите данные</pre>
+          {/* Поля ввода */}
+          <div className="addUser">
+            <Input
+              id="login"
+              type="text"
+              placeholder="Введите логин"
+              value={formData.login}
+              onChange={(e) =>
+                handleInputChange({
+                  target: { name: "login", value: e.target.value },
+                })
+              }
+              disabled={isCreating}
+            />
+            <Input
+              id="password"
+              type="password"
+              placeholder="Введите пароль"
+              value={formData.password}
+              onChange={(e) =>
+                handleInputChange({
+                  target: { name: "password", value: e.target.value },
+                })
+              }
+              disabled={isCreating}
+            />
+            <Input
+              id="lastName"
+              type="text"
+              placeholder="Введите фамилию"
+              value={formData.lastName}
+              onChange={(e) =>
+                handleInputChange({
+                  target: { name: "lastName", value: e.target.value },
+                })
+              }
+              disabled={isCreating}
+            />
+            <Input
+              id="firstName"
+              type="text"
+              placeholder="Введите имя"
+              value={formData.firstName}
+              onChange={(e) =>
+                handleInputChange({
+                  target: { name: "firstName", value: e.target.value },
+                })
+              }
+              disabled={isCreating}
+            />
+            <Input
+              id="middleName"
+              type="text"
+              placeholder="Введите отчество"
+              value={formData.middleName}
+              onChange={(e) =>
+                handleInputChange({
+                  target: { name: "middleName", value: e.target.value },
+                })
+              }
+              disabled={isCreating}
+            />
+          </div>
         </div>
-
-        <h3>Укажите данные</h3>
-        {/* Поля ввода */}
-
-        <Input
-          id="login"
-          type="text"
-          placeholder="Введите логин"
-          value={formData.login}
-          onChange={(e) =>
-            handleInputChange({
-              target: { name: "login", value: e.target.value },
-            })
-          }
-          disabled={isCreating} // Отключаем при создании
-        />
-        <Input
-          id="password"
-          type="password"
-          placeholder="Введите пароль"
-          value={formData.password}
-          onChange={(e) =>
-            handleInputChange({
-              target: { name: "password", value: e.target.value },
-            })
-          }
-          disabled={isCreating}
-        />
-        <Input
-          id="lastName"
-          type="text"
-          placeholder="Введите фамилию"
-          value={formData.lastName}
-          onChange={(e) =>
-            handleInputChange({
-              target: { name: "lastName", value: e.target.value },
-            })
-          }
-          disabled={isCreating}
-        />
-        <Input
-          id="firstName"
-          type="text"
-          placeholder="Введите имя"
-          value={formData.firstName}
-          onChange={(e) =>
-            handleInputChange({
-              target: { name: "firstName", value: e.target.value },
-            })
-          }
-          disabled={isCreating}
-        />
-        <Input
-          id="middleName"
-          type="text"
-          placeholder="Введите отчество"
-          value={formData.middleName}
-          onChange={(e) =>
-            handleInputChange({
-              target: { name: "middleName", value: e.target.value },
-            })
-          }
-          disabled={isCreating}
-        />
+        
+        {/* Отображение результата */}
+        {resultForm && <div className="upload-result">{resultForm}</div>}
 
         {/* Кнопка создания */}
-      </div>
-      <Button name="Создать" onClick={handleCreate} disabled={isCreating} />
-      {/* Отображение результата */}
-      {resultForm && <div className="create-result">{resultForm}</div>}
+        <Button name="Создать" onClick={handleCreate} disabled={isCreating} />
+
+    
+      </form>
     </div>
   );
 }

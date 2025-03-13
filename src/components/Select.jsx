@@ -14,10 +14,11 @@ export function Select({ id, options, value, onChange }) {
 
 
 export function SelectRoot({ onChange, value }) {
-  const options = [
-    { label: "Администратор", value: 1 },
-    { label: "Инженер", value: 2 },
-    { label: "Монтажник", value: 3 },
+  const options = [ 
+    { label: "Без прав", value: '0' }, 
+    { label: "Монтажник", value: 'installer' }, 
+    { label: "Инженер", value: 'engineer' },
+    { label: "Администратор", value: 'admin' },
   ];
 
   return (
