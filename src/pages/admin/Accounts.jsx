@@ -70,8 +70,6 @@ function User() {
   const handleAddUser = () => {
     setFormContent(
       <FormAddUser
-        isCreating={loading}
-        setIsCreating={setLoading}
         setCreateSuccess={setCreateSuccess}
       />
     );
@@ -81,8 +79,6 @@ function User() {
   const handleEditUser = () => {
     setFormContent(
       <FormEditUser
-        isCreating={loading}
-        setIsCreating={setLoading}
         setCreateSuccess={setCreateSuccess}
       />
     );

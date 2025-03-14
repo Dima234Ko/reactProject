@@ -5,8 +5,6 @@ import { SelectRoot } from "../../components/Select";
 import { requestAPI } from "../../functions/api";
 
 export function FormAddUser({
-  isCreating,
-  setIsCreating,
   setCreateSuccess,
   onClose,
 }) {
@@ -42,7 +40,6 @@ export function FormAddUser({
       return;
     }
 
-    setIsCreating(true);
     setResultForm("Создание пользователя...");
 
     // Формируем объект body из formData
@@ -75,9 +72,7 @@ export function FormAddUser({
       setResultForm(
         "Произошла ошибка при создании пользователя. Попробуйте снова."
       );
-    } finally {
-      setIsCreating(false);
-    }
+    };
   };
 
   return (
@@ -107,7 +102,6 @@ export function FormAddUser({
                   target: { name: "login", value: e.target.value },
                 })
               }
-              disabled={isCreating}
             />
             <Input
               id="password"
@@ -119,7 +113,6 @@ export function FormAddUser({
                   target: { name: "password", value: e.target.value },
                 })
               }
-              disabled={isCreating}
             />
             <Input
               id="lastName"
@@ -131,7 +124,6 @@ export function FormAddUser({
                   target: { name: "lastName", value: e.target.value },
                 })
               }
-              disabled={isCreating}
             />
             <Input
               id="firstName"
@@ -143,7 +135,6 @@ export function FormAddUser({
                   target: { name: "firstName", value: e.target.value },
                 })
               }
-              disabled={isCreating}
             />
             <Input
               id="middleName"
@@ -155,7 +146,6 @@ export function FormAddUser({
                   target: { name: "middleName", value: e.target.value },
                 })
               }
-              disabled={isCreating}
             />
           </div>
         </div>
@@ -164,9 +154,7 @@ export function FormAddUser({
         {resultForm && <div className="upload-result">{resultForm}</div>}
 
         {/* Кнопка создания */}
-        <Button name="Создать" onClick={handleCreate} disabled={isCreating} />
-
-    
+        <Button name="Создать" onClick={handleCreate}/>
       </form>
     </div>
   );
