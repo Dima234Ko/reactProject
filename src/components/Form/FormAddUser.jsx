@@ -4,10 +4,7 @@ import { Button } from "../../components/Button";
 import { SelectRoot } from "../../components/Select";
 import { requestAPI } from "../../functions/api";
 
-export function FormAddUser({
-  setCreateSuccess,
-  onClose,
-}) {
+export function FormAddUser({ setCreateSuccess, onClose }) {
   const [formData, setFormData] = useState({
     lastName: "",
     firstName: "",
@@ -32,7 +29,7 @@ export function FormAddUser({
   const handleCreate = async () => {
     const requiredFields = ["lastName", "firstName", "login", "password"];
     const hasEmptyFields = requiredFields.some(
-      (field) => !formData[field].trim()
+      (field) => !formData[field].trim(),
     );
 
     if (hasEmptyFields) {
@@ -70,9 +67,9 @@ export function FormAddUser({
     } catch (error) {
       console.error("Ошибка при создании пользователя:", error);
       setResultForm(
-        "Произошла ошибка при создании пользователя. Попробуйте снова."
+        "Произошла ошибка при создании пользователя. Попробуйте снова.",
       );
-    };
+    }
   };
 
   return (
@@ -85,7 +82,9 @@ export function FormAddUser({
             <SelectRoot
               value={formData.root}
               onChange={(e) =>
-                handleInputChange({ target: { name: "root", value: e.target.value } })
+                handleInputChange({
+                  target: { name: "root", value: e.target.value },
+                })
               }
             />
           </div>
@@ -149,12 +148,12 @@ export function FormAddUser({
             />
           </div>
         </div>
-        
+
         {/* Отображение результата */}
         {resultForm && <div className="upload-result">{resultForm}</div>}
 
         {/* Кнопка создания */}
-        <Button name="Создать" onClick={handleCreate}/>
+        <Button name="Создать" onClick={handleCreate} />
       </form>
     </div>
   );

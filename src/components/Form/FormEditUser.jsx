@@ -4,10 +4,7 @@ import { Button } from "../Button";
 import { requestAPI } from "../../functions/api";
 import { useSelector } from "react-redux";
 
-export function FormEditUser({
-  setCreateSuccess,
-  onClose,
-}) {
+export function FormEditUser({ setCreateSuccess, onClose }) {
   const [formData, setFormData] = useState({
     lastName: "",
     firstName: "",
@@ -55,16 +52,6 @@ export function FormEditUser({
 
   // Обработка изменения пользователя
   const handleEdit = async () => {
-    const requiredFields = ["lastName", "firstName", "login", "password"];
-    const hasEmptyFields = requiredFields.some(
-      (field) => !formData[field].trim()
-    );
-
-    // if (hasEmptyFields) {
-    //   setResultForm("Пожалуйста, заполните все обязательные поля");
-    //   return;
-    // }
-
     setResultForm("Создание пользователя...");
 
     // Формируем объект body из formData
@@ -89,9 +76,9 @@ export function FormEditUser({
     } catch (error) {
       console.error("Ошибка при создании пользователя:", error);
       setResultForm(
-        "Произошла ошибка при создании пользователя. Попробуйте снова."
+        "Произошла ошибка при создании пользователя. Попробуйте снова.",
       );
-    };
+    }
   };
 
   return (
@@ -157,9 +144,9 @@ export function FormEditUser({
         />
         {/* Отображение результата */}
         {resultForm && <div className="upload-result">{resultForm}</div>}
-        
+
         {/* Кнопка создания */}
-        <Button name="Изменить" onClick={handleEdit}/>
+        <Button name="Изменить" onClick={handleEdit} />
       </form>
     </div>
   );

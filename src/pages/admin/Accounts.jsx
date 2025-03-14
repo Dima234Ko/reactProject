@@ -10,6 +10,7 @@ import { Loader } from "../../components/Loader";
 import { getAllUsers } from "../../functions/account";
 import { FormEditUser } from "../../components/Form/FormEditUser";
 import { FormAddUser } from "../../components/Form/FormAddUser";
+import { FormDeleteUser } from "../../components/Form/FormDeleteUser";
 import { FormInfo } from "../../components/Form/Form";
 import { setCheckedValue } from "../../store/actions/checkboxUserActions";
 
@@ -68,30 +69,45 @@ function User() {
   };
 
   const handleAddUser = () => {
-    setFormContent(
-      <FormAddUser
-        setCreateSuccess={setCreateSuccess}
-      />
-    );
+    setFormContent(<FormAddUser setCreateSuccess={setCreateSuccess} />);
     openForm();
   };
 
   const handleEditUser = () => {
-    setFormContent(
-      <FormEditUser
-        setCreateSuccess={setCreateSuccess}
-      />
-    );
+    if (checkedValue !== null) {
+      setFormContent(<FormEditUser setCreateSuccess={setCreateSuccess} />);
+    } else {
+      setFormContent(
+        <div className="textForm">
+          <h2>Внимание</h2>
+          <div>
+            <pre>Ошибка: Необходимо выбрать пользователя</pre>
+          </div>
+        </div>,
+      );
+    }
     openForm();
   };
 
   const handleDeleteUser = () => {
-    console.log("удалить пользователя");
+    if (checkedValue !== null) {
+      setFormContent(<FormDeleteUser />);
+    } else {
+      setFormContent(
+        <div className="textForm">
+          <h2>Внимание</h2>
+          <div>
+            <pre>Ошибка: Необходимо выбрать пользователя</pre>
+          </div>
+        </div>,
+      );
+    }
+    openForm();
   };
 
   const handleCheckboxChange = (e) => {
-    const value = e.target.value; 
-    dispatch(setCheckedValue(value)); 
+    const value = e.target.value;
+    dispatch(setCheckedValue(value));
   };
 
   return (
@@ -122,7 +138,7 @@ function User() {
                     type="checkbox"
                     value={row.id}
                     onChange={onCheckboxChange}
-                    checked={String(checkedValue) === String(row.id)} 
+                    checked={String(checkedValue) === String(row.id)}
                   />
                 </td>
                 <td>{row.login}</td>

@@ -12,21 +12,16 @@ export function Select({ id, options, value, onChange }) {
   );
 }
 
-
 export function SelectRoot({ onChange, value }) {
-  const options = [ 
-    { label: "Без прав", value: 'noRoles' }, 
-    { label: "Монтажник", value: 'installer' }, 
-    { label: "Инженер", value: 'engineer' },
-    { label: "Администратор", value: 'admin' },
+  const options = [
+    { label: "Без прав", value: "noRoles" },
+    { label: "Монтажник", value: "installer" },
+    { label: "Инженер", value: "engineer" },
+    { label: "Администратор", value: "admin" },
   ];
 
   return (
-    <select
-      className="some-input"
-      value={value}
-      onChange={onChange}
-    >
+    <select className="some-input" value={value} onChange={onChange}>
       {options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.label}
@@ -35,7 +30,6 @@ export function SelectRoot({ onChange, value }) {
     </select>
   );
 }
-
 
 export function SelectSSID({ value, onChange }) {
   const options = [

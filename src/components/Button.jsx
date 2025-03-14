@@ -83,7 +83,7 @@ export function DeleteUserButton({ onClick, className = "" }) {
   return (
     <button className={`upload-button ${className}`} onClick={onClick}>
       <FontAwesomeIcon icon={faUserSlash} />
-      <span className="upload-text">Удалить пользователя</span>
+      <span className="upload-text">Запретить доступ</span>
     </button>
   );
 }
