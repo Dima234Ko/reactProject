@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Table } from "../../components/Table";
 import { FiltrButton } from "../../components/Button";
 import { FormInfo } from "../../components/Form/Form";
@@ -6,13 +7,16 @@ import { FormFilterReport } from "../../components/Form/FormFilterReport";
 import { FormReportTask } from "../../components/Form/FormReportTask";
 import { Loader } from "../../components/Loader";
 import { getReport } from "../../functions/report";
+import { setReportTask } from "../../store/actions/taskReportActions";
 
 function Report() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const [isFormOpen, setIsFormOpen] = useState(false); 
-  const [formContent, setFormContent] = useState(null); 
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [formContent, setFormContent] = useState(null);
+  const dispatch = useDispatch();
+  const taskReport = useSelector((state) => state.taskReport.task);
 
   const getLogData = async () => {
     let reportData = await getReport();
@@ -44,18 +48,16 @@ function Report() {
     "US",
   ];
 
-  // Функция, которая открывает форму FormReportTask и устанавливает её контент
   const handleHeaderWorkNameClick = (row) => {
+    dispatch(setReportTask(row.taskName));
     setFormContent(
       <FormReportTask
         onClose={() => setIsFormOpen(false)}
-        rowData={row}
       />
     );
     setIsFormOpen(true);
   };
 
-  // Функция для открытия формы фильтра
   const openFilterForm = () => {
     setFormContent(
       <FormFilterReport
@@ -67,7 +69,7 @@ function Report() {
 
   const closeForm = () => {
     setIsFormOpen(false);
-    setFormContent(null); 
+    setFormContent(null);
   };
 
   const tableBody = filteredData.map((row) => (

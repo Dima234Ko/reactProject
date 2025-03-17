@@ -59,7 +59,7 @@ function User() {
     }
   }, [createSuccess]);
 
-  const columns = ["", "Логин", "Фамилия Имя Отчество"]; // Добавлен пустой столбец для чекбоксов
+  const columns = ["", "Логин", "Фамилия Имя Отчество"]; 
 
   const openForm = () => setIsFormOpen(true);
   const closeForm = () => {
@@ -143,7 +143,6 @@ function User() {
         </Table>
       </div>
 
-      {/* Форма */}
       {isFormOpen && (
         <div className="form-overlay">
           <FormInfo

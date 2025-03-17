@@ -5,7 +5,7 @@ import {
   SET_WORK,
   SET_REG_TASK,
   SET_TRANSITION,
-} from "../actions/taskActions"; // Добавили SET_SUBTASK
+} from "../actions/taskActions";
 
 const initialState = {
   task: null,
