@@ -16,7 +16,7 @@ import Wifi from "./pages/user/Wifi";
 import Settings from "./pages/user/Settings";
 import Region from "./pages/user/Region";
 import User from "./pages/admin/Accounts";
-import Log from "./pages/admin/Log";
+import Report from "./pages/admin/Report";
 import Disabling from "./pages/user/Disabling";
 import Work from "./pages/user/Work";
 import Malfunction from "./pages/user/Malfunction";
@@ -72,7 +72,7 @@ function Main() {
     const needWork = ["/status", "/wifi", "/pppoe", "/malfunction", "/info"];
     const needRegion = [...needWork, "/work"];
     const needSerial = ["/pppoe", "/wifi", "/info"];
-    const rootOnly = ["/user", "/log"];
+    const rootOnly = ["/user", "/report"];
 
     if (!hasWork && needWork.includes(pathname)) return "/work";
     if (!hasRegion && needRegion.includes(pathname)) return "/region";
@@ -140,9 +140,9 @@ function Main() {
         show: isRoot,
       },
       {
-        id: "logPage",
-        name: "Логи",
-        to: "/log",
+        id: "reportPage",
+        name: "Отчет",
+        to: "/report",
         show: isRoot,
       },
       {
@@ -187,7 +187,7 @@ function Main() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/region" element={<Region />} />
           <Route path="/user" element={<User />} />
-          <Route path="/log" element={<Log />} />
+          <Route path="/report" element={<Report />} />
           <Route path="/disable" element={<Disabling />} />
           <Route path="/work" element={<Work />} />
           <Route path="/malfunction" element={<Malfunction />} />

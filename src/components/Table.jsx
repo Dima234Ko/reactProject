@@ -5,13 +5,17 @@ export function Table({ columns, className, id, children, onCheckboxChange }) {
     <table className={className} id={id}>
       <thead>
         <tr>
-          {id !== "logTable" && <th></th>}
+          {onCheckboxChange && <th></th>}
           {columns.map((column, index) => (
             <th key={index}>{column}</th>
           ))}
         </tr>
       </thead>
-      <tbody>{children(onCheckboxChange)}</tbody>
+      {onCheckboxChange ? (
+        <tbody>{children(onCheckboxChange)}</tbody>
+      ) : (
+        children && <tbody>{children}</tbody>
+      )}
     </table>
   );
 }
