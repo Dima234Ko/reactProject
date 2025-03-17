@@ -35,7 +35,7 @@ export function TableReportTask({ taskData }) {
         respResult: item.respResult.success 
         ? 
         `PON ${item.respResult.serialNewNtu},
-${item.respResult.create_login_US},
+${item.respResult.create_login_US === null ? "Карточка существует в US" : item.respResult.create_login_US},
 ${item.respResult.write_PONserial}, 
 ${item.respResult.ont_config}`
               : item.respResult.info
@@ -84,7 +84,8 @@ CHANNEL ${item.channelWifi5} [${item.respResult.wifi5_channel}]`
     tableRows.push({
       key: `equipmentShutdownDto`,
       name: `Снятие оборудования`,
-      respResult: taskData.equipmentShutdownDto.info,
+      respResult: `${taskData.equipmentShutdownDto.ponSerial},
+${taskData.equipmentShutdownDto.info}`
     });
   }
 
