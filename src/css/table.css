@@ -1,6 +1,7 @@
 /* Стили для таблицы */
 .user-table,
-.log-table {
+.log-table,
+.task-table {
   width: 100%; /* Таблица занимает всю ширину контейнера */
   border-collapse: collapse; /* Убираем промежутки между ячейками */
   border: 1px solid #ccc; /* Линии вокруг таблицы */
@@ -9,6 +10,8 @@
 
 .user-table th,
 .user-table td,
+.task-table th,
+.task-table td,
 .log-table th,
 .log-table td {
   padding: 10px;

@@ -29,7 +29,7 @@ export function FormReportTask({ onClose }) {
 
   return (
     <div className="input-container">
-      <h2>Выберите действие</h2>
+      <h2>Запросы пользователя</h2>
       {loading ? (
         <pre>Загрузка...</pre>
       ) : (

@@ -16,7 +16,7 @@ function translateHeaderWorkName(data) {
 }
 
 export async function getReport() {
-  let data = await requestAPI("GET", "logs/small?size=100&page=0");
+  let data = await requestAPI("GET", "logs/small?size=200&page=0");
   const content = data.content;
   const translatedContent = translateHeaderWorkName(content);
   return translatedContent;
