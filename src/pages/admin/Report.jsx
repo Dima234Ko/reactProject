@@ -73,7 +73,7 @@ function Report() {
 
   const tableBody = filteredData.map((row) => (
     <tr key={row.id}>
-      <td>{row.data}</td>
+      <td>{row.date}</td>
       <td data-value={row.taskName}>{row.login}</td>
       <td>{row.ponSerial}</td>
       <td>
