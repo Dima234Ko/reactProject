@@ -35,13 +35,12 @@ function User() {
       try {
         const result = await getUserData();
         setData(result);
-        setLoading(false);
       } catch (error) {
         console.error("Ошибка при загрузке данных:", error);
+      } finally {
         setLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
@@ -60,7 +59,7 @@ function User() {
     }
   }, [createSuccess]);
 
-  const columns = ["Логин", "Фамилия Имя Отчество"];
+  const columns = ["", "Логин", "Фамилия Имя Отчество"]; // Добавлен пустой столбец для чекбоксов
 
   const openForm = () => setIsFormOpen(true);
   const closeForm = () => {
@@ -83,7 +82,7 @@ function User() {
           <div>
             <pre>Ошибка: Необходимо выбрать пользователя</pre>
           </div>
-        </div>,
+        </div>
       );
     }
     openForm();
@@ -99,7 +98,7 @@ function User() {
           <div>
             <pre>Ошибка: Необходимо выбрать пользователя</pre>
           </div>
-        </div>,
+        </div>
       );
     }
     openForm();
@@ -109,6 +108,21 @@ function User() {
     const value = e.target.value;
     dispatch(setCheckedValue(value));
   };
+
+  const tableBody = data.map((row) => (
+    <tr key={row.id}>
+      <td>
+        <input
+          type="checkbox"
+          value={row.id}
+          onChange={handleCheckboxChange}
+          checked={String(checkedValue) === String(row.id)}
+        />
+      </td>
+      <td>{row.login}</td>
+      <td>{row.fullName}</td>
+    </tr>
+  ));
 
   return (
     <div id="user">
@@ -124,32 +138,12 @@ function User() {
             <Loader />
           </div>
         )}
-        <Table
-          columns={columns}
-          className="user-table"
-          id="userTable"
-          onCheckboxChange={handleCheckboxChange}
-        >
-          {(onCheckboxChange) =>
-            data.map((row, index) => (
-              <tr key={row.login}>
-                <td>
-                  <input
-                    type="checkbox"
-                    value={row.id}
-                    onChange={onCheckboxChange}
-                    checked={String(checkedValue) === String(row.id)}
-                  />
-                </td>
-                <td>{row.login}</td>
-                <td>{row.fullName}</td>
-              </tr>
-            ))
-          }
+        <Table columns={columns} className="user-table" id="userTable">
+          {tableBody}
         </Table>
       </div>
 
-      {/* Форма создания пользователя */}
+      {/* Форма */}
       {isFormOpen && (
         <div className="form-overlay">
           <FormInfo

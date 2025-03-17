@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Input } from "../../components/Input";
-import { DropdownSelect } from "../../components/Select";
-import { Button } from "../../components/Button";
-import { Checkbox } from "../../components/Checkbox";
+import { Input } from "../Input";
+import { DropdownSelect } from "../Select";
+import { Button } from "../Button";
+import { Checkbox } from "../Checkbox";
 
-export function FormFilterLog({ onClose }) {
+export function FormFilterReport({ onClose }) {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [selectedUser, setSelectedUser] = useState("");

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "../../components/Table";
-import {FiltrButton } from "../../components/Button";
+import { FiltrButton } from "../../components/Button";
 import { FormInfo } from "../../components/Form/Form";
-import { FormFilterLog } from "../../components/Form/FormFilterLog";
+import { FormFilterReport } from "../../components/Form/FormFilterReport";
+import { FormReportTask } from "../../components/Form/FormReportTask";
 import { Loader } from "../../components/Loader";
 import { getReport } from "../../functions/report";
 
@@ -10,7 +11,8 @@ function Report() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false); 
+  const [formContent, setFormContent] = useState(null); 
 
   const getLogData = async () => {
     let reportData = await getReport();
@@ -23,7 +25,7 @@ function Report() {
       try {
         const result = await getLogData();
         setData(result);
-        setFilteredData(result); // Устанавливаем начальные данные
+        setFilteredData(result);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -39,15 +41,48 @@ function Report() {
     "Логин",
     "ID устройства",
     "Вид работ",
-    "US"
+    "US",
   ];
 
-  const tableBody = filteredData.map((row, index) => (
+  // Функция, которая открывает форму FormReportTask и устанавливает её контент
+  const handleHeaderWorkNameClick = (row) => {
+    setFormContent(
+      <FormReportTask
+        onClose={() => setIsFormOpen(false)}
+        rowData={row}
+      />
+    );
+    setIsFormOpen(true);
+  };
+
+  // Функция для открытия формы фильтра
+  const openFilterForm = () => {
+    setFormContent(
+      <FormFilterReport
+        onClose={() => setIsFormOpen(false)}
+      />
+    );
+    setIsFormOpen(true);
+  };
+
+  const closeForm = () => {
+    setIsFormOpen(false);
+    setFormContent(null); 
+  };
+
+  const tableBody = filteredData.map((row) => (
     <tr key={row.id}>
       <td>{row.data}</td>
-      <td>{row.login}</td>
+      <td data-value={row.taskName}>{row.login}</td>
       <td>{row.ponSerial}</td>
-      <td>{row.headerWorkName}</td>
+      <td>
+        <span
+          onClick={() => handleHeaderWorkNameClick(row)}
+          style={{ cursor: "pointer", color: "blue" }}
+        >
+          {row.headerWorkName}
+        </span>
+      </td>
       <td>{row.idUserSideCard}</td>
     </tr>
   ));
@@ -57,15 +92,11 @@ function Report() {
       <h2>Отчет</h2>
       <FormInfo
         isFormOpen={isFormOpen}
-        closeForm={() => setIsFormOpen(false)}
-        formData={
-          <FormFilterLog
-            onClose={() => setIsFormOpen(false)}
-          />
-        }
+        closeForm={closeForm}
+        formData={formContent}
       />
       <div id="tableButton">
-        <FiltrButton onClick={() => setIsFormOpen(true)} />
+        <FiltrButton onClick={openFilterForm} />
       </div>
       {loading ? (
         <div className="spinner-container">
