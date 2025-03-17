@@ -37,3 +37,8 @@
   margin: 0 auto; /* Центрируем */
   padding: 20px;
 }
+
+
+.task-table th {
+  text-align: center;
+}

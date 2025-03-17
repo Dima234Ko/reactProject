@@ -16,7 +16,12 @@ export function TableReportTask({ taskData }) {
       tableRows.push({
         key: `ntuStatuses-${index + 1}`,
         name: `Запрос статуса [${index + 1}]`,
-        respResult: JSON.stringify(item.respResult.type, null, 2),
+        respResult: item.respResult.success 
+        ? 
+        `PON ${item.respResult.serialNewNtu},
+  ONT ${item.respResult.ont_status}, ${item.respResult.RX_power}, 
+  OLT ${item.respResult.ip_olt} ${item.respResult.PON_port}/${item.respResult.PON_id}`
+        : item.respResult.info
       });
     });
   }
@@ -27,7 +32,13 @@ export function TableReportTask({ taskData }) {
       tableRows.push({
         key: `ntuPppoeEntities-${index + 1}`,
         name: `Настройка PPPoE [${index + 1}]`,
-        respResult: JSON.stringify(item.respResult.type, null, 2),
+        respResult: item.respResult.success 
+        ? 
+        `PON ${item.respResult.serialNewNtu},
+${item.respResult.create_login_US},
+${item.respResult.write_PONserial}, 
+${item.respResult.ont_config}`
+              : item.respResult.info
       });
     });
   }
@@ -38,7 +49,21 @@ export function TableReportTask({ taskData }) {
       tableRows.push({
         key: `ntuWifiEntities-${index + 1}`,
         name: `Настройка WiFi [${index + 1}]`,
-        respResult: JSON.stringify(item.respResult.type, null, 2),
+        respResult: item.respResult.success 
+        ? 
+        `PON ${item.respResult.serialNewNtu},
+${item.respResult.write_wifi_US},
+
+Настройки WIFI 2.4Ггц
+SSID ${item.ssidWifi2},
+PASS ${item.passWifi2},
+CHANNEL ${item.channelWifi2} [${item.respResult.wifi2_channel}]
+
+Настройки WIFI 5Ггц
+SSID ${item.ssidWifi5},
+PASS ${item.passWifi5},
+CHANNEL ${item.channelWifi5} [${item.respResult.wifi5_channel}]`
+              : item.respResult.info
       });
     });
   }
@@ -49,7 +74,7 @@ export function TableReportTask({ taskData }) {
       tableRows.push({
         key: `photos-${index + 1}`,
         name: `Загрузка фото [${index + 1}]`,
-        respResult: JSON.stringify(item.fileName || item, null, 2),
+        respResult: item.fileName,
       });
     });
   }
@@ -59,12 +84,12 @@ export function TableReportTask({ taskData }) {
     tableRows.push({
       key: `equipmentShutdownDto`,
       name: `Снятие оборудования`,
-      respResult: JSON.stringify(taskData.equipmentShutdownDto.info, null, 2),
+      respResult: taskData.equipmentShutdownDto.info,
     });
   }
 
   // Определяем столбцы таблицы
-  const columns = ["Название", "Действие"];
+  const columns = ["Действие", "Результат"];
 
   // Создаем тело таблицы
   const tableBody = tableRows.map((row) => (
@@ -73,7 +98,7 @@ export function TableReportTask({ taskData }) {
         <pre>{row.name}</pre>
      </td>
       <td>
-        <pre>{row.respResult}</pre>
+      <pre>{row.respResult}</pre>
       </td>
     </tr>
   ));

@@ -84,6 +84,10 @@
   margin-bottom: 0px;
 }
 
+.task-table pre {
+  margin-top: 0px;
+}
+
 form {
   width: 80%;
   text-align: center;
