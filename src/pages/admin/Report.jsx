@@ -48,12 +48,11 @@ function Report() {
     "US",
   ];
 
-  const handleHeaderWorkNameClick = (row) => {
-    dispatch(setReportTask(row.taskName));
+  const handleHeaderWorkNameClick = async (row) => {
+    dispatch(setReportTask(row.id));
     setFormContent(
       <FormReportTask
-        onClose={() => setIsFormOpen(false)}
-      />
+        onClose={() => setIsFormOpen(false)} />
     );
     setIsFormOpen(true);
   };

@@ -1,32 +1,43 @@
-import React from "react"; 
-import { ExpressButton } from "../Button";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { ExpressButton } from "../Button";
+import { requestAPI } from "../../functions/api";
+import { TableReportTask } from "../TableReportTask";
 
 export function FormReportTask({ onClose }) {
-
   const task = useSelector((state) => state.taskReport.task);
+  const [taskData, setTaskData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTaskData = async () => {
+      setLoading(true);
+      try {
+        const data = await requestAPI("GET", `logs/allInfo/${task}`);
+        setTaskData(data);
+      } catch (error) {
+        console.error("Error fetching task data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (task) {
+      fetchTaskData();
+    }
+  }, [task]);
 
   return (
     <div className="input-container">
       <h2>Выберите действие</h2>
-      <pre>Задача № {task} </pre>
-      <div className="input-container">
-        <ExpressButton
-          onClick={() => console.log("Запрос статуса")}
-          text="Запрос статуса"
-          closeButton={false}
-        />
-        <ExpressButton
-          onClick={() => console.log("Настройка PPPoE")}
-          text="Настройка PPPoE"
-          closeButton={false}
-        />
-        <ExpressButton
-          onClick={() => console.log("Настройка WiFi")}
-          text="Настройка WiFi"
-          closeButton={false}
-        />
-      </div>
+      {loading ? (
+        <pre>Загрузка...</pre>
+      ) : (
+        <>
+          <pre>Задача № {task || "Не указано"}</pre>
+          <TableReportTask taskData={taskData} />
+        </>
+      )}
     </div>
   );
 }

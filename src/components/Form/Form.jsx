@@ -24,9 +24,9 @@ export function FormInfo({ isFormOpen, closeForm, formData }) {
   return (
     <div className="custom-component" ref={formRef}>
       <div className="close-btn" onClick={handleClose}>
-        &times;
+        ×
       </div>
-      <div className="input-container">
+      <div className="input-container" style={{ maxHeight: "650px", overflowY: "auto" }}>
         <div className="textForm">{formData}</div>
       </div>
     </div>
