@@ -1,33 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Input } from "../Input";
 import { DropdownSelect } from "../Select";
 import { Button } from "../Button";
 import { Checkbox } from "../Checkbox";
+import { 
+  setStartDate,
+  setEndDate,
+  setLoginPage,
+  setPonSerialPage
+} from "../../store/actions/pageLogActions";
+import { getLogins } from "../../functions/account";
 
 export function FormFilterReport({ onClose }) {
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const dispatch = useDispatch();
+  
+  const [startDate, setLocalStartDate] = useState("");
+  const [endDate, setLocalEndDate] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
-  const [ponSerial, setPonSerial] = useState("");
-  const [login, setLogin] = useState("");
+  const [ponSerial, setLocalPonSerial] = useState("");
+  const [login, setLocalLogin] = useState("");
   const [isManualChecked, setIsManualChecked] = useState(false);
   const [isAutoChecked, setIsAutoChecked] = useState(false);
-   
-  const users = ["Иванов", "Краснов"];
+  const [users, setUsers] = useState([]); // Состояние для хранения пользователей
 
+
+  // Загрузка пользователей при монтировании компонента
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const userList = await getLogins();
+        setUsers(userList);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      } 
+    };
+    
+    fetchUsers();
+  }, []); // Пустой массив зависимостей - выполняется один раз при монтировании
 
   const handleSearch = () => {
-    const filters = {
-      startDate,
-      endDate,
-      selectedUser,
-      ponSerial,
-      login,
-      isManualChecked,
-      isAutoChecked,
-    };
-
-    // Если нужно закрыть форму после поиска
+    // Устанавливаем значения в Redux store
+    dispatch(setStartDate(startDate));
+    dispatch(setEndDate(endDate));
+    dispatch(setLoginPage(selectedUser)); 
+    dispatch(setPonSerialPage(ponSerial));
+    
     if (onClose) {
       onClose();
     }
@@ -40,34 +58,36 @@ export function FormFilterReport({ onClose }) {
           id="start_data"
           type="date"
           value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
+          onChange={(e) => setLocalStartDate(e.target.value)}
         />
         <Input
           id="stop_data"
           type="date"
           value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
+          onChange={(e) => setLocalEndDate(e.target.value)}
         />
       </div>
+      
       <DropdownSelect
         id="user-select"
         options={users}
         value={selectedUser}
         onChange={(e) => setSelectedUser(e.target.value)}
       />
+  
       <Input
         id="id_Ntu"
         type="text"
         placeholder="Введите pon-serial"
         value={ponSerial}
-        onChange={(e) => setPonSerial(e.target.value)}
+        onChange={(e) => setLocalPonSerial(e.target.value)}
       />
       <Input
         id="input_login"
         type="text"
         placeholder="Введите учетную запись (aks)"
         value={login}
-        onChange={(e) => setLogin(e.target.value)}
+        onChange={(e) => setLocalLogin(e.target.value)}
       />
       <div className="wifiSearch">
         <h6>Выбор каналов WiFi</h6>

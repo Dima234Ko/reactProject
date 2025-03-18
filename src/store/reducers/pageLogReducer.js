@@ -1,9 +1,17 @@
 import { SET_PAGE } from "../actions/pageLogActions";
 import { SET_ACTIVE_PAGE } from "../actions/pageLogActions";
+import { SET_LOGIN_PAGE } from "../actions/pageLogActions";
+import { SET_PONSERIAL_PAGE } from "../actions/pageLogActions";
+import { SET_START_DATE } from "../actions/pageLogActions";
+import { SET_END_DATE } from "../actions/pageLogActions";
 
 const initialState = {
   page: null,
-  activePage: 1
+  activePage: 1,
+  loginPage: null,      
+  ponSerialPage: null,  
+  startDate: null,      
+  endDate: null         
 };
 
 const pageReducer = (state = initialState, action) => {
@@ -17,6 +25,26 @@ const pageReducer = (state = initialState, action) => {
       return {
         ...state,
         activePage: action.payload,
+      };
+    case SET_LOGIN_PAGE:
+      return {
+        ...state,
+        loginPage: action.payload,
+      };
+    case SET_PONSERIAL_PAGE:
+      return {
+        ...state,
+        ponSerialPage: action.payload,
+      };
+    case SET_START_DATE:
+      return {
+        ...state,
+        startDate: action.payload,
+      };
+    case SET_END_DATE:
+      return {
+        ...state,
+        endDate: action.payload,
       };
     default:
       return state;
