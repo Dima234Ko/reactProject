@@ -1,6 +1,6 @@
 export const SET_PAGE = "SET_PAGE";
 export const SET_ACTIVE_PAGE = "SET_ACTIVE_PAGE";
-export const SET_LOGIN_PAGE = "SET_LOGIN_PAGE";
+export const SET_USER_PAGE = "SET_USER_PAGE";
 export const SET_PONSERIAL_PAGE = "SET_PONSERIAL_PAGE";
 export const SET_START_DATE = "SET_START_DATE";
 export const SET_END_DATE = "SET_END_DATE";
@@ -15,8 +15,8 @@ export const setActivePage = (action) => ({
   payload: action,
 });
 
-export const setLoginPage = (action) => ({
-  type: SET_LOGIN_PAGE,
+export const setUserPage = (action) => ({
+  type: SET_USER_PAGE,
   payload: action,
 });
 

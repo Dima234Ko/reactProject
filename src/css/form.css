@@ -44,6 +44,10 @@
   border-radius: 10px;
 }
 
+.form .some-input {
+  width: 90%;
+}
+
 .close-btn {
   position: absolute;
   top: 10px;
@@ -89,6 +93,11 @@
 }
 
 form {
+  width: 80%;
+  text-align: center;
+}
+
+.form {
   width: 80%;
   text-align: center;
 }

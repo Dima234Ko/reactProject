@@ -15,6 +15,7 @@ import "./css/mobile.css";
 import "./css/table.css";
 import "./css/radio.css";
 import "./css/pagination.css";
+import "./css/filter.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

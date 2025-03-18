@@ -10,7 +10,7 @@ import { getReport } from "../../functions/report";
 import { setReportTask } from "../../store/actions/taskReportActions";
 import { setActivePage } from "../../store/actions/pageLogActions";
 import { Pagination } from '../../components/Pagination';
-
+import { FilterDisplay } from '../../components/FilterDisplay'; 
 
 function Report() {
   const [loading, setLoading] = useState(true);
@@ -24,9 +24,8 @@ function Report() {
   const page = useSelector((state) => state.page.page);
   const startDate = useSelector((state) => state.page.startDate);
   const endDate = useSelector((state) => state.page.endDate);
-  const selectedUser = useSelector((state) => state.page.loginPage);
+  const selectedUser = useSelector((state) => state.page.userPage);
   const ponSerial = useSelector((state) => state.page.ponSerialPage);
-
 
   const getLogData = async () => {
     let reportData = await getReport(dispatch, 
@@ -114,12 +113,19 @@ function Report() {
       <div id="tableButton">
         <FiltrButton onClick={openFilterForm} />
       </div>
+      <FilterDisplay 
+        startDate={startDate}
+        endDate={endDate}
+        selectedUser={selectedUser}
+        ponSerial={ponSerial}
+      />
       {loading ? (
         <div className="spinner-container">
           <Loader />
         </div>
       ) : (
-        <><Table columns={columns} className="log-table" id="logTable">
+        <>
+          <Table columns={columns} className="log-table" id="logTable">
             {tableBody}
           </Table>
           <Pagination 

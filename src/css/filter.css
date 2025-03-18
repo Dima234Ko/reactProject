@@ -1,0 +1,21 @@
+.filter-display {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px auto; /* Центрирование по горизонтали с помощью auto */
+    padding: 10px;
+    justify-content: center; /* Центрирование дочерних элементов */
+    max-width: 100%; /* Ограничение ширины */
+  }
+  
+  .filter-item {
+    background-color: rgba(200, 200, 200, 0.3);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .filter-item.empty {
+    background-color: rgba(200, 200, 200, 0.1);
+    color: #666;
+  }
