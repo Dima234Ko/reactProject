@@ -34,17 +34,24 @@
   height: 20px;
 }
 
+.textForm .some-input[type="date"]  {
+  width: 37%;
+  font-size: 11px;
+}
+
 .textForm .some-input {
   width: 93%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
-  border: 2px solid #6b6b6b;
+  border: 1.5px solid #6b6b6b;
   border-radius: 10px;
 }
 
-.form .some-input {
+
+.form .some-input[type="text"],
+.form .some-input[type="password"]{
   width: 90%;
 }
 
@@ -98,7 +105,6 @@ form {
 }
 
 .form {
-  width: 80%;
   text-align: center;
 }
 
