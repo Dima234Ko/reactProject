@@ -15,8 +15,9 @@ function translateHeaderWorkName(data) {
   }));
 }
 
-export async function getReport() {
-  let data = await requestAPI("GET", "logs/small?size=200&page=0");
+export async function getReport(dispatch, setPage, activePage) {
+  let data = await requestAPI("GET", `logs/small?size=50&page=${activePage - 1}`);
+  dispatch(setPage(data.totalPages + 1));
   const content = data.content;
   const translatedContent = translateHeaderWorkName(content);
   return translatedContent;

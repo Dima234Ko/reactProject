@@ -8,6 +8,7 @@ import idReducer from "./reducers/idReducer";
 import taskReducer from "./reducers/taskReducer";
 import checkboxUserReducer from "./reducers/checkboxUserReducer";
 import taskReportReducer from "./reducers/taskReportReducer";
+import pageReducer from "./reducers/pageLogReducer"
 
 const store = configureStore({
   reducer: {
@@ -19,7 +20,8 @@ const store = configureStore({
     id: idReducer,
     task: taskReducer,
     checkboxUser: checkboxUserReducer,
-    taskReport: taskReportReducer
+    taskReport: taskReportReducer,
+    page: pageReducer
   },
 });
 

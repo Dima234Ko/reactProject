@@ -14,6 +14,7 @@ import "./css/checkbox.css";
 import "./css/mobile.css";
 import "./css/table.css";
 import "./css/radio.css";
+import "./css/pagination.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

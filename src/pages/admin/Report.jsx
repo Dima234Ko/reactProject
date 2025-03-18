@@ -8,6 +8,9 @@ import { FormReportTask } from "../../components/Form/FormReportTask";
 import { Loader } from "../../components/Loader";
 import { getReport } from "../../functions/report";
 import { setReportTask } from "../../store/actions/taskReportActions";
+import { setPage, setActivePage } from "../../store/actions/pageLogActions";
+import { Pagination } from '../../components/Pagination';
+
 
 function Report() {
   const [loading, setLoading] = useState(true);
@@ -17,9 +20,11 @@ function Report() {
   const [formContent, setFormContent] = useState(null);
   const dispatch = useDispatch();
   const taskReport = useSelector((state) => state.taskReport.task);
+  const activePage = useSelector((state) => state.page.activePage);
+  const page = useSelector((state) => state.page.page);
 
   const getLogData = async () => {
-    let reportData = await getReport();
+    let reportData = await getReport(dispatch, setPage, activePage);
     return reportData;
   };
 
@@ -37,7 +42,7 @@ function Report() {
       }
     };
     fetchData();
-  }, []);
+  }, [activePage]);
 
   const users = ["Иванов", "Краснов"];
   const columns = [
@@ -104,9 +109,15 @@ function Report() {
           <Loader />
         </div>
       ) : (
-        <Table columns={columns} className="log-table" id="logTable">
-          {tableBody}
-        </Table>
+        <><Table columns={columns} className="log-table" id="logTable">
+            {tableBody}
+          </Table>
+          <Pagination 
+            totalPages={page}
+            activePage={activePage}
+            onPageChange={(page) => dispatch(setActivePage(page))}
+          />
+        </>
       )}
     </div>
   );
