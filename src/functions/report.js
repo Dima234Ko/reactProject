@@ -25,10 +25,10 @@ export async function getReport(dispatch,
   let url = `logs/small?size=50&page=${activePage - 1}`;
 
   if (startDate) {
-    url += `&startDate=${encodeURIComponent(startDate)}`;
+    url += `&startDate=${encodeURIComponent(startDate + ' 00:00')}`;
   }
   if (endDate) {
-    url += `&endDate=${encodeURIComponent(endDate)}`;
+    url += `&endDate=${encodeURIComponent(endDate + ' 23:59')}`;
   }
   if (selectedUser) {
     url += `&login=${encodeURIComponent(selectedUser)}`;
