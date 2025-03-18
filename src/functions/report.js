@@ -1,6 +1,6 @@
 import { requestAPI } from "./api";
+import { setPage } from "../store/actions/pageLogActions";
 
-// Функция для замены значений headerWorkName и обработки idUserSideCard
 function translateHeaderWorkName(data) {
   const translations = {
     newConnection: "Новое подключение",
@@ -15,8 +15,29 @@ function translateHeaderWorkName(data) {
   }));
 }
 
-export async function getReport(dispatch, setPage, activePage) {
-  let data = await requestAPI("GET", `logs/small?size=50&page=${activePage - 1}`);
+export async function getReport(dispatch, 
+  activePage, 
+  startDate, 
+  endDate, 
+  selectedUser, 
+  ponSerial) {
+ 
+  let url = `logs/small?size=50&page=${activePage - 1}`;
+
+  if (startDate) {
+    url += `&startDate=${encodeURIComponent(startDate)}`;
+  }
+  if (endDate) {
+    url += `&endDate=${encodeURIComponent(endDate)}`;
+  }
+  if (selectedUser) {
+    url += `&login=${encodeURIComponent(selectedUser)}`;
+  }
+  if (ponSerial) {
+    url += `&ponSerial=${encodeURIComponent(ponSerial)}`;
+  }
+
+  let data = await requestAPI("GET", url);
   dispatch(setPage(data.totalPages + 1));
   const content = data.content;
   const translatedContent = translateHeaderWorkName(content);

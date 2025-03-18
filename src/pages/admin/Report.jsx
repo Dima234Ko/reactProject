@@ -8,7 +8,7 @@ import { FormReportTask } from "../../components/Form/FormReportTask";
 import { Loader } from "../../components/Loader";
 import { getReport } from "../../functions/report";
 import { setReportTask } from "../../store/actions/taskReportActions";
-import { setPage, setActivePage } from "../../store/actions/pageLogActions";
+import { setActivePage } from "../../store/actions/pageLogActions";
 import { Pagination } from '../../components/Pagination';
 
 
@@ -22,9 +22,19 @@ function Report() {
   const taskReport = useSelector((state) => state.taskReport.task);
   const activePage = useSelector((state) => state.page.activePage);
   const page = useSelector((state) => state.page.page);
+  const startDate = useSelector((state) => state.page.startDate);
+  const endDate = useSelector((state) => state.page.endDate);
+  const selectedUser = useSelector((state) => state.page.loginPage);
+  const ponSerial = useSelector((state) => state.page.ponSerialPage);
+
 
   const getLogData = async () => {
-    let reportData = await getReport(dispatch, setPage, activePage);
+    let reportData = await getReport(dispatch, 
+      activePage, 
+      startDate, 
+      endDate, 
+      selectedUser, 
+      ponSerial);
     return reportData;
   };
 
@@ -42,7 +52,7 @@ function Report() {
       }
     };
     fetchData();
-  }, [activePage]);
+  }, [activePage, startDate, endDate, selectedUser, ponSerial]);
 
   const users = ["Иванов", "Краснов"];
   const columns = [

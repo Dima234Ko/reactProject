@@ -11,6 +11,7 @@ import {
   setPonSerialPage
 } from "../../store/actions/pageLogActions";
 import { getLogins } from "../../functions/account";
+import { getReport } from "../../functions/report";
 
 export function FormFilterReport({ onClose }) {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ export function FormFilterReport({ onClose }) {
   const [login, setLocalLogin] = useState("");
   const [isManualChecked, setIsManualChecked] = useState(false);
   const [isAutoChecked, setIsAutoChecked] = useState(false);
-  const [users, setUsers] = useState([]); // Состояние для хранения пользователей
+  const [users, setUsers] = useState([]);
 
 
   // Загрузка пользователей при монтировании компонента
@@ -37,15 +38,14 @@ export function FormFilterReport({ onClose }) {
     };
     
     fetchUsers();
-  }, []); // Пустой массив зависимостей - выполняется один раз при монтировании
+  }, []); 
 
   const handleSearch = () => {
-    // Устанавливаем значения в Redux store
     dispatch(setStartDate(startDate));
     dispatch(setEndDate(endDate));
     dispatch(setLoginPage(selectedUser)); 
     dispatch(setPonSerialPage(ponSerial));
-    
+  
     if (onClose) {
       onClose();
     }
