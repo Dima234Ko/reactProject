@@ -8,9 +8,10 @@ import { FormReportTask } from "../../components/Form/FormReportTask";
 import { Loader } from "../../components/Loader";
 import { getReport } from "../../functions/report";
 import { setReportTask } from "../../store/actions/taskReportActions";
-import { setActivePage } from "../../store/actions/pageLogActions";
+import { setActivePage } from "../../store/actions/pageLogTaskActions";
 import { Pagination } from '../../components/Pagination';
 import { FilterDisplay } from '../../components/FilterDisplay'; 
+import { SwitchComponent } from '../../components/Swich';
 
 function Report() {
   const [loading, setLoading] = useState(true);
@@ -26,9 +27,11 @@ function Report() {
   const endDate = useSelector((state) => state.page.endDate);
   const selectedUser = useSelector((state) => state.page.userPage);
   const ponSerial = useSelector((state) => state.page.ponSerialPage);
+  const task = useSelector((state) => state.page.task);
 
   const getLogData = async () => {
-    let reportData = await getReport(dispatch, 
+    let reportData = await getReport(dispatch,
+      task, 
       activePage, 
       startDate, 
       endDate, 
@@ -39,28 +42,39 @@ function Report() {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
-      try {
-        const result = await getLogData();
-        setData(result);
-        setFilteredData(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
+       setLoading(true);
+       try {
+         const result = await getLogData();
+         setData(result);
+         setFilteredData(result);
+       } catch (error) {
+         console.error("Error fetching data:", error);
+       } finally {
+         setLoading(false);
+       }
     };
     fetchData();
-  }, [activePage, startDate, endDate, selectedUser, ponSerial]);
+  }, [activePage, startDate, endDate, selectedUser, ponSerial, task]);
+  
 
-  const users = ["Иванов", "Краснов"];
-  const columns = [
-    "Дата",
-    "Логин",
-    "ID устройства",
-    "Вид работ",
-    "US",
-  ];
+  let columns;
+  if (task){
+    columns = [
+      "Дата",
+      "Логин",
+      "ID устройства",
+      "Вид работ",
+      "US",
+    ];
+  } else {
+    columns = [
+      "Дата",
+      "Логин",
+      "ID устройства",
+      "Канал",
+      "US",
+    ];
+  }
 
   const handleHeaderWorkNameClick = async (row) => {
     dispatch(setReportTask(row.id));
@@ -74,8 +88,9 @@ function Report() {
   const openFilterForm = () => {
     setFormContent(
       <FormFilterReport
-        onClose={() => setIsFormOpen(false)}
-      />
+      onClose={() => setIsFormOpen(false)}
+      task={task} 
+    />
     );
     setIsFormOpen(true);
   };
@@ -95,7 +110,7 @@ function Report() {
           onClick={() => handleHeaderWorkNameClick(row)}
           style={{ cursor: "pointer", color: "blue" }}
         >
-          {row.headerWorkName}
+          {row.headerWorkName || row.channel || '—'}
         </span>
       </td>
       <td>{row.idUserSideCard}</td>
@@ -105,6 +120,9 @@ function Report() {
   return (
     <div id="log">
       <h2>Отчет</h2>
+      <div className="switch-section">
+        <SwitchComponent/>
+      </div>
       <FormInfo
         isFormOpen={isFormOpen}
         closeForm={closeForm}

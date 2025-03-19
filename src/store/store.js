@@ -8,7 +8,7 @@ import idReducer from "./reducers/idReducer";
 import taskReducer from "./reducers/taskReducer";
 import checkboxUserReducer from "./reducers/checkboxUserReducer";
 import taskReportReducer from "./reducers/taskReportReducer";
-import pageReducer from "./reducers/pageLogReducer"
+import pageReducer from "./reducers/pageLogTaskReducer"
 
 const store = configureStore({
   reducer: {

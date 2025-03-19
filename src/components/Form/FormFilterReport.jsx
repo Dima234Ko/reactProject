@@ -9,10 +9,10 @@ import {
   setEndDate,
   setUserPage, 
   setPonSerialPage
-} from "../../store/actions/pageLogActions";
+} from "../../store/actions/pageLogTaskActions";
 import { getLogins } from "../../functions/account";
 
-export function FormFilterReport({ onClose }) {
+export function FormFilterReport({ onClose, task }) {
   const dispatch = useDispatch();
   const pageLog = useSelector((state) => state.page);
   
@@ -88,23 +88,25 @@ export function FormFilterReport({ onClose }) {
           value={login}
           onChange={(e) => setLocalLogin(e.target.value)}
         />
-        {/* <div className="wifiSearch">
-          <h6>Выбор каналов WiFi</h6>
-          <div className="checkbox-container">
-            <Checkbox
-              label="Ручной"
-              id="manual"
-              checked={isManualChecked}
-              onChange={(e) => setIsManualChecked(e.target.checked)}
-            />
-            <Checkbox
-              label="Авто"
-              id="auto"
-              checked={isAutoChecked}
-              onChange={(e) => setIsAutoChecked(e.target.checked)}
-            />
+        {task !== true && ( // Условное отображение блока wifiSearch
+          <div className="wifiSearch">
+            <h6>Выбор каналов WiFi</h6>
+            <div className="checkbox-container">
+              <Checkbox
+                label="Ручной"
+                id="manual"
+                checked={isManualChecked}
+                onChange={(e) => setIsManualChecked(e.target.checked)}
+              />
+              <Checkbox
+                label="Авто"
+                id="auto"
+                checked={isAutoChecked}
+                onChange={(e) => setIsAutoChecked(e.target.checked)}
+              />
+            </div>
           </div>
-        </div> */}
+        )}
         <Button name="Поиск" onClick={handleSearch} />
       </div>
     </div>

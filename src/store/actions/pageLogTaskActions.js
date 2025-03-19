@@ -4,6 +4,12 @@ export const SET_USER_PAGE = "SET_USER_PAGE";
 export const SET_PONSERIAL_PAGE = "SET_PONSERIAL_PAGE";
 export const SET_START_DATE = "SET_START_DATE";
 export const SET_END_DATE = "SET_END_DATE";
+export const SET_BULLEAN_TASK = "SET_BULLEAN_TASK";
+
+export const setBulleanTask = (task) => ({
+  type: SET_BULLEAN_TASK,
+  payload: task,
+});
 
 export const setPage = (page) => ({
   type: SET_PAGE,

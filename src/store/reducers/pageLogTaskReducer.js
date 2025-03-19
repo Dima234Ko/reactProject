@@ -1,11 +1,13 @@
-import { SET_PAGE } from "../actions/pageLogActions";
-import { SET_ACTIVE_PAGE } from "../actions/pageLogActions";
-import { SET_USER_PAGE } from "../actions/pageLogActions";
-import { SET_PONSERIAL_PAGE } from "../actions/pageLogActions";
-import { SET_START_DATE } from "../actions/pageLogActions";
-import { SET_END_DATE } from "../actions/pageLogActions";
+import { SET_PAGE } from "../actions/pageLogTaskActions";
+import { SET_ACTIVE_PAGE } from "../actions/pageLogTaskActions";
+import { SET_USER_PAGE } from "../actions/pageLogTaskActions";
+import { SET_PONSERIAL_PAGE } from "../actions/pageLogTaskActions";
+import { SET_START_DATE } from "../actions/pageLogTaskActions";
+import { SET_END_DATE } from "../actions/pageLogTaskActions";
+import { SET_BULLEAN_TASK } from "../actions/pageLogTaskActions";
 
 const initialState = {
+  task: true,
   page: null,
   activePage: 1,
   userPage: null,      
@@ -16,6 +18,11 @@ const initialState = {
 
 const pageReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_BULLEAN_TASK:
+      return {
+        ...state,
+        task: action.payload,
+      };
     case SET_PAGE:
       return {
         ...state,

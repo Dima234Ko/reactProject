@@ -1,11 +1,11 @@
 import { requestAPI } from "./api";
-import { setPage } from "../store/actions/pageLogActions";
+import { setPage } from "../store/actions/pageLogTaskActions";
 
 function translateHeaderWorkName(data) {
   const translations = {
-    newConnection: "Новое подключение",
+    "newConnection": "Новое подключение",
     "Equipment shutdown": "Снятие оборудования",
-    malfunction: "Неисправность",
+    "malfunction": "Неисправность",
   };
 
   return data.map(item => ({
@@ -16,30 +16,45 @@ function translateHeaderWorkName(data) {
 }
 
 export async function getReport(dispatch, 
+  task,
   activePage, 
   startDate, 
   endDate, 
   selectedUser, 
-  ponSerial) {
- 
-  let url = `logs/small?size=50&page=${activePage - 1}`;
+  ponSerial,
+  channel) {
 
-  if (startDate) {
-    url += `&startDate=${encodeURIComponent(startDate + ' 00:00')}`;
+  let url = null;  
+  
+  if (task){  
+    url = `logs/smallTasks?size=50&page=${activePage - 1}`;
+  } else {
+    url = `logs/smallWifi?size=50&page=${activePage - 1}`;
   }
-  if (endDate) {
-    url += `&endDate=${encodeURIComponent(endDate + ' 23:59')}`;
-  }
-  if (selectedUser) {
-    url += `&login=${encodeURIComponent(selectedUser)}`;
-  }
-  if (ponSerial) {
-    url += `&ponSerial=${encodeURIComponent(ponSerial)}`;
-  }
+
+    if (startDate) {
+      url += `&startDate=${encodeURIComponent(startDate + ' 00:00')}`;
+    }
+    if (endDate) {
+      url += `&endDate=${encodeURIComponent(endDate + ' 23:59')}`;
+    }
+    if (selectedUser) {
+      url += `&login=${encodeURIComponent(selectedUser)}`;
+    }
+    if (ponSerial) {
+      url += `&ponSerial=${encodeURIComponent(ponSerial)}`;
+    }
+
+    if (channel) {
+      url += `&channel=${encodeURIComponent(channel)}`;
+    }
+
 
   let data = await requestAPI("GET", url);
   dispatch(setPage(data.totalPages + 1));
-  const content = data.content;
-  const translatedContent = translateHeaderWorkName(content);
-  return translatedContent;
+  let content = data.content;
+  if (task){  
+    content = translateHeaderWorkName(content);
+  }
+  return content;
 }

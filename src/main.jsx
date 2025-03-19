@@ -16,6 +16,7 @@ import "./css/table.css";
 import "./css/radio.css";
 import "./css/pagination.css";
 import "./css/filter.css";
+import "./css/swich.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

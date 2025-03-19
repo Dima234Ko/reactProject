@@ -1,0 +1,32 @@
+/* SwitchComponent.css */
+.switch-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .switch-labels {
+    display: flex;
+    gap: 16px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+  }
+  
+  .switch-labels span {
+    color: #666;
+    transition: color 0.3s ease;
+    cursor: pointer; 
+    padding: 4px 8px;
+  }
+  
+  .switch-labels span:hover {
+    color: #0056b3;
+    cursor: pointer; 
+  }
+  
+  .active-label {
+    color: #007bff;
+    font-weight: bold;
+    cursor: pointer;
+  }
