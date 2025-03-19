@@ -5,6 +5,7 @@ export const SET_PONSERIAL_PAGE = "SET_PONSERIAL_PAGE";
 export const SET_START_DATE = "SET_START_DATE";
 export const SET_END_DATE = "SET_END_DATE";
 export const SET_BULLEAN_TASK = "SET_BULLEAN_TASK";
+export const SET_CANNAL = "SET_CANNAL";
 
 export const setBulleanTask = (task) => ({
   type: SET_BULLEAN_TASK,
@@ -39,4 +40,9 @@ export const setStartDate = (action) => ({
 export const setEndDate = (action) => ({
   type: SET_END_DATE,
   payload: action,
+});
+
+export const setCannal = (page) => ({
+  type: SET_CANNAL,
+  payload: page,
 });

@@ -30,6 +30,10 @@ export async function getReport(dispatch,
     url = `logs/smallTasks?size=50&page=${activePage - 1}`;
   } else {
     url = `logs/smallWifi?size=50&page=${activePage - 1}`;
+
+    if (channel) {
+      url += `&channel=${encodeURIComponent(channel)}`;
+    }
   }
 
     if (startDate) {
@@ -43,10 +47,6 @@ export async function getReport(dispatch,
     }
     if (ponSerial) {
       url += `&ponSerial=${encodeURIComponent(ponSerial)}`;
-    }
-
-    if (channel) {
-      url += `&channel=${encodeURIComponent(channel)}`;
     }
 
 

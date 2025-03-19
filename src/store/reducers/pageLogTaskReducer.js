@@ -5,6 +5,7 @@ import { SET_PONSERIAL_PAGE } from "../actions/pageLogTaskActions";
 import { SET_START_DATE } from "../actions/pageLogTaskActions";
 import { SET_END_DATE } from "../actions/pageLogTaskActions";
 import { SET_BULLEAN_TASK } from "../actions/pageLogTaskActions";
+import { SET_CANNAL } from "../actions/pageLogTaskActions";
 
 const initialState = {
   task: true,
@@ -13,7 +14,8 @@ const initialState = {
   userPage: null,      
   ponSerialPage: null,  
   startDate: null,      
-  endDate: null         
+  endDate: null,
+  cannal: null         
 };
 
 const pageReducer = (state = initialState, action) => {
@@ -52,6 +54,11 @@ const pageReducer = (state = initialState, action) => {
       return {
         ...state,
         endDate: action.payload,
+      };
+    case SET_CANNAL:
+      return {
+        ...state,
+        cannal: action.payload,
       };
     default:
       return state;

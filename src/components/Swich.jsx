@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux'; 
 import { setBulleanTask } from "../store/actions/pageLogTaskActions";
+import { setActivePage } from "../store/actions/pageLogTaskActions";
 
 export function SwitchComponent() { 
   const [isTasks, setIsTasks] = useState(true);
@@ -10,6 +11,7 @@ export function SwitchComponent() {
   const handleToggle = (newValue) => {
     setIsTasks(newValue);
     dispatch(setBulleanTask(newValue)); 
+    dispatch(setActivePage(1)); 
   };
 
   return (

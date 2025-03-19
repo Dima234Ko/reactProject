@@ -8,21 +8,22 @@ import {
   setStartDate,
   setEndDate,
   setUserPage, 
-  setPonSerialPage
+  setPonSerialPage,
+  setCannal
 } from "../../store/actions/pageLogTaskActions";
 import { getLogins } from "../../functions/account";
 
 export function FormFilterReport({ onClose, task }) {
   const dispatch = useDispatch();
   const pageLog = useSelector((state) => state.page);
-  
+  const [cannal, setLocalCannal] = useState(pageLog.cannal || "");
   const [startDate, setLocalStartDate] = useState(pageLog.startDate || "");
   const [endDate, setLocalEndDate] = useState(pageLog.endDate || "");
   const [selectedUser, setSelectedUser] = useState(pageLog.userPage || ""); 
   const [ponSerial, setLocalPonSerial] = useState(pageLog.ponSerialPage || "");
   const [login, setLocalLogin] = useState("");
-  const [isManualChecked, setIsManualChecked] = useState(false);
-  const [isAutoChecked, setIsAutoChecked] = useState(false);
+  const [isManualChecked, setIsManualChecked] = useState(pageLog.cannal === "manual"); // Инициализация из Redux
+  const [isAutoChecked, setIsAutoChecked] = useState(pageLog.cannal === "auto"); // Инициализация из Redux
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -38,11 +39,36 @@ export function FormFilterReport({ onClose, task }) {
     fetchUsers();
   }, []);
 
+  // Обработчик изменения чекбокса "Ручной"
+  const handleManualChange = (checked) => {
+    setIsManualChecked(checked);
+    if (checked) {
+      setLocalCannal("manual");
+      setIsAutoChecked(false);
+    } else if (!isAutoChecked) {
+      setLocalCannal("");
+    }
+  };
+
+  // Обработчик изменения чекбокса "Авто"
+  const handleAutoChange = (checked) => {
+    setIsAutoChecked(checked);
+    if (checked) {
+      setLocalCannal("auto");
+      setIsManualChecked(false);
+    } else if (!isManualChecked) {
+      setLocalCannal("");
+    }
+  };
+
   const handleSearch = () => {
     dispatch(setStartDate(startDate));
     dispatch(setEndDate(endDate));
     dispatch(setUserPage(selectedUser));
     dispatch(setPonSerialPage(ponSerial));
+    
+    const cannalValue = isManualChecked ? "manual" : isAutoChecked ? "auto" : null;
+    dispatch(setCannal(cannalValue));
   
     if (onClose) {
       onClose();
@@ -88,7 +114,7 @@ export function FormFilterReport({ onClose, task }) {
           value={login}
           onChange={(e) => setLocalLogin(e.target.value)}
         />
-        {task !== true && ( // Условное отображение блока wifiSearch
+        {task !== true && ( 
           <div className="wifiSearch">
             <h6>Выбор каналов WiFi</h6>
             <div className="checkbox-container">
@@ -96,13 +122,13 @@ export function FormFilterReport({ onClose, task }) {
                 label="Ручной"
                 id="manual"
                 checked={isManualChecked}
-                onChange={(e) => setIsManualChecked(e.target.checked)}
+                onChange={(e) => handleManualChange(e.target.checked)}
               />
               <Checkbox
                 label="Авто"
                 id="auto"
                 checked={isAutoChecked}
-                onChange={(e) => setIsAutoChecked(e.target.checked)}
+                onChange={(e) => handleAutoChange(e.target.checked)}
               />
             </div>
           </div>

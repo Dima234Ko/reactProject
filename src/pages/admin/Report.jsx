@@ -28,6 +28,7 @@ function Report() {
   const selectedUser = useSelector((state) => state.page.userPage);
   const ponSerial = useSelector((state) => state.page.ponSerialPage);
   const task = useSelector((state) => state.page.task);
+  const cannal = useSelector((state) => state.page.cannal);
 
   const getLogData = async () => {
     let reportData = await getReport(dispatch,
@@ -36,7 +37,8 @@ function Report() {
       startDate, 
       endDate, 
       selectedUser, 
-      ponSerial);
+      ponSerial,
+      cannal);
     return reportData;
   };
 
@@ -54,7 +56,7 @@ function Report() {
        }
     };
     fetchData();
-  }, [activePage, startDate, endDate, selectedUser, ponSerial, task]);
+  }, [activePage, startDate, endDate, selectedUser, ponSerial, task, cannal]);
   
 
   let columns;
