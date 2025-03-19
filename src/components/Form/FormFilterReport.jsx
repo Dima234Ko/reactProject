@@ -65,6 +65,7 @@ export function FormFilterReport({ onClose, task }) {
     dispatch(setStartDate(startDate));
     dispatch(setEndDate(endDate));
     dispatch(setUserPage(selectedUser));
+    console.log(selectedUser)
     dispatch(setPonSerialPage(ponSerial));
     
     const cannalValue = isManualChecked ? "manual" : isAutoChecked ? "auto" : null;

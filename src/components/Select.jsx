@@ -89,7 +89,7 @@ export function DropdownSelect({ id, options, value, onChange }) {
 
   // Фильтрация опций на основе введенного текста
   const filteredOptions = options.filter((option) =>
-    option.toLowerCase().includes(searchTerm.toLowerCase()),
+    option.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   // Обработка выбора опции
@@ -99,18 +99,40 @@ export function DropdownSelect({ id, options, value, onChange }) {
     setIsOpen(false);
   };
 
-  // Закрытие списка при клике вне компонента
+  // Обработка изменения текста в поле ввода
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    setSearchTerm(inputValue);
+    setIsOpen(true);
+
+    // Проверяем, есть ли точное совпадение среди опций
+    const exactMatch = options.find(
+      (option) => option.toLowerCase() === inputValue.toLowerCase()
+    );
+    // Если точного совпадения нет, устанавливаем value в null
+    onChange({ target: { value: exactMatch || null } });
+  };
+
+  // Закрытие списка при клике вне компонента и проверка значения
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false);
+        // Проверяем, соответствует ли searchTerm опции, иначе сбрасываем в null
+        const exactMatch = options.find(
+          (option) => option.toLowerCase() === searchTerm.toLowerCase()
+        );
+        if (!exactMatch && searchTerm !== "") {
+          setSearchTerm("");
+          onChange({ target: { value: null } });
+        }
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [searchTerm, options, onChange]); 
 
   return (
     <div ref={dropdownRef} style={{ position: "relative", width: "100%" }}>
@@ -118,10 +140,7 @@ export function DropdownSelect({ id, options, value, onChange }) {
         type="text"
         id={id}
         value={searchTerm}
-        onChange={(e) => {
-          setSearchTerm(e.target.value);
-          setIsOpen(true);
-        }}
+        onChange={handleInputChange} 
         onFocus={() => setIsOpen(true)}
         placeholder="Введите имя пользователя"
         className="some-input"
@@ -153,12 +172,12 @@ export function DropdownSelect({ id, options, value, onChange }) {
                 style={{
                   padding: "8px 12px",
                   cursor: "pointer",
-                  background: option === value ? "#f0f0f0" : "white",
+                  background: option === searchTerm ? "#f0f0f0" : "white",
                 }}
                 onMouseEnter={(e) => (e.target.style.background = "#f5f5f5")}
                 onMouseLeave={(e) =>
                   (e.target.style.background =
-                    option === value ? "#f0f0f0" : "white")
+                    option === searchTerm ? "#f0f0f0" : "white")
                 }
               >
                 {option}
