@@ -21,7 +21,7 @@
   display: flex;
   flex-direction: column; /* Располагаем элементы в колонку */
   align-items: center; /* Выравнивание элементов по центру */
-  /*justify-content: center;*/ 
+  /*justify-content: center;*/
   width: 100%; /* Можно добавить для обеспечения полной ширины контейнера */
 }
 
@@ -34,11 +34,12 @@
   height: 20px;
 }
 
-.textForm .some-input#reg {
-  width: 62%;
+.textForm .some-input#sel,
+.textForm .some-input#sel {
+  width: 74%;
 }
 
-.textForm .some-input[type="date"]  {
+.textForm .some-input[type="date"] {
   width: 37%;
   font-size: 11px;
 }
@@ -53,10 +54,10 @@
   border-radius: 10px;
 }
 
-
 .form .some-input[type="text"],
-.form .some-input[type="password"]{
-  width: 90%;
+.form .some-input[type="password"] {
+  margin-left: 13%;
+  width: 67%;
 }
 
 .close-btn {
@@ -115,4 +116,8 @@ form {
 .selectRoot {
   width: 108%;
   text-align: left;
+}
+
+.sel-container {
+  width: 100%;
 }

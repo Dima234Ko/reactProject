@@ -26,7 +26,10 @@ export function FormInfo({ isFormOpen, closeForm, formData }) {
       <div className="close-btn" onClick={handleClose}>
         ×
       </div>
-      <div className="input-container" style={{ maxHeight: "650px", overflowY: "auto" }}>
+      <div
+        className="input-container"
+        style={{ maxHeight: "650px", overflowY: "auto" }}
+      >
         <div className="textForm">{formData}</div>
       </div>
     </div>

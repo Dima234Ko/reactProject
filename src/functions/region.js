@@ -1,5 +1,5 @@
 export function getRegion(reg) {
-  const regionId = Number(reg); // Приводим reg к числу
+  const regionId = Number(reg); 
   switch (regionId) {
     case 1:
       return "Костромская область";

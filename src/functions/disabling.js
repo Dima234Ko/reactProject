@@ -56,7 +56,7 @@ function getBody(isChecked, selectedRadioOption, radioOptions, serial) {
   if (isChecked && selectedRadioOption) {
     radioText = radioOptions[selectedRadioOption];
   } else {
-    radioText = '';
+    radioText = "";
   }
 
   let body = {

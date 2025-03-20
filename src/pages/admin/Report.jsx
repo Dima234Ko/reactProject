@@ -9,9 +9,9 @@ import { Loader } from "../../components/Loader";
 import { getReport } from "../../functions/report";
 import { setReportTask } from "../../store/actions/taskReportActions";
 import { setActivePage } from "../../store/actions/pageLogTaskActions";
-import { Pagination } from '../../components/Pagination';
-import { FilterDisplay } from '../../components/FilterDisplay'; 
-import { SwitchComponent } from '../../components/Swich';
+import { Pagination } from "../../components/Pagination";
+import { FilterDisplay } from "../../components/FilterDisplay";
+import { SwitchComponent } from "../../components/Swich";
 
 function Report() {
   const [loading, setLoading] = useState(true);
@@ -30,71 +30,69 @@ function Report() {
   const task = useSelector((state) => state.page.task);
   const cannal = useSelector((state) => state.page.cannal);
   const regionTask = useSelector((state) => state.page.regionTask);
+  const workTask = useSelector((state) => state.page.workTask);
+  const loginTask = useSelector((state) => state.page.loginTask);
 
   const getLogData = async () => {
-    let reportData = await getReport(dispatch,
-      task, 
-      activePage, 
-      startDate, 
-      endDate, 
-      selectedUser, 
+    let reportData = await getReport(
+      dispatch,
+      task,
+      activePage,
+      startDate,
+      endDate,
+      selectedUser,
       ponSerial,
       cannal,
-      regionTask);
+      regionTask,
+      workTask,
+      loginTask
+    );
     return reportData;
   };
 
   useEffect(() => {
     const fetchData = async () => {
-       setLoading(true);
-       try {
-         const result = await getLogData();
-         setData(result);
-         setFilteredData(result);
-       } catch (error) {
-         console.error("Error fetching data:", error);
-       } finally {
-         setLoading(false);
-       }
+      setLoading(true);
+      try {
+        const result = await getLogData();
+        setData(result);
+        setFilteredData(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchData();
-  }, [activePage, startDate, endDate, selectedUser, ponSerial, task, cannal, regionTask]);
-  
+  }, [
+    activePage,
+    startDate,
+    endDate,
+    selectedUser,
+    ponSerial,
+    task,
+    cannal,
+    regionTask,
+    workTask,
+    loginTask
+  ]);
 
   let columns;
-  if (task){
-    columns = [
-      "Дата",
-      "Логин",
-      "ID устройства",
-      "Вид работ",
-      "US",
-    ];
+  if (task) {
+    columns = ["Дата", "Логин", "ID устройства", "Вид работ", "US"];
   } else {
-    columns = [
-      "Дата",
-      "Логин",
-      "ID устройства",
-      "Канал",
-      "US",
-    ];
+    columns = ["Дата", "Логин", "ID устройства", "Канал", "US"];
   }
 
   const handleHeaderWorkNameClick = async (row) => {
     dispatch(setReportTask(row.id));
-    setFormContent(
-      <FormReportTask
-        onClose={() => setIsFormOpen(false)} />
-    );
+    setFormContent(<FormReportTask onClose={() => setIsFormOpen(false)} />);
     setIsFormOpen(true);
   };
 
   const openFilterForm = () => {
     setFormContent(
-      <FormFilterReport
-      onClose={() => setIsFormOpen(false)}
-      task={task} 
-    />
+      <FormFilterReport onClose={() => setIsFormOpen(false)} task={task} />,
     );
     setIsFormOpen(true);
   };
@@ -114,14 +112,16 @@ function Report() {
           onClick={() => handleHeaderWorkNameClick(row)}
           style={{ cursor: "pointer", color: "blue" }}
         >
-          {row.headerWorkName || row.channel || '—'}
+          {row.headerWorkName || row.channel || "—"}
         </span>
       </td>
-        <td>
-          <a href={`http://172.24.10.30/oper/?core_section=customer&action=show&id=${row.idUserSideCard}`}
-          target="_blank">
-            {row.userSideLogin}
-          </a>
+      <td>
+        <a
+          href={`http://172.24.10.30/oper/?core_section=customer&action=show&id=${row.idUserSideCard}`}
+          target="_blank"
+        >
+          {row.userSideLogin}
+        </a>
       </td>
     </tr>
   ));
@@ -130,7 +130,7 @@ function Report() {
     <div id="log">
       <h2>Отчет</h2>
       <div className="switch-section">
-        <SwitchComponent/>
+        <SwitchComponent />
       </div>
       <FormInfo
         isFormOpen={isFormOpen}
@@ -140,12 +140,13 @@ function Report() {
       <div id="tableButton">
         <FiltrButton onClick={openFilterForm} />
       </div>
-      <FilterDisplay 
+      <FilterDisplay
         startDate={startDate}
         endDate={endDate}
         selectedUser={selectedUser}
         ponSerial={ponSerial}
         regionTask={regionTask}
+        loginTask={loginTask}
       />
       {loading ? (
         <div className="spinner-container">
@@ -156,7 +157,7 @@ function Report() {
           <Table columns={columns} className="log-table" id="logTable">
             {tableBody}
           </Table>
-          <Pagination 
+          <Pagination
             totalPages={page}
             activePage={activePage}
             onPageChange={(page) => dispatch(setActivePage(page))}

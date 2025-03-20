@@ -4,5 +4,3 @@ export const setReportTask = (task) => ({
   type: SET_REPORT_TASK,
   payload: task,
 });
-
-

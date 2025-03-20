@@ -59,7 +59,7 @@ function User() {
     }
   }, [createSuccess]);
 
-  const columns = ["", "Логин", "Фамилия Имя Отчество"]; 
+  const columns = ["", "Логин", "Фамилия Имя Отчество"];
 
   const openForm = () => setIsFormOpen(true);
   const closeForm = () => {
@@ -82,7 +82,7 @@ function User() {
           <div>
             <pre>Ошибка: Необходимо выбрать пользователя</pre>
           </div>
-        </div>
+        </div>,
       );
     }
     openForm();
@@ -98,7 +98,7 @@ function User() {
           <div>
             <pre>Ошибка: Необходимо выбрать пользователя</pre>
           </div>
-        </div>
+        </div>,
       );
     }
     openForm();

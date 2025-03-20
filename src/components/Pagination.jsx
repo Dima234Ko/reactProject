@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export function Pagination({ totalPages, activePage, onPageChange }) {
   const handlePageChange = (page) => {
@@ -15,10 +15,10 @@ export function Pagination({ totalPages, activePage, onPageChange }) {
       <button
         key={1}
         onClick={() => handlePageChange(1)}
-        className={activePage === 1 ? 'active' : ''}
+        className={activePage === 1 ? "active" : ""}
       >
         1
-      </button>
+      </button>,
     );
 
     if (totalPages <= 3) {
@@ -28,16 +28,20 @@ export function Pagination({ totalPages, activePage, onPageChange }) {
           <button
             key={i}
             onClick={() => handlePageChange(i)}
-            className={activePage === i ? 'active' : ''}
+            className={activePage === i ? "active" : ""}
           >
             {i}
-          </button>
+          </button>,
         );
       }
     } else {
       // Добавляем многоточие перед ближайшими страницами, если activePage > 3
       if (activePage > 3) {
-        pages.push(<span key="dots1" className="dots">...</span>);
+        pages.push(
+          <span key="dots1" className="dots">
+            ...
+          </span>,
+        );
       }
 
       // Определяем ближайшие страницы
@@ -50,16 +54,20 @@ export function Pagination({ totalPages, activePage, onPageChange }) {
           <button
             key={i}
             onClick={() => handlePageChange(i)}
-            className={activePage === i ? 'active' : ''}
+            className={activePage === i ? "active" : ""}
           >
             {i}
-          </button>
+          </button>,
         );
       }
 
       // Добавляем многоточие после ближайших страниц, если до последней далеко
       if (activePage < totalPages - 2) {
-        pages.push(<span key="dots2" className="dots">...</span>);
+        pages.push(
+          <span key="dots2" className="dots">
+            ...
+          </span>,
+        );
       }
 
       // Всегда показываем последнюю страницу
@@ -67,19 +75,15 @@ export function Pagination({ totalPages, activePage, onPageChange }) {
         <button
           key={totalPages}
           onClick={() => handlePageChange(totalPages)}
-          className={activePage === totalPages ? 'active' : ''}
+          className={activePage === totalPages ? "active" : ""}
         >
           {totalPages}
-        </button>
+        </button>,
       );
     }
 
     return pages;
   };
 
-  return (
-    <div className="pagination">
-      {renderPagination()}
-    </div>
-  );
+  return <div className="pagination">{renderPagination()}</div>;
 }

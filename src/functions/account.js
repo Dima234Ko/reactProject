@@ -7,5 +7,5 @@ export async function getAllUsers() {
 
 export async function getLogins() {
   let usersArray = await getAllUsers();
-  return usersArray.map(user => user.login);
+  return usersArray.map((user) => user.login);
 }

@@ -16,44 +16,47 @@ export function TableReportTask({ taskData }) {
       tableRows.push({
         key: `ntuStatuses-${index + 1}`,
         name: `Запрос статуса [${index + 1}]`,
-        respResult: item.respResult.success 
-        ? 
-        `PON ${item.respResult.serialNewNtu},
+        respResult: item.respResult.success
+          ? `PON ${item.respResult.serialNewNtu},
   ONT ${item.respResult.ont_status}, ${item.respResult.RX_power}, 
   OLT ${item.respResult.ip_olt} ${item.respResult.PON_port}/${item.respResult.PON_id}`
-             :`PON ${item.respResult.serialNewNtu}
-${typeof item.respResult.ont_status === 'undefined' ? item.respResult.info : (item.respResult.ont_status && !item.respResult.ont_status.includes("не найден на ACS") ? item.respResult.info : item.respResult.ont_status)}`
+          : `PON ${item.respResult.serialNewNtu}
+${typeof item.respResult.ont_status === "undefined" ? item.respResult.info : item.respResult.ont_status && !item.respResult.ont_status.includes("не найден на ACS") ? item.respResult.info : item.respResult.ont_status}`,
       });
     });
   }
 
   // ntuPppoeEntities
-  if (taskData.ntuPppoeEntities !== null && taskData.ntuPppoeEntities?.length > 0) {
+  if (
+    taskData.ntuPppoeEntities !== null &&
+    taskData.ntuPppoeEntities?.length > 0
+  ) {
     taskData.ntuPppoeEntities.forEach((item, index) => {
       tableRows.push({
         key: `ntuPppoeEntities-${index + 1}`,
         name: `Настройка PPPoE [${index + 1}]`,
-        respResult: item.respResult.success 
-        ? 
-        `PON ${item.respResult.serialNewNtu},
+        respResult: item.respResult.success
+          ? `PON ${item.respResult.serialNewNtu},
 ${item.respResult.create_login_US === null ? "Карточка существует в US" : item.respResult.create_login_US},
 ${item.respResult.write_PONserial}, 
 ${item.respResult.ont_config}`
           : `PON ${item.respResult.serialNewNtu}
-${item.respResult.info}`
+${item.respResult.info}`,
       });
     });
   }
 
   // ntuWifiEntities
-  if (taskData.ntuWifiEntities !== null && taskData.ntuWifiEntities?.length > 0) {
+  if (
+    taskData.ntuWifiEntities !== null &&
+    taskData.ntuWifiEntities?.length > 0
+  ) {
     taskData.ntuWifiEntities.forEach((item, index) => {
       tableRows.push({
         key: `ntuWifiEntities-${index + 1}`,
         name: `Настройка WiFi [${index + 1}]`,
-        respResult: item.respResult.success 
-        ? 
-        `PON ${item.respResult.serialNewNtu},
+        respResult: item.respResult.success
+          ? `PON ${item.respResult.serialNewNtu},
 ${item.respResult.write_wifi_US},
 
 Настройки WIFI 2.4Ггц
@@ -66,7 +69,7 @@ SSID ${item.ssidWifi5},
 PASS ${item.passWifi5},
 CHANNEL ${item.channelWifi5} [${item.respResult.wifi5_channel}]`
           : `PON ${item.respResult.serialNewNtu}
-${item.respResult.info}`
+${item.respResult.info}`,
       });
     });
   }
@@ -89,7 +92,7 @@ ${item.respResult.info}`
       name: `Снятие оборудования`,
       respResult: `${taskData.equipmentShutdownDto.ponSerial},
 ${taskData.equipmentShutdownDto.work}
-${taskData.equipmentShutdownDto.info}`
+${taskData.equipmentShutdownDto.info}`,
     });
   }
 
@@ -101,9 +104,9 @@ ${taskData.equipmentShutdownDto.info}`
     <tr key={row.key}>
       <td>
         <pre>{row.name}</pre>
-     </td>
+      </td>
       <td>
-      <pre>{row.respResult}</pre>
+        <pre>{row.respResult}</pre>
       </td>
     </tr>
   ));

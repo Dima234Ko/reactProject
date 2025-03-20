@@ -89,7 +89,7 @@ export function DropdownSelect({ id, options, value, onChange }) {
 
   // Фильтрация опций на основе введенного текста
   const filteredOptions = options.filter((option) =>
-    option.toLowerCase().includes(searchTerm.toLowerCase())
+    option.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   // Обработка выбора опции
@@ -107,7 +107,7 @@ export function DropdownSelect({ id, options, value, onChange }) {
 
     // Проверяем, есть ли точное совпадение среди опций
     const exactMatch = options.find(
-      (option) => option.toLowerCase() === inputValue.toLowerCase()
+      (option) => option.toLowerCase() === inputValue.toLowerCase(),
     );
     // Если точного совпадения нет, устанавливаем value в null
     onChange({ target: { value: exactMatch || null } });
@@ -120,7 +120,7 @@ export function DropdownSelect({ id, options, value, onChange }) {
         setIsOpen(false);
         // Проверяем, соответствует ли searchTerm опции, иначе сбрасываем в null
         const exactMatch = options.find(
-          (option) => option.toLowerCase() === searchTerm.toLowerCase()
+          (option) => option.toLowerCase() === searchTerm.toLowerCase(),
         );
         if (!exactMatch && searchTerm !== "") {
           setSearchTerm("");
@@ -132,7 +132,7 @@ export function DropdownSelect({ id, options, value, onChange }) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [searchTerm, options, onChange]); 
+  }, [searchTerm, options, onChange]);
 
   return (
     <div ref={dropdownRef} style={{ position: "relative", width: "100%" }}>
@@ -140,7 +140,7 @@ export function DropdownSelect({ id, options, value, onChange }) {
         type="text"
         id={id}
         value={searchTerm}
-        onChange={handleInputChange} 
+        onChange={handleInputChange}
         onFocus={() => setIsOpen(true)}
         placeholder="Введите имя пользователя"
         className="some-input"

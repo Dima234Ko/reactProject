@@ -7,17 +7,21 @@ import { SET_END_DATE } from "../actions/pageLogTaskActions";
 import { SET_BULLEAN_TASK } from "../actions/pageLogTaskActions";
 import { SET_CANNAL } from "../actions/pageLogTaskActions";
 import { SET_REGION_TASK } from "../actions/pageLogTaskActions";
+import { SET_WORK_TASK } from "../actions/pageLogTaskActions";
+import { SET_LOGIN_TASK } from "../actions/pageLogTaskActions";
 
 const initialState = {
   regionTask: null,
+  work: null,
   task: true,
   page: null,
   activePage: 1,
-  userPage: null,      
-  ponSerialPage: null,  
-  startDate: null,      
+  userPage: null,
+  ponSerialPage: null,
+  startDate: null,
   endDate: null,
-  cannal: null         
+  cannal: null,
+  login: null
 };
 
 const pageReducer = (state = initialState, action) => {
@@ -26,6 +30,16 @@ const pageReducer = (state = initialState, action) => {
       return {
         ...state,
         regionTask: action.payload,
+      };
+    case SET_LOGIN_TASK:
+      return {
+        ...state,
+        loginTask: action.payload,
+      };
+    case SET_WORK_TASK:
+      return {
+        ...state,
+        workTask: action.payload,
       };
     case SET_BULLEAN_TASK:
       return {
