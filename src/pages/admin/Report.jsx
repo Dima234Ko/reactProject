@@ -29,6 +29,7 @@ function Report() {
   const ponSerial = useSelector((state) => state.page.ponSerialPage);
   const task = useSelector((state) => state.page.task);
   const cannal = useSelector((state) => state.page.cannal);
+  const regionTask = useSelector((state) => state.page.regionTask);
 
   const getLogData = async () => {
     let reportData = await getReport(dispatch,
@@ -38,7 +39,8 @@ function Report() {
       endDate, 
       selectedUser, 
       ponSerial,
-      cannal);
+      cannal,
+      regionTask);
     return reportData;
   };
 
@@ -56,7 +58,7 @@ function Report() {
        }
     };
     fetchData();
-  }, [activePage, startDate, endDate, selectedUser, ponSerial, task, cannal]);
+  }, [activePage, startDate, endDate, selectedUser, ponSerial, task, cannal, regionTask]);
   
 
   let columns;
@@ -143,6 +145,7 @@ function Report() {
         endDate={endDate}
         selectedUser={selectedUser}
         ponSerial={ponSerial}
+        regionTask={regionTask}
       />
       {loading ? (
         <div className="spinner-container">

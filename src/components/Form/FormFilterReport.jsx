@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Input } from "../Input";
-import { DropdownSelect } from "../Select";
+import { Select, DropdownSelect } from "../Select";
 import { Button } from "../Button";
 import { Checkbox } from "../Checkbox";
 import { 
+  setRegionTask,
   setStartDate,
   setEndDate,
   setUserPage, 
@@ -12,6 +13,8 @@ import {
   setCannal
 } from "../../store/actions/pageLogTaskActions";
 import { getLogins } from "../../functions/account";
+import { requestAPI } from "../../functions/api";
+import { getRegionForName } from "../../functions/region";
 
 export function FormFilterReport({ onClose, task }) {
   const dispatch = useDispatch();
@@ -19,24 +22,40 @@ export function FormFilterReport({ onClose, task }) {
   const [cannal, setLocalCannal] = useState(pageLog.cannal || "");
   const [startDate, setLocalStartDate] = useState(pageLog.startDate || "");
   const [endDate, setLocalEndDate] = useState(pageLog.endDate || "");
-  const [selectedUser, setSelectedUser] = useState(pageLog.userPage || ""); 
+  const [selectedUser, setSelectedUser] = useState(pageLog.userPage || "");
+  const [selectedRegion, setSelectedRegion] = useState(pageLog.regionTask || ""); // Исправлено имя
   const [ponSerial, setLocalPonSerial] = useState(pageLog.ponSerialPage || "");
   const [login, setLocalLogin] = useState("");
-  const [isManualChecked, setIsManualChecked] = useState(pageLog.cannal === "manual"); // Инициализация из Redux
-  const [isAutoChecked, setIsAutoChecked] = useState(pageLog.cannal === "auto"); // Инициализация из Redux
+  const [isManualChecked, setIsManualChecked] = useState(pageLog.cannal === "manual"); 
+  const [isAutoChecked, setIsAutoChecked] = useState(pageLog.cannal === "auto");
   const [users, setUsers] = useState([]);
+  const [regions, setRegions] = useState([]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchData = async () => {
       try {
+        // Загрузка пользователей
         const userList = await getLogins();
         setUsers(userList);
+
+        // Загрузка регионов
+        const regionList = await requestAPI("GET", "settings/getRegion");
+        const updatedRegionList = [
+          { regionName: "Все регионы", id: "all" },
+          ...regionList,
+        ];
+        setRegions(updatedRegionList);
+        
+        // Устанавливаем первый регион по умолчанию, если массив не пустой
+        if (updatedRegionList?.length > 0) {
+          setSelectedRegion(updatedRegionList[0].regionName);
+        }
       } catch (error) {
-        console.error("Error fetching users:", error);
+        console.error("Ошибка при загрузке данных:", error);
       }
     };
     
-    fetchUsers();
+    fetchData();
   }, []);
 
   // Обработчик изменения чекбокса "Ручной"
@@ -61,24 +80,45 @@ export function FormFilterReport({ onClose, task }) {
     }
   };
 
-  const handleSearch = () => {
-    dispatch(setStartDate(startDate));
-    dispatch(setEndDate(endDate));
-    dispatch(setUserPage(selectedUser));
-    console.log(selectedUser)
-    dispatch(setPonSerialPage(ponSerial));
-    
-    const cannalValue = isManualChecked ? "manual" : isAutoChecked ? "auto" : null;
-    dispatch(setCannal(cannalValue));
-  
-    if (onClose) {
-      onClose();
+  // Обработчик поиска с учетом асинхронности
+  const handleSearch = async () => {
+    try {
+      // Получаем данные региона асинхронно
+      const regionData = getRegionForName(selectedRegion);
+      dispatch(setRegionTask(regionData));
+      dispatch(setStartDate(startDate));
+      dispatch(setEndDate(endDate));
+      dispatch(setUserPage(selectedUser));
+      dispatch(setPonSerialPage(ponSerial));
+      
+      const cannalValue = isManualChecked ? "manual" : isAutoChecked ? "auto" : null;
+      dispatch(setCannal(cannalValue));
+      
+      const selectedRegionData = regions.find(
+        (item) => item.regionName === selectedRegion
+      );
+
+      if (onClose) {
+        onClose();
+      }
+    } catch (error) {
+      console.error("Ошибка в handleSearch:", error);
     }
   };
 
+  const regionNames =
+    regions.length > 0 ? regions.map((item) => item.regionName) : [];
+
   return (
     <div className="input-container">
-      <div className="form">
+      <div className="form">      
+        <Select
+          id="reg"
+          options={regionNames}
+          value={selectedRegion}
+          onChange={(e) => setSelectedRegion(e.target.value)}
+        />
+        
         <div className="date-container">
           <Input
             id="start_data"
@@ -134,7 +174,7 @@ export function FormFilterReport({ onClose, task }) {
             </div>
           </div>
         )}
-        <Button name="Поиск" onClick={handleSearch} />
+        <Button name="Поиск" onClick={() => handleSearch()} /> 
       </div>
     </div>
   );

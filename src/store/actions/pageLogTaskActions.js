@@ -6,6 +6,12 @@ export const SET_START_DATE = "SET_START_DATE";
 export const SET_END_DATE = "SET_END_DATE";
 export const SET_BULLEAN_TASK = "SET_BULLEAN_TASK";
 export const SET_CANNAL = "SET_CANNAL";
+export const SET_REGION_TASK = "SET_REGION_TASK";
+
+export const setRegionTask = (region) => ({
+  type: SET_REGION_TASK,
+  payload: region,
+});
 
 export const setBulleanTask = (task) => ({
   type: SET_BULLEAN_TASK,

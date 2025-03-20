@@ -13,3 +13,18 @@ export function getRegion(reg) {
       return "Регион не определен, необходимо изменить";
   }
 }
+
+export function getRegionForName(name) {
+  switch (name) {
+    case "Костромская обл.":
+      return 1;
+    case "Западная Якутия":
+      return 2;
+    case "Тест":
+      return 3;
+    case "Нерюнгри":
+      return 4;
+    default:
+      return null;
+  }
+}

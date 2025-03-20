@@ -6,8 +6,10 @@ import { SET_START_DATE } from "../actions/pageLogTaskActions";
 import { SET_END_DATE } from "../actions/pageLogTaskActions";
 import { SET_BULLEAN_TASK } from "../actions/pageLogTaskActions";
 import { SET_CANNAL } from "../actions/pageLogTaskActions";
+import { SET_REGION_TASK } from "../actions/pageLogTaskActions";
 
 const initialState = {
+  regionTask: null,
   task: true,
   page: null,
   activePage: 1,
@@ -20,6 +22,11 @@ const initialState = {
 
 const pageReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_REGION_TASK:
+      return {
+        ...state,
+        regionTask: action.payload,
+      };
     case SET_BULLEAN_TASK:
       return {
         ...state,

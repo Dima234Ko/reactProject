@@ -1,6 +1,6 @@
 import React from "react";
 
-export function FilterDisplay({ startDate, endDate, selectedUser, ponSerial }) {
+export function FilterDisplay({ startDate, endDate, selectedUser, ponSerial, regionTask }) {
   return (
     <div className="filter-display">
       {startDate && (
@@ -21,6 +21,11 @@ export function FilterDisplay({ startDate, endDate, selectedUser, ponSerial }) {
       {ponSerial && (
         <div className="filter-item">
           PON Serial: {ponSerial}
+        </div>
+      )}
+      {regionTask && (
+        <div className="filter-item">
+          Регион: {regionTask}
         </div>
       )}
       {(!startDate && !endDate && !selectedUser && !ponSerial) && (

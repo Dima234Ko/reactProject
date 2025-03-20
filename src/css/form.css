@@ -34,6 +34,10 @@
   height: 20px;
 }
 
+.textForm .some-input#reg {
+  width: 62%;
+}
+
 .textForm .some-input[type="date"]  {
   width: 37%;
   font-size: 11px;

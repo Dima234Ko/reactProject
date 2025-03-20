@@ -22,7 +22,8 @@ export async function getReport(dispatch,
   endDate, 
   selectedUser, 
   ponSerial,
-  channel) {
+  channel,
+  regionTask) {
 
   let url = null;  
   
@@ -48,6 +49,10 @@ export async function getReport(dispatch,
     if (ponSerial) {
       url += `&ponSerial=${encodeURIComponent(ponSerial)}`;
     }
+    if (regionTask) {
+      url += `&region=${encodeURIComponent(regionTask)}`;
+    }
+
 
 
   let data = await requestAPI("GET", url);
