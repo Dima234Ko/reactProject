@@ -115,7 +115,12 @@ function Report() {
           {row.headerWorkName || row.channel || '—'}
         </span>
       </td>
-      <td>{row.idUserSideCard}</td>
+        <td>
+          <a href={`http://172.24.10.30/oper/?core_section=customer&action=show&id=${row.idUserSideCard}`}
+          target="_blank">
+            {row.userSideLogin}
+          </a>
+      </td>
     </tr>
   ));
 
