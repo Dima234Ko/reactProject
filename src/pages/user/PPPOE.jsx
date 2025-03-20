@@ -112,7 +112,7 @@ function Pppoe() {
   const handleLoginChange = async () => {
     if (login !== "") {
       try {
-        await searchIdUs(login, setResult, "login", "pppoe");
+        await searchIdUs(login, serialFromRedux, setResult, "login", "pppoe");
       } catch (error) {
         console.error("Ошибка при проверке логина", error);
         setResult({

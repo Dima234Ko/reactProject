@@ -4,7 +4,7 @@ import { requestAPI } from "./api";
 import { updateUrlWithParam } from "./url";
 
 //Получить информацию из US
-export async function searchIdUs(userLoginSerial, setResult, param, page) {
+export async function searchIdUs(userLoginSerial, serialFromRedux, setResult, param, page) {
   setResult(null);
   let body;
   let data;
@@ -13,6 +13,7 @@ export async function searchIdUs(userLoginSerial, setResult, param, page) {
     if (param === "login") {
       body = {
         userLogin: userLoginSerial,
+        serialNewNtu: serialFromRedux
       };
       data = await requestAPI("POST", "userSide/getUserId", body);
 

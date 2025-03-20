@@ -21,8 +21,8 @@ export function TableReportTask({ taskData }) {
         `PON ${item.respResult.serialNewNtu},
   ONT ${item.respResult.ont_status}, ${item.respResult.RX_power}, 
   OLT ${item.respResult.ip_olt} ${item.respResult.PON_port}/${item.respResult.PON_id}`
-        : `PON ${item.respResult.serialNewNtu}
-  ${item.respResult.info}`
+             :`PON ${item.respResult.serialNewNtu}
+${typeof item.respResult.ont_status === 'undefined' ? item.respResult.info : (item.respResult.ont_status && !item.respResult.ont_status.includes("не найден на ACS") ? item.respResult.info : item.respResult.ont_status)}`
       });
     });
   }
@@ -39,7 +39,7 @@ export function TableReportTask({ taskData }) {
 ${item.respResult.create_login_US === null ? "Карточка существует в US" : item.respResult.create_login_US},
 ${item.respResult.write_PONserial}, 
 ${item.respResult.ont_config}`
-      : `PON ${item.respResult.serialNewNtu}
+          : `PON ${item.respResult.serialNewNtu}
 ${item.respResult.info}`
       });
     });
