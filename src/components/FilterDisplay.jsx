@@ -28,7 +28,7 @@ export function FilterDisplay({ startDate, endDate, selectedUser, ponSerial, reg
           Регион: {regionTask}
         </div>
       )}
-      {(!startDate && !endDate && !selectedUser && !ponSerial) && (
+      {(!startDate && !endDate && !selectedUser && !ponSerial && !regionTask) && (
         <div className="filter-item empty">
           Фильтры не применены
         </div>
