@@ -36,6 +36,7 @@ export async function disableNTU(
         0,
         30,
       );
+      navigate(`/region`);
     }
   } catch (error) {
     throw new Error(`Не удалось получить taskId: ${error.message || error}`);
@@ -55,7 +56,7 @@ function getBody(isChecked, selectedRadioOption, radioOptions, serial) {
   if (isChecked && selectedRadioOption) {
     radioText = radioOptions[selectedRadioOption];
   } else {
-    radioText = "Радиокнопка не выбрана";
+    radioText = '';
   }
 
   let body = {

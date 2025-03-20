@@ -82,14 +82,16 @@ function Main() {
 
     if (rootOnly.includes(pathname) && userRoot !== "1") return "/region";
     if (pathname !== "/" && !["1", "2", "3"].includes(userRoot)) return "/";
-
-    if (pathname !== "/report") {
-        dispatch(setBulleanTask(true)); 
-        dispatch(setActivePage(1)); 
-    }
     
     return null;
   };
+
+  useEffect(() => {
+    if (pathname !== "/report") {
+      dispatch(setBulleanTask(true));
+      dispatch(setActivePage(1));
+    }
+  }, [pathname, dispatch]);
 
   // Функция получения пунктов меню
   const getMenuItems = () => {

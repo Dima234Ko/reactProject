@@ -88,6 +88,7 @@ ${item.respResult.info}`
       key: `equipmentShutdownDto`,
       name: `Снятие оборудования`,
       respResult: `${taskData.equipmentShutdownDto.ponSerial},
+${taskData.equipmentShutdownDto.work}
 ${taskData.equipmentShutdownDto.info}`
     });
   }
