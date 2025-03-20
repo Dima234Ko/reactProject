@@ -25,6 +25,7 @@ import Replcement from "./pages/user/Replacement";
 import { TaskButton, ExpressButton } from "./components/Button";
 import { FormInfo } from "./components/Form/Form";
 import { openTask, closeTask } from "./functions/work";
+import { setBulleanTask, setActivePage } from "./store/actions/pageLogTaskActions";
 
 function App() {
   return (
@@ -82,6 +83,11 @@ function Main() {
     if (rootOnly.includes(pathname) && userRoot !== "1") return "/region";
     if (pathname !== "/" && !["1", "2", "3"].includes(userRoot)) return "/";
 
+    if (pathname !== "/report") {
+        dispatch(setBulleanTask(true)); 
+        dispatch(setActivePage(1)); 
+    }
+    
     return null;
   };
 

@@ -1,8 +1,7 @@
 // SwitchComponent.jsx
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux'; 
-import { setBulleanTask } from "../store/actions/pageLogTaskActions";
-import { setActivePage } from "../store/actions/pageLogTaskActions";
+import { setBulleanTask, setActivePage } from "../store/actions/pageLogTaskActions";
 
 export function SwitchComponent() { 
   const [isTasks, setIsTasks] = useState(true);

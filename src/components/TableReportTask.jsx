@@ -21,7 +21,8 @@ export function TableReportTask({ taskData }) {
         `PON ${item.respResult.serialNewNtu},
   ONT ${item.respResult.ont_status}, ${item.respResult.RX_power}, 
   OLT ${item.respResult.ip_olt} ${item.respResult.PON_port}/${item.respResult.PON_id}`
-        : item.respResult.info
+        : `PON ${item.respResult.serialNewNtu}
+  ${item.respResult.info}`
       });
     });
   }
@@ -38,7 +39,8 @@ export function TableReportTask({ taskData }) {
 ${item.respResult.create_login_US === null ? "Карточка существует в US" : item.respResult.create_login_US},
 ${item.respResult.write_PONserial}, 
 ${item.respResult.ont_config}`
-              : item.respResult.info
+      : `PON ${item.respResult.serialNewNtu}
+${item.respResult.info}`
       });
     });
   }
@@ -63,7 +65,8 @@ CHANNEL ${item.channelWifi2} [${item.respResult.wifi2_channel}]
 SSID ${item.ssidWifi5},
 PASS ${item.passWifi5},
 CHANNEL ${item.channelWifi5} [${item.respResult.wifi5_channel}]`
-              : item.respResult.info
+          : `PON ${item.respResult.serialNewNtu}
+${item.respResult.info}`
       });
     });
   }
