@@ -12,7 +12,8 @@ input {
 }
 
 .date-container {
-  display: -webkit-inline-box;
+  display: flex;
+  width: 30vh;
 }
 
 .ssid-container,

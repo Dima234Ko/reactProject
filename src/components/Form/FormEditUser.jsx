@@ -83,7 +83,7 @@ export function FormEditUser({ setCreateSuccess, onClose }) {
 
   return (
     <div className="input-container">
-      <form onSubmit={(e) => e.preventDefault()}>
+      <div className="textForm"> 
         <h2>Изменить пользователя</h2>
         <pre>Данные пользователя ID: {userId}</pre>
 
@@ -142,12 +142,11 @@ export function FormEditUser({ setCreateSuccess, onClose }) {
             })
           }
         />
+        </div>
         {/* Отображение результата */}
         {resultForm && <div className="upload-result">{resultForm}</div>}
-
         {/* Кнопка создания */}
         <Button name="Изменить" onClick={handleEdit} />
-      </form>
     </div>
   );
 }

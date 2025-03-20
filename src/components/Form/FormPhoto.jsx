@@ -59,7 +59,6 @@ export function FormPhoto({
 
   return (
     <div className="input-container">
-      <form>
         <div className="textForm">
           <h2>Загрузить фото</h2>
           <pre>
@@ -78,8 +77,6 @@ export function FormPhoto({
         <label htmlFor="file-upload" className="custom-file-upload">
           Выбрать файлы
         </label>
-      </form>
-
       {/* Отображение списка выбранных файлов */}
       {files.length > 0 && (
         <div className="file-list">

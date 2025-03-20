@@ -74,11 +74,10 @@ export function FormAddUser({ setCreateSuccess, onClose }) {
 
   return (
     <div className="input-container">
-      <form onSubmit={(e) => e.preventDefault()}>
         <div className="textForm">
           <h2>Создать пользователя</h2>
           <pre>Укажите права доступа</pre>
-          <div className="selectRoot">
+          <div className="sel">
             <SelectRoot
               value={formData.root}
               onChange={(e) =>
@@ -154,7 +153,6 @@ export function FormAddUser({ setCreateSuccess, onClose }) {
 
         {/* Кнопка создания */}
         <Button name="Создать" onClick={handleCreate} />
-      </form>
     </div>
   );
 }

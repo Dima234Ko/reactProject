@@ -21,7 +21,7 @@ export function SelectRoot({ onChange, value }) {
   ];
 
   return (
-    <select className="some-input" value={value} onChange={onChange}>
+    <select className="some-input" id="sel" value={value} onChange={onChange}>
       {options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.label}

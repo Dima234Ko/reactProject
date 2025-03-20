@@ -121,7 +121,7 @@ export function FormFilterReport({ onClose, task }) {
 
   return (
     <div className="input-container">
-      <div className="form"> 
+      <div className="textForm"> 
       <h3>Период</h3>    
       <div className="date-container">
           <Input
@@ -194,8 +194,8 @@ export function FormFilterReport({ onClose, task }) {
             </div>
           </div>
         )}
-        <Button name="Поиск" onClick={() => handleSearch()} /> 
       </div>
+      <Button name="Поиск" onClick={() => handleSearch()} /> 
     </div>
   );
 }
