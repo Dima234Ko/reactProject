@@ -1,16 +1,14 @@
 import React from "react";
 import { Table } from "../components/Table";
+import {downloadPhoto} from "../functions/photo"
 
 export function TableReportTask({ taskData }) {
-  // Проверяем, что taskData существует
   if (!taskData) {
     return <div>Данные задачи отсутствуют</div>;
   }
 
-  // Собираем данные для таблицы
   const tableRows = [];
 
-  // ntuStatuses
   if (taskData.ntuStatuses !== null && taskData.ntuStatuses?.length > 0) {
     taskData.ntuStatuses.forEach((item, index) => {
       tableRows.push({
@@ -26,7 +24,6 @@ ${typeof item.respResult.ont_status === "undefined" ? item.respResult.info : ite
     });
   }
 
-  // ntuPppoeEntities
   if (
     taskData.ntuPppoeEntities !== null &&
     taskData.ntuPppoeEntities?.length > 0
@@ -46,7 +43,6 @@ ${item.respResult.info}`,
     });
   }
 
-  // ntuWifiEntities
   if (
     taskData.ntuWifiEntities !== null &&
     taskData.ntuWifiEntities?.length > 0
@@ -74,7 +70,6 @@ ${item.respResult.info}`,
     });
   }
 
-  // photos
   if (taskData.photos !== null && taskData.photos?.length > 0) {
     taskData.photos.forEach((item, index) => {
       tableRows.push({
@@ -86,7 +81,6 @@ ${item.respResult.info}`,
     });
   }
 
-  // equipmentShutdownDto
   if (taskData.equipmentShutdownDto !== null) {
     tableRows.push({
       key: `equipmentShutdownDto`,
@@ -97,17 +91,24 @@ ${taskData.equipmentShutdownDto.info}`,
     });
   }
 
-  // Определяем столбцы таблицы
   const columns = ["Действие", "Результат"];
 
-  // Создаем тело таблицы
   const tableBody = tableRows.map((row) => (
     <tr key={row.key}>
       <td>
         <pre>{row.name}</pre>
       </td>
-      <td value = {row.id !== undefined ? row.id: null}>
-        <pre>{row.respResult}</pre>
+      <td>
+        {row.name.includes("Загрузка фото") && row.id !== undefined ? (
+          <pre
+            onClick={() => downloadPhoto(row.id)}
+            style={{ cursor: "pointer", color: "blue" }}
+          >
+            {row.respResult}
+          </pre>
+        ) : (
+          <pre>{row.respResult}</pre>
+        )}
       </td>
     </tr>
   ));
