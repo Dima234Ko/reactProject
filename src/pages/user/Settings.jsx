@@ -5,7 +5,7 @@ function Settings() {
     <div id="settings">
       <h2>Настройка</h2>
       <LinkButton name="Выбор региона" id="reg" to={`/region`} />
-      <LinkButton name="Смена пароля" id="pass" to={`/change_password`} />
+      <LinkButton name="Смена пароля" id="pass" to={`/changePassword`} />
     </div>
   );
 }
