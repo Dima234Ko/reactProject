@@ -85,7 +85,7 @@ function Report() {
   }
 
   const handleHeaderWorkNameClick = async (row) => {
-    dispatch(setReportTask(row.id));
+    dispatch(setReportTask(row.idHeader || row.id));
     setFormContent(<FormReportTask onClose={() => setIsFormOpen(false)} />);
     setIsFormOpen(true);
   };
@@ -112,7 +112,7 @@ function Report() {
           onClick={() => handleHeaderWorkNameClick(row)}
           style={{ cursor: "pointer", color: "blue" }}
         >
-          {row.headerWorkName || row.channel || "—"}
+          {row.headerWorkName || row.channel || "-"}
         </span>
       </td>
       <td>
