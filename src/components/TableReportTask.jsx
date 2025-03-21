@@ -78,6 +78,7 @@ ${item.respResult.info}`,
   if (taskData.photos !== null && taskData.photos?.length > 0) {
     taskData.photos.forEach((item, index) => {
       tableRows.push({
+        id: item.id,
         key: `photos-${index + 1}`,
         name: `Загрузка фото [${index + 1}]`,
         respResult: item.fileName,
@@ -105,7 +106,7 @@ ${taskData.equipmentShutdownDto.info}`,
       <td>
         <pre>{row.name}</pre>
       </td>
-      <td>
+      <td value = {row.id !== undefined ? row.id: null}>
         <pre>{row.respResult}</pre>
       </td>
     </tr>
