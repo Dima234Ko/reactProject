@@ -43,7 +43,7 @@ export const setFavicon = () => {
     },
     {
       rel: "apple-touch-icon",
-      href: "https://downloader.disk.yandex.ru/preview/eb26ba2b40df165d83081d2e2817efe2db3baedc1bcc2f40e2f11f537cd0a31c/67e14793/Z70CsBJeMAnY8FCVqat0p_M0n455ezPNqAP2F9Lli3B9qn6X3D8qygHO3-c1yUYXiR_UBhUt7nOb-pn7fwxlJA%3D%3D?uid=0&filename=apple-touch-icon-180x180-precomposed.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048",
+      href: "https://downloader.disk.yandex.ru/preview/405f8939a6871a7d6d58644702a97babf6341e7160631cf1fd0f83d88820939a/67e16f74/nU1JAbehbcn1oQH8jCzv_Gv-Qw21prVrstrJGCQhRSF6qdW8yPwoNGQucTquYpYD-ivmM_-Mg3eUVQ6ekqTmQQ%3D%3D?uid=0&filename=apple-touch-icon-180x180-precomposed.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048",
     },
   ];
 
