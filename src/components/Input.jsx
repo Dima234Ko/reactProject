@@ -6,6 +6,7 @@ export const Input = ({
   onChange,
   disabled,
   onBlur,
+  onKeyDown, 
 }) => {
   const handleChange = (event) => {
     if (!disabled) {
@@ -22,6 +23,7 @@ export const Input = ({
       value={value || ""}
       onChange={handleChange}
       onBlur={onBlur}
+      onKeyDown={onKeyDown}
       disabled={disabled}
     />
   );

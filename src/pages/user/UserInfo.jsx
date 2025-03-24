@@ -74,9 +74,9 @@ function UserInfo() {
     try {
       let data;
       if (loginFromRedux) {
-        data = await searchIdUs(loginFromRedux, setResult, "login");
+        data = await searchIdUs(loginFromRedux, serialFromRedux, setResult, "login");
       } else if (serialFromRedux) {
-        data = await searchIdUs(serialFromRedux, setResult, "serial");
+        data = await searchIdUs(serialFromRedux, serialFromRedux, setResult, "serial");
       }
       if (data?.idUserSideCard) {
         dispatch(setId(data.idUserSideCard));
@@ -197,7 +197,7 @@ function UserInfo() {
       <Button
         name="Записать"
         onClick={handleSubmit}
-        disabled={loading || !surname || !name || !isUploadSuccessful}
+        disabled={loading || !surname || !name }
       />
     </div>
   );

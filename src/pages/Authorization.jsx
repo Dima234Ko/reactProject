@@ -58,6 +58,12 @@ function Authorization() {
     }
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleAuthorization();
+    }
+  };
+
   return (
     <div id="authorization">
       <h2>Авторизация</h2>
@@ -67,6 +73,7 @@ function Authorization() {
         placeholder="Введите логин"
         value={login}
         onChange={handleInputChange}
+        onKeyDown={handleKeyDown} // Добавляем обработчик Enter
       />
       <Input
         id="password"
@@ -74,6 +81,7 @@ function Authorization() {
         placeholder="Введите пароль"
         value={password}
         onChange={handleInputChange}
+        onKeyDown={handleKeyDown} // Добавляем обработчик Enter
       />
       <Button name="Войти" onClick={handleAuthorization} />
       {loading && <Loader />}
