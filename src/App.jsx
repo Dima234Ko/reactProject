@@ -30,11 +30,13 @@ import {
   setBulleanTask,
   setActivePage,
 } from "./store/actions/pageLogTaskActions";
+import FavIcon from "./components/Icon";
 
 function App() {
   return (
     <Router>
-      <Main />
+      <FavIcon />
+        <Main />
     </Router>
   );
 }
