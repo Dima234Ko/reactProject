@@ -1,6 +1,6 @@
 export async function requestAPI(method, action) {
     try {  
-      const response = await fetch(`https://172.24.6.20:7449/${action}`, {
+      const response = await fetch(`https://172.24.6.20:7448/${action}`, {
         method: method,
         credentials: "include",
         headers: {

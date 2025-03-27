@@ -36,21 +36,30 @@ function Pppoe() {
   const workFromUrl = getParamBrowserUrl("work");
 
   useEffect(() => {
-    setSerialState(serialFromRedux);
+    const fetchData = async () => {
+      setSerialState(serialFromRedux);
 
-    if (workFromUrl) {
-      dispatch(setWork(workFromUrl));
-    }
+      if (serialFromRedux !== ""){
+        const data = await searchIdUs(serialFromRedux, '', setResult, "serial");
+        dispatch(setLogin(data.userLogin));
+      }
+      
+      if (workFromUrl) {
+          dispatch(setWork(workFromUrl));
+      }
 
-    if (regionFromUrl) {
-      setRegionId(regionFromUrl);
-      dispatch(setRegion(regionFromUrl));
-    }
+      if (regionFromUrl) {
+          setRegionId(regionFromUrl);
+          dispatch(setRegion(regionFromUrl));
+      }
 
-    if (loginFromUrl) {
-      setLoginInp(loginFromUrl);
-      dispatch(setLogin(loginFromUrl));
-    }
+      if (loginFromUrl) {
+          setLoginInp(loginFromUrl);
+          dispatch(setLogin(loginFromUrl));
+      }
+  };
+
+  fetchData();
   }, [serialFromRedux]);
 
   useEffect(() => {
@@ -64,7 +73,7 @@ function Pppoe() {
           setSerial,
           setLoading,
           setResult,
-          navigate,
+          navigate
         );
       } catch (error) {
         setResult({

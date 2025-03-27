@@ -19,8 +19,7 @@ function Disabling() {
   const [result, setResult] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
   const [isAbonentChecked, setIsAbonentChecked] = useState(false);
-  const [selectedRadioOption, setSelectedRadioOption] = useState("option1"); // Начальное значение
-
+  const [selectedRadioOption, setSelectedRadioOption] = useState("option1");
   const radioOptions = {
     option1: "Проблемы с Wi-Fi соединением",
     option2: "Проблемы с оптическим сигналом",
@@ -32,9 +31,9 @@ function Disabling() {
     setIsChecked(e.target.checked);
     if (e.target.checked) {
       setIsAbonentChecked(false);
-      setSelectedRadioOption("option1"); // Сбрасываем на начальное значение
+      setSelectedRadioOption("option1"); 
     } else {
-      setSelectedRadioOption(""); // Очищаем выбор, если чекбокс снят
+      setSelectedRadioOption(""); 
     }
   };
 
@@ -42,7 +41,7 @@ function Disabling() {
     setIsAbonentChecked(e.target.checked);
     if (e.target.checked) {
       setIsChecked(false);
-      setSelectedRadioOption(""); // Очищаем выбор радиокнопок
+      setSelectedRadioOption(""); 
     }
   };
 
@@ -81,7 +80,7 @@ function Disabling() {
               options={radioOptions}
               isVisible={isChecked}
               onChange={handleRadioChange}
-              selectedValue={selectedRadioOption} // Управляемое значение
+              selectedValue={selectedRadioOption}
             />
             <Checkbox
               label="Отключение абонентской линии"
