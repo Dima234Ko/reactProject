@@ -108,3 +108,11 @@ h3 {
 #root {
   min-height: 100vh;
 }
+
+.input-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
