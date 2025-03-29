@@ -82,13 +82,13 @@ function UserInfo() {
         dispatch(setId(data.idUserSideCard));
       }
 
-      if (data?.userFullName) {
-        const [surname = "", name = "", patronymic = ""] =
-          data.userFullName.split(" ");
+      if (data?.userFullName && data.userFullName !== data.userLogin) {
+        const [surname, name, patronymic] = data.userFullName.split(" ").concat(["", ""]).slice(0, 3);
         setSurname(surname);
         setName(name);
         setPatronymic(patronymic);
       }
+      
     } catch (error) {
       console.error("Ошибка при получении данных:", error);
       setResult({
