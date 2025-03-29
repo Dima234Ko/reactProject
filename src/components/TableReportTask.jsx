@@ -91,6 +91,15 @@ ${taskData.equipmentShutdownDto.info}`,
     });
   }
 
+  if (taskData.userInfo !== null) {
+    tableRows.push({
+      key: `userInfo`,
+      name: `Уточнение данных`,
+      respResult: `${taskData.userInfo.userFullName},
+ТЕЛЕФОН ${taskData.userInfo.userPhone}`,
+    });
+  }
+
   const columns = ["Действие", "Результат"];
 
   const tableBody = tableRows.map((row) => (
