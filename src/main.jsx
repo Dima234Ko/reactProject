@@ -17,6 +17,7 @@ import "./css/radio.css";
 import "./css/pagination.css";
 import "./css/filter.css";
 import "./css/swich.css";
+import "./css/dropdown.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

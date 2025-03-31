@@ -135,61 +135,34 @@ export function DropdownSelect({ id, options, value, onChange }) {
   }, [searchTerm, options, onChange]);
 
   return (
-    <div ref={dropdownRef} style={{ position: "relative", width: "100%" }}>
-      <input
-        type="text"
-        id={id}
-        value={searchTerm}
-        onChange={handleInputChange}
-        onFocus={() => setIsOpen(true)}
-        placeholder="Введите имя пользователя"
-        className="some-input"
-      />
-
-      {isOpen && (
-        <ul
-          style={{
-            position: "absolute",
-            top: "100%",
-            left: 0,
-            width: "100%",
-            overflowY: "auto",
-            margin: 0,
-            padding: 0,
-            listStyle: "none",
-            background: "white",
-            border: "1px solid #ccc",
-            borderRadius: "4px",
-            boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-            zIndex: 10,
-          }}
-        >
-          {filteredOptions.length > 0 ? (
-            filteredOptions.map((option) => (
-              <li
-                key={option}
-                onClick={() => handleSelect(option)}
-                style={{
-                  padding: "8px 12px",
-                  cursor: "pointer",
-                  background: option === searchTerm ? "#f0f0f0" : "white",
-                }}
-                onMouseEnter={(e) => (e.target.style.background = "#f5f5f5")}
-                onMouseLeave={(e) =>
-                  (e.target.style.background =
-                    option === searchTerm ? "#f0f0f0" : "white")
-                }
-              >
-                {option}
-              </li>
-            ))
-          ) : (
-            <li style={{ padding: "8px 12px", color: "#666" }}>
-              Нет вариантов
+    <div ref={dropdownRef} className="dropdownContainer">
+    <input
+      type="text"
+      id={id}
+      value={searchTerm}
+      onChange={handleInputChange}
+      onFocus={() => setIsOpen(true)}
+      placeholder="Введите имя пользователя"
+      className="some-input"
+    />
+  
+    {isOpen && (
+      <ul className="dropdownList">
+        {filteredOptions.length > 0 ? (
+          filteredOptions.map((option) => (
+            <li
+              className="dropdownElement"
+              key={option}
+              onClick={() => handleSelect(option)}
+            >
+              {option}
             </li>
-          )}
-        </ul>
-      )}
-    </div>
+          ))
+        ) : (
+          <li className="dropdownEmpty">Нет вариантов</li>
+        )}
+      </ul>
+    )}
+  </div>
   );
 }

@@ -1,0 +1,50 @@
+.dropdownContainer {
+    position: relative;
+    width: 100%;
+  }
+  
+  .dropdownList {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 99%;
+    overflow-y: auto;
+    margin: 0;
+    list-style: none; /* Убирает точки у <ul> */
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+  }
+
+  .input-container .dropdownList {
+    padding-left: 0;
+  }
+  
+  .dropdownList li {
+    list-style: none; /* Убирает точки у <li> */
+    padding-left: 0; /* Убирает отступ слева у <li> */
+    padding-left: 5px;
+  }
+  
+  .dropdownElement {
+    padding: 8px 12px; /* Отступы только сверху/снизу и справа/слева */
+    cursor: pointer;
+    background: white;
+    list-style: none; /* На всякий случай */
+  }
+  
+  .dropdownElement:hover {
+    background: #f5f5f5;
+  }
+  
+  .dropdownElement.selected {
+    background: #f0f0f0;
+  }
+  
+  .dropdownEmpty {
+    padding: 8px 12px;
+    color: #666;
+    list-style: none; /* Убирает точки */
+  }

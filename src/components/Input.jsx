@@ -37,21 +37,14 @@ export const Input = ({
             onKeyDown={onKeyDown}
             disabled={disabled}
           />
-          <button
+         <button
             type="button"
+            className="toggle-password-btn"
             onClick={togglePasswordVisibility}
             disabled={disabled}
-            style={{
-              marginLeft: "-30px",
-              marginTop: "18px",
-              border: "none",
-              background: "transparent",
-              padding: 6,
-              cursor: disabled ? "not-allowed" : "pointer",
-            }}
           >
             {showPassword ? "👁️‍🗨️" : "👁️"}
-          </button>
+        </button>
         </div>
       ) : (
         <input

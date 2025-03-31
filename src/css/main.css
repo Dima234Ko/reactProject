@@ -116,3 +116,16 @@ h3 {
   justify-content: center;
   align-items: center;
 }
+
+.toggle-password-btn {
+  margin-left: -30px; /* Сдвиг кнопки влево, чтобы перекрывать input */
+  margin-top: 18px; /* Вертикальное смещение */
+  border: none;
+  background: transparent;
+  padding: 6px; /* Отступы вокруг кнопки */
+  cursor: pointer; /* Курсор указателя */
+}
+
+.toggle-password-btn:disabled {
+  cursor: not-allowed; /* Курсор для отключённой кнопки */
+}
