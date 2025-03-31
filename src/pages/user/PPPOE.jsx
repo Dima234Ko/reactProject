@@ -182,7 +182,7 @@ function Pppoe() {
   const handleLoginChange = async (primary) => {
     const currentLogin = primary ? loginFromUrl : login;
 
-    if (currentLogin !== '') {
+    if (currentLogin !== '' && serialFromRedux !== '') {
       try {
         const data = await searchIdUs(currentLogin, serialFromRedux, setResult, 'login', 'pppoe');
         const hasWarning = 
