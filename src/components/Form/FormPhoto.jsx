@@ -59,25 +59,23 @@ export function FormPhoto({
 
   return (
     <div className="input-container">
-        <div className="textForm">
-          <h2>Загрузить фото</h2>
-          <pre>
-            Выберите скриншоты из приложения Analizator WiFi и заказ-наряд
-          </pre>
-          <h4>{login}</h4>
-        </div>
-        {/* Поле для выбора нескольких файлов */}
-        <input
-          type="file"
-          id="file-upload"
-          onChange={handleFileChange}
-          multiple // Разрешаем выбор нескольких файлов
-          style={{ display: "none" }}
-        />
-        <label htmlFor="file-upload" className="custom-file-upload">
-          Выбрать файлы
-        </label>
-      {/* Отображение списка выбранных файлов */}
+      <div className="textForm">
+        <h2>Загрузить фото</h2>
+        <pre>
+          Выберите скриншоты из приложения Analizator WiFi и заказ-наряд
+        </pre>
+        <h4>{login}</h4>
+      </div>
+      <input
+        type="file"
+        id="file-upload"
+        onChange={handleFileChange}
+        multiple // Разрешаем выбор нескольких файлов
+        style={{ display: "none" }}
+      />
+      <label htmlFor="file-upload" className="custom-file-upload">
+        Выбрать файлы
+      </label>
       {files.length > 0 && (
         <div className="file-list">
           <ul>
@@ -87,15 +85,11 @@ export function FormPhoto({
           </ul>
         </div>
       )}
-
-      {/* Кнопка для загрузки файлов */}
       <Button
         name="Загрузить все"
         onClick={handleUpload}
         disabled={isUploading || files.length === 0}
       />
-
-      {/* Отображение результата загрузки */}
       {resultForm && <div className="upload-result">{resultForm}</div>}
     </div>
   );

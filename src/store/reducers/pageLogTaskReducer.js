@@ -21,7 +21,7 @@ const initialState = {
   startDate: null,
   endDate: null,
   cannal: null,
-  login: null
+  login: null,
 };
 
 const pageReducer = (state = initialState, action) => {

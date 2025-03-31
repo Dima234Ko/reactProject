@@ -45,7 +45,7 @@ function Report() {
       cannal,
       regionTask,
       workTask,
-      loginTask
+      loginTask,
     );
     return reportData;
   };
@@ -74,7 +74,7 @@ function Report() {
     cannal,
     regionTask,
     workTask,
-    loginTask
+    loginTask,
   ]);
 
   let columns;

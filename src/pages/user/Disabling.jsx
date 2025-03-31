@@ -31,9 +31,9 @@ function Disabling() {
     setIsChecked(e.target.checked);
     if (e.target.checked) {
       setIsAbonentChecked(false);
-      setSelectedRadioOption("option1"); 
+      setSelectedRadioOption("option1");
     } else {
-      setSelectedRadioOption(""); 
+      setSelectedRadioOption("");
     }
   };
 
@@ -41,7 +41,7 @@ function Disabling() {
     setIsAbonentChecked(e.target.checked);
     if (e.target.checked) {
       setIsChecked(false);
-      setSelectedRadioOption(""); 
+      setSelectedRadioOption("");
     }
   };
 
@@ -58,7 +58,7 @@ function Disabling() {
       navigate,
       dispatch,
       setResult,
-      setLoading
+      setLoading,
     );
     setIsFormOpen(false);
   };

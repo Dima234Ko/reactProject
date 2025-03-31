@@ -1,6 +1,6 @@
 import React from "react";
 import { Table } from "../components/Table";
-import {downloadPhoto} from "../functions/photo"
+import { downloadPhoto } from "../functions/photo";
 
 export function TableReportTask({ taskData }) {
   if (!taskData) {

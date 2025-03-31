@@ -26,7 +26,7 @@ export async function getReport(
   channel,
   regionTask,
   workTask,
-  loginTask
+  loginTask,
 ) {
   let url = null;
 

@@ -44,7 +44,6 @@ export function FormDeleteUser() {
       <div className="input-container">
         <ExpressButton onClick={handleEdit} text="Да" closeButton={false} />
       </div>
-      {/* Отображение результата */}
       {resultForm && <div className="upload-result">{resultForm}</div>}
     </div>
   );

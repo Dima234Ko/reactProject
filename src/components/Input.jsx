@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export const Input = ({
   id,
@@ -24,12 +24,12 @@ export const Input = ({
 
   return (
     <>
-      {type === 'password' ? (
+      {type === "password" ? (
         <div className="input-content">
           <input
             className="some-input"
             id={id}
-            type={showPassword ? 'text' : 'password'}
+            type={showPassword ? "text" : "password"}
             placeholder={placeholder}
             value={value || ""}
             onChange={handleChange}
@@ -42,15 +42,15 @@ export const Input = ({
             onClick={togglePasswordVisibility}
             disabled={disabled}
             style={{
-              marginLeft: '-30px',
-              marginTop: '18px',
-              border: 'none',
-              background: 'transparent',
+              marginLeft: "-30px",
+              marginTop: "18px",
+              border: "none",
+              background: "transparent",
               padding: 6,
-              cursor: disabled ? 'not-allowed' : 'pointer',
+              cursor: disabled ? "not-allowed" : "pointer",
             }}
           >
-            {showPassword ? '👁️‍🗨️' : '👁️'}
+            {showPassword ? "👁️‍🗨️" : "👁️"}
           </button>
         </div>
       ) : (

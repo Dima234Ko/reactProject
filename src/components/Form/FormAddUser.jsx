@@ -74,85 +74,80 @@ export function FormAddUser({ setCreateSuccess, onClose }) {
 
   return (
     <div className="input-container">
-        <div className="textForm">
-          <h2>Создать пользователя</h2>
-          <pre>Укажите права доступа</pre>
-          <div className="sel">
-            <SelectRoot
-              value={formData.root}
-              onChange={(e) =>
-                handleInputChange({
-                  target: { name: "root", value: e.target.value },
-                })
-              }
-            />
-          </div>
-          <pre>Укажите данные</pre>
-          {/* Поля ввода */}
-          <div className="addUser">
-            <Input
-              id="login"
-              type="text"
-              placeholder="Введите логин"
-              value={formData.login}
-              onChange={(e) =>
-                handleInputChange({
-                  target: { name: "login", value: e.target.value },
-                })
-              }
-            />
-            <Input
-              id="password"
-              type="password"
-              placeholder="Введите пароль"
-              value={formData.password}
-              onChange={(e) =>
-                handleInputChange({
-                  target: { name: "password", value: e.target.value },
-                })
-              }
-            />
-            <Input
-              id="lastName"
-              type="text"
-              placeholder="Введите фамилию"
-              value={formData.lastName}
-              onChange={(e) =>
-                handleInputChange({
-                  target: { name: "lastName", value: e.target.value },
-                })
-              }
-            />
-            <Input
-              id="firstName"
-              type="text"
-              placeholder="Введите имя"
-              value={formData.firstName}
-              onChange={(e) =>
-                handleInputChange({
-                  target: { name: "firstName", value: e.target.value },
-                })
-              }
-            />
-            <Input
-              id="middleName"
-              type="text"
-              placeholder="Введите отчество"
-              value={formData.middleName}
-              onChange={(e) =>
-                handleInputChange({
-                  target: { name: "middleName", value: e.target.value },
-                })
-              }
-            />
-          </div>
+      <div className="textForm">
+        <h2>Создать пользователя</h2>
+        <pre>Укажите права доступа</pre>
+        <div className="sel">
+          <SelectRoot
+            value={formData.root}
+            onChange={(e) =>
+              handleInputChange({
+                target: { name: "root", value: e.target.value },
+              })
+            }
+          />
         </div>
-
-        {/* Отображение результата */}
-        {resultForm && <div className="upload-result">{resultForm}</div>}
-
-        {/* Кнопка создания */}
-        <Button name="Создать" onClick={handleCreate} />
+        <pre>Укажите данные</pre>
+        <div className="addUser">
+          <Input
+            id="login"
+            type="text"
+            placeholder="Введите логин"
+            value={formData.login}
+            onChange={(e) =>
+              handleInputChange({
+                target: { name: "login", value: e.target.value },
+              })
+            }
+          />
+          <Input
+            id="password"
+            type="password"
+            placeholder="Введите пароль"
+            value={formData.password}
+            onChange={(e) =>
+              handleInputChange({
+                target: { name: "password", value: e.target.value },
+              })
+            }
+          />
+          <Input
+            id="lastName"
+            type="text"
+            placeholder="Введите фамилию"
+            value={formData.lastName}
+            onChange={(e) =>
+              handleInputChange({
+                target: { name: "lastName", value: e.target.value },
+              })
+            }
+          />
+          <Input
+            id="firstName"
+            type="text"
+            placeholder="Введите имя"
+            value={formData.firstName}
+            onChange={(e) =>
+              handleInputChange({
+                target: { name: "firstName", value: e.target.value },
+              })
+            }
+          />
+          <Input
+            id="middleName"
+            type="text"
+            placeholder="Введите отчество"
+            value={formData.middleName}
+            onChange={(e) =>
+              handleInputChange({
+                target: { name: "middleName", value: e.target.value },
+              })
+            }
+          />
+        </div>
+      </div>
+      {resultForm && <div className="upload-result">{resultForm}</div>}
+      <Button name="Создать" onClick={handleCreate} />
     </div>
   );
 }

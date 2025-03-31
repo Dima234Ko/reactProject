@@ -4,15 +4,15 @@ import { Input } from "../Input";
 import { Select, DropdownSelect } from "../Select";
 import { Button } from "../Button";
 import { Checkbox } from "../Checkbox";
-import { 
+import {
   setRegionTask,
   setWorkTask,
   setStartDate,
   setEndDate,
-  setUserPage, 
+  setUserPage,
   setPonSerialPage,
   setCannal,
-  setLoginTask
+  setLoginTask,
 } from "../../store/actions/pageLogTaskActions";
 import { getLogins } from "../../functions/account";
 import { requestAPI } from "../../functions/api";
@@ -26,11 +26,15 @@ export function FormFilterReport({ onClose, task }) {
   const [startDate, setLocalStartDate] = useState(pageLog.startDate || "");
   const [endDate, setLocalEndDate] = useState(pageLog.endDate || "");
   const [selectedUser, setSelectedUser] = useState(pageLog.userPage || "");
-  const [selectedRegion, setSelectedRegion] = useState(pageLog.regionTask || "");
-  const [selectedWork, setSelectedWork] = useState(pageLog.workTask || ""); 
+  const [selectedRegion, setSelectedRegion] = useState(
+    pageLog.regionTask || "",
+  );
+  const [selectedWork, setSelectedWork] = useState(pageLog.workTask || "");
   const [ponSerial, setLocalPonSerial] = useState(pageLog.ponSerialPage || "");
   const [login, setLocalLogin] = useState(pageLog.loginTask || "");
-  const [isManualChecked, setIsManualChecked] = useState(pageLog.cannal === "manual"); 
+  const [isManualChecked, setIsManualChecked] = useState(
+    pageLog.cannal === "manual",
+  );
   const [isAutoChecked, setIsAutoChecked] = useState(pageLog.cannal === "auto");
   const [users, setUsers] = useState([]);
   const [regions, setRegions] = useState([]);
@@ -58,13 +62,13 @@ export function FormFilterReport({ onClose, task }) {
         // Устанавливаем первый work по умолчанию
         const workList = getWork();
         if (workList?.length > 0) {
-          setSelectedWork(workList[0]); 
+          setSelectedWork(workList[0]);
         }
       } catch (error) {
         console.error("Ошибка при загрузке данных:", error);
       }
     };
-    
+
     fetchData();
   }, []);
 
@@ -94,18 +98,22 @@ export function FormFilterReport({ onClose, task }) {
   const handleSearch = async () => {
     try {
       dispatch(setRegionTask(getRegionForName(selectedRegion)));
-      dispatch(setWorkTask(setWork(selectedWork))); 
+      dispatch(setWorkTask(setWork(selectedWork)));
       dispatch(setStartDate(startDate));
       dispatch(setEndDate(endDate));
       dispatch(setUserPage(selectedUser));
       dispatch(setPonSerialPage(ponSerial));
       dispatch(setLoginTask(login)); // Добавлено сохранение login в Redux
-      
-      const cannalValue = isManualChecked ? "manual" : isAutoChecked ? "auto" : null;
+
+      const cannalValue = isManualChecked
+        ? "manual"
+        : isAutoChecked
+          ? "auto"
+          : null;
       dispatch(setCannal(cannalValue));
-      
+
       const selectedRegionData = regions.find(
-        (item) => item.regionName === selectedRegion
+        (item) => item.regionName === selectedRegion,
       );
 
       if (onClose) {
@@ -116,14 +124,15 @@ export function FormFilterReport({ onClose, task }) {
     }
   };
 
-  const regionNames = regions.length > 0 ? regions.map((item) => item.regionName) : [];
-  const workNames = getWork();  
+  const regionNames =
+    regions.length > 0 ? regions.map((item) => item.regionName) : [];
+  const workNames = getWork();
 
   return (
     <div className="input-container">
-      <div className="textForm"> 
-      <h3>Период</h3>    
-      <div className="date-container">
+      <div className="textForm">
+        <h3>Период</h3>
+        <div className="date-container">
           <Input
             id="start_data"
             type="date"
@@ -136,7 +145,7 @@ export function FormFilterReport({ onClose, task }) {
             value={endDate}
             onChange={(e) => setLocalEndDate(e.target.value)}
           />
-        </div> 
+        </div>
         <div className="sel-container">
           <Select
             id="sel"
@@ -151,16 +160,17 @@ export function FormFilterReport({ onClose, task }) {
             value={selectedUser}
             onChange={(e) => setSelectedUser(e.target.value)}
           />
-          
-          {task === true && ( <Select
-            id="sel"
-            options={workNames}
-            value={selectedWork}
-            onChange={(e) => setSelectedWork(e.target.value)} 
-          />
+
+          {task === true && (
+            <Select
+              id="sel"
+              options={workNames}
+              value={selectedWork}
+              onChange={(e) => setSelectedWork(e.target.value)}
+            />
           )}
         </div>
-        
+
         <Input
           id="id_Ntu"
           type="text"
@@ -175,7 +185,7 @@ export function FormFilterReport({ onClose, task }) {
           value={login}
           onChange={(e) => setLocalLogin(e.target.value)}
         />
-        {task !== true && ( 
+        {task !== true && (
           <div className="wifiSearch">
             <h6>Выбор каналов WiFi</h6>
             <div className="checkbox-container">
@@ -195,7 +205,7 @@ export function FormFilterReport({ onClose, task }) {
           </div>
         )}
       </div>
-      <Button name="Поиск" onClick={() => handleSearch()} /> 
+      <Button name="Поиск" onClick={() => handleSearch()} />
     </div>
   );
 }

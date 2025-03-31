@@ -26,14 +26,18 @@ function ChangePassword() {
     };
 
     try {
-      if(password.length > 4){
-        const response = await requestAPI("POST", "settings/updateUserPass", body);
+      if (password.length > 4) {
+        const response = await requestAPI(
+          "POST",
+          "settings/updateUserPass",
+          body,
+        );
         navigate(`/`);
       } else {
         setResult({
-            success: false,
-            message: "Длина пароля слишком мала",
-          });
+          success: false,
+          message: "Длина пароля слишком мала",
+        });
       }
     } catch (error) {
       console.error("Ошибка при смене пароля:", error);

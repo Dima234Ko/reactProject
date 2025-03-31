@@ -75,7 +75,7 @@
 .textForm {
   display: flex;
   flex-direction: column;
-  gap: 5px; 
+  gap: 5px;
   width: 30vh;
 }
 
@@ -111,7 +111,6 @@ form {
 .form {
   text-align: center;
 }
-
 
 .sel-container {
   width: 100%;

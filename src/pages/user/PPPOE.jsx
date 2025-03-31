@@ -39,27 +39,27 @@ function Pppoe() {
     const fetchData = async () => {
       setSerialState(serialFromRedux);
 
-      if (serialFromRedux !== ""){
-        const data = await searchIdUs(serialFromRedux, '', setResult, "serial");
+      if (serialFromRedux !== "") {
+        const data = await searchIdUs(serialFromRedux, "", setResult, "serial");
         dispatch(setLogin(data.userLogin));
       }
-      
+
       if (workFromUrl) {
-          dispatch(setWork(workFromUrl));
+        dispatch(setWork(workFromUrl));
       }
 
       if (regionFromUrl) {
-          setRegionId(regionFromUrl);
-          dispatch(setRegion(regionFromUrl));
+        setRegionId(regionFromUrl);
+        dispatch(setRegion(regionFromUrl));
       }
 
       if (loginFromUrl) {
-          setLoginInp(loginFromUrl);
-          dispatch(setLogin(loginFromUrl));
+        setLoginInp(loginFromUrl);
+        dispatch(setLogin(loginFromUrl));
       }
-  };
+    };
 
-  fetchData();
+    fetchData();
   }, [serialFromRedux]);
 
   useEffect(() => {
@@ -73,7 +73,7 @@ function Pppoe() {
           setSerial,
           setLoading,
           setResult,
-          navigate
+          navigate,
         );
       } catch (error) {
         setResult({

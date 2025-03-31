@@ -39,7 +39,7 @@ export const checkTaskStatus = async (
   setLoading,
   setResult,
   navigate,
-  setLogin
+  setLogin,
 ) => {
   const queryParams = new URLSearchParams(location.search);
   const taskIdFromUrl = queryParams.get("task");
@@ -58,7 +58,7 @@ export const checkTaskStatus = async (
           setResult,
           navigate,
           0,
-          50
+          50,
         );
       } catch (error) {
         setLoading(false);
@@ -77,7 +77,7 @@ export async function checkTask(
   setResult,
   navigate,
   attempts = 0,
-  progress = 30
+  progress = 30,
 ) {
   const statusAction = `${action}/${taskId}`;
 
@@ -104,7 +104,7 @@ export async function checkTask(
         setResult,
         navigate,
         attempts + 1,
-        progress
+        progress,
       );
     } else {
       dispatch(setProgress(100)); // Устанавливаем прогресс в 100%

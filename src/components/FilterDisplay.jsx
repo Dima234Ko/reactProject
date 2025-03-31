@@ -6,7 +6,7 @@ export function FilterDisplay({
   selectedUser,
   ponSerial,
   regionTask,
-  loginTask
+  loginTask,
 }) {
   return (
     <div className="filter-display">
@@ -18,9 +18,14 @@ export function FilterDisplay({
       {ponSerial && <div className="filter-item">PON Serial: {ponSerial}</div>}
       {regionTask && <div className="filter-item">Регион: {regionTask}</div>}
       {loginTask && <div className="filter-item">Логин: {loginTask}</div>}
-      {!startDate && !endDate && !selectedUser && !ponSerial && !regionTask && !loginTask && (
-        <div className="filter-item empty">Общие фильтры не выбраны</div>
-      )}
+      {!startDate &&
+        !endDate &&
+        !selectedUser &&
+        !ponSerial &&
+        !regionTask &&
+        !loginTask && (
+          <div className="filter-item empty">Общие фильтры не выбраны</div>
+        )}
     </div>
   );
 }

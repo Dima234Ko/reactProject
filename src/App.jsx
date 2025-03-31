@@ -36,7 +36,7 @@ function App() {
   return (
     <Router>
       <FavIcon />
-        <Main />
+      <Main />
     </Router>
   );
 }

@@ -74,21 +74,33 @@ function UserInfo() {
     try {
       let data;
       if (loginFromRedux) {
-        data = await searchIdUs(loginFromRedux, serialFromRedux, setResult, "login");
+        data = await searchIdUs(
+          loginFromRedux,
+          serialFromRedux,
+          setResult,
+          "login",
+        );
       } else if (serialFromRedux) {
-        data = await searchIdUs(serialFromRedux, serialFromRedux, setResult, "serial");
+        data = await searchIdUs(
+          serialFromRedux,
+          serialFromRedux,
+          setResult,
+          "serial",
+        );
       }
       if (data?.idUserSideCard) {
         dispatch(setId(data.idUserSideCard));
       }
 
       if (data?.userFullName && data.userFullName !== data.userLogin) {
-        const [surname, name, patronymic] = data.userFullName.split(" ").concat(["", ""]).slice(0, 3);
+        const [surname, name, patronymic] = data.userFullName
+          .split(" ")
+          .concat(["", ""])
+          .slice(0, 3);
         setSurname(surname);
         setName(name);
         setPatronymic(patronymic);
       }
-      
     } catch (error) {
       console.error("Ошибка при получении данных:", error);
       setResult({
@@ -197,7 +209,7 @@ function UserInfo() {
       <Button
         name="Записать"
         onClick={handleSubmit}
-        disabled={loading || !surname || !name }
+        disabled={loading || !surname || !name}
       />
     </div>
   );
