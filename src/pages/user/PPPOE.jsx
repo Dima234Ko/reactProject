@@ -68,9 +68,9 @@ function Pppoe() {
 
       const queryParams = new URLSearchParams(location.search);
       const taskIdFromUrl = queryParams.get('task');
-      
-      if (!taskIdFromUrl){
-        console.log(progressFromRedux)
+
+      if (!taskIdFromUrl) {
+        console.log(progressFromRedux);
         await handleLoginChange(true);
       }
     };
@@ -79,7 +79,6 @@ function Pppoe() {
   }, [serialFromRedux]);
 
   useEffect(() => {
-   
     const initialize = async () => {
       try {
         await checkTaskStatus(
@@ -185,11 +184,17 @@ function Pppoe() {
 
     if (currentLogin !== '') {
       try {
-        const data = await searchIdUs(currentLogin, serialFromRedux, setResult, 'login', 'pppoe');
-        const hasWarning = 
-        data.idBySerial != null && 
-        data.idUserSideCard != null && 
-        data.idBySerial !== data.idUserSideCard;
+        const data = await searchIdUs(
+          currentLogin,
+          serialFromRedux,
+          setResult,
+          'login',
+          'pppoe'
+        );
+        const hasWarning =
+          data.idBySerial != null &&
+          data.idUserSideCard != null &&
+          data.idBySerial !== data.idUserSideCard;
         dispatch(setWarning(hasWarning));
       } catch (error) {
         console.error('Ошибка при проверке логина', error);
@@ -239,7 +244,7 @@ function Pppoe() {
           type="text"
           placeholder="Введите логин"
           value={login}
-          onBlur={() => handleLoginChange(false)} 
+          onBlur={() => handleLoginChange(false)}
           onChange={(e) => setLoginInp(e.target.value)}
         />
       </div>

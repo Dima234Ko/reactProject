@@ -3,7 +3,6 @@ import { setProgress } from '../store/actions/progressActions';
 import { requestAPI } from './api';
 import { updateUrlWithParam } from './url';
 
-
 //Получить информацию из US
 export async function searchIdUs(
   userLoginSerial,

@@ -23,7 +23,7 @@ const store = configureStore({
     checkboxUser: checkboxUserReducer,
     taskReport: taskReportReducer,
     page: pageReducer,
-    warning: warningReducer
+    warning: warningReducer,
   },
 });
 
