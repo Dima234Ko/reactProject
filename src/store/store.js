@@ -9,6 +9,7 @@ import taskReducer from './reducers/taskReducer';
 import checkboxUserReducer from './reducers/checkboxUserReducer';
 import taskReportReducer from './reducers/taskReportReducer';
 import pageReducer from './reducers/pageLogTaskReducer';
+import warningReducer from './reducers/warningReducer';
 
 const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ const store = configureStore({
     checkboxUser: checkboxUserReducer,
     taskReport: taskReportReducer,
     page: pageReducer,
+    warning: warningReducer
   },
 });
 

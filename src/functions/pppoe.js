@@ -3,6 +3,7 @@ import { setProgress } from '../store/actions/progressActions';
 import { requestAPI } from './api';
 import { updateUrlWithParam } from './url';
 
+
 //Получить информацию из US
 export async function searchIdUs(
   userLoginSerial,
@@ -27,12 +28,12 @@ export async function searchIdUs(
         if (data.idUserSideCard !== null) {
           setResult({
             result: 'Найдена учетная запись в US',
-            success: true,
+            success: false,
           });
         } else {
           setResult({
             result: 'Учетная запись в US отсутствует',
-            success: false,
+            success: true,
           });
         }
       }
