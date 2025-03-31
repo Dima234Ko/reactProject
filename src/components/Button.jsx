@@ -1,5 +1,5 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faFileImport,
   faUserSlash,
@@ -13,13 +13,13 @@ import {
   faNetworkWired,
   faHandsAslInterpreting,
   faChartLine,
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons';
 
 export function Button({
   name,
   id,
   onClick,
-  className = "",
+  className = '',
   disabled = false,
 }) {
   return (
@@ -34,7 +34,7 @@ export function Button({
   );
 }
 
-export function UploadButton({ onClick, className = "" }) {
+export function UploadButton({ onClick, className = '' }) {
   return (
     <button className={`upload-button ${className}`} onClick={onClick}>
       <FontAwesomeIcon icon={faFileImport} />
@@ -43,7 +43,7 @@ export function UploadButton({ onClick, className = "" }) {
   );
 }
 
-export function UserButton({ onClick, className = "" }) {
+export function UserButton({ onClick, className = '' }) {
   return (
     <button className={`upload-button ${className}`} onClick={onClick}>
       <FontAwesomeIcon icon={faUserPen} />
@@ -52,7 +52,7 @@ export function UserButton({ onClick, className = "" }) {
   );
 }
 
-export function FiltrButton({ onClick, className = "" }) {
+export function FiltrButton({ onClick, className = '' }) {
   return (
     <button className={`upload-button ${className}`} onClick={onClick}>
       <FontAwesomeIcon icon={faFilterCircleXmark} />
@@ -61,7 +61,7 @@ export function FiltrButton({ onClick, className = "" }) {
   );
 }
 
-export function AddUserButton({ onClick, className = "" }) {
+export function AddUserButton({ onClick, className = '' }) {
   return (
     <button className={`upload-button ${className}`} onClick={onClick}>
       <FontAwesomeIcon icon={faUserPlus} />
@@ -70,7 +70,7 @@ export function AddUserButton({ onClick, className = "" }) {
   );
 }
 
-export function ChangeEditUser({ onClick, className = "" }) {
+export function ChangeEditUser({ onClick, className = '' }) {
   return (
     <button className={`upload-button ${className}`} onClick={onClick}>
       <FontAwesomeIcon icon={faUnlock} />
@@ -79,7 +79,7 @@ export function ChangeEditUser({ onClick, className = "" }) {
   );
 }
 
-export function DeleteUserButton({ onClick, className = "" }) {
+export function DeleteUserButton({ onClick, className = '' }) {
   return (
     <button className={`upload-button ${className}`} onClick={onClick}>
       <FontAwesomeIcon icon={faUserSlash} />
@@ -88,10 +88,10 @@ export function DeleteUserButton({ onClick, className = "" }) {
   );
 }
 
-export function NewConnectionButton({ onClick, className = "", disabled }) {
+export function NewConnectionButton({ onClick, className = '', disabled }) {
   return (
     <button
-      className={`upload-button ${className} ${disabled ? "disabled" : ""}`}
+      className={`upload-button ${className} ${disabled ? 'disabled' : ''}`}
       id="startMenu"
       onClick={onClick}
       disabled={disabled}
@@ -104,10 +104,10 @@ export function NewConnectionButton({ onClick, className = "", disabled }) {
   );
 }
 
-export function MalfunctionButton({ onClick, className = "", disabled }) {
+export function MalfunctionButton({ onClick, className = '', disabled }) {
   return (
     <button
-      className={`upload-button ${className} ${disabled ? "disabled" : ""}`}
+      className={`upload-button ${className} ${disabled ? 'disabled' : ''}`}
       id="startMenu"
       onClick={onClick}
       disabled={disabled}
@@ -120,10 +120,10 @@ export function MalfunctionButton({ onClick, className = "", disabled }) {
   );
 }
 
-export function DisconnectButton({ onClick, className = "", disabled }) {
+export function DisconnectButton({ onClick, className = '', disabled }) {
   return (
     <button
-      className={`upload-button ${className} ${disabled ? "disabled" : ""}`}
+      className={`upload-button ${className} ${disabled ? 'disabled' : ''}`}
       id="startMenu"
       onClick={onClick}
       disabled={disabled}
@@ -136,7 +136,7 @@ export function DisconnectButton({ onClick, className = "", disabled }) {
   );
 }
 
-export function StatusButton({ onClick, className = "" }) {
+export function StatusButton({ onClick, className = '' }) {
   return (
     <button
       className={`upload-button ${className}`}
@@ -151,7 +151,7 @@ export function StatusButton({ onClick, className = "" }) {
   );
 }
 
-export function ChangeButton({ onClick, className = "" }) {
+export function ChangeButton({ onClick, className = '' }) {
   return (
     <button
       className={`upload-button ${className}`}
@@ -166,7 +166,7 @@ export function ChangeButton({ onClick, className = "" }) {
   );
 }
 
-export function PPPoEButton({ onClick, className = "" }) {
+export function PPPoEButton({ onClick, className = '' }) {
   return (
     <button
       className={`upload-button ${className}`}
@@ -200,7 +200,7 @@ export function ExpressButton({ onClick, text, closeButton }) {
   return (
     <button
       className="button blue"
-      id={closeButton ? "activeButton" : "false"}
+      id={closeButton ? 'activeButton' : 'false'}
       onClick={onClick}
     >
       <div className="buttonText">

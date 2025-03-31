@@ -37,7 +37,7 @@
   width: 100%;
 }
 
-.textForm .some-input[type="date"] {
+.textForm .some-input[type='date'] {
   width: 11.5vh;
   font-size: 11px;
 }
@@ -52,8 +52,8 @@
   border-radius: 10px;
 }
 
-.form .some-input[type="text"],
-.form .some-input[type="password"] {
+.form .some-input[type='text'],
+.form .some-input[type='password'] {
   margin-left: 13%;
   width: 67%;
 }

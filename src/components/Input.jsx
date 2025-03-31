@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 export const Input = ({
   id,
@@ -24,27 +24,27 @@ export const Input = ({
 
   return (
     <>
-      {type === "password" ? (
+      {type === 'password' ? (
         <div className="input-content">
           <input
             className="some-input"
             id={id}
-            type={showPassword ? "text" : "password"}
+            type={showPassword ? 'text' : 'password'}
             placeholder={placeholder}
-            value={value || ""}
+            value={value || ''}
             onChange={handleChange}
             onBlur={onBlur}
             onKeyDown={onKeyDown}
             disabled={disabled}
           />
-         <button
+          <button
             type="button"
             className="toggle-password-btn"
             onClick={togglePasswordVisibility}
             disabled={disabled}
           >
-            {showPassword ? "👁️‍🗨️" : "👁️"}
-        </button>
+            {showPassword ? '👁️‍🗨️' : '👁️'}
+          </button>
         </div>
       ) : (
         <input
@@ -52,7 +52,7 @@ export const Input = ({
           id={id}
           type={type}
           placeholder={placeholder}
-          value={value || ""}
+          value={value || ''}
           onChange={handleChange}
           onBlur={onBlur}
           onKeyDown={onKeyDown}

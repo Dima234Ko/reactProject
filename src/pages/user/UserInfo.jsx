@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
-import { Button, UploadButton } from "../../components/Button";
-import { setSerial } from "../../store/actions/serialActions";
-import { Input } from "../../components/Input";
-import { setLogin } from "../../store/actions/loginActions";
-import { getRegion } from "../../functions/region";
-import { setWork } from "../../store/actions/workActions";
-import { setRegion } from "../../store/actions/regionActions";
-import { setId } from "../../store/actions/idActions";
-import { FormInfo } from "../../components/Form/Form";
-import { FormPhoto } from "../../components/Form/FormPhoto";
-import { Loader } from "../../components/Loader";
-import Result from "../../components/Result";
-import { getNumberBrowserUrl, getParamBrowserUrl } from "../../functions/url";
-import { searchIdUs } from "../../functions/pppoe";
-import { setInfoToUs } from "../../functions/userInfo";
-import { closeTask } from "../../functions/work";
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Button, UploadButton } from '../../components/Button';
+import { setSerial } from '../../store/actions/serialActions';
+import { Input } from '../../components/Input';
+import { setLogin } from '../../store/actions/loginActions';
+import { getRegion } from '../../functions/region';
+import { setWork } from '../../store/actions/workActions';
+import { setRegion } from '../../store/actions/regionActions';
+import { setId } from '../../store/actions/idActions';
+import { FormInfo } from '../../components/Form/Form';
+import { FormPhoto } from '../../components/Form/FormPhoto';
+import { Loader } from '../../components/Loader';
+import Result from '../../components/Result';
+import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
+import { searchIdUs } from '../../functions/pppoe';
+import { setInfoToUs } from '../../functions/userInfo';
+import { closeTask } from '../../functions/work';
 
 function UserInfo() {
   const dispatch = useDispatch();
@@ -28,22 +28,22 @@ function UserInfo() {
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const idFromRedux = useSelector((state) => state.id.id);
   const regionFromRedux = useSelector((state) => state.region.region);
-  const [regionId, setRegionId] = useState("");
-  const [serial, setSerialState] = useState(serialFromRedux || "");
+  const [regionId, setRegionId] = useState('');
+  const [serial, setSerialState] = useState(serialFromRedux || '');
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [surname, setSurname] = useState("");
-  const [name, setName] = useState("");
-  const [patronymic, setPatronymic] = useState("");
-  const [phone, setPhone] = useState("");
+  const [surname, setSurname] = useState('');
+  const [name, setName] = useState('');
+  const [patronymic, setPatronymic] = useState('');
+  const [phone, setPhone] = useState('');
   const [result, setResult] = useState(null);
   const [isUploadSuccessful, setUploadSuccess] = useState(false);
-  const serialFromUrl = getParamBrowserUrl("serial");
-  const loginFromUrl = getParamBrowserUrl("login") || "";
-  const workFromUrl = getParamBrowserUrl("work");
-  const regionFromUrl = getNumberBrowserUrl("region");
+  const serialFromUrl = getParamBrowserUrl('serial');
+  const loginFromUrl = getParamBrowserUrl('login') || '';
+  const workFromUrl = getParamBrowserUrl('work');
+  const regionFromUrl = getNumberBrowserUrl('region');
 
   useEffect(() => {
     if (serialFromUrl) {
@@ -65,7 +65,7 @@ function UserInfo() {
       dispatch(setLogin(loginFromUrl));
     }
 
-    if (loginFromRedux !== "") {
+    if (loginFromRedux !== '') {
       fetchDataUser();
     }
   }, [serialFromRedux]);
@@ -78,14 +78,14 @@ function UserInfo() {
           loginFromRedux,
           serialFromRedux,
           setResult,
-          "login",
+          'login'
         );
       } else if (serialFromRedux) {
         data = await searchIdUs(
           serialFromRedux,
           serialFromRedux,
           setResult,
-          "serial",
+          'serial'
         );
       }
       if (data?.idUserSideCard) {
@@ -94,17 +94,17 @@ function UserInfo() {
 
       if (data?.userFullName && data.userFullName !== data.userLogin) {
         const [surname, name, patronymic] = data.userFullName
-          .split(" ")
-          .concat(["", ""])
+          .split(' ')
+          .concat(['', ''])
           .slice(0, 3);
         setSurname(surname);
         setName(name);
         setPatronymic(patronymic);
       }
     } catch (error) {
-      console.error("Ошибка при получении данных:", error);
+      console.error('Ошибка при получении данных:', error);
       setResult({
-        result: "Ошибка при получении данных",
+        result: 'Ошибка при получении данных',
         success: false,
       });
     }
@@ -123,16 +123,16 @@ function UserInfo() {
         name,
         patronymic,
         phone,
-        workFromRedux,
+        workFromRedux
       );
       setResult({
-        result: "Данные успешно записаны",
+        result: 'Данные успешно записаны',
         success: true,
       });
       closeTask();
       navigate(`/work?region=${regionFromRedux}`);
     } catch (error) {
-      console.error("Ошибка при записи данных:", error);
+      console.error('Ошибка при записи данных:', error);
       setResult({
         result: `Ошибка при записи данных: ${error.message}`,
         success: false,

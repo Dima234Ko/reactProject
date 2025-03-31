@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export function Pagination({ totalPages, activePage, onPageChange }) {
   const handlePageChange = (page) => {
@@ -15,10 +15,10 @@ export function Pagination({ totalPages, activePage, onPageChange }) {
       <button
         key={1}
         onClick={() => handlePageChange(1)}
-        className={activePage === 1 ? "active" : ""}
+        className={activePage === 1 ? 'active' : ''}
       >
         1
-      </button>,
+      </button>
     );
 
     if (totalPages <= 3) {
@@ -28,10 +28,10 @@ export function Pagination({ totalPages, activePage, onPageChange }) {
           <button
             key={i}
             onClick={() => handlePageChange(i)}
-            className={activePage === i ? "active" : ""}
+            className={activePage === i ? 'active' : ''}
           >
             {i}
-          </button>,
+          </button>
         );
       }
     } else {
@@ -40,7 +40,7 @@ export function Pagination({ totalPages, activePage, onPageChange }) {
         pages.push(
           <span key="dots1" className="dots">
             ...
-          </span>,
+          </span>
         );
       }
 
@@ -54,10 +54,10 @@ export function Pagination({ totalPages, activePage, onPageChange }) {
           <button
             key={i}
             onClick={() => handlePageChange(i)}
-            className={activePage === i ? "active" : ""}
+            className={activePage === i ? 'active' : ''}
           >
             {i}
-          </button>,
+          </button>
         );
       }
 
@@ -66,7 +66,7 @@ export function Pagination({ totalPages, activePage, onPageChange }) {
         pages.push(
           <span key="dots2" className="dots">
             ...
-          </span>,
+          </span>
         );
       }
 
@@ -75,10 +75,10 @@ export function Pagination({ totalPages, activePage, onPageChange }) {
         <button
           key={totalPages}
           onClick={() => handlePageChange(totalPages)}
-          className={activePage === totalPages ? "active" : ""}
+          className={activePage === totalPages ? 'active' : ''}
         >
           {totalPages}
-        </button>,
+        </button>
       );
     }
 

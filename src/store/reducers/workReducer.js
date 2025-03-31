@@ -1,4 +1,4 @@
-import { SET_WORK } from "../actions/workActions";
+import { SET_WORK } from '../actions/workActions';
 
 const initialState = {
   work: 0,

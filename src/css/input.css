@@ -44,7 +44,7 @@ select {
 }
 
 /* Скрываем стандартный элемент input */
-input[type="file"] {
+input[type='file'] {
   display: none;
 }
 

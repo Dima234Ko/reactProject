@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from 'react';
 
 export function Select({ id, options, value, onChange }) {
   return (
@@ -14,10 +14,10 @@ export function Select({ id, options, value, onChange }) {
 
 export function SelectRoot({ onChange, value }) {
   const options = [
-    { label: "Без прав", value: "noRoles" },
-    { label: "Монтажник", value: "installer" },
-    { label: "Инженер", value: "engineer" },
-    { label: "Администратор", value: "admin" },
+    { label: 'Без прав', value: 'noRoles' },
+    { label: 'Монтажник', value: 'installer' },
+    { label: 'Инженер', value: 'engineer' },
+    { label: 'Администратор', value: 'admin' },
   ];
 
   return (
@@ -33,20 +33,20 @@ export function SelectRoot({ onChange, value }) {
 
 export function SelectSSID({ value, onChange }) {
   const options = [
-    "auto",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10",
-    "11",
-    "12",
-    "13",
+    'auto',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    '11',
+    '12',
+    '13',
   ];
   return (
     <Select
@@ -60,17 +60,17 @@ export function SelectSSID({ value, onChange }) {
 
 export function SelectSSID5({ value, onChange }) {
   const options = [
-    "auto",
-    "36",
-    "40",
-    "42",
-    "44",
-    "48",
-    "149",
-    "153",
-    "157",
-    "161",
-    "165",
+    'auto',
+    '36',
+    '40',
+    '42',
+    '44',
+    '48',
+    '149',
+    '153',
+    '157',
+    '161',
+    '165',
   ];
   return (
     <Select
@@ -83,13 +83,13 @@ export function SelectSSID5({ value, onChange }) {
 }
 
 export function DropdownSelect({ id, options, value, onChange }) {
-  const [searchTerm, setSearchTerm] = useState(value || "");
+  const [searchTerm, setSearchTerm] = useState(value || '');
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   // Фильтрация опций на основе введенного текста
   const filteredOptions = options.filter((option) =>
-    option.toLowerCase().includes(searchTerm.toLowerCase()),
+    option.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   // Обработка выбора опции
@@ -107,7 +107,7 @@ export function DropdownSelect({ id, options, value, onChange }) {
 
     // Проверяем, есть ли точное совпадение среди опций
     const exactMatch = options.find(
-      (option) => option.toLowerCase() === inputValue.toLowerCase(),
+      (option) => option.toLowerCase() === inputValue.toLowerCase()
     );
     // Если точного совпадения нет, устанавливаем value в null
     onChange({ target: { value: exactMatch || null } });
@@ -120,49 +120,49 @@ export function DropdownSelect({ id, options, value, onChange }) {
         setIsOpen(false);
         // Проверяем, соответствует ли searchTerm опции, иначе сбрасываем в null
         const exactMatch = options.find(
-          (option) => option.toLowerCase() === searchTerm.toLowerCase(),
+          (option) => option.toLowerCase() === searchTerm.toLowerCase()
         );
-        if (!exactMatch && searchTerm !== "") {
-          setSearchTerm("");
+        if (!exactMatch && searchTerm !== '') {
+          setSearchTerm('');
           onChange({ target: { value: null } });
         }
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [searchTerm, options, onChange]);
 
   return (
     <div ref={dropdownRef} className="dropdownContainer">
-    <input
-      type="text"
-      id={id}
-      value={searchTerm}
-      onChange={handleInputChange}
-      onFocus={() => setIsOpen(true)}
-      placeholder="Введите имя пользователя"
-      className="some-input"
-    />
-  
-    {isOpen && (
-      <ul className="dropdownList">
-        {filteredOptions.length > 0 ? (
-          filteredOptions.map((option) => (
-            <li
-              className="dropdownElement"
-              key={option}
-              onClick={() => handleSelect(option)}
-            >
-              {option}
-            </li>
-          ))
-        ) : (
-          <li className="dropdownEmpty">Нет вариантов</li>
-        )}
-      </ul>
-    )}
-  </div>
+      <input
+        type="text"
+        id={id}
+        value={searchTerm}
+        onChange={handleInputChange}
+        onFocus={() => setIsOpen(true)}
+        placeholder="Введите имя пользователя"
+        className="some-input"
+      />
+
+      {isOpen && (
+        <ul className="dropdownList">
+          {filteredOptions.length > 0 ? (
+            filteredOptions.map((option) => (
+              <li
+                className="dropdownElement"
+                key={option}
+                onClick={() => handleSelect(option)}
+              >
+                {option}
+              </li>
+            ))
+          ) : (
+            <li className="dropdownEmpty">Нет вариантов</li>
+          )}
+        </ul>
+      )}
+    </div>
   );
 }

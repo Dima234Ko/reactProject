@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Input } from "../Input";
-import { Select, DropdownSelect } from "../Select";
-import { Button } from "../Button";
-import { Checkbox } from "../Checkbox";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Input } from '../Input';
+import { Select, DropdownSelect } from '../Select';
+import { Button } from '../Button';
+import { Checkbox } from '../Checkbox';
 import {
   setRegionTask,
   setWorkTask,
@@ -13,29 +13,29 @@ import {
   setPonSerialPage,
   setCannal,
   setLoginTask,
-} from "../../store/actions/pageLogTaskActions";
-import { getLogins } from "../../functions/account";
-import { requestAPI } from "../../functions/api";
-import { getRegionForName } from "../../functions/region";
-import { getWork, setWork } from "../../functions/report";
+} from '../../store/actions/pageLogTaskActions';
+import { getLogins } from '../../functions/account';
+import { requestAPI } from '../../functions/api';
+import { getRegionForName } from '../../functions/region';
+import { getWork, setWork } from '../../functions/report';
 
 export function FormFilterReport({ onClose, task }) {
   const dispatch = useDispatch();
   const pageLog = useSelector((state) => state.page);
-  const [cannal, setLocalCannal] = useState(pageLog.cannal || "");
-  const [startDate, setLocalStartDate] = useState(pageLog.startDate || "");
-  const [endDate, setLocalEndDate] = useState(pageLog.endDate || "");
-  const [selectedUser, setSelectedUser] = useState(pageLog.userPage || "");
+  const [cannal, setLocalCannal] = useState(pageLog.cannal || '');
+  const [startDate, setLocalStartDate] = useState(pageLog.startDate || '');
+  const [endDate, setLocalEndDate] = useState(pageLog.endDate || '');
+  const [selectedUser, setSelectedUser] = useState(pageLog.userPage || '');
   const [selectedRegion, setSelectedRegion] = useState(
-    pageLog.regionTask || "",
+    pageLog.regionTask || ''
   );
-  const [selectedWork, setSelectedWork] = useState(pageLog.workTask || "");
-  const [ponSerial, setLocalPonSerial] = useState(pageLog.ponSerialPage || "");
-  const [login, setLocalLogin] = useState(pageLog.loginTask || "");
+  const [selectedWork, setSelectedWork] = useState(pageLog.workTask || '');
+  const [ponSerial, setLocalPonSerial] = useState(pageLog.ponSerialPage || '');
+  const [login, setLocalLogin] = useState(pageLog.loginTask || '');
   const [isManualChecked, setIsManualChecked] = useState(
-    pageLog.cannal === "manual",
+    pageLog.cannal === 'manual'
   );
-  const [isAutoChecked, setIsAutoChecked] = useState(pageLog.cannal === "auto");
+  const [isAutoChecked, setIsAutoChecked] = useState(pageLog.cannal === 'auto');
   const [users, setUsers] = useState([]);
   const [regions, setRegions] = useState([]);
 
@@ -47,9 +47,9 @@ export function FormFilterReport({ onClose, task }) {
         setUsers(userList);
 
         // Загрузка регионов
-        const regionList = await requestAPI("GET", "settings/getRegion");
+        const regionList = await requestAPI('GET', 'settings/getRegion');
         const updatedRegionList = [
-          { regionName: "Все регионы", id: "all" },
+          { regionName: 'Все регионы', id: 'all' },
           ...regionList,
         ];
         setRegions(updatedRegionList);
@@ -65,7 +65,7 @@ export function FormFilterReport({ onClose, task }) {
           setSelectedWork(workList[0]);
         }
       } catch (error) {
-        console.error("Ошибка при загрузке данных:", error);
+        console.error('Ошибка при загрузке данных:', error);
       }
     };
 
@@ -76,10 +76,10 @@ export function FormFilterReport({ onClose, task }) {
   const handleManualChange = (checked) => {
     setIsManualChecked(checked);
     if (checked) {
-      setLocalCannal("manual");
+      setLocalCannal('manual');
       setIsAutoChecked(false);
     } else if (!isAutoChecked) {
-      setLocalCannal("");
+      setLocalCannal('');
     }
   };
 
@@ -87,10 +87,10 @@ export function FormFilterReport({ onClose, task }) {
   const handleAutoChange = (checked) => {
     setIsAutoChecked(checked);
     if (checked) {
-      setLocalCannal("auto");
+      setLocalCannal('auto');
       setIsManualChecked(false);
     } else if (!isManualChecked) {
-      setLocalCannal("");
+      setLocalCannal('');
     }
   };
 
@@ -106,21 +106,21 @@ export function FormFilterReport({ onClose, task }) {
       dispatch(setLoginTask(login)); // Добавлено сохранение login в Redux
 
       const cannalValue = isManualChecked
-        ? "manual"
+        ? 'manual'
         : isAutoChecked
-          ? "auto"
+          ? 'auto'
           : null;
       dispatch(setCannal(cannalValue));
 
       const selectedRegionData = regions.find(
-        (item) => item.regionName === selectedRegion,
+        (item) => item.regionName === selectedRegion
       );
 
       if (onClose) {
         onClose();
       }
     } catch (error) {
-      console.error("Ошибка в handleSearch:", error);
+      console.error('Ошибка в handleSearch:', error);
     }
   };
 

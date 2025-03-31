@@ -23,7 +23,7 @@
   background-color: #f4f4f4;
 }
 
-.user-table td input[type="checkbox"] {
+.user-table td input[type='checkbox'] {
   width: 20px; /* Ширина чекбокса */
   height: 20px; /* Высота чекбокса */
 }

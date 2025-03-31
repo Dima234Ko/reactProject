@@ -18,12 +18,12 @@ export function removeUrlParam(key, navigate) {
 
 export function getNumberBrowserUrl(param) {
   const params = new URLSearchParams(window.location.search);
-  const data = params.get(param) || "";
-  return data.match(/^\d+$/) ? data : "";
+  const data = params.get(param) || '';
+  return data.match(/^\d+$/) ? data : '';
 }
 
 export function getParamBrowserUrl(param) {
   const params = new URLSearchParams(window.location.search);
-  const data = params.get(param) || "";
+  const data = params.get(param) || '';
   return data;
 }

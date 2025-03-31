@@ -1,4 +1,4 @@
-import { SET_CHECKED_VALUE } from "../actions/checkboxUserActions";
+import { SET_CHECKED_VALUE } from '../actions/checkboxUserActions';
 
 const initialState = {
   checkedValue: null,

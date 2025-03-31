@@ -1,6 +1,6 @@
-import React from "react";
-import { Table } from "../components/Table";
-import { downloadPhoto } from "../functions/photo";
+import React from 'react';
+import { Table } from '../components/Table';
+import { downloadPhoto } from '../functions/photo';
 
 export function TableReportTask({ taskData }) {
   if (!taskData) {
@@ -19,7 +19,7 @@ export function TableReportTask({ taskData }) {
   ONT: ${item.respResult.ont_status}, ${item.respResult.RX_power}, 
   OLT: ${item.respResult.ip_olt} ${item.respResult.PON_port}/${item.respResult.PON_id}`
           : `PON: ${item.respResult.serialNewNtu}
-${typeof item.respResult.ont_status === "undefined" ? item.respResult.info : item.respResult.ont_status && !item.respResult.ont_status.includes("не найден на ACS") ? item.respResult.info : item.respResult.ont_status}`,
+${typeof item.respResult.ont_status === 'undefined' ? item.respResult.info : item.respResult.ont_status && !item.respResult.ont_status.includes('не найден на ACS') ? item.respResult.info : item.respResult.ont_status}`,
       });
     });
   }
@@ -34,7 +34,7 @@ ${typeof item.respResult.ont_status === "undefined" ? item.respResult.info : ite
         name: `Настройка PPPoE [${index + 1}]`,
         respResult: item.respResult.success
           ? `PON: ${item.respResult.serialNewNtu},
-${item.respResult.create_login_US === null ? "Карточка существует в US" : item.respResult.create_login_US},
+${item.respResult.create_login_US === null ? 'Карточка существует в US' : item.respResult.create_login_US},
 ${item.respResult.write_PONserial}, 
 ${item.respResult.ont_config}`
           : `PON: ${item.respResult.serialNewNtu}
@@ -101,7 +101,7 @@ ${taskData.equipmentShutdownDto.info}`,
     });
   }
 
-  const columns = ["Действие", "Результат"];
+  const columns = ['Действие', 'Результат'];
 
   const tableBody = tableRows.map((row) => (
     <tr key={row.key}>
@@ -109,10 +109,10 @@ ${taskData.equipmentShutdownDto.info}`,
         <pre>{row.name}</pre>
       </td>
       <td>
-        {row.name.includes("Загрузка фото") && row.id !== undefined ? (
+        {row.name.includes('Загрузка фото') && row.id !== undefined ? (
           <pre
             onClick={() => downloadPhoto(row.id)}
-            style={{ cursor: "pointer", color: "blue" }}
+            style={{ cursor: 'pointer', color: 'blue' }}
           >
             {row.respResult}
           </pre>

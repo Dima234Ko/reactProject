@@ -1,4 +1,4 @@
-import { getTaskId, checkTask } from "./task";
+import { getTaskId, checkTask } from './task';
 export async function disableNTU(
   isChecked,
   selectedRadioOption,
@@ -7,7 +7,7 @@ export async function disableNTU(
   navigate,
   dispatch,
   setResult,
-  setLoading,
+  setLoading
 ) {
   try {
     let action = `newConnection/equipmentShutdown`;
@@ -21,7 +21,7 @@ export async function disableNTU(
       dispatch,
       setLoading,
       navigate,
-      serial,
+      serial
     );
 
     if (taskId) {
@@ -34,7 +34,7 @@ export async function disableNTU(
         setResult,
         navigate,
         0,
-        30,
+        30
       );
       navigate(`/region`);
     }
@@ -44,19 +44,19 @@ export async function disableNTU(
 }
 
 function getBody(isChecked, selectedRadioOption, radioOptions, serial) {
-  let checkboxText = "";
-  let radioText = "";
+  let checkboxText = '';
+  let radioText = '';
   if (isChecked) {
-    checkboxText = "Неисправность оборудования";
+    checkboxText = 'Неисправность оборудования';
   } else {
-    checkboxText = "Отключение абонентской линии";
+    checkboxText = 'Отключение абонентской линии';
   }
 
   // Определяем текст выбранной радиокнопки
   if (isChecked && selectedRadioOption) {
     radioText = radioOptions[selectedRadioOption];
   } else {
-    radioText = "";
+    radioText = '';
   }
 
   let body = {

@@ -1,5 +1,5 @@
-import { getTaskId, checkTask } from "./task";
-import { setProgress } from "../store/actions/progressActions";
+import { getTaskId, checkTask } from './task';
+import { setProgress } from '../store/actions/progressActions';
 
 export async function setWiFi(
   serial,
@@ -14,7 +14,7 @@ export async function setWiFi(
   setResult,
   dispatch,
   navigate,
-  regionId,
+  regionId
 ) {
   setLoading(true);
   setResult(null);
@@ -38,19 +38,19 @@ export async function setWiFi(
       dispatch,
       setLoading,
       navigate,
-      serial,
+      serial
     );
     if (taskId) {
       // Если taskId получен, начинаем отслеживание статуса
       await checkTask(
-        "task/taskStatus",
+        'task/taskStatus',
         taskId,
         dispatch,
         setLoading,
         setResult,
         navigate,
         0,
-        80,
+        80
       );
     }
   } catch (error) {

@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Table } from "../../components/Table";
-import { FiltrButton } from "../../components/Button";
-import { FormInfo } from "../../components/Form/Form";
-import { FormFilterReport } from "../../components/Form/FormFilterReport";
-import { FormReportTask } from "../../components/Form/FormReportTask";
-import { Loader } from "../../components/Loader";
-import { getReport } from "../../functions/report";
-import { setReportTask } from "../../store/actions/taskReportActions";
-import { setActivePage } from "../../store/actions/pageLogTaskActions";
-import { Pagination } from "../../components/Pagination";
-import { FilterDisplay } from "../../components/FilterDisplay";
-import { SwitchComponent } from "../../components/Swich";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Table } from '../../components/Table';
+import { FiltrButton } from '../../components/Button';
+import { FormInfo } from '../../components/Form/Form';
+import { FormFilterReport } from '../../components/Form/FormFilterReport';
+import { FormReportTask } from '../../components/Form/FormReportTask';
+import { Loader } from '../../components/Loader';
+import { getReport } from '../../functions/report';
+import { setReportTask } from '../../store/actions/taskReportActions';
+import { setActivePage } from '../../store/actions/pageLogTaskActions';
+import { Pagination } from '../../components/Pagination';
+import { FilterDisplay } from '../../components/FilterDisplay';
+import { SwitchComponent } from '../../components/Swich';
 
 function Report() {
   const [loading, setLoading] = useState(true);
@@ -45,7 +45,7 @@ function Report() {
       cannal,
       regionTask,
       workTask,
-      loginTask,
+      loginTask
     );
     return reportData;
   };
@@ -58,7 +58,7 @@ function Report() {
         setData(result);
         setFilteredData(result);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
@@ -79,9 +79,9 @@ function Report() {
 
   let columns;
   if (task) {
-    columns = ["Дата", "Логин", "ID устройства", "Вид работ", "US"];
+    columns = ['Дата', 'Логин', 'ID устройства', 'Вид работ', 'US'];
   } else {
-    columns = ["Дата", "Логин", "ID устройства", "Канал", "US"];
+    columns = ['Дата', 'Логин', 'ID устройства', 'Канал', 'US'];
   }
 
   const handleHeaderWorkNameClick = async (row) => {
@@ -92,7 +92,7 @@ function Report() {
 
   const openFilterForm = () => {
     setFormContent(
-      <FormFilterReport onClose={() => setIsFormOpen(false)} task={task} />,
+      <FormFilterReport onClose={() => setIsFormOpen(false)} task={task} />
     );
     setIsFormOpen(true);
   };
@@ -110,9 +110,9 @@ function Report() {
       <td>
         <span
           onClick={() => handleHeaderWorkNameClick(row)}
-          style={{ cursor: "pointer", color: "blue" }}
+          style={{ cursor: 'pointer', color: 'blue' }}
         >
-          {row.headerWorkName || row.channel || "-"}
+          {row.headerWorkName || row.channel || '-'}
         </span>
       </td>
       <td>

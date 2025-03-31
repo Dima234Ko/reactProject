@@ -1,4 +1,4 @@
-import { SET_PROGRESS } from "../actions/progressActions";
+import { SET_PROGRESS } from '../actions/progressActions';
 
 const initialState = {
   progress: 0, // начальное значение прогресса

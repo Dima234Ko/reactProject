@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { Input } from "../Input";
-import { Button } from "../Button";
-import { requestAPI } from "../../functions/api";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import { Input } from '../Input';
+import { Button } from '../Button';
+import { requestAPI } from '../../functions/api';
+import { useSelector } from 'react-redux';
 
 export function FormEditUser({ setCreateSuccess, onClose }) {
   const [formData, setFormData] = useState({
-    lastName: "",
-    firstName: "",
-    middleName: "",
-    login: "",
-    password: "",
-    root: "",
+    lastName: '',
+    firstName: '',
+    middleName: '',
+    login: '',
+    password: '',
+    root: '',
   });
-  const [resultForm, setResultForm] = useState("");
+  const [resultForm, setResultForm] = useState('');
   const userId = useSelector((state) => state.checkboxUser.checkedValue);
 
   // Обработка изменения полей ввода
@@ -23,25 +23,25 @@ export function FormEditUser({ setCreateSuccess, onClose }) {
       ...prevData,
       [name]: value,
     }));
-    setResultForm("");
+    setResultForm('');
   };
 
   // Получение данных пользователя при загрузке компонента
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await requestAPI("GET", `ADMIN/getUserById/${userId}`);
+        const response = await requestAPI('GET', `ADMIN/getUserById/${userId}`);
         setFormData({
-          lastName: response.lastName || "",
-          firstName: response.firstName || "",
-          middleName: response.middleName || "",
-          login: response.login || "",
-          password: "",
-          root: response.root || "",
+          lastName: response.lastName || '',
+          firstName: response.firstName || '',
+          middleName: response.middleName || '',
+          login: response.login || '',
+          password: '',
+          root: response.root || '',
         });
       } catch (error) {
-        console.error("Ошибка при загрузке данных пользователя:", error);
-        setResultForm("Ошибка при загрузке данных");
+        console.error('Ошибка при загрузке данных пользователя:', error);
+        setResultForm('Ошибка при загрузке данных');
       }
     };
 
@@ -52,7 +52,7 @@ export function FormEditUser({ setCreateSuccess, onClose }) {
 
   // Обработка изменения пользователя
   const handleEdit = async () => {
-    setResultForm("Создание пользователя...");
+    setResultForm('Создание пользователя...');
 
     // Формируем объект body из formData
     const body = {
@@ -67,16 +67,16 @@ export function FormEditUser({ setCreateSuccess, onClose }) {
     }
 
     try {
-      const response = await requestAPI("POST", "ADMIN/updateUser", body);
-      setResultForm("Пользователь успешно изменен");
+      const response = await requestAPI('POST', 'ADMIN/updateUser', body);
+      setResultForm('Пользователь успешно изменен');
       setCreateSuccess(true);
       setTimeout(() => {
         if (onClose) onClose();
       }, 1500);
     } catch (error) {
-      console.error("Ошибка при создании пользователя:", error);
+      console.error('Ошибка при создании пользователя:', error);
       setResultForm(
-        "Произошла ошибка при создании пользователя. Попробуйте снова.",
+        'Произошла ошибка при создании пользователя. Попробуйте снова.'
       );
     }
   };
@@ -101,7 +101,7 @@ export function FormEditUser({ setCreateSuccess, onClose }) {
           value={formData.lastName}
           onChange={(e) =>
             handleInputChange({
-              target: { name: "lastName", value: e.target.value },
+              target: { name: 'lastName', value: e.target.value },
             })
           }
         />
@@ -112,7 +112,7 @@ export function FormEditUser({ setCreateSuccess, onClose }) {
           value={formData.firstName}
           onChange={(e) =>
             handleInputChange({
-              target: { name: "firstName", value: e.target.value },
+              target: { name: 'firstName', value: e.target.value },
             })
           }
         />
@@ -123,7 +123,7 @@ export function FormEditUser({ setCreateSuccess, onClose }) {
           value={formData.middleName}
           onChange={(e) =>
             handleInputChange({
-              target: { name: "middleName", value: e.target.value },
+              target: { name: 'middleName', value: e.target.value },
             })
           }
         />
@@ -138,7 +138,7 @@ export function FormEditUser({ setCreateSuccess, onClose }) {
           value={formData.password}
           onChange={(e) =>
             handleInputChange({
-              target: { name: "password", value: e.target.value },
+              target: { name: 'password', value: e.target.value },
             })
           }
         />

@@ -1,5 +1,5 @@
-import { requestAPI } from "./api";
-import { useNavigate } from "react-router-dom";
+import { requestAPI } from './api';
+import { useNavigate } from 'react-router-dom';
 import {
   setTask,
   setSubtask,
@@ -7,13 +7,13 @@ import {
   setWork,
   setRegTask,
   setTransition,
-} from "../store/actions/taskActions";
-import { setSerial } from "../store/actions/serialActions";
+} from '../store/actions/taskActions';
+import { setSerial } from '../store/actions/serialActions';
 
 // Функция получения активной задачи
 export async function getActiveTask(dispatch, body) {
   try {
-    const response = await requestAPI("GET", "task/findTaskInProcess");
+    const response = await requestAPI('GET', 'task/findTaskInProcess');
     if (response && response.headerTaskName) {
       dispatch(setTask(response.headerTaskName));
       dispatch(setSubtask(response.lastCompletedTask));
@@ -47,10 +47,10 @@ export async function closeTask(
   navigate,
   regionFromRedux,
   dispatch,
-  closeForm,
+  closeForm
 ) {
   try {
-    const task = await requestAPI("GET", "task/closedTask");
+    const task = await requestAPI('GET', 'task/closedTask');
     dispatch(setTask(null));
     dispatch(setSubtask(null));
     dispatch(setAction(null));
@@ -70,20 +70,20 @@ export async function openTask(
   navigate,
   taskFromRedux,
   serialFromRedux,
-  closeForm,
+  closeForm
 ) {
   try {
-    if (taskFromRedux.action !== "NEW") {
+    if (taskFromRedux.action !== 'NEW') {
       navigate(
-        `/${taskFromRedux.action}?region=${taskFromRedux.reg}&work=${taskFromRedux.work}&serial=${serialFromRedux}&task=${taskFromRedux.subtask}`,
+        `/${taskFromRedux.action}?region=${taskFromRedux.reg}&work=${taskFromRedux.work}&serial=${serialFromRedux}&task=${taskFromRedux.subtask}`
       );
-    } else if (taskFromRedux.work === "Equipment shutdown") {
+    } else if (taskFromRedux.work === 'Equipment shutdown') {
       navigate(
-        `/disable?region=${taskFromRedux.reg}&work=${taskFromRedux.work}`,
+        `/disable?region=${taskFromRedux.reg}&work=${taskFromRedux.work}`
       );
     } else {
       navigate(
-        `/status?region=${taskFromRedux.reg}&work=${taskFromRedux.work}`,
+        `/status?region=${taskFromRedux.reg}&work=${taskFromRedux.work}`
       );
     }
     closeForm();

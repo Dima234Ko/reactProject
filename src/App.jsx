@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,31 +6,31 @@ import {
   useLocation,
   Navigate,
   useNavigate,
-} from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import Authorization from "./pages/Authorization";
-import Header from "./components/Header";
-import Status from "./pages/user/Status";
-import Pppoe from "./pages/user/PPPOE";
-import Wifi from "./pages/user/Wifi";
-import Settings from "./pages/user/Settings";
-import Region from "./pages/user/Region";
-import User from "./pages/admin/Accounts";
-import Report from "./pages/admin/Report";
-import Disabling from "./pages/user/Disabling";
-import Work from "./pages/user/Work";
-import Malfunction from "./pages/user/Malfunction";
-import UserInfo from "./pages/user/UserInfo";
-import Replcement from "./pages/user/Replacement";
-import ChangePassword from "./pages/user/СhangePassword";
-import { TaskButton, ExpressButton } from "./components/Button";
-import { FormInfo } from "./components/Form/Form";
-import { openTask, closeTask } from "./functions/work";
+} from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import Authorization from './pages/Authorization';
+import Header from './components/Header';
+import Status from './pages/user/Status';
+import Pppoe from './pages/user/PPPOE';
+import Wifi from './pages/user/Wifi';
+import Settings from './pages/user/Settings';
+import Region from './pages/user/Region';
+import User from './pages/admin/Accounts';
+import Report from './pages/admin/Report';
+import Disabling from './pages/user/Disabling';
+import Work from './pages/user/Work';
+import Malfunction from './pages/user/Malfunction';
+import UserInfo from './pages/user/UserInfo';
+import Replcement from './pages/user/Replacement';
+import ChangePassword from './pages/user/СhangePassword';
+import { TaskButton, ExpressButton } from './components/Button';
+import { FormInfo } from './components/Form/Form';
+import { openTask, closeTask } from './functions/work';
 import {
   setBulleanTask,
   setActivePage,
-} from "./store/actions/pageLogTaskActions";
-import FavIcon from "./components/Icon";
+} from './store/actions/pageLogTaskActions';
+import FavIcon from './components/Icon';
 
 function App() {
   return (
@@ -49,15 +49,15 @@ function Main() {
   const { pathname } = location;
 
   // Параметры из URL
-  const hasSerial = params.has("serial");
-  const hasRegion = params.has("region");
-  const hasWork = params.has("work");
-  const hasLogin = params.has("login");
-  const isWorkParam = params.get("work");
+  const hasSerial = params.has('serial');
+  const hasRegion = params.has('region');
+  const hasWork = params.has('work');
+  const hasLogin = params.has('login');
+  const isWorkParam = params.get('work');
 
   // Состояние UI
-  const showBackButton = pathname !== "/";
-  const showBurgerMenu = pathname !== "/";
+  const showBackButton = pathname !== '/';
+  const showBurgerMenu = pathname !== '/';
 
   // Redux state
   const serialFromRedux = useSelector((state) => state.serial.serial);
@@ -69,31 +69,31 @@ function Main() {
 
   // Получение userRoot из localStorage
   const getUserRoot = () => {
-    const authResult = localStorage.getItem("authResult");
-    return authResult ? JSON.parse(authResult) : "0";
+    const authResult = localStorage.getItem('authResult');
+    return authResult ? JSON.parse(authResult) : '0';
   };
   const userRoot = getUserRoot();
 
   // Функция редиректа
   const getRedirectPath = (pathname) => {
-    const needWork = ["/status", "/wifi", "/pppoe", "/malfunction", "/info"];
-    const needRegion = [...needWork, "/work"];
-    const needSerial = ["/pppoe", "/wifi", "/info"];
-    const rootOnly = ["/user", "/report"];
+    const needWork = ['/status', '/wifi', '/pppoe', '/malfunction', '/info'];
+    const needRegion = [...needWork, '/work'];
+    const needSerial = ['/pppoe', '/wifi', '/info'];
+    const rootOnly = ['/user', '/report'];
 
-    if (!hasWork && needWork.includes(pathname)) return "/work";
-    if (!hasRegion && needRegion.includes(pathname)) return "/region";
-    if (!hasSerial && needSerial.includes(pathname)) return "/status";
-    if (!hasLogin && pathname === "/info") return "/pppoe";
+    if (!hasWork && needWork.includes(pathname)) return '/work';
+    if (!hasRegion && needRegion.includes(pathname)) return '/region';
+    if (!hasSerial && needSerial.includes(pathname)) return '/status';
+    if (!hasLogin && pathname === '/info') return '/pppoe';
 
-    if (rootOnly.includes(pathname) && userRoot !== "1") return "/region";
-    if (pathname !== "/" && !["1", "2", "3"].includes(userRoot)) return "/";
+    if (rootOnly.includes(pathname) && userRoot !== '1') return '/region';
+    if (pathname !== '/' && !['1', '2', '3'].includes(userRoot)) return '/';
 
     return null;
   };
 
   useEffect(() => {
-    if (pathname !== "/report") {
+    if (pathname !== '/report') {
       dispatch(setBulleanTask(true));
       dispatch(setActivePage(1));
     }
@@ -101,75 +101,75 @@ function Main() {
 
   // Функция получения пунктов меню
   const getMenuItems = () => {
-    const isRoot = userRoot === "1";
+    const isRoot = userRoot === '1';
     const isSettingsOrRegion =
-      pathname === "/settings" || pathname === "/region";
-    const isNotRootPage = pathname !== "/";
+      pathname === '/settings' || pathname === '/region';
+    const isNotRootPage = pathname !== '/';
 
     return [
       {
-        id: "workPage",
-        name: "Главная",
-        to: "/work",
+        id: 'workPage',
+        name: 'Главная',
+        to: '/work',
         show:
           !isSettingsOrRegion ||
           (isSettingsOrRegion && isRoot) ||
-          pathname !== "/work",
+          pathname !== '/work',
       },
       {
-        id: "statusPage",
-        name: "Статус",
+        id: 'statusPage',
+        name: 'Статус',
         to: `/status?region=${regionFromRedux}&work=${workFromRedux}`,
         show:
           isWorkParam &&
-          pathname !== "/status" &&
-          !["/work", "/malfunction", "/disable"].includes(pathname),
+          pathname !== '/status' &&
+          !['/work', '/malfunction', '/disable'].includes(pathname),
       },
       {
-        id: "replcementPage",
-        name: "Замена NTU",
-        to: `/replcement?region=${regionFromRedux || ""}&work=${workFromRedux || ""}`,
+        id: 'replcementPage',
+        name: 'Замена NTU',
+        to: `/replcement?region=${regionFromRedux || ''}&work=${workFromRedux || ''}`,
         show:
           isWorkParam &&
-          isWorkParam !== "newConnection" &&
-          pathname !== "/replcement" &&
-          !["/work", "/malfunction", "/disable"].includes(pathname),
+          isWorkParam !== 'newConnection' &&
+          pathname !== '/replcement' &&
+          !['/work', '/malfunction', '/disable'].includes(pathname),
       },
       {
-        id: "pppoePage",
-        name: "PPPoE",
-        to: `/pppoe?region=${regionFromRedux || ""}&work=${workFromRedux || ""}&serial=${serialFromRedux || ""}`,
-        show: isNotRootPage && hasSerial && isWorkParam !== "newConnection",
+        id: 'pppoePage',
+        name: 'PPPoE',
+        to: `/pppoe?region=${regionFromRedux || ''}&work=${workFromRedux || ''}&serial=${serialFromRedux || ''}`,
+        show: isNotRootPage && hasSerial && isWorkParam !== 'newConnection',
       },
       {
-        id: "wifiPage",
-        name: "WiFi",
-        to: `/wifi?region=${regionFromRedux || ""}&work=${workFromRedux || ""}&serial=${serialFromRedux || ""}${loginFromRedux ? `&login=${loginFromRedux}` : ""}`,
-        show: isNotRootPage && hasSerial && isWorkParam !== "newConnection",
+        id: 'wifiPage',
+        name: 'WiFi',
+        to: `/wifi?region=${regionFromRedux || ''}&work=${workFromRedux || ''}&serial=${serialFromRedux || ''}${loginFromRedux ? `&login=${loginFromRedux}` : ''}`,
+        show: isNotRootPage && hasSerial && isWorkParam !== 'newConnection',
       },
       {
-        id: "userPage",
-        name: "Пользователи",
-        to: "/user",
+        id: 'userPage',
+        name: 'Пользователи',
+        to: '/user',
         show: isRoot,
       },
       {
-        id: "reportPage",
-        name: "Отчет",
-        to: "/report",
+        id: 'reportPage',
+        name: 'Отчет',
+        to: '/report',
         show: isRoot,
       },
       {
-        id: "settingsPage",
-        name: "Настройки",
-        to: "/settings",
+        id: 'settingsPage',
+        name: 'Настройки',
+        to: '/settings',
         show:
           !isSettingsOrRegion || (isNotRootPage && (!hasSerial || isWorkParam)),
       },
       {
-        id: "homePage",
-        name: "Выход",
-        to: "/",
+        id: 'homePage',
+        name: 'Выход',
+        to: '/',
         show: true,
       },
     ].filter((item) => item.show);
@@ -222,12 +222,12 @@ function Main() {
               <div className="input-container">
                 <ExpressButton
                   onClick={() => {
-                    if (pathname === "/work") {
+                    if (pathname === '/work') {
                       openTask(
                         navigate,
                         taskFromRedux,
                         serialFromRedux,
-                        closeForm,
+                        closeForm
                       );
                     } else {
                       closeForm();
@@ -248,15 +248,15 @@ function Main() {
           }
         />
       )}
-      {pathname === "/work" && taskFromRedux.transition && (
+      {pathname === '/work' && taskFromRedux.transition && (
         <TaskButton onClick={openForm} text="Активная задача" />
       )}
-      {(pathname === "/status" ||
-        pathname === "/pppoe" ||
-        pathname === "/wifi" ||
-        pathname === "/malfunction" ||
-        pathname === "/replcement") &&
-        isWorkParam !== "newConnection" && (
+      {(pathname === '/status' ||
+        pathname === '/pppoe' ||
+        pathname === '/wifi' ||
+        pathname === '/malfunction' ||
+        pathname === '/replcement') &&
+        isWorkParam !== 'newConnection' && (
           <TaskButton onClick={openForm} text="Завершить задачу" />
         )}
     </>

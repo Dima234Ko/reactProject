@@ -1,4 +1,4 @@
-import { SET_REGION } from "../actions/regionActions";
+import { SET_REGION } from '../actions/regionActions';
 
 const initialState = {
   region: 1,

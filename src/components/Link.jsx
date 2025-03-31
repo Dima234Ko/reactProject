@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import nextIcon from "../img/next.svg";
+import { Link } from 'react-router-dom';
+import nextIcon from '../img/next.svg';
 
 export function LinkButton({ name, id, to }) {
   return (
@@ -13,7 +13,7 @@ export function NextButton({ to, disabled }) {
   return (
     <Link
       to={to}
-      className={`next-button ${disabled ? "disabled" : ""}`}
+      className={`next-button ${disabled ? 'disabled' : ''}`}
       aria-disabled={disabled}
     >
       <img src={nextIcon} alt="Кнопка вперед" />

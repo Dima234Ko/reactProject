@@ -1,27 +1,27 @@
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
-import { Loader } from "../../components/Loader";
-import { setRegion } from "../../store/actions/regionActions";
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Loader } from '../../components/Loader';
+import { setRegion } from '../../store/actions/regionActions';
 import {
   NewConnectionButton,
   MalfunctionButton,
   DisconnectButton,
-} from "../../components/Button";
-import { getRegion } from "../../functions/region";
-import { setWork } from "../../store/actions/workActions";
-import { connection, getActiveTask } from "../../functions/work";
-import { getParamBrowserUrl } from "../../functions/url";
+} from '../../components/Button';
+import { getRegion } from '../../functions/region';
+import { setWork } from '../../store/actions/workActions';
+import { connection, getActiveTask } from '../../functions/work';
+import { getParamBrowserUrl } from '../../functions/url';
 
 function Work() {
   const [loading, setLoading] = useState(false);
   const regionFromRedux = useSelector((state) => state.region.region);
   const taskFromRedux = useSelector((state) => state.task);
-  const [regionId, setRegionId] = useState(regionFromRedux || "");
+  const [regionId, setRegionId] = useState(regionFromRedux || '');
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-  const regionFromUrl = getParamBrowserUrl("region");
+  const regionFromUrl = getParamBrowserUrl('region');
 
   useEffect(() => {
     const fetchActiveTask = async () => {
@@ -31,7 +31,7 @@ function Work() {
         };
         await getActiveTask(dispatch, body);
       } catch (error) {
-        console.error("Ошибка при получении активной задачи:", error);
+        console.error('Ошибка при получении активной задачи:', error);
       }
     };
     fetchActiveTask();
@@ -46,16 +46,16 @@ function Work() {
     try {
       setLoading(true);
       await connection(
-        "POST",
-        "startHeader/createNewConnection",
+        'POST',
+        'startHeader/createNewConnection',
         regionId,
-        setLoading,
+        setLoading
       );
-      const work = "newConnection";
+      const work = 'newConnection';
       dispatch(setWork(work));
       navigate(`/status?region=${regionId}&work=${work}`);
     } catch (error) {
-      console.error("Ошибка при создании подключения:", error);
+      console.error('Ошибка при создании подключения:', error);
       setLoading(false);
     }
   };
@@ -64,16 +64,16 @@ function Work() {
     try {
       setLoading(true);
       await connection(
-        "POST",
-        "startHeader/createNewMalfunction ",
+        'POST',
+        'startHeader/createNewMalfunction ',
         regionId,
-        setLoading,
+        setLoading
       );
-      const work = "createNewMalfunction";
+      const work = 'createNewMalfunction';
       dispatch(setWork(work));
       navigate(`/malfunction?region=${regionId}&work=${work}`);
     } catch (error) {
-      console.error("Ошибка при создании подключения:", error);
+      console.error('Ошибка при создании подключения:', error);
       setLoading(false);
     }
   };
@@ -82,16 +82,16 @@ function Work() {
     try {
       setLoading(true);
       await connection(
-        "POST",
-        "startHeader/createEquipmentShutdown",
+        'POST',
+        'startHeader/createEquipmentShutdown',
         regionId,
-        setLoading,
+        setLoading
       );
-      const work = "equipmentShutdown";
+      const work = 'equipmentShutdown';
       dispatch(setWork(work));
       navigate(`/disable?region=${regionId}&work=${work}`);
     } catch (error) {
-      console.error("Ошибка при создании подключения:", error);
+      console.error('Ошибка при создании подключения:', error);
       setLoading(false);
     }
   };
@@ -99,7 +99,7 @@ function Work() {
   return (
     <div id="work">
       <h2>Выбор действия</h2>
-      <h5>{regionId ? getRegion(regionId) : "Регион не выбран"}</h5>
+      <h5>{regionId ? getRegion(regionId) : 'Регион не выбран'}</h5>
       <NewConnectionButton
         onClick={newConnection}
         disabled={taskFromRedux.transition}

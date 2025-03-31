@@ -1,5 +1,5 @@
 h2 {
-  font-family: "Arial", Helvetica, "Roboto", sans-serif;
+  font-family: 'Arial', Helvetica, 'Roboto', sans-serif;
   font-size: 2rem;
   font-weight: 700;
   color: #0d398d;
@@ -22,7 +22,7 @@ h2 {
 }
 
 #app::after {
-  content: "";
+  content: '';
   display: block;
   height: 50px;
 }
@@ -75,7 +75,7 @@ pre {
 }
 
 h6 {
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family: 'Georgia', 'Times New Roman', serif;
   text-align: center;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -83,7 +83,7 @@ h6 {
 }
 
 h5 {
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family: 'Georgia', 'Times New Roman', serif;
   text-align: center;
   margin-top: 0px;
   margin-bottom: 5px;
@@ -91,14 +91,14 @@ h5 {
 }
 
 h4 {
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family: 'Georgia', 'Times New Roman', serif;
   text-align: center;
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
 h3 {
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family: 'Georgia', 'Times New Roman', serif;
   text-align: center;
   margin-top: 25px;
   margin-bottom: 0px;

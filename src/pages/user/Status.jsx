@@ -1,22 +1,22 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
-import { setSerial } from "../../store/actions/serialActions";
-import { setRegion } from "../../store/actions/regionActions";
-import { setProgress } from "../../store/actions/progressActions";
-import { setWork } from "../../store/actions/workActions";
-import { clearLogin } from "../../store/actions/loginActions";
-import { Input } from "../../components/Input";
-import { Button } from "../../components/Button";
-import { Loader } from "../../components/Loader";
-import Result from "../../components/Result";
-import { getStatus } from "../../functions/status";
-import { checkTaskStatus } from "../../functions/task";
-import { NextButton } from "../../components/Link";
-import { FormInfo } from "../../components/Form/Form";
-import { Checkbox } from "../../components/Checkbox";
-import { getParamBrowserUrl } from "../../functions/url";
-import { getRegion } from "../../functions/region";
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { setSerial } from '../../store/actions/serialActions';
+import { setRegion } from '../../store/actions/regionActions';
+import { setProgress } from '../../store/actions/progressActions';
+import { setWork } from '../../store/actions/workActions';
+import { clearLogin } from '../../store/actions/loginActions';
+import { Input } from '../../components/Input';
+import { Button } from '../../components/Button';
+import { Loader } from '../../components/Loader';
+import Result from '../../components/Result';
+import { getStatus } from '../../functions/status';
+import { checkTaskStatus } from '../../functions/task';
+import { NextButton } from '../../components/Link';
+import { FormInfo } from '../../components/Form/Form';
+import { Checkbox } from '../../components/Checkbox';
+import { getParamBrowserUrl } from '../../functions/url';
+import { getRegion } from '../../functions/region';
 
 function Status() {
   const dispatch = useDispatch();
@@ -26,18 +26,18 @@ function Status() {
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const regionFromRedux = useSelector((state) => state.region.region);
   const workFromRedux = useSelector((state) => state.work.work);
-  const [serial, setSerialState] = useState(serialFromRedux || "");
-  const [regionId, setRegionId] = useState(regionFromRedux || "");
+  const [serial, setSerialState] = useState(serialFromRedux || '');
+  const [regionId, setRegionId] = useState(regionFromRedux || '');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [formContent, setFormContent] = useState({
-    fromData: "",
+    fromData: '',
   });
-  const regionFromUrl = getParamBrowserUrl("region");
-  const workFromUrl = getParamBrowserUrl("work");
+  const regionFromUrl = getParamBrowserUrl('region');
+  const workFromUrl = getParamBrowserUrl('work');
 
   // Синхронизация с Redux
   useEffect(() => {
@@ -60,7 +60,7 @@ function Status() {
           setSerial,
           setLoading,
           setResult,
-          navigate,
+          navigate
         );
       } catch (error) {
         setResult({
@@ -110,7 +110,7 @@ function Status() {
     dispatch(setProgress(0));
     setLoading(true);
     setResult(null);
-    setError("");
+    setError('');
     setIsFormOpen(true);
 
     try {
@@ -122,7 +122,7 @@ function Status() {
         dispatch,
         navigate,
         regionId,
-        workFromRedux,
+        workFromRedux
       );
       setIsChecked(false);
     } catch (error) {

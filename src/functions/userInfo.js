@@ -1,4 +1,4 @@
-import { requestAPI } from "./api";
+import { requestAPI } from './api';
 
 //Записать данные в ЮС
 export async function setInfoToUs(
@@ -7,7 +7,7 @@ export async function setInfoToUs(
   name,
   patronymic,
   phone,
-  workFromRedux,
+  workFromRedux
 ) {
   let body = {
     userLogin: userLogin,
@@ -15,7 +15,7 @@ export async function setInfoToUs(
     userPhone: phone,
   };
   try {
-    await requestAPI("POST", `${workFromRedux}/setInfoToUs`, body);
+    await requestAPI('POST', `${workFromRedux}/setInfoToUs`, body);
   } catch {
     throw error;
   }

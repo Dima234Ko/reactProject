@@ -3,7 +3,7 @@ function Result({ data }) {
   const cleanedString = JSON.stringify(cleanedData, null, 2); // Преобразуем в строку JSON
 
   // Определяем стиль для текста
-  const textStyle = data.success === false ? { color: "red" } : {};
+  const textStyle = data.success === false ? { color: 'red' } : {};
 
   return (
     <div className="result">
@@ -15,9 +15,9 @@ function Result({ data }) {
 function removeQuotes(jsonString) {
   // Удаляем все пробелы и символы новой строки
   return jsonString
-    .replace(/[\{\},]/g, "")
-    .replace(/^[\s\n]+/, "")
-    .replace(/"/g, "");
+    .replace(/[\{\},]/g, '')
+    .replace(/^[\s\n]+/, '')
+    .replace(/"/g, '');
 }
 
 function removeFields(data) {

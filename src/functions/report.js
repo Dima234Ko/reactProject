@@ -1,17 +1,17 @@
-import { requestAPI } from "./api";
-import { setPage } from "../store/actions/pageLogTaskActions";
+import { requestAPI } from './api';
+import { setPage } from '../store/actions/pageLogTaskActions';
 
 function translateHeaderWorkName(data) {
   const translations = {
-    newConnection: "Новое подключение",
-    "Equipment shutdown": "Снятие оборудования",
-    malfunction: "Неисправность",
+    newConnection: 'Новое подключение',
+    'Equipment shutdown': 'Снятие оборудования',
+    malfunction: 'Неисправность',
   };
 
   return data.map((item) => ({
     ...item,
     headerWorkName: translations[item.headerWorkName] || item.headerWorkName,
-    idUserSideCard: item.idUserSideCard === -1 ? "" : item.idUserSideCard,
+    idUserSideCard: item.idUserSideCard === -1 ? '' : item.idUserSideCard,
   }));
 }
 
@@ -26,7 +26,7 @@ export async function getReport(
   channel,
   regionTask,
   workTask,
-  loginTask,
+  loginTask
 ) {
   let url = null;
 
@@ -45,10 +45,10 @@ export async function getReport(
   }
 
   if (startDate) {
-    url += `&startDate=${encodeURIComponent(startDate + " 00:00")}`;
+    url += `&startDate=${encodeURIComponent(startDate + ' 00:00')}`;
   }
   if (endDate) {
-    url += `&endDate=${encodeURIComponent(endDate + " 23:59")}`;
+    url += `&endDate=${encodeURIComponent(endDate + ' 23:59')}`;
   }
   if (selectedUser) {
     url += `&login=${encodeURIComponent(selectedUser)}`;
@@ -63,7 +63,7 @@ export async function getReport(
     url += `&userSideLogin=${encodeURIComponent(loginTask)}`;
   }
 
-  let data = await requestAPI("GET", url);
+  let data = await requestAPI('GET', url);
   dispatch(setPage(data.totalPages + 1));
   let content = data.content;
   if (task) {
@@ -74,21 +74,21 @@ export async function getReport(
 
 export function getWork() {
   return [
-    "Все работы",
-    "Новое подключение",
-    "Неисправность",
-    "Снятие оборудования",
+    'Все работы',
+    'Новое подключение',
+    'Неисправность',
+    'Снятие оборудования',
   ];
 }
 
 export function setWork(work) {
   switch (work) {
-    case "Новое подключение":
-      return "newConnection";
-    case "Неисправность":
-      return "malfunction";
-    case "Снятие оборудования":
-      return "Equipment shutdown";
+    case 'Новое подключение':
+      return 'newConnection';
+    case 'Неисправность':
+      return 'malfunction';
+    case 'Снятие оборудования':
+      return 'Equipment shutdown';
     default:
       return null;
   }

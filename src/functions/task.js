@@ -1,6 +1,6 @@
-import { requestAPI } from "./api";
-import { setProgress } from "../store/actions/progressActions";
-import { updateUrlWithParam } from "./url";
+import { requestAPI } from './api';
+import { setProgress } from '../store/actions/progressActions';
+import { updateUrlWithParam } from './url';
 
 // Функция для получения taskId
 export async function getTaskId(
@@ -9,18 +9,18 @@ export async function getTaskId(
   dispatch,
   setLoading,
   navigate,
-  serial,
+  serial
 ) {
   try {
     // Запрашиваем номер задачи
-    const data = await requestAPI("POST", action, body);
+    const data = await requestAPI('POST', action, body);
     const taskId = data.taskId;
 
     dispatch(setProgress(30)); // Устанавливаем начальный прогресс
 
     // Добавляем taskId в URL
-    updateUrlWithParam("serial", serial, navigate);
-    updateUrlWithParam("task", taskId, navigate);
+    updateUrlWithParam('serial', serial, navigate);
+    updateUrlWithParam('task', taskId, navigate);
 
     return taskId; // Возвращаем taskId
   } catch (error) {
@@ -39,11 +39,11 @@ export const checkTaskStatus = async (
   setLoading,
   setResult,
   navigate,
-  setLogin,
+  setLogin
 ) => {
   const queryParams = new URLSearchParams(location.search);
-  const taskIdFromUrl = queryParams.get("task");
-  dispatch(setSerial(queryParams.get("serial")));
+  const taskIdFromUrl = queryParams.get('task');
+  dispatch(setSerial(queryParams.get('serial')));
 
   if (taskIdFromUrl && !loading) {
     if (!result) {
@@ -58,7 +58,7 @@ export const checkTaskStatus = async (
           setResult,
           navigate,
           0,
-          50,
+          50
         );
       } catch (error) {
         setLoading(false);
@@ -77,16 +77,16 @@ export async function checkTask(
   setResult,
   navigate,
   attempts = 0,
-  progress = 30,
+  progress = 30
 ) {
   const statusAction = `${action}/${taskId}`;
 
   try {
     // Опрос статуса задачи
-    const taskData = await requestAPI("GET", statusAction);
+    const taskData = await requestAPI('GET', statusAction);
 
     // Если задача не завершена, повторяем через 10 секунд
-    if (taskData.status !== "completed") {
+    if (taskData.status !== 'completed') {
       if (progress < 90) {
         progress = Math.min(progress + 5, 90); // Прогресс не должен превышать 90
         dispatch(setProgress(progress)); // Обновляем прогресс в Redux
@@ -104,7 +104,7 @@ export async function checkTask(
         setResult,
         navigate,
         attempts + 1,
-        progress,
+        progress
       );
     } else {
       dispatch(setProgress(100)); // Устанавливаем прогресс в 100%
@@ -113,8 +113,8 @@ export async function checkTask(
       // Сохраняем результат
       if (taskData.result.rxPower) {
         localStorage.setItem(
-          "RX_power",
-          JSON.stringify(taskData.result.rxPower),
+          'RX_power',
+          JSON.stringify(taskData.result.rxPower)
         );
       }
     }

@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Table } from "../../components/Table";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Table } from '../../components/Table';
 import {
   AddUserButton,
   ChangeEditUser,
   DeleteUserButton,
-} from "../../components/Button";
-import { Loader } from "../../components/Loader";
-import { getAllUsers } from "../../functions/account";
-import { FormEditUser } from "../../components/Form/FormEditUser";
-import { FormAddUser } from "../../components/Form/FormAddUser";
-import { FormDeleteUser } from "../../components/Form/FormDeleteUser";
-import { FormInfo } from "../../components/Form/Form";
-import { setCheckedValue } from "../../store/actions/checkboxUserActions";
+} from '../../components/Button';
+import { Loader } from '../../components/Loader';
+import { getAllUsers } from '../../functions/account';
+import { FormEditUser } from '../../components/Form/FormEditUser';
+import { FormAddUser } from '../../components/Form/FormAddUser';
+import { FormDeleteUser } from '../../components/Form/FormDeleteUser';
+import { FormInfo } from '../../components/Form/Form';
+import { setCheckedValue } from '../../store/actions/checkboxUserActions';
 
 function User() {
   const [loading, setLoading] = useState(true);
@@ -36,7 +36,7 @@ function User() {
         const result = await getUserData();
         setData(result);
       } catch (error) {
-        console.error("Ошибка при загрузке данных:", error);
+        console.error('Ошибка при загрузке данных:', error);
       } finally {
         setLoading(false);
       }
@@ -52,14 +52,14 @@ function User() {
           setData(result);
           setCreateSuccess(false);
         } catch (error) {
-          console.error("Ошибка при обновлении данных:", error);
+          console.error('Ошибка при обновлении данных:', error);
         }
       };
       fetchData();
     }
   }, [createSuccess]);
 
-  const columns = ["", "Логин", "Фамилия Имя Отчество"];
+  const columns = ['', 'Логин', 'Фамилия Имя Отчество'];
 
   const openForm = () => setIsFormOpen(true);
   const closeForm = () => {
@@ -82,7 +82,7 @@ function User() {
           <div>
             <pre>Ошибка: Необходимо выбрать пользователя</pre>
           </div>
-        </div>,
+        </div>
       );
     }
     openForm();
@@ -98,7 +98,7 @@ function User() {
           <div>
             <pre>Ошибка: Необходимо выбрать пользователя</pre>
           </div>
-        </div>,
+        </div>
       );
     }
     openForm();
@@ -132,7 +132,7 @@ function User() {
         <ChangeEditUser onClick={handleEditUser} />
         <DeleteUserButton onClick={handleDeleteUser} />
       </div>
-      <div className="table-container" style={{ position: "relative" }}>
+      <div className="table-container" style={{ position: 'relative' }}>
         {loading && (
           <div className="spinner-container">
             <Loader />

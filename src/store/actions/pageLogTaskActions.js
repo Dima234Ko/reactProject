@@ -1,14 +1,14 @@
-export const SET_PAGE = "SET_PAGE";
-export const SET_ACTIVE_PAGE = "SET_ACTIVE_PAGE";
-export const SET_USER_PAGE = "SET_USER_PAGE";
-export const SET_PONSERIAL_PAGE = "SET_PONSERIAL_PAGE";
-export const SET_START_DATE = "SET_START_DATE";
-export const SET_END_DATE = "SET_END_DATE";
-export const SET_BULLEAN_TASK = "SET_BULLEAN_TASK";
-export const SET_CANNAL = "SET_CANNAL";
-export const SET_REGION_TASK = "SET_REGION_TASK";
-export const SET_WORK_TASK = "SET_WORK_TASK";
-export const SET_LOGIN_TASK = "SET_LOGIN_TASK";
+export const SET_PAGE = 'SET_PAGE';
+export const SET_ACTIVE_PAGE = 'SET_ACTIVE_PAGE';
+export const SET_USER_PAGE = 'SET_USER_PAGE';
+export const SET_PONSERIAL_PAGE = 'SET_PONSERIAL_PAGE';
+export const SET_START_DATE = 'SET_START_DATE';
+export const SET_END_DATE = 'SET_END_DATE';
+export const SET_BULLEAN_TASK = 'SET_BULLEAN_TASK';
+export const SET_CANNAL = 'SET_CANNAL';
+export const SET_REGION_TASK = 'SET_REGION_TASK';
+export const SET_WORK_TASK = 'SET_WORK_TASK';
+export const SET_LOGIN_TASK = 'SET_LOGIN_TASK';
 
 export const setRegionTask = (region) => ({
   type: SET_REGION_TASK,

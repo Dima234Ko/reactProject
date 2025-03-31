@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { Input } from "../../components/Input";
-import { useNavigate } from "react-router-dom";
-import { Button } from "../../components/Button";
-import { requestAPI } from "../../functions/api";
-import { Loader } from "../../components/Loader";
-import Result from "../../components/Result";
+import { useState } from 'react';
+import { Input } from '../../components/Input';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '../../components/Button';
+import { requestAPI } from '../../functions/api';
+import { Loader } from '../../components/Loader';
+import Result from '../../components/Result';
 
 function ChangePassword() {
   const [loading, setLoading] = useState(false);
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState('');
   const [result, setResult] = useState(null);
   const navigate = useNavigate();
 
@@ -28,22 +28,22 @@ function ChangePassword() {
     try {
       if (password.length > 4) {
         const response = await requestAPI(
-          "POST",
-          "settings/updateUserPass",
-          body,
+          'POST',
+          'settings/updateUserPass',
+          body
         );
         navigate(`/`);
       } else {
         setResult({
           success: false,
-          message: "Длина пароля слишком мала",
+          message: 'Длина пароля слишком мала',
         });
       }
     } catch (error) {
-      console.error("Ошибка при смене пароля:", error);
+      console.error('Ошибка при смене пароля:', error);
       setResult({
         success: false,
-        message: "Ошибка. Попробуйте ещё раз",
+        message: 'Ошибка. Попробуйте ещё раз',
       });
     } finally {
       setLoading(false);

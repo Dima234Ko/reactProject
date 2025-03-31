@@ -1,20 +1,20 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
-import { setProgress } from "../../store/actions/progressActions";
-import { setSerial } from "../../store/actions/serialActions";
-import { setRegion } from "../../store/actions/regionActions";
-import { setLogin } from "../../store/actions/loginActions";
-import { setWork } from "../../store/actions/workActions";
-import { Input } from "../../components/Input";
-import { Button } from "../../components/Button";
-import { Loader } from "../../components/Loader";
-import Result from "../../components/Result";
-import { setPppoe, searchIdUs } from "../../functions/pppoe";
-import { checkTaskStatus } from "../../functions/task";
-import { NextButton } from "../../components/Link";
-import { getNumberBrowserUrl, getParamBrowserUrl } from "../../functions/url";
-import { getRegion } from "../../functions/region";
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { setProgress } from '../../store/actions/progressActions';
+import { setSerial } from '../../store/actions/serialActions';
+import { setRegion } from '../../store/actions/regionActions';
+import { setLogin } from '../../store/actions/loginActions';
+import { setWork } from '../../store/actions/workActions';
+import { Input } from '../../components/Input';
+import { Button } from '../../components/Button';
+import { Loader } from '../../components/Loader';
+import Result from '../../components/Result';
+import { setPppoe, searchIdUs } from '../../functions/pppoe';
+import { checkTaskStatus } from '../../functions/task';
+import { NextButton } from '../../components/Link';
+import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
+import { getRegion } from '../../functions/region';
 
 function Pppoe() {
   const dispatch = useDispatch();
@@ -25,22 +25,22 @@ function Pppoe() {
   const regionFromRedux = useSelector((state) => state.region.region);
   const loginFromRedux = useSelector((state) => state.login.login);
   const workFromRedux = useSelector((state) => state.work.work);
-  const [serial, setSerialState] = useState(serialFromRedux || "");
-  const [regionId, setRegionId] = useState(regionFromRedux || "");
+  const [serial, setSerialState] = useState(serialFromRedux || '');
+  const [regionId, setRegionId] = useState(regionFromRedux || '');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
-  const [login, setLoginInp] = useState(loginFromRedux || "");
-  const [password, setPassword] = useState("");
-  const regionFromUrl = getNumberBrowserUrl("region");
-  const loginFromUrl = getParamBrowserUrl("login");
-  const workFromUrl = getParamBrowserUrl("work");
+  const [login, setLoginInp] = useState(loginFromRedux || '');
+  const [password, setPassword] = useState('');
+  const regionFromUrl = getNumberBrowserUrl('region');
+  const loginFromUrl = getParamBrowserUrl('login');
+  const workFromUrl = getParamBrowserUrl('work');
 
   useEffect(() => {
     const fetchData = async () => {
       setSerialState(serialFromRedux);
 
-      if (serialFromRedux !== "") {
-        const data = await searchIdUs(serialFromRedux, "", setResult, "serial");
+      if (serialFromRedux !== '') {
+        const data = await searchIdUs(serialFromRedux, '', setResult, 'serial');
         dispatch(setLogin(data.userLogin));
       }
 
@@ -73,7 +73,7 @@ function Pppoe() {
           setSerial,
           setLoading,
           setResult,
-          navigate,
+          navigate
         );
       } catch (error) {
         setResult({
@@ -86,7 +86,7 @@ function Pppoe() {
   }, [location.search, navigate]);
 
   const handleSetPppoe = async () => {
-    if (login !== "") {
+    if (login !== '') {
       dispatch(setLogin(login));
       setLoading(true);
       setResult(false);
@@ -102,7 +102,7 @@ function Pppoe() {
           setResult,
           dispatch,
           navigate,
-          regionId,
+          regionId
         );
       } catch (error) {
         setResult({
@@ -112,26 +112,26 @@ function Pppoe() {
       }
     } else {
       setResult({
-        result: "Введите логин",
+        result: 'Введите логин',
         success: false,
       });
     }
   };
 
   const handleLoginChange = async () => {
-    if (login !== "") {
+    if (login !== '') {
       try {
-        await searchIdUs(login, serialFromRedux, setResult, "login", "pppoe");
+        await searchIdUs(login, serialFromRedux, setResult, 'login', 'pppoe');
       } catch (error) {
-        console.error("Ошибка при проверке логина", error);
+        console.error('Ошибка при проверке логина', error);
         setResult({
-          result: "Ошибка при проверке логина",
+          result: 'Ошибка при проверке логина',
           success: false,
         });
       }
     } else {
       setResult({
-        result: "Введите логин",
+        result: 'Введите логин',
         success: false,
       });
     }
@@ -153,7 +153,7 @@ function Pppoe() {
         <Input
           id="level_Ntu"
           type="text"
-          value={JSON.parse(localStorage.getItem("RX_power")) || "-0.0"}
+          value={JSON.parse(localStorage.getItem('RX_power')) || '-0.0'}
           disabled={true}
         />
       </div>

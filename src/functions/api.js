@@ -1,13 +1,13 @@
 export async function requestAPI(method, action, body) {
   try {
-    const bodyData = typeof body === "object" ? JSON.stringify(body) : body;
+    const bodyData = typeof body === 'object' ? JSON.stringify(body) : body;
 
     const response = await fetch(`https://172.24.6.20:7448/${action}`, {
       //const response = await fetch(`https://192.168.1.103:8443/${action}`, {
       method: method,
-      credentials: "include",
+      credentials: 'include',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: bodyData,
     });
@@ -37,15 +37,15 @@ export async function requestPhoto(method, action, body) {
   try {
     const response = await fetch(`https://172.24.6.20:7448/${action}`, {
       method: method,
-      credentials: "include",
+      credentials: 'include',
       body: body,
     });
 
     if (response.ok) {
-      return "Фото успешно загружено";
-    } else return "Ошибка при загрузке на сервер";
+      return 'Фото успешно загружено';
+    } else return 'Ошибка при загрузке на сервер';
   } catch (error) {
-    console.error("Ошибка при выполнении запроса:", error);
+    console.error('Ошибка при выполнении запроса:', error);
     throw new Error(`Ошибка при выполнении запроса: ${error.message}`);
   }
 }

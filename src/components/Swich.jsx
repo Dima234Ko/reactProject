@@ -1,10 +1,10 @@
 // SwitchComponent.jsx
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   setBulleanTask,
   setActivePage,
-} from "../store/actions/pageLogTaskActions";
+} from '../store/actions/pageLogTaskActions';
 
 export function SwitchComponent() {
   const [isTasks, setIsTasks] = useState(true);
@@ -20,13 +20,13 @@ export function SwitchComponent() {
     <div className="switch-container">
       <div className="switch-labels">
         <span
-          className={isTasks ? "active-label" : ""}
+          className={isTasks ? 'active-label' : ''}
           onClick={() => handleToggle(true)}
         >
           Tasks
         </span>
         <span
-          className={!isTasks ? "active-label" : ""}
+          className={!isTasks ? 'active-label' : ''}
           onClick={() => handleToggle(false)}
         >
           WiFi

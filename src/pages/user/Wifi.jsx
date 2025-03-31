@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
-import { setProgress } from "../../store/actions/progressActions";
-import { setSerial } from "../../store/actions/serialActions";
-import { setRegion } from "../../store/actions/regionActions";
-import { setWork } from "../../store/actions/workActions";
-import { SelectSSID, SelectSSID5 } from "../../components/Select";
-import { Input } from "../../components/Input";
-import { Button } from "../../components/Button";
-import { NextButton } from "../../components/Link";
-import { setLogin } from "../../store/actions/loginActions";
-import { Loader } from "../../components/Loader";
-import Result from "../../components/Result";
-import { setWiFi } from "../../functions/wifi";
-import { checkTaskStatus } from "../../functions/task";
-import { searchIdUs } from "../../functions/pppoe";
-import { getNumberBrowserUrl, getParamBrowserUrl } from "../../functions/url";
-import { getRegion } from "../../functions/region";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { setProgress } from '../../store/actions/progressActions';
+import { setSerial } from '../../store/actions/serialActions';
+import { setRegion } from '../../store/actions/regionActions';
+import { setWork } from '../../store/actions/workActions';
+import { SelectSSID, SelectSSID5 } from '../../components/Select';
+import { Input } from '../../components/Input';
+import { Button } from '../../components/Button';
+import { NextButton } from '../../components/Link';
+import { setLogin } from '../../store/actions/loginActions';
+import { Loader } from '../../components/Loader';
+import Result from '../../components/Result';
+import { setWiFi } from '../../functions/wifi';
+import { checkTaskStatus } from '../../functions/task';
+import { searchIdUs } from '../../functions/pppoe';
+import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
+import { getRegion } from '../../functions/region';
 
 function Wifi() {
   const dispatch = useDispatch();
@@ -27,19 +27,19 @@ function Wifi() {
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const regionFromRedux = useSelector((state) => state.region.region);
-  const [serial, setSerialState] = useState(serialFromRedux || "");
-  const [regionId, setRegionId] = useState(regionFromRedux || "");
+  const [serial, setSerialState] = useState(serialFromRedux || '');
+  const [regionId, setRegionId] = useState(regionFromRedux || '');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
-  const [ssid2_4, setSsid2_4] = useState("");
-  const [password2_4, setPassword2_4] = useState("");
-  const [selectSSID2_4, setSelectSSID2_4] = useState("auto");
-  const [ssid5, setSsid5] = useState("");
-  const [password5, setPassword5] = useState("");
-  const [selectSSID5, setSelectSSID5] = useState("auto");
-  const regionFromUrl = getNumberBrowserUrl("region");
-  const loginFromUrl = getParamBrowserUrl("login" || "");
-  const workFromUrl = getParamBrowserUrl("work");
+  const [ssid2_4, setSsid2_4] = useState('');
+  const [password2_4, setPassword2_4] = useState('');
+  const [selectSSID2_4, setSelectSSID2_4] = useState('auto');
+  const [ssid5, setSsid5] = useState('');
+  const [password5, setPassword5] = useState('');
+  const [selectSSID5, setSelectSSID5] = useState('auto');
+  const regionFromUrl = getNumberBrowserUrl('region');
+  const loginFromUrl = getParamBrowserUrl('login' || '');
+  const workFromUrl = getParamBrowserUrl('work');
 
   // Обработка параметров из URL
   useEffect(() => {
@@ -54,11 +54,11 @@ function Wifi() {
       dispatch(setRegion(regionFromUrl));
     }
 
-    if (loginFromUrl !== "") {
+    if (loginFromUrl !== '') {
       dispatch(setLogin(loginFromUrl));
     }
 
-    if (serialFromRedux !== "") {
+    if (serialFromRedux !== '') {
       fetchDataWiFi();
     }
   }, [serialFromRedux]);
@@ -74,7 +74,7 @@ function Wifi() {
           setSerial,
           setLoading,
           setResult,
-          navigate,
+          navigate
         );
       } catch (error) {
         setResult({
@@ -96,31 +96,31 @@ function Wifi() {
           loginFromRedux,
           serialFromRedux,
           setResult,
-          "login",
-          "wifi",
+          'login',
+          'wifi'
         );
-      } else if (loginFromUrl === "") {
+      } else if (loginFromUrl === '') {
         data = await searchIdUs(
           serialFromRedux,
-          "",
+          '',
           setResult,
-          "serial",
-          "wifi",
+          'serial',
+          'wifi'
         );
         dispatch(setLogin(data.userLogin));
       }
       if (data) {
-        setSsid2_4(data.ssidWifi2 || "");
-        setSsid5(data.ssidWifi5 || "");
-        setPassword2_4(data.passWifi2 || "");
-        setPassword5(data.passWifi5 || "");
-        setSelectSSID2_4(data.channelWifi2 || "auto");
-        setSelectSSID5(data.channelWifi5 || "auto");
+        setSsid2_4(data.ssidWifi2 || '');
+        setSsid5(data.ssidWifi5 || '');
+        setPassword2_4(data.passWifi2 || '');
+        setPassword5(data.passWifi5 || '');
+        setSelectSSID2_4(data.channelWifi2 || 'auto');
+        setSelectSSID5(data.channelWifi5 || 'auto');
       }
     } catch (error) {
-      console.error("Ошибка при получении данных WiFi:", error);
+      console.error('Ошибка при получении данных WiFi:', error);
       setResult({
-        result: "Ошибка при получении данных WiFi",
+        result: 'Ошибка при получении данных WiFi',
         success: false,
       });
     }
@@ -130,7 +130,7 @@ function Wifi() {
   const handleSetWiFi = async () => {
     if (!ssid2_4 || !password2_4 || !ssid5 || !password5) {
       setResult({
-        result: "Заполните все поля",
+        result: 'Заполните все поля',
         success: false,
       });
       return;
@@ -154,7 +154,7 @@ function Wifi() {
         setResult,
         dispatch,
         navigate,
-        regionId,
+        regionId
       );
     } catch (error) {
       setResult({
@@ -180,7 +180,7 @@ function Wifi() {
         <Input
           id="level_Ntu"
           type="text"
-          value={JSON.parse(localStorage.getItem("RX_power")) || "-0.0"}
+          value={JSON.parse(localStorage.getItem('RX_power')) || '-0.0'}
           disabled={true}
         />
       </div>
@@ -194,7 +194,7 @@ function Wifi() {
           onChange={(e) => {
             const newSsid = e.target.value;
             setSsid2_4(newSsid);
-            setSsid5(newSsid + "_5G");
+            setSsid5(newSsid + '_5G');
           }}
         />
         <SelectSSID
@@ -249,10 +249,10 @@ function Wifi() {
         </div>
       )}
       {result && <Result data={result} />}
-      {workFromRedux === "newConnection" && (
+      {workFromRedux === 'newConnection' && (
         <NextButton
           to={`/info?region=${regionId}&work=${workFromRedux}&serial=${serialFromRedux}${
-            loginFromRedux !== null ? `&login=${loginFromRedux}` : ""
+            loginFromRedux !== null ? `&login=${loginFromRedux}` : ''
           }`}
           disabled={result === null || result?.buttonVisible !== true}
         />

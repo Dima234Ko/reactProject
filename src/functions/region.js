@@ -2,27 +2,27 @@ export function getRegion(reg) {
   const regionId = Number(reg);
   switch (regionId) {
     case 1:
-      return "Костромская область";
+      return 'Костромская область';
     case 2:
-      return "Западная Якутия";
+      return 'Западная Якутия';
     case 3:
-      return "Тест";
+      return 'Тест';
     case 4:
-      return "Нерюнгри";
+      return 'Нерюнгри';
     default:
-      return "Регион не определен, необходимо изменить";
+      return 'Регион не определен, необходимо изменить';
   }
 }
 
 export function getRegionForName(name) {
   switch (name) {
-    case "Костромская обл.":
+    case 'Костромская обл.':
       return 1;
-    case "Западная Якутия":
+    case 'Западная Якутия':
       return 2;
-    case "Тест":
+    case 'Тест':
       return 3;
-    case "Нерюнгри":
+    case 'Нерюнгри':
       return 4;
     default:
       return null;

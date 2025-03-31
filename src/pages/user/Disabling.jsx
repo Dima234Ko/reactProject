@@ -1,39 +1,39 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Input } from "../../components/Input";
-import { FormInfo } from "../../components/Form/Form";
-import { Button } from "../../components/Button";
-import { Loader } from "../../components/Loader";
-import { Checkbox } from "../../components/Checkbox";
-import Result from "../../components/Result";
-import { disableNTU } from "../../functions/disabling";
-import { RadioButtonGroup } from "../../components/RadioButtonGroup";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { Input } from '../../components/Input';
+import { FormInfo } from '../../components/Form/Form';
+import { Button } from '../../components/Button';
+import { Loader } from '../../components/Loader';
+import { Checkbox } from '../../components/Checkbox';
+import Result from '../../components/Result';
+import { disableNTU } from '../../functions/disabling';
+import { RadioButtonGroup } from '../../components/RadioButtonGroup';
 
 function Disabling() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [serial, setSerial] = useState("");
+  const [serial, setSerial] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
   const [isAbonentChecked, setIsAbonentChecked] = useState(false);
-  const [selectedRadioOption, setSelectedRadioOption] = useState("option1");
+  const [selectedRadioOption, setSelectedRadioOption] = useState('option1');
   const radioOptions = {
-    option1: "Проблемы с Wi-Fi соединением",
-    option2: "Проблемы с оптическим сигналом",
-    option3: "Отсутствие индикации",
-    option4: "Механическое повреждение",
+    option1: 'Проблемы с Wi-Fi соединением',
+    option2: 'Проблемы с оптическим сигналом',
+    option3: 'Отсутствие индикации',
+    option4: 'Механическое повреждение',
   };
 
   const handleFirstCheckboxChange = (e) => {
     setIsChecked(e.target.checked);
     if (e.target.checked) {
       setIsAbonentChecked(false);
-      setSelectedRadioOption("option1");
+      setSelectedRadioOption('option1');
     } else {
-      setSelectedRadioOption("");
+      setSelectedRadioOption('');
     }
   };
 
@@ -41,7 +41,7 @@ function Disabling() {
     setIsAbonentChecked(e.target.checked);
     if (e.target.checked) {
       setIsChecked(false);
-      setSelectedRadioOption("");
+      setSelectedRadioOption('');
     }
   };
 
@@ -58,7 +58,7 @@ function Disabling() {
       navigate,
       dispatch,
       setResult,
-      setLoading,
+      setLoading
     );
     setIsFormOpen(false);
   };
@@ -95,12 +95,12 @@ function Disabling() {
   };
 
   const openForm = () => {
-    if (serial !== "") {
+    if (serial !== '') {
       setIsFormOpen(true);
       setResult(null);
     } else {
       setResult({
-        result: "Введите pon-serial",
+        result: 'Введите pon-serial',
         success: false,
       });
     }

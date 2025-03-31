@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
-import { LinkButton } from "./Link";
+import React, { useState, useEffect, useRef } from 'react';
+import { LinkButton } from './Link';
 
-import backIcon from "../img/Back.svg";
-import menuIcon from "../img/Menu.svg";
-import logoIcon from "../img/logo.png";
+import backIcon from '../img/Back.svg';
+import menuIcon from '../img/Menu.svg';
+import logoIcon from '../img/logo.png';
 
 const Header = ({
   menuItems,
@@ -37,11 +37,11 @@ const Header = ({
     };
 
     // Добавляем обработчик клика на весь документ
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
 
     // Очищаем обработчик при размонтировании компонента
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -62,7 +62,7 @@ const Header = ({
       )}
       <div
         className="dropdown"
-        style={{ display: isMenuOpen ? "block" : "none" }}
+        style={{ display: isMenuOpen ? 'block' : 'none' }}
         ref={menuRef}
         onClick={closeMenu}
       >

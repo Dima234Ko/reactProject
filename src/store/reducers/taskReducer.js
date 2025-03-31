@@ -5,7 +5,7 @@ import {
   SET_WORK,
   SET_REG_TASK,
   SET_TRANSITION,
-} from "../actions/taskActions";
+} from '../actions/taskActions';
 
 const initialState = {
   task: null,
@@ -29,16 +29,16 @@ const taskReducer = (state = initialState, action) => {
         subtask: action.payload,
       };
     case SET_ACTION:
-      if (action.payload === "reset") {
+      if (action.payload === 'reset') {
         return {
           ...state,
-          action: "status",
+          action: 'status',
         };
       }
-      if (action.payload === "photo") {
+      if (action.payload === 'photo') {
         return {
           ...state,
-          action: "wifi",
+          action: 'wifi',
         };
       }
       return {

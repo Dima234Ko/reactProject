@@ -1,11 +1,11 @@
-import React from "react";
-import { Helmet } from "react-helmet";
-import icon180 from "../img/icon180.png";
-import icon120 from "../img/icon120.png";
-import icon167 from "../img/icon167.png";
-import icon152 from "../img/icon152.png";
-import icon76 from "../img/icon76.png";
-import icon32 from "../img/icon32.png";
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import icon180 from '../img/icon180.png';
+import icon120 from '../img/icon120.png';
+import icon167 from '../img/icon167.png';
+import icon152 from '../img/icon152.png';
+import icon76 from '../img/icon76.png';
+import icon32 from '../img/icon32.png';
 
 const FavIcon = () => {
   return (

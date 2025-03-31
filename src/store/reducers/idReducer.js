@@ -1,4 +1,4 @@
-import { SET_ID } from "../actions/idActions";
+import { SET_ID } from '../actions/idActions';
 
 const initialState = {
   id: null,

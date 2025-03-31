@@ -1,7 +1,7 @@
-import { getTaskId, checkTask } from "./task";
-import { setProgress } from "../store/actions/progressActions";
-import { requestAPI } from "./api";
-import { updateUrlWithParam } from "./url";
+import { getTaskId, checkTask } from './task';
+import { setProgress } from '../store/actions/progressActions';
+import { requestAPI } from './api';
+import { updateUrlWithParam } from './url';
 
 //Получить информацию из US
 export async function searchIdUs(
@@ -9,29 +9,29 @@ export async function searchIdUs(
   serialFromRedux,
   setResult,
   param,
-  page,
+  page
 ) {
   setResult(null);
   let body;
   let data;
 
   try {
-    if (param === "login") {
+    if (param === 'login') {
       body = {
         userLogin: userLoginSerial,
         serialNewNtu: serialFromRedux,
       };
-      data = await requestAPI("POST", "userSide/getUserId", body);
+      data = await requestAPI('POST', 'userSide/getUserId', body);
 
-      if (page !== "wifi") {
+      if (page !== 'wifi') {
         if (data.idUserSideCard !== null) {
           setResult({
-            result: "Найдена учетная запись в US",
+            result: 'Найдена учетная запись в US',
             success: true,
           });
         } else {
           setResult({
-            result: "Учетная запись в US отсутствует",
+            result: 'Учетная запись в US отсутствует',
             success: false,
           });
         }
@@ -40,7 +40,7 @@ export async function searchIdUs(
       body = {
         serialNewNtu: userLoginSerial,
       };
-      data = await requestAPI("POST", "userSide/getUserId", body);
+      data = await requestAPI('POST', 'userSide/getUserId', body);
     }
 
     return data;
@@ -59,7 +59,7 @@ export async function setPppoe(
   setResult,
   dispatch,
   navigate,
-  regionId,
+  regionId
 ) {
   setResult(null);
   dispatch(setProgress(0));
@@ -72,7 +72,7 @@ export async function setPppoe(
   };
 
   let taskId;
-  updateUrlWithParam("login", login, navigate);
+  updateUrlWithParam('login', login, navigate);
 
   try {
     taskId = await getTaskId(
@@ -81,7 +81,7 @@ export async function setPppoe(
       dispatch,
       setLoading,
       navigate,
-      serial,
+      serial
     );
   } catch (error) {
     throw error;
@@ -97,10 +97,10 @@ export async function setPppoe(
         setResult,
         navigate,
         0,
-        80,
+        80
       );
     } else {
-      throw new Error("taskId не был получен");
+      throw new Error('taskId не был получен');
     }
   } catch (error) {
     throw new Error(`Не удалось получить taskId: ${error.message || error}`);

@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react";
-import { Select } from "../../components/Select";
-import { Button } from "../../components/Button";
-import { requestAPI } from "../../functions/api";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setRegion } from "../../store/actions/regionActions";
-import { updateUrlWithParam } from "../../functions/url";
-import Result from "../../components/Result";
+import { useState, useEffect } from 'react';
+import { Select } from '../../components/Select';
+import { Button } from '../../components/Button';
+import { requestAPI } from '../../functions/api';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setRegion } from '../../store/actions/regionActions';
+import { updateUrlWithParam } from '../../functions/url';
+import Result from '../../components/Result';
 
 // Убрано дублирование импорта useNavigate
 function Region() {
   const [regions, setRegions] = useState([]);
-  const [selectedRegion, setSelectedRegion] = useState("");
+  const [selectedRegion, setSelectedRegion] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [result, setResult] = useState(null);
@@ -19,7 +19,7 @@ function Region() {
   useEffect(() => {
     const fetchRegion = async () => {
       try {
-        const reg = await requestAPI("GET", "settings/getRegion");
+        const reg = await requestAPI('GET', 'settings/getRegion');
         setRegions(reg);
         // Устанавливаем дефолтное значение только если массив не пустой
         if (reg?.length > 0) {
@@ -27,7 +27,7 @@ function Region() {
           dispatch(setRegion(reg[0].id));
         }
       } catch (error) {
-        console.error("Ошибка при загрузке данных региона:", error);
+        console.error('Ошибка при загрузке данных региона:', error);
       }
     };
 
@@ -40,22 +40,22 @@ function Region() {
 
   const handleApply = () => {
     const selectedRegionData = regions.find(
-      (item) => item.regionName === selectedRegion,
+      (item) => item.regionName === selectedRegion
     );
 
     if (selectedRegionData) {
       const regionId = selectedRegionData.id;
       dispatch(setRegion(regionId));
-      updateUrlWithParam("region", regionId, navigate);
+      updateUrlWithParam('region', regionId, navigate);
       setResult({
-        result: "Регион изменен",
+        result: 'Регион изменен',
         success: true,
       });
       // Исправлен синтаксис navigate и добавлена навигация
       navigate(`/work?region=${regionId}`);
     } else {
       setResult({
-        result: "Ошибка смены региона",
+        result: 'Ошибка смены региона',
         success: false,
       });
     }

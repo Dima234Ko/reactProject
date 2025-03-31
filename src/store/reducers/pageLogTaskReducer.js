@@ -1,14 +1,14 @@
-import { SET_PAGE } from "../actions/pageLogTaskActions";
-import { SET_ACTIVE_PAGE } from "../actions/pageLogTaskActions";
-import { SET_USER_PAGE } from "../actions/pageLogTaskActions";
-import { SET_PONSERIAL_PAGE } from "../actions/pageLogTaskActions";
-import { SET_START_DATE } from "../actions/pageLogTaskActions";
-import { SET_END_DATE } from "../actions/pageLogTaskActions";
-import { SET_BULLEAN_TASK } from "../actions/pageLogTaskActions";
-import { SET_CANNAL } from "../actions/pageLogTaskActions";
-import { SET_REGION_TASK } from "../actions/pageLogTaskActions";
-import { SET_WORK_TASK } from "../actions/pageLogTaskActions";
-import { SET_LOGIN_TASK } from "../actions/pageLogTaskActions";
+import { SET_PAGE } from '../actions/pageLogTaskActions';
+import { SET_ACTIVE_PAGE } from '../actions/pageLogTaskActions';
+import { SET_USER_PAGE } from '../actions/pageLogTaskActions';
+import { SET_PONSERIAL_PAGE } from '../actions/pageLogTaskActions';
+import { SET_START_DATE } from '../actions/pageLogTaskActions';
+import { SET_END_DATE } from '../actions/pageLogTaskActions';
+import { SET_BULLEAN_TASK } from '../actions/pageLogTaskActions';
+import { SET_CANNAL } from '../actions/pageLogTaskActions';
+import { SET_REGION_TASK } from '../actions/pageLogTaskActions';
+import { SET_WORK_TASK } from '../actions/pageLogTaskActions';
+import { SET_LOGIN_TASK } from '../actions/pageLogTaskActions';
 
 const initialState = {
   regionTask: null,

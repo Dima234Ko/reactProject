@@ -1,19 +1,19 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setSerial } from "../../store/actions/serialActions";
-import { Input } from "../../components/Input";
-import { Button } from "../../components/Button";
-import { Loader } from "../../components/Loader";
-import Result from "../../components/Result";
-import { getRegion } from "../../functions/region";
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSerial } from '../../store/actions/serialActions';
+import { Input } from '../../components/Input';
+import { Button } from '../../components/Button';
+import { Loader } from '../../components/Loader';
+import Result from '../../components/Result';
+import { getRegion } from '../../functions/region';
 
 function Replcement() {
   const dispatch = useDispatch();
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const regionFromRedux = useSelector((state) => state.region.region);
-  const [serial, setSerialState] = useState(serialFromRedux || "");
-  const [regionId, setRegionId] = useState(regionFromRedux || "");
-  const [oldSerial, setOldSerial] = useState("");
+  const [serial, setSerialState] = useState(serialFromRedux || '');
+  const [regionId, setRegionId] = useState(regionFromRedux || '');
+  const [oldSerial, setOldSerial] = useState('');
 
   const handleInputChange = (event) => {
     const newSerial = event.target.value;
@@ -43,7 +43,7 @@ function Replcement() {
           onChange={(e) => setOldSerial(e.target.value)}
         />
       </div>
-      <Button name="Отправить запрос" onClick={console.log("Замена")} />
+      <Button name="Отправить запрос" onClick={console.log('Замена')} />
       {/* {loading && (
         <div className="overlay">
           <div className="spinner-container">

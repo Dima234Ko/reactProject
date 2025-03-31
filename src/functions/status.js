@@ -1,5 +1,5 @@
-import { getTaskId, checkTask } from "./task";
-import { setProgress } from "../store/actions/progressActions";
+import { getTaskId, checkTask } from './task';
+import { setProgress } from '../store/actions/progressActions';
 
 // Главная функция для получения статуса
 export async function getStatus(
@@ -10,7 +10,7 @@ export async function getStatus(
   dispatch,
   navigate,
   regionId,
-  workFromRedux,
+  workFromRedux
 ) {
   setLoading(true);
   setResult(false);
@@ -18,7 +18,7 @@ export async function getStatus(
 
   if (serial == null || serial.length < 5) {
     setLoading(false);
-    throw new Error("Введен некорректный pon serial");
+    throw new Error('Введен некорректный pon serial');
   }
 
   let body = {
@@ -39,7 +39,7 @@ export async function getStatus(
       dispatch,
       setLoading,
       navigate,
-      serial,
+      serial
     );
 
     if (taskId) {
@@ -52,7 +52,7 @@ export async function getStatus(
         setResult,
         navigate,
         0,
-        30,
+        30
       );
     }
   } catch (error) {

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { ExpressButton } from "../Button";
-import { requestAPI } from "../../functions/api";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import { ExpressButton } from '../Button';
+import { requestAPI } from '../../functions/api';
+import { useSelector } from 'react-redux';
 
 export function FormDeleteUser() {
-  const [resultForm, setResultForm] = useState("");
+  const [resultForm, setResultForm] = useState('');
   const userId = useSelector((state) => state.checkboxUser.checkedValue);
 
   // Обработка изменения полей ввода
@@ -14,7 +14,7 @@ export function FormDeleteUser() {
       ...prevData,
       [name]: value,
     }));
-    setResultForm("");
+    setResultForm('');
   };
 
   // Обработка изменения пользователя
@@ -22,18 +22,18 @@ export function FormDeleteUser() {
     // Формируем объект body из formData
     const body = {
       id: userId,
-      root: "noRoles",
+      root: 'noRoles',
     };
 
     try {
-      const response = await requestAPI("POST", "ADMIN/updateUser", body);
-      setResultForm("Доступ запрещён");
+      const response = await requestAPI('POST', 'ADMIN/updateUser', body);
+      setResultForm('Доступ запрещён');
       setTimeout(() => {
         if (onClose) onClose();
       }, 1500);
     } catch (error) {
-      console.error("Ошибка", error);
-      setResultForm("Произошла ошибка");
+      console.error('Ошибка', error);
+      setResultForm('Произошла ошибка');
     }
   };
 

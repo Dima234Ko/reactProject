@@ -1,5 +1,5 @@
-import { SET_LOGIN } from "../actions/loginActions";
-import { CLEAR_LOGIN } from "../actions/loginActions";
+import { SET_LOGIN } from '../actions/loginActions';
+import { CLEAR_LOGIN } from '../actions/loginActions';
 
 const initialState = {
   login: null,

@@ -12,7 +12,7 @@
   direction: ltr; /* Направление слева направо */
 }
 
-.radio-group input[type="radio"] {
+.radio-group input[type='radio'] {
   all: unset; /* Отключаем все дефолтные стили для радио-кнопки */
   margin-right: 8px; /* Отступ между радио-кнопкой и кнопкой */
   appearance: auto; /* Возвращаем стандартный вид радио-кнопки */

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 export function FormInfo({ isFormOpen, closeForm, formData }) {
   const formRef = useRef(null);
@@ -9,9 +9,9 @@ export function FormInfo({ isFormOpen, closeForm, formData }) {
         closeForm();
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [closeForm]);
 
@@ -28,7 +28,7 @@ export function FormInfo({ isFormOpen, closeForm, formData }) {
       </div>
       <div
         className="input-container"
-        style={{ maxHeight: "650px", overflowY: "auto" }}
+        style={{ maxHeight: '650px', overflowY: 'auto' }}
       >
         <div className="textForm">{formData}</div>
       </div>

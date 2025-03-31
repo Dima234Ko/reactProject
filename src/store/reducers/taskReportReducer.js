@@ -1,4 +1,4 @@
-import { SET_REPORT_TASK } from "../actions/taskReportActions";
+import { SET_REPORT_TASK } from '../actions/taskReportActions';
 
 const initialState = {
   task: null,
