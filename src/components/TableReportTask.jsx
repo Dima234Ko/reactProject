@@ -15,10 +15,10 @@ export function TableReportTask({ taskData }) {
         key: `ntuStatuses-${index + 1}`,
         name: `Запрос статуса [${index + 1}]`,
         respResult: item.respResult.success
-          ? `PON ${item.respResult.serialNewNtu},
-  ONT ${item.respResult.ont_status}, ${item.respResult.RX_power}, 
-  OLT ${item.respResult.ip_olt} ${item.respResult.PON_port}/${item.respResult.PON_id}`
-          : `PON ${item.respResult.serialNewNtu}
+          ? `PON: ${item.respResult.serialNewNtu},
+  ONT: ${item.respResult.ont_status}, ${item.respResult.RX_power}, 
+  OLT: ${item.respResult.ip_olt} ${item.respResult.PON_port}/${item.respResult.PON_id}`
+          : `PON: ${item.respResult.serialNewNtu}
 ${typeof item.respResult.ont_status === "undefined" ? item.respResult.info : item.respResult.ont_status && !item.respResult.ont_status.includes("не найден на ACS") ? item.respResult.info : item.respResult.ont_status}`,
       });
     });
@@ -33,11 +33,12 @@ ${typeof item.respResult.ont_status === "undefined" ? item.respResult.info : ite
         key: `ntuPppoeEntities-${index + 1}`,
         name: `Настройка PPPoE [${index + 1}]`,
         respResult: item.respResult.success
-          ? `PON ${item.respResult.serialNewNtu},
+          ? `PON: ${item.respResult.serialNewNtu},
 ${item.respResult.create_login_US === null ? "Карточка существует в US" : item.respResult.create_login_US},
 ${item.respResult.write_PONserial}, 
 ${item.respResult.ont_config}`
-          : `PON ${item.respResult.serialNewNtu}
+          : `PON: ${item.respResult.serialNewNtu}
+LOGIN: ${item.userLogin}
 ${item.respResult.info}`,
       });
     });
@@ -52,19 +53,19 @@ ${item.respResult.info}`,
         key: `ntuWifiEntities-${index + 1}`,
         name: `Настройка WiFi [${index + 1}]`,
         respResult: item.respResult.success
-          ? `PON ${item.respResult.serialNewNtu},
+          ? `PON: ${item.respResult.serialNewNtu},
 ${item.respResult.write_wifi_US},
 
 Настройки WIFI 2.4Ггц
-SSID ${item.ssidWifi2},
-PASS ${item.passWifi2},
-CHANNEL ${item.channelWifi2} [${item.respResult.wifi2_channel}]
+SSID: ${item.ssidWifi2},
+PASS: ${item.passWifi2},
+CHANNEL: ${item.channelWifi2} [${item.respResult.wifi2_channel}]
 
 Настройки WIFI 5Ггц
-SSID ${item.ssidWifi5},
-PASS ${item.passWifi5},
-CHANNEL ${item.channelWifi5} [${item.respResult.wifi5_channel}]`
-          : `PON ${item.respResult.serialNewNtu}
+SSID: ${item.ssidWifi5},
+PASS: ${item.passWifi5},
+CHANNEL: ${item.channelWifi5} [${item.respResult.wifi5_channel}]`
+          : `PON: ${item.respResult.serialNewNtu}
 ${item.respResult.info}`,
       });
     });
@@ -96,7 +97,7 @@ ${taskData.equipmentShutdownDto.info}`,
       key: `userInfo`,
       name: `Уточнение данных`,
       respResult: `${taskData.userInfo.userFullName},
-ТЕЛЕФОН ${taskData.userInfo.userPhone}`,
+ТЕЛЕФОН: ${taskData.userInfo.userPhone}`,
     });
   }
 
