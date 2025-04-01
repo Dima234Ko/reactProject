@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 
 export function FormInfo({ isFormOpen, closeForm, formData }) {
   const formRef = useRef(null);
+  0;
 
   useEffect(() => {
     const handleClickOutside = (event) => {
