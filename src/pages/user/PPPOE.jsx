@@ -47,11 +47,6 @@ function Pppoe() {
     const fetchData = async () => {
       setSerialState(serialFromRedux);
 
-      if (serialFromRedux !== '') {
-        const data = await searchIdUs(serialFromRedux, '', setResult, 'serial');
-        dispatch(setLogin(data.userLogin));
-      }
-
       if (workFromUrl) {
         dispatch(setWork(workFromUrl));
       }
