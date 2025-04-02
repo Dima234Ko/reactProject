@@ -62,6 +62,7 @@ pre {
   margin-top: 20px;
   white-space: pre-wrap; /* Перенос строк, если текст выходит за пределы */
   word-wrap: break-word; /* Разрыв длинных слов */
+  margin-bottom: 0px;
 }
 
 .input-container ul {

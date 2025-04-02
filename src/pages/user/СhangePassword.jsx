@@ -60,9 +60,9 @@ function ChangePassword() {
         value={password}
         onChange={handleInputChange}
       />
+      {result && <Result data={result} />}
       <Button name="Сменить" onClick={handleAuthorization} />
       {loading && <Loader />}
-      {result && <Result data={result} />}
     </div>
   );
 }

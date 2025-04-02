@@ -58,7 +58,10 @@ function Wifi() {
       dispatch(setLogin(loginFromUrl));
     }
 
-    if (serialFromRedux !== '') {
+    const queryParams = new URLSearchParams(location.search);
+    const taskIdFromUrl = queryParams.get('task');
+
+    if (!taskIdFromUrl) {
       fetchDataWiFi();
     }
   }, [serialFromRedux]);
@@ -116,6 +119,10 @@ function Wifi() {
         setPassword5(data.passWifi5 || '');
         setSelectSSID2_4(data.channelWifi2 || 'auto');
         setSelectSSID5(data.channelWifi5 || 'auto');
+        setResult({
+          result: `Вы работаете с карточкой ${data.userLogin}`,
+          success: false,
+        });
       }
     } catch (error) {
       console.error('Ошибка при получении данных WiFi:', error);
@@ -240,6 +247,8 @@ function Wifi() {
         />
       </div>
 
+      {result && <Result data={result} />}
+
       <Button name="Отправить запрос" onClick={handleSetWiFi} />
       {loading && (
         <div className="overlay">
@@ -248,7 +257,7 @@ function Wifi() {
           </div>
         </div>
       )}
-      {result && <Result data={result} />}
+      
       {workFromRedux === 'newConnection' && (
         <NextButton
           to={`/info?region=${regionId}&work=${workFromRedux}&serial=${serialFromRedux}${

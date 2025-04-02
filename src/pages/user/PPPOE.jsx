@@ -254,6 +254,7 @@ function Pppoe() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
+      {result && <Result data={result} />}
       <Button name="Отправить запрос" onClick={handleSetPppoe} />
       {loading && (
         <div className="overlay">
@@ -262,7 +263,6 @@ function Pppoe() {
           </div>
         </div>
       )}
-      {result && <Result data={result} />}
       <NextButton
         to={`/wifi?region=${regionId}&work=${workFromRedux}&serial=${serialFromRedux}&login=${loginFromRedux}`}
         disabled={result === null || result?.buttonVisible !== true}

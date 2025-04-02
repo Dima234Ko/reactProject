@@ -166,6 +166,7 @@ function Status() {
         checked={isChecked}
         onChange={handleCheckboxChange}
       />
+      {result && <Result data={result} />}
       <Button
         name="Отправить запрос"
         onClick={handleGetStatus}
@@ -178,7 +179,7 @@ function Status() {
           </div>
         </div>
       )}
-      {result && <Result data={result} />}
+  
       <NextButton
         to={`/pppoe?region=${regionId}&work=${workFromRedux}&serial=${serial}`}
         disabled={result === null || result?.buttonVisible !== true}

@@ -83,9 +83,9 @@ function Authorization() {
         onChange={handleInputChange}
         onKeyDown={handleKeyDown} // Добавляем обработчик Enter
       />
-      <Button name="Войти" onClick={handleAuthorization} />
-      {loading && <Loader />}
       {result && <Result data={result} />}
+      <Button name="Войти" onClick={handleAuthorization} />
+      {loading && <Loader />} 
     </div>
   );
 }
