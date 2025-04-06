@@ -11,7 +11,6 @@ export async function searchIdUs(
   param,
   page
 ) {
-  console.log('11')
   setResult(null);
   let body;
   let data;

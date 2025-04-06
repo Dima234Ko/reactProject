@@ -71,7 +71,8 @@ function Work() {
       );
       const work = 'createNewMalfunction';
       dispatch(setWork(work));
-      navigate(`/malfunction?region=${regionId}&work=${work}`);
+      // navigate(`/malfunction?region=${regionId}&work=${work}`);
+      navigate(`/status?region=${regionId}&work=${work}`);
     } catch (error) {
       console.error('Ошибка при создании подключения:', error);
       setLoading(false);

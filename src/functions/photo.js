@@ -1,22 +1,9 @@
-export async function requestAPI(method, action) {
-  try {
-    const response = await fetch(`https://172.24.6.20:7448/${action}`, {
-      method: method,
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return response;
-  } catch {
-    console.error('Ошибка загрузки фото');
-  }
-}
+import {downloadPhoto} from "../functions/api"
 
 // Функция для скачивания фото
-export async function downloadPhoto(id) {
+export async function downloadPhotoToServer(id) {
   try {
-    const response = await requestAPI('GET', `photos/getPhoto/${id}`);
+    const response = await downloadPhoto('GET', `photos/getPhoto/${id}`);
     const blob = await response.blob(); // Получаем бинарные данные как Blob
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');

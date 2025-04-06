@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '../../components/Button';
-import { requestPhoto } from '../../functions/api';
+import { uploadPhoto } from '../../functions/api';
 
 export function FormPhoto({
   isUploading,
@@ -47,7 +47,7 @@ export function FormPhoto({
     formData.append('idUserSideCard', idUserSideCard);
 
     try {
-      const response = await requestPhoto('POST', `photos/uploads`, formData);
+      const response = await uploadPhoto('POST', `photos/uploads`, formData);
       setResultForm(response);
     } catch (error) {
       console.error('Ошибка при загрузке фото:', error);

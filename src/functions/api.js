@@ -1,9 +1,13 @@
+function getURL (){
+  return `https://172.24.6.20:7448/`
+  //return `https://r1.sv-en.ru:7449/`
+}
+
 export async function requestAPI(method, action, body) {
   try {
     const bodyData = typeof body === 'object' ? JSON.stringify(body) : body;
 
-    const response = await fetch(`https://172.24.6.20:7448/${action}`, {
-      //const response = await fetch(`https://192.168.1.103:8443/${action}`, {
+    const response = await fetch(`${getURL()}${action}`, {
       method: method,
       credentials: 'include',
       headers: {
@@ -27,15 +31,13 @@ export async function requestAPI(method, action, body) {
     const data = await response.json();
     return data;
   } catch (error) {
-    //console.error(error);
-    // Обработка ошибок
     throw error;
   }
 }
 
-export async function requestPhoto(method, action, body) {
+export async function uploadPhoto(method, action, body) {
   try {
-    const response = await fetch(`https://172.24.6.20:7448/${action}`, {
+    const response = await fetch(`${getURL()}${action}`, {
       method: method,
       credentials: 'include',
       body: body,
@@ -47,5 +49,21 @@ export async function requestPhoto(method, action, body) {
   } catch (error) {
     console.error('Ошибка при выполнении запроса:', error);
     throw new Error(`Ошибка при выполнении запроса: ${error.message}`);
+  }
+}
+
+
+export async function downloadPhoto(method, action) {
+  try {
+    const response = await fetch(`${getURL()}${action}`, {
+      method: method,
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return response;
+  } catch {
+    console.error('Ошибка загрузки фото');
   }
 }

@@ -125,16 +125,17 @@ function Main() {
           pathname !== '/status' &&
           !['/work', '/malfunction', '/disable'].includes(pathname),
       },
-      {
-        id: 'replcementPage',
-        name: 'Замена NTU',
-        to: `/replcement?region=${regionFromRedux || ''}&work=${workFromRedux || ''}`,
-        show:
-          isWorkParam &&
-          isWorkParam !== 'newConnection' &&
-          pathname !== '/replcement' &&
-          !['/work', '/malfunction', '/disable'].includes(pathname),
-      },
+      //Замена NTU временно отключена
+      // {
+      //   id: 'replcementPage',
+      //   name: 'Замена NTU',
+      //   to: `/replcement?region=${regionFromRedux || ''}&work=${workFromRedux || ''}`,
+      //   show:
+      //     isWorkParam &&
+      //     isWorkParam !== 'newConnection' &&
+      //     pathname !== '/replcement' &&
+      //     !['/work', '/malfunction', '/disable'].includes(pathname),
+      // },
       {
         id: 'pppoePage',
         name: 'PPPoE',

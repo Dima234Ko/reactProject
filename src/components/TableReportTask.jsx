@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table } from '../components/Table';
-import { downloadPhoto } from '../functions/photo';
+import { downloadPhotoToServer } from '../functions/photo';
 
 export function TableReportTask({ taskData }) {
   if (!taskData) {
@@ -111,7 +111,7 @@ ${taskData.equipmentShutdownDto.info}`,
       <td>
         {row.name.includes('Загрузка фото') && row.id !== undefined ? (
           <pre
-            onClick={() => downloadPhoto(row.id)}
+            onClick={() => downloadPhotoToServer(row.id)}
             style={{ cursor: 'pointer', color: 'blue' }}
           >
             {row.respResult}

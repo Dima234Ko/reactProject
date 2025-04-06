@@ -91,45 +91,46 @@ function Wifi() {
 
   // Асинхронная функция для получения данных WiFi
   const fetchDataWiFi = async () => {
-    try {
-      setResult(null);
-      let data;
-      if (loginFromRedux !== null) {
-        data = await searchIdUs(
-          loginFromRedux,
-          serialFromRedux,
-          setResult,
-          'login',
-          'wifi'
-        );
-      } else if (loginFromUrl === '') {
-        data = await searchIdUs(
-          serialFromRedux,
-          '',
-          setResult,
-          'serial',
-          'wifi'
-        );
-        dispatch(setLogin(data.userLogin));
-      }
-      if (data) {
-        setSsid2_4(data.ssidWifi2 || '');
-        setSsid5(data.ssidWifi5 || '');
-        setPassword2_4(data.passWifi2 || '');
-        setPassword5(data.passWifi5 || '');
-        setSelectSSID2_4(data.channelWifi2 || 'auto');
-        setSelectSSID5(data.channelWifi5 || 'auto');
+    if (serialFromRedux !== '') {
+      try {
+        let data;
+        if (loginFromRedux !== null) {
+          data = await searchIdUs(
+            loginFromRedux,
+            serialFromRedux,
+            setResult,
+            'login',
+            'wifi'
+          );
+        } else if (loginFromUrl === '') {
+          data = await searchIdUs(
+            serialFromRedux,
+            '',
+            setResult,
+            'serial',
+            'wifi'
+          );
+          dispatch(setLogin(data.userLogin));
+        }
+        if (data) {
+          setSsid2_4(data.ssidWifi2 || '');
+          setSsid5(data.ssidWifi5 || '');
+          setPassword2_4(data.passWifi2 || '');
+          setPassword5(data.passWifi5 || '');
+          setSelectSSID2_4(data.channelWifi2 || 'auto');
+          setSelectSSID5(data.channelWifi5 || 'auto');
+          setResult({
+            result: `Вы работаете с карточкой ${data.userLogin}`,
+            success: false,
+          });
+        }
+      } catch (error) {
+        console.error('Ошибка при получении данных WiFi:', error);
         setResult({
-          result: `Вы работаете с карточкой ${data.userLogin}`,
+          result: 'Ошибка при получении данных WiFi',
           success: false,
         });
       }
-    } catch (error) {
-      console.error('Ошибка при получении данных WiFi:', error);
-      setResult({
-        result: 'Ошибка при получении данных WiFi',
-        success: false,
-      });
     }
   };
 
