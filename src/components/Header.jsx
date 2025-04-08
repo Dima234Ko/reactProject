@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { LinkButton } from './Link';
-
 import backIcon from '../img/back.svg';
 import menuIcon from '../img/menu.svg';
 import logoIcon from '../img/logo.png';
