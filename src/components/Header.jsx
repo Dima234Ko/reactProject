@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { LinkButton } from './Link';
+import { LinkButton } from './link';
 
-import backIcon from '../img/Back.svg';
-import menuIcon from '../img/Menu.svg';
+import backIcon from '../img/back.svg';
+import menuIcon from '../img/menu.svg';
 import logoIcon from '../img/logo.png';
 
 const Header = ({
