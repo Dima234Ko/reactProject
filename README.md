@@ -1,16 +1,31 @@
-<<<<<<< HEAD
+# Frontend сервиса настройки GPON-терминалов
 
-# React + Vite
+Добро пожаловать в репозиторий сервиса для настройки клиентских GPON-терминалов провайдера. Этот проект предоставляет удобный интерфейс для управления устройствами и передачи данных.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Основные возможности
 
-Currently, two official plugins are available:
+- **Удалённая проверка статуса устройства**  
+  Проверка состояния GPON-терминала в сети в реальном времени.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- # [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Настройка PPPoE-соединения**  
+  Удобная конфигурация PPPoE для подключения к сети провайдера.
 
-# reactProject
+- **Настройка Wi-Fi соединения**  
+  Управление параметрами беспроводной сети, включая SSID и пароль.
 
-reactProject
+- **Передача данных в базу данных**  
+  Отправка учётных данных и фотографий в базу данных для хранения и анализа.
 
-> > > > > > > 0dcf5d074ac767dde4a9a06509a055f410e5e186
+## О проекте
+
+Этот проект представляет собой клиентскую часть сервиса, разработанного для упрощения работы с GPON-терминалами. Он ориентирован на сотрудников провайдера и предоставляет интуитивно понятный интерфейс для выполнения ключевых задач.
+
+## Установка и запуск
+
+1. Клонируйте репозиторий:
+   
+   git clone https://github.com/Dima234Ko/reactProject.git
+
+2. Запускайте
+
+    npm run dev
