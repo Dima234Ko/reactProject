@@ -1,0 +1,117 @@
+/* CustomComponent.css */
+.custom-component {
+  position: fixed;
+  top: 13%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 53vh; /* Занимает 2/3 экрана */
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+#disablingForm {
+  margin-top: 20px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column; /* Располагаем элементы в колонку */
+  align-items: center; /* Выравнивание элементов по центру */
+  width: 100%; /* Можно добавить для обеспечения полной ширины контейнера */
+}
+
+#stop_data {
+  margin-left: 22px;
+}
+
+#start_data,
+#stop_data {
+  height: 20px;
+}
+
+.textForm .some-input#sel {
+  width: 100%;
+}
+
+.textForm .some-input[type='date'] {
+  width: 11.5vh;
+  font-size: 11px;
+}
+
+.textForm .some-input {
+  width: 27.5vh;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  border: 1.5px solid #6b6b6b;
+  border-radius: 10px;
+}
+
+.form .some-input[type='text'],
+.form .some-input[type='password'] {
+  margin-left: 13%;
+  width: 67%;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #f00;
+}
+
+.textForm {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 30vh;
+}
+
+.upload-result {
+  text-align: center;
+  font-family: monospace;
+  unicode-bidi: isolate;
+  margin-top: 20px;
+  font-size: 14px; /* Задаем размер шрифта */
+  color: #003597c5;
+}
+
+.textForm h2,
+.textForm pre {
+  margin: 5px;
+  font-weight: 300;
+}
+
+.textForm pre {
+  margin-top: 25px;
+  margin-bottom: 0px;
+}
+
+.task-table pre {
+  margin-top: 0px;
+}
+
+form {
+  width: 80%;
+  text-align: center;
+}
+
+.form {
+  text-align: center;
+}
+
+.sel-container {
+  width: 100%;
+}

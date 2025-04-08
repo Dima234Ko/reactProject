@@ -1,0 +1,39 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:react-refresh/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["react", "react-hooks", "react-refresh"],
+  "rules": {
+    "react-refresh/only-export-components": "warn",
+    "react/prop-types": "off", // Отключаем, если не используете PropTypes
+    "no-unused-vars": [
+      "error",
+      { "varsIgnorePattern": "^_", "argsIgnorePattern": "^_" }
+    ],
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off" // Не требуется в React 18
+  },
+  "settings": {
+    "react": {
+      "version": "detect" // Автоматическое определение версии React
+    }
+  },
+  "reportUnusedDisableDirectives": true, // Аналог --report-unused-disable-directives
+  "maxWarnings": 0, // Аналог --max-warnings 0
+  "ext": [".js", ".jsx"] // Аналог --ext js,jsx
+}

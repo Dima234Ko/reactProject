@@ -1,0 +1,161 @@
+.button.blue,
+.custom-file-upload,
+#startMenu,
+#activeButton {
+  margin-top: 20px;
+  text-decoration: none;
+  border-radius: 10px;
+  height: 45px;
+  width: 225px;
+  border: none;
+  cursor: pointer;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition:
+    box-shadow 0.3s ease,
+    background-color 0.3s,
+    color 0.3s;
+  color: white;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  /* Тень для выпуклости */
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.1),
+    /* Внешняя тень */ inset 0 2px 2px rgba(255, 255, 255, 0.8),
+    /* Верхний блик */ inset 0 -2px 2px rgba(0, 0, 0, 0.2); /* Нижняя тень */
+  background: #0d398d;
+  color: white;
+}
+
+#startMenu,
+#activeButton {
+  padding: 0 20px;
+  display: flex; /* Используем flexbox для управления расположением */
+  align-items: center; /* Вертикальное выравнивание по центру */
+  justify-content: space-between; /* Распределяем пространство: иконка слева, текст по центру */
+}
+
+.buttonText {
+  width: 175px;
+}
+
+#activeButton {
+  background: red; /* Прозрачный фон */
+  color: white; /* Цвет текста и иконки */
+}
+
+/* Эффект при нажатии */
+.custom-file-upload:active,
+#startMenu:active,
+#activeButton:active,
+.button.blue:active {
+  transform: scale(1.2); /* Восстановление размера при нажатии */
+}
+
+.arrow {
+  font-size: 24px; /* Размер стрелки */
+  color: #003597c5; /* Цвет стрелки */
+}
+
+.next-button {
+  margin-top: 25px;
+  background-color: white; /* Белый фон */
+  color: #003597c5; /* Цвет стрелки */
+  border: 3px solid #003597c5; /* Обводка круга */
+  border-radius: 50%; /* Округлая форма */
+  padding: 10px; /* Уменьшаем размер круга */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0; /* Убираем пробел между стрелкой и обводкой */
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s,
+    opacity 0.3s; /* Добавляем плавный переход для прозрачности */
+}
+
+.next-button img {
+  margin-top: 2px;
+  transition: opacity 0.3s; /* Плавный переход для прозрачности изображения */
+}
+
+.next-button:hover {
+  color: white; /* Белый цвет стрелки при наведении */
+  border-color: #0050e4c5; /* Обводка при наведении */
+  transform: scale(1.1); /* Увеличение размера кнопки для эффекта вспышки */
+}
+
+/* Стили для отключенной кнопки */
+.next-button.disabled {
+  background-color: white; /* Белый фон (сохраняем) */
+  color: #003597c5; /* Цвет стрелки (сохраняем) */
+  border-color: #003597c5; /* Обводка (сохраняем) */
+  cursor: not-allowed; /* Убираем курсор */
+  opacity: 0.3; /* Добавляем 50% прозрачности */
+  pointer-events: none; /* Отключаем кликабельность */
+}
+
+/* Прозрачность для картинки внутри кнопки */
+.next-button.disabled img {
+  opacity: 0.5; /* 50% прозрачности для картинки */
+}
+
+/* Notification.css */
+.upload-button {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #007bff;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.upload-button .upload-text {
+  margin-left: 8px;
+  font-size: 14px;
+}
+
+.upload-button .fa-file-import {
+  font-size: 20px;
+}
+
+/* Стили для неактивного состояния */
+.button:disabled,
+.upload-button.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #cccccc; /* или другой цвет для неактивного состояния */
+}
+
+/* Опционально: убрать hover-эффекты для неактивной кнопки */
+.upload-button.disabled:hover {
+  /* отменяем любые hover-эффекты */
+  transform: none;
+  box-shadow: none;
+}
+
+#tableButton {
+  display: flex; /* Используем flexbox для расположения кнопок в одну строку */
+  justify-content: center; /* Центрируем кнопки по горизонтали */
+  gap: 10px; /* Добавляем промежуток между кнопками */
+}
+
+.upload-button.action-btn#activeButton {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%); /* Центрируем по горизонтали */
+  margin-top: 20px; /* Отступ сверху */
+}

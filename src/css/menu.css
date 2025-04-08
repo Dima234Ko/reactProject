@@ -1,0 +1,37 @@
+.burger-menu {
+  cursor: pointer;
+}
+
+.burger-menu:hover {
+  transform: scale(1.1); /* Увеличение размера кнопки для эффекта вспышки */
+}
+
+.dropdown {
+  display: none; /* Скрываем меню по умолчанию */
+  position: absolute;
+  top: 80px; /* Позиция меню под навигацией */
+  right: 10px; /* Отступ от правого края */
+  background-color: white; /* Цвет фона меню */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Тень для меню */
+  border-radius: 5px; /* Закругление углов */
+  z-index: 2;
+  text-align: center;
+  width: 150px;
+}
+
+.dropdown .button.blue {
+  all: unset; /* Сбрасываем все стили */
+  display: block; /* Элементы меню занимают всю ширину */
+  padding: 10px 0px; /* Отступы для элементов меню */
+  color: #333; /* Цвет текста */
+  width: 100%; /* Ширина на весь контейнер */
+  cursor: pointer; /* Курсор в виде указателя при наведении */
+}
+
+.dropdown .button.blue:hover {
+  background-color: #f0f0f0; /* Цвет фона при наведении */
+}
+
+.burger-menu.active + .dropdown {
+  display: block; /* Показываем меню при активном состоянии бургер-меню */
+}

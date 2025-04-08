@@ -1,0 +1,97 @@
+/* Мобильные адаптивы (например, экраны до 768px) */
+@media (max-width: 768px) {
+  #authorization,
+  #status,
+  #pppoe,
+  #wifi,
+  #work,
+  #settings,
+  #region,
+  #info,
+  #repalcement,
+  #disabling {
+    width: 100%;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  .custom-component {
+    top: 7%;
+    width: 80%;
+  }
+
+  .result {
+    width: 80%; /* Устанавливаем ширину от ширины экрана */
+    margin: 0 auto; /* Центрируем элемент по горизонтали */
+  }
+
+  pre {
+    font-size: 14px; /* Устанавливаем размер шрифта */
+  }
+
+  #tableButton {
+    display: flex;
+    justify-content: space-around; /* Распределяет кнопки по горизонтали с равными промежутками */
+    align-items: center; /* Выравнивание по вертикали */
+    gap: 10px; /* Расстояние между кнопками */
+    flex-wrap: wrap; /* Обеспечивает перенос элементов на новую строку, если пространство ограничено */
+  }
+
+  /* Стили для ячеек таблицы */
+  .log-table th,
+  .log-table td,
+  .user-table th,
+  .user-table td {
+    padding: 10px;
+    text-align: left;
+    font-size: 0.9rem; /* Уменьшаем шрифт */
+    word-wrap: break-word; /* Перенос слов в ячейках */
+    min-width: 100%; /* Ячейки должны растягиваться на 100% */
+    box-sizing: border-box; /* Учет padding в ширине */
+  }
+
+  /* Сделаем заголовки таблицы более заметными */
+  .log-table th,
+  .user-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+
+  /* Добавим разделение между строками */
+  .log-table tr,
+  .user-table tr {
+    margin-bottom: 10px; /* Добавляем отступ между строками */
+  }
+
+  /* Улучшаем видимость при прокрутке */
+  .log-table td,
+  .user-table td {
+    border: 1px solid #ddd; /* Добавляем границу между ячейками */
+  }
+
+  /* Настройки для скрытия столбцов на мобильных */
+  .log-table th:nth-child(3),
+  .log-table td:nth-child(3),
+  .log-table th:nth-child(5),
+  .log-table td:nth-child(5) {
+    display: none; /* Скрыть 3-й и 5-й столбцы (ID устройства и Учетная запись) */
+  }
+
+  #tableButton .upload-button .upload-text {
+    display: none;
+  }
+
+  /* Расположить иконки в одну линию */
+  #tableButton .upload-button {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  #tableButton .upload-button svg {
+    width: 24px;
+    height: 24px;
+  }
+}

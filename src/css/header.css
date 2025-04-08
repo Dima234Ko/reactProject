@@ -1,0 +1,37 @@
+/* Стили для шапки */
+header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  position: relative;
+}
+
+/* Кнопка назад */
+.back-button {
+  background-color: transparent; /* Кнопка без фона */
+  border: none; /* Убираем рамку */
+  padding: 0; /* Убираем отступы */
+  cursor: pointer; /* Курсор при наведении */
+}
+
+.back-button:hover {
+  transform: scale(1.1); /* Увеличение размера кнопки для эффекта вспышки */
+}
+
+/* Логотип в центре */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1; /* Логотип будет располагаться по центру */
+}
+
+.logo-container img {
+  width: 100px; /* Размер логотипа */
+  height: auto;
+}
+
+/* Если шапка фиксированная, добавляем отступ сверху для контента */
+body {
+  margin-top: 20px; /* Делаем отступ для контента под шапкой */
+}

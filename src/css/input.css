@@ -1,0 +1,69 @@
+.some-input {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #6b6b6b;
+  border-radius: 10px;
+}
+
+input {
+  display: flex;
+  height: 18.2px;
+  width: 80%;
+}
+
+.date-container {
+  display: flex;
+  width: 30vh;
+}
+
+.ssid-container,
+.pon-container,
+.inp-contanier {
+  display: flex;
+  gap: 3%;
+  width: 86.5%;
+}
+
+.ssid-container input,
+.pon-container input,
+.inp-contanier input {
+  width: 100%;
+}
+
+.ssid-container select {
+  width: 40%;
+}
+
+select {
+  width: 83%;
+  height: 42px;
+  padding: 10px;
+  border: 2px solid #6b6b6b;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+/* Скрываем стандартный элемент input */
+input[type='file'] {
+  display: none;
+}
+
+/* Создаем кнопку для выбора файла */
+.custom-file-upload {
+  background-color: #4caf50;
+}
+
+.custom-file-upload:active {
+  transform: scale(1.2); /* Восстановление размера при нажатии */
+}
+
+/* Отображаем название файла */
+.file-name {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+#level_Ntu {
+  width: 30px;
+}

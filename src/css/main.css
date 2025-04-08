@@ -1,0 +1,132 @@
+h2 {
+  font-family: 'Arial', Helvetica, 'Roboto', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0d398d;
+  text-align: center;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+  font-weight: 400;
+}
+
+#app {
+  max-width: 100%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#app::after {
+  content: '';
+  display: block;
+  height: 50px;
+}
+
+#authorization,
+#status,
+#pppoe,
+#wifi,
+#settings,
+#settings,
+#region,
+#work,
+#repalcement,
+#info,
+#disabling {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  align-items: center;
+}
+
+#user,
+#log {
+  width: 100%;
+  align-items: center;
+}
+
+.result {
+  width: 80%;
+}
+
+pre {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 20px;
+  white-space: pre-wrap; /* Перенос строк, если текст выходит за пределы */
+  word-wrap: break-word; /* Разрыв длинных слов */
+  margin-bottom: 0px;
+}
+
+.input-container ul {
+  padding-left: 15px; /* Убираем отступ слева для списка */
+  list-style-type: disc;
+}
+
+.input-container ul li {
+  margin-bottom: 10px; /* Отступ между элементами списка */
+  text-align: left; /* Текст будет выровнен по левому краю */
+}
+
+h6 {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 12px;
+}
+
+h5 {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: 5px;
+  line-height: 1.6;
+}
+
+h4 {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+h3 {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 0px;
+  font-size: 12px;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.input-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toggle-password-btn {
+  margin-left: -30px; /* Сдвиг кнопки влево, чтобы перекрывать input */
+  margin-top: 18px; /* Вертикальное смещение */
+  border: none;
+  background: transparent;
+  padding: 6px; /* Отступы вокруг кнопки */
+  cursor: pointer; /* Курсор указателя */
+}
+
+.toggle-password-btn:disabled {
+  cursor: not-allowed; /* Курсор для отключённой кнопки */
+}
