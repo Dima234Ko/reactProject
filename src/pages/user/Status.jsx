@@ -13,10 +13,12 @@ import Result from '../../components/Result';
 import { getStatus } from '../../functions/status';
 import { checkTaskStatus } from '../../functions/task';
 import { NextButton } from '../../components/Link';
+import { FormSelectNewConnection } from '../../components/Form/FormSelectNewConnection';
 import { FormInfo } from '../../components/Form/Form';
 import { Checkbox } from '../../components/Checkbox';
 import { getParamBrowserUrl } from '../../functions/url';
 import { getRegion } from '../../functions/region';
+
 
 function Status() {
   const dispatch = useDispatch();
@@ -81,32 +83,6 @@ function Status() {
 
   // Обработчик для получения статуса
   const handleGetStatus = async () => {
-    setFormContent({
-      fromData: (
-        <div className="textForm">
-          <h2>Внимание</h2>
-          <div>
-            <pre>В данной версии приложения:</pre>
-          </div>
-          <ul>
-            <li>
-              Функции из расширенной настройки вынесены в меню в верхнем правом
-              углу.
-            </li>
-            <li>
-              Решена проблема прерывания запроса при сворачивании браузера.
-            </li>
-            <li>
-              Добавлена возможность заполнения ФИО абонента для карточки в US.
-            </li>
-            <li>
-              Реализована возможность передачи ошибки (скопируйте ссылку,
-              передайте её на 2ЛТП с описанием проблемы).
-            </li>
-          </ul>
-        </div>
-      ),
-    });
     dispatch(setProgress(0));
     setLoading(true);
     setResult(null);
@@ -131,11 +107,28 @@ function Status() {
         success: false,
       });
     }
-
-    setTimeout(() => {
-      setIsFormOpen(false);
-    }, 30000);
   };
+
+  // Обработчик для кнопки далее
+  const moveOn = async () => {
+    setFormContent({
+      fromData: (
+        <FormSelectNewConnection
+          regionId={regionId}
+          serial={serial}
+          work={workFromRedux}
+          dispatch={dispatch}
+          navigate={navigate}
+          closeForm={() => {
+            setIsFormOpen(false);
+            setLoading(false);
+          }}
+        />
+      ),
+    });
+    setIsFormOpen(true);
+  };
+    
 
   // Функция для изменения состояния чекбокса
   const handleCheckboxChange = (e) => {
@@ -180,10 +173,11 @@ function Status() {
         </div>
       )}
   
-      <NextButton
-        to={`/pppoe?region=${regionId}&work=${workFromRedux}&serial=${serial}`}
-        disabled={result === null || result?.buttonVisible !== true}
-      />
+      <Button
+          name="Далее"
+          onClick={moveOn}
+          disabled={result === null || result?.buttonVisible !== true}
+        />
     </div>
   );
 }
