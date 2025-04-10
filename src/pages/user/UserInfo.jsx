@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Button, UploadButton } from '../../components/Button';
+import { Button } from '../../components/Button/Button';
+import { UploadButton } from '../../components/Button/UploadButton';
 import { setSerial } from '../../store/actions/serialActions';
 import { Input } from '../../components/Input';
 import { setLogin } from '../../store/actions/loginActions';

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Button } from '../../components/Button';
+import { Button } from '../../components/Button/Button';
 import { uploadPhoto } from '../../functions/api';
 
 export function FormPhoto({
   isUploading,
   setIsUploading,
-  setFile,
   login,
   idUserSideCard,
   workFromRedux,
