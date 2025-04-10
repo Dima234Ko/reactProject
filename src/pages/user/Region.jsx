@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Select } from '../../components/Select';
-import { Button } from '../../components/Button';
+import { Select } from '../../components/Select/Select';
+import { Button } from '../../components/Button/Button';
 import { requestAPI } from '../../functions/api';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';

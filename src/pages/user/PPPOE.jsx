@@ -8,7 +8,7 @@ import { setLogin } from '../../store/actions/loginActions';
 import { setWork } from '../../store/actions/workActions';
 import { setWarning } from '../../store/actions/warningActions';
 import { Input } from '../../components/Input';
-import { Button } from '../../components/Button';
+import { Button } from '../../components/Button/Button';
 import { Loader } from '../../components/Loader';
 import Result from '../../components/Result';
 import { FormInfo } from '../../components/Form/Form';
@@ -17,7 +17,7 @@ import { checkTaskStatus } from '../../functions/task';
 import { NextButton } from '../../components/Link';
 import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
 import { getRegion } from '../../functions/region';
-import { ExpressButton } from '../../components/Button';
+import { ExpressButton } from '../../components/Button/ExpressButton';
 
 function Pppoe() {
   const dispatch = useDispatch();

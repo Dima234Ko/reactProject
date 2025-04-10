@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Input } from '../../components/Input';
 import { FormInfo } from '../../components/Form/Form';
-import { Button } from '../../components/Button';
+import { Button } from '../../components/Button/Button';
 import { Loader } from '../../components/Loader';
 import { Checkbox } from '../../components/Checkbox';
 import Result from '../../components/Result';

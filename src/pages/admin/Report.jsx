@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table } from '../../components/Table';
-import { FiltrButton } from '../../components/Button';
+import { FiltrButton } from '../../components/Button/FiltrButton';
 import { FormInfo } from '../../components/Form/Form';
 import { FormFilterReport } from '../../components/Form/FormFilterReport';
 import { FormReportTask } from '../../components/Form/FormReportTask';

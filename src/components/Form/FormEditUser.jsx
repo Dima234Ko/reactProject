@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Input } from '../Input';
-import { Button } from '../Button';
+import { Button } from '../Button/Button';
 import { requestAPI } from '../../functions/api';
 import { useSelector } from 'react-redux';
 

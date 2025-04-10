@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Input } from '../../components/Input';
-import { Button } from '../../components/Button';
-import { SelectRoot } from '../../components/Select';
+import { Button } from '../Button/Button';
+import { SelectRoot } from '../../components/Select/SelectRoot ';
 import { requestAPI } from '../../functions/api';
 
 export function FormAddUser({ setCreateSuccess, onClose }) {
