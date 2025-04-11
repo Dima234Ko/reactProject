@@ -69,10 +69,10 @@ export function FormPhoto({
         type="file"
         id="file-upload"
         onChange={handleFileChange}
-        multiple // Разрешаем выбор нескольких файлов
+        multiple
         style={{ display: 'none' }}
       />
-      <label htmlFor="file-upload" className="custom-file-upload">
+      <label htmlFor="file-upload" className="button green">
         Выбрать файлы
       </label>
       {files.length > 0 && (

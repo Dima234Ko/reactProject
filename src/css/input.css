@@ -49,11 +49,11 @@ input[type='file'] {
 }
 
 /* Создаем кнопку для выбора файла */
-.custom-file-upload {
+.button.green{
   background-color: #4caf50;
 }
 
-.custom-file-upload:active {
+.button.green:active {
   transform: scale(1.2); /* Восстановление размера при нажатии */
 }
 

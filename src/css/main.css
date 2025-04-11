@@ -31,6 +31,7 @@ h2 {
 #status,
 #pppoe,
 #wifi,
+#camNtu,
 #settings,
 #settings,
 #region,
@@ -81,6 +82,7 @@ h6 {
   margin-top: 20px;
   margin-bottom: 20px;
   font-size: 12px;
+  font-weight: revert; 
 }
 
 h5 {
@@ -88,7 +90,9 @@ h5 {
   text-align: center;
   margin-top: 0px;
   margin-bottom: 5px;
+  font-size: 15px;
   line-height: 1.6;
+  font-weight: lighter; 
 }
 
 h4 {

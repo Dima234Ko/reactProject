@@ -23,6 +23,7 @@ import Malfunction from './pages/user/Malfunction';
 import UserInfo from './pages/user/UserInfo';
 import Replcement from './pages/user/Replacement';
 import ChangePassword from './pages/user/СhangePassword';
+import CamNtu from './pages/user/CamNtu';
 import { TaskButton} from './components/Button/TaskButton';
 import { ExpressButton} from './components/Button/ExpressButton';
 import { FormInfo } from './components/Form/Form';
@@ -199,6 +200,7 @@ function Main() {
           <Route path="/" element={<Authorization />} />
           <Route path="/status" element={<Status />} />
           <Route path="/pppoe" element={<Pppoe />} />
+          <Route path="/camntu" element={<CamNtu />} />
           <Route path="/wifi" element={<Wifi />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/region" element={<Region />} />

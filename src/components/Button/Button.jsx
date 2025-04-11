@@ -4,12 +4,12 @@ export function Button({
   name,
   id,
   onClick,
-  className = '',
+  className = 'button blue',
   disabled = false,
 }) {
   return (
     <button
-      className={`button blue ${className}`}
+      className={className}
       id={id}
       onClick={onClick}
       disabled={disabled}

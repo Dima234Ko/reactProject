@@ -87,7 +87,6 @@ function Status() {
     setLoading(true);
     setResult(null);
     setError('');
-    setIsFormOpen(true);
 
     try {
       await getStatus(
@@ -176,6 +175,7 @@ function Status() {
       <Button
           name="Далее"
           onClick={moveOn}
+          className = 'button green'
           disabled={result === null || result?.buttonVisible !== true}
         />
     </div>

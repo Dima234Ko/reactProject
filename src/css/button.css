@@ -1,5 +1,5 @@
 .button.blue,
-.custom-file-upload,
+.button.green,
 #startMenu,
 #activeButton {
   margin-top: 20px;
@@ -50,7 +50,7 @@
 }
 
 /* Эффект при нажатии */
-.custom-file-upload:active,
+.button.green:active,
 #startMenu:active,
 #activeButton:active,
 .button.blue:active {

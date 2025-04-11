@@ -2,7 +2,8 @@ export function RadioButtonGroup({
   options,
   isVisible,
   onChange,
-  selectedValue, // Используем как начальное значение
+  selectedValue,
+  layout = 'vertical',
 }) {
   const handleChange = (e) => {
     if (onChange) {
@@ -13,14 +14,14 @@ export function RadioButtonGroup({
   return (
     <div className="radio-group">
       {isVisible && (
-        <div className="radio-buttons">
+        <div className={`radio-buttons radio-buttons--${layout}`}>
           {Object.entries(options).map(([value, label]) => (
-            <label key={value} style={{ display: 'block', margin: '10px 0' }}>
+            <label key={value}>
               <input
                 type="radio"
                 name="radioGroup"
                 value={value}
-                checked={selectedValue === value} // Управляется через selectedValue
+                checked={selectedValue === value}
                 onChange={handleChange}
               />
               {label}
