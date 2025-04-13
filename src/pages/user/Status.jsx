@@ -74,7 +74,9 @@ function Status() {
   }, [location.search, navigate]);
 
   const handleInputChange = (event) => {
-    const newSerial = event.target.value.toUpperCase().replace(/\s/g, '');
+    const newSerial = event.target.value
+  .toUpperCase()
+  .replace(/[^A-Z0-9]/g, ''); 
     setSerialState(newSerial);
     dispatch(setSerial(newSerial));
   };
