@@ -258,7 +258,7 @@ function Wifi() {
           </div>
         </div>
       )}
-      
+
       {workFromRedux === 'newConnection' && (
         <NextButton
           to={`/info?region=${regionId}&work=${workFromRedux}&serial=${serialFromRedux}${

@@ -179,7 +179,7 @@ function Status() {
           </div>
         </div>
       )}
-  
+
       <NextButton
         to={`/pppoe?region=${regionId}&work=${workFromRedux}&serial=${serial}`}
         disabled={result === null || result?.buttonVisible !== true}

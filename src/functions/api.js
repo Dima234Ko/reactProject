@@ -1,5 +1,5 @@
-function getURL (){
-  return `https://r1.sv-en.ru:8443/`
+function getURL() {
+  return `https://r1.sv-en.ru:8443/`;
   //return `https://172.24.6.4:7448/`
   //return `https://172.24.6.20:7448/`
   //return `https://r1.sv-en.ru:7449/`
@@ -53,7 +53,6 @@ export async function uploadPhoto(method, action, body) {
     throw new Error(`Ошибка при выполнении запроса: ${error.message}`);
   }
 }
-
 
 export async function downloadPhoto(method, action) {
   try {

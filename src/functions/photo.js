@@ -1,4 +1,4 @@
-import {downloadPhoto} from "../functions/api"
+import { downloadPhoto } from '../functions/api';
 
 // Функция для скачивания фото
 export async function downloadPhotoToServer(id) {
