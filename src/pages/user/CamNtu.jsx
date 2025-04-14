@@ -12,6 +12,7 @@ import Result from '../../components/Result';
 import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
 import { getRegion } from '../../functions/region';
 import { RadioButtonGroup } from '../../components/RadioButtonGroup';
+import {settingCCTVforNtu} from '../../functions/settingCamNtu'
 
 function CamNtu() {
   const dispatch = useDispatch();
@@ -74,7 +75,7 @@ function CamNtu() {
 
   // Обработчик отправки запроса
   const handleSubmit = () => {
-    console.log('Настройка:', { serial, channelMode });
+    settingCCTVforNtu({ serial, serviceType, portNumber });
   };
 
   return (
