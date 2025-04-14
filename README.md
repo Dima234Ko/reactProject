@@ -26,6 +26,8 @@
 
    git clone https://github.com/Dima234Ko/reactProject.git
 
-2. Запускайте
+2. Добавьте конфигурационные файлы
+
+3. Запускайте
 
    npm run dev
