@@ -69,13 +69,14 @@ function Wifi() {
 
   useEffect(() => {
     const fetchData = async () => {
+      const queryParams = new URLSearchParams(location.search);
+      dispatch(setSerial(queryParams.get('serial')));
       try {
         await checkTaskStatus(
           location,
           loading,
           result,
           dispatch,
-          setSerial,
           setLoading,
           setResult,
           navigate

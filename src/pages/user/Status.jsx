@@ -52,6 +52,8 @@ function Status() {
 
   // Проверка статуса задачи при изменении URL
   useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    dispatch(setSerial(queryParams.get('serial')));
     const fetchData = async () => {
       try {
         await checkTaskStatus(
@@ -59,7 +61,6 @@ function Status() {
           loading,
           result,
           dispatch,
-          setSerial,
           setLoading,
           setResult,
           navigate

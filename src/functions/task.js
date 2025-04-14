@@ -35,15 +35,12 @@ export const checkTaskStatus = async (
   loading,
   result,
   dispatch,
-  setSerial,
   setLoading,
   setResult,
-  navigate,
-  setLogin
+  navigate
 ) => {
   const queryParams = new URLSearchParams(location.search);
   const taskIdFromUrl = queryParams.get('task');
-  dispatch(setSerial(queryParams.get('serial')));
 
   if (taskIdFromUrl && !loading) {
     if (!result) {

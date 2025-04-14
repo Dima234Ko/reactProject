@@ -4,6 +4,7 @@ export function RadioButtonGroup({
   onChange,
   selectedValue,
   layout = 'vertical',
+  nameGroup = 'radioGroup'
 }) {
   const handleChange = (e) => {
     if (onChange) {
@@ -19,7 +20,7 @@ export function RadioButtonGroup({
             <label key={value}>
               <input
                 type="radio"
-                name="radioGroup"
+                name={nameGroup}
                 value={value}
                 checked={selectedValue === value}
                 onChange={handleChange}

@@ -73,14 +73,15 @@ function Pppoe() {
   }, [serialFromRedux]);
 
   useEffect(() => {
-    const initialize = async () => {
+    const queryParams = new URLSearchParams(location.search);
+    dispatch(setSerial(queryParams.get('serial')));
+    const fetchData = async () => {
       try {
         await checkTaskStatus(
           location,
           loading,
           result,
           dispatch,
-          setSerial,
           setLoading,
           setResult,
           navigate
@@ -92,7 +93,7 @@ function Pppoe() {
         });
       }
     };
-    initialize();
+    fetchData();
   }, [location.search, navigate]);
 
   const handleSetPppoe = async () => {
