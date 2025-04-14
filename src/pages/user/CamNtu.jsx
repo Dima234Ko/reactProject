@@ -12,7 +12,7 @@ import Result from '../../components/Result';
 import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
 import { getRegion } from '../../functions/region';
 import { RadioButtonGroup } from '../../components/RadioButtonGroup';
-import {settingCCTVforNtu} from '../../functions/settingCamNtu'
+import { settingCCTVforNtu } from '../../functions/settingCamNtu';
 
 function CamNtu() {
   const dispatch = useDispatch();
@@ -25,8 +25,8 @@ function CamNtu() {
   const [regionId, setRegionId] = useState(regionFromRedux || '');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
-  const [serviceType, setServiceType] = useState('bd'); 
-  const [portNumber, setPortNumber] = useState('one'); 
+  const [serviceType, setServiceType] = useState('bd');
+  const [portNumber, setPortNumber] = useState('one');
   const regionFromUrl = getNumberBrowserUrl('region');
   const workFromUrl = getParamBrowserUrl('work');
 
@@ -42,7 +42,6 @@ function CamNtu() {
         setRegionId(regionFromUrl);
         dispatch(setRegion(regionFromUrl));
       }
-
     };
 
     fetchData();
@@ -99,6 +98,21 @@ function CamNtu() {
         />
       </div>
       <div className="camService">
+        <h6>Выберите количество портов</h6>
+        <RadioButtonGroup
+          options={{
+            one: '1',
+            two: '2',
+            three: '3',
+            four: '4',
+          }}
+          isVisible={true}
+          onChange={setPortNumber}
+          selectedValue={portNumber}
+          layout="horizontal"
+          style={{ marginTop: '10px' }}
+          nameGroup="radioGroupPort"
+        />
         <h6>Выберите верную услугу</h6>
         <RadioButtonGroup
           options={{
@@ -110,21 +124,6 @@ function CamNtu() {
           selectedValue={serviceType}
           layout="horizontal"
           style={{ marginTop: '10px' }}
-        />
-        <h6>Выберите количество портов</h6>
-        <RadioButtonGroup
-          options={{
-            one: '1',
-            two: '2',
-            three: '3',
-            four: '4'
-          }}
-          isVisible={true}
-          onChange={setPortNumber}
-          selectedValue={portNumber}
-          layout="horizontal"
-          style={{ marginTop: '10px' }}
-          nameGroup= 'radioGroupPort'
         />
       </div>
       {result && <Result data={result} />}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilterCircleXmark } from '@fortawesome/free-solid-svg-icons'; 
+import { faFilterCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
 export function FiltrButton({ onClick, className = '' }) {
   return (

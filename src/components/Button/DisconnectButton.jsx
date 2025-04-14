@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserSlash } from '@fortawesome/free-solid-svg-icons'; 
+import { faUserSlash } from '@fortawesome/free-solid-svg-icons';
 
 export function DisconnectButton({ onClick, className = '', disabled }) {
   return (

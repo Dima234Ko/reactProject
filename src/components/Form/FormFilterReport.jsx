@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Input } from '../Input';
 import { Select } from '../Select/Select';
-import {DropdownSelect} from '../Select/DropdownSelect';
+import { DropdownSelect } from '../Select/DropdownSelect';
 import { Button } from '../Button/Button';
 import { Checkbox } from '../Checkbox';
 import {

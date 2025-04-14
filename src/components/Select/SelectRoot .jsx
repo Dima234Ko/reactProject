@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select } from './Select';  
+import { Select } from './Select';
 
 export function SelectRoot({ onChange, value }) {
   const options = [
@@ -12,7 +12,7 @@ export function SelectRoot({ onChange, value }) {
   return (
     <Select
       id="sel"
-      options={options.map(option => option.value)}  
+      options={options.map((option) => option.value)}
       onChange={onChange}
     />
   );

@@ -4,7 +4,7 @@ export function RadioButtonGroup({
   onChange,
   selectedValue,
   layout = 'vertical',
-  nameGroup = 'radioGroup'
+  nameGroup = 'radioGroup',
 }) {
   const handleChange = (e) => {
     if (onChange) {

@@ -24,8 +24,8 @@ import UserInfo from './pages/user/UserInfo';
 import Replcement from './pages/user/Replacement';
 import ChangePassword from './pages/user/СhangePassword';
 import CamNtu from './pages/user/CamNtu';
-import { TaskButton} from './components/Button/TaskButton';
-import { ExpressButton} from './components/Button/ExpressButton';
+import { TaskButton } from './components/Button/TaskButton';
+import { ExpressButton } from './components/Button/ExpressButton';
 import { FormInfo } from './components/Form/Form';
 import { openTask, closeTask } from './functions/work';
 import {

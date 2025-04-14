@@ -8,12 +8,7 @@ export function Button({
   disabled = false,
 }) {
   return (
-    <button
-      className={className}
-      id={id}
-      onClick={onClick}
-      disabled={disabled}
-    >
+    <button className={className} id={id} onClick={onClick} disabled={disabled}>
       {name}
     </button>
   );

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table } from '../../components/Table';
-import {AddUserButton} from '../../components/Button/AddUserButton';
-import {ChangeEditUser} from '../../components/Button/ChangeEditUser';
-import {DeleteUserButton} from '../../components/Button/DeleteUserButton';
+import { AddUserButton } from '../../components/Button/AddUserButton';
+import { ChangeEditUser } from '../../components/Button/ChangeEditUser';
+import { DeleteUserButton } from '../../components/Button/DeleteUserButton';
 import { Loader } from '../../components/Loader';
 import { getAllUsers } from '../../functions/account';
 import { FormEditUser } from '../../components/Form/FormEditUser';

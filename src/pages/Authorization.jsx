@@ -85,7 +85,7 @@ function Authorization() {
       />
       {result && <Result data={result} />}
       <Button name="Войти" onClick={handleAuthorization} />
-      {loading && <Loader />} 
+      {loading && <Loader />}
     </div>
   );
 }

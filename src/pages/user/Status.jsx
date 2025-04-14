@@ -19,7 +19,6 @@ import { Checkbox } from '../../components/Checkbox';
 import { getParamBrowserUrl } from '../../functions/url';
 import { getRegion } from '../../functions/region';
 
-
 function Status() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -128,7 +127,6 @@ function Status() {
     });
     setIsFormOpen(true);
   };
-    
 
   // Функция для изменения состояния чекбокса
   const handleCheckboxChange = (e) => {
@@ -172,13 +170,13 @@ function Status() {
           </div>
         </div>
       )}
-  
+
       <Button
-          name="Далее"
-          onClick={moveOn}
-          className = 'button green'
-          disabled={result === null || result?.buttonVisible !== true}
-        />
+        name="Далее"
+        onClick={moveOn}
+        className="button green"
+        disabled={result === null || result?.buttonVisible !== true}
+      />
     </div>
   );
 }

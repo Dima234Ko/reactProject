@@ -1,11 +1,16 @@
 import React from 'react';
 import { ExpressButton } from '../Button/ExpressButton';
 
-export function FormSelectNewConnection({ regionId, serial, work, dispatch, navigate, closeForm }) {
-
-
+export function FormSelectNewConnection({
+  regionId,
+  serial,
+  work,
+  dispatch,
+  navigate,
+  closeForm,
+}) {
   const handleInternetConnection = async () => {
-      navigate(`/pppoe?region=${regionId}&work=${work}&serial=${serial}`);
+    navigate(`/pppoe?region=${regionId}&work=${work}&serial=${serial}`);
   };
 
   const handleCameraConnection = async () => {

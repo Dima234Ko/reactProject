@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileImport } from '@fortawesome/free-solid-svg-icons'; 
+import { faFileImport } from '@fortawesome/free-solid-svg-icons';
 
 export function UploadButton({ onClick, className = '' }) {
   return (
