@@ -14,7 +14,7 @@ import Result from '../../components/Result';
 import { FormInfo } from '../../components/Form/Form';
 import { setPppoe, searchIdUs } from '../../functions/pppoe';
 import { checkTaskStatus } from '../../functions/task';
-import { NextButton } from '../../components/Link';
+import { NextButton } from '../../components/Button/NextButton';
 import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
 import { getRegion } from '../../functions/region';
 import { ExpressButton } from '../../components/Button/ExpressButton';

@@ -12,7 +12,6 @@ import { Loader } from '../../components/Loader';
 import Result from '../../components/Result';
 import { getStatus } from '../../functions/status';
 import { checkTaskStatus } from '../../functions/task';
-import { NextButton } from '../../components/Link';
 import { FormSelectNewConnection } from '../../components/Form/FormSelectNewConnection';
 import { FormInfo } from '../../components/Form/Form';
 import { Checkbox } from '../../components/Checkbox';

@@ -91,21 +91,6 @@
   transform: scale(1.1); /* Увеличение размера кнопки для эффекта вспышки */
 }
 
-/* Стили для отключенной кнопки */
-.next-button.disabled {
-  background-color: white; /* Белый фон (сохраняем) */
-  color: #003597c5; /* Цвет стрелки (сохраняем) */
-  border-color: #003597c5; /* Обводка (сохраняем) */
-  cursor: not-allowed; /* Убираем курсор */
-  opacity: 0.3; /* Добавляем 50% прозрачности */
-  pointer-events: none; /* Отключаем кликабельность */
-}
-
-/* Прозрачность для картинки внутри кнопки */
-.next-button.disabled img {
-  opacity: 0.5; /* 50% прозрачности для картинки */
-}
-
 /* Notification.css */
 .upload-button {
   margin-top: 20px;
@@ -132,8 +117,9 @@
   font-size: 20px;
 }
 
-/* Стили для неактивного состояния */
-.button:disabled,
+
+
+.button.green[disabled],
 .upload-button.disabled {
   opacity: 0.6;
   cursor: not-allowed;

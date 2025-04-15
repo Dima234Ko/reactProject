@@ -9,7 +9,7 @@ import { SelectSSID } from '../../components/Select/SelectSSID';
 import { SelectSSID5 } from '../../components/Select/SelectSSID5';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button/Button';
-import { NextButton } from '../../components/Link';
+import { NextButton } from '../../components/Button/NextButton';
 import { setLogin } from '../../store/actions/loginActions';
 import { Loader } from '../../components/Loader';
 import Result from '../../components/Result';
