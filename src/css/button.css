@@ -129,11 +129,12 @@
   font-size: 20px;
 }
 
-.button.green[disabled],
+.button.green[disabled], 
 .upload-button.disabled {
   opacity: 0.6;
   cursor: not-allowed;
   background-color: #cccccc;
+  pointer-events: none; 
 }
 
 .upload-button.disabled:hover {
@@ -159,13 +160,23 @@ body.dark-mode .button.blue,
 body.dark-mode .button.green,
 body.dark-mode #startMenu,
 body.dark-mode #activeButton {
-  background: #1a4ba6;
-  color: #e0e0e0;
+  color: #ffffff;
   box-shadow:
     0 4px 6px rgba(0, 0, 0, 0.3),
     inset 0 2px 2px rgba(255, 255, 255, 0.2),
     inset 0 -2px 2px rgba(0, 0, 0, 0.4);
 }
+
+body.dark-mode .button.blue,
+body.dark-mode #startMenu,
+body.dark-mode #activeButton {
+  background: #3f6fc9;
+}
+
+body.dark-mode .button.green {
+  background: #1da122;
+}
+
 
 body.dark-mode #activeButton {
   background: #b30000;
@@ -203,6 +214,7 @@ body.dark-mode .upload-button.disabled {
   background-color: #555;
   color: #888;
   opacity: 0.6;
+  pointer-events: none;
 }
 
 body.dark-mode .icon-button {

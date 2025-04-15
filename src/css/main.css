@@ -142,7 +142,7 @@ h3 {
 
 /* Dark Theme Styles */
 body.dark-mode h2 {
-  color: #7ab0ff;
+  color: #e2e2e2;
 }
 
 body.dark-mode #app {
@@ -158,17 +158,13 @@ body.dark-mode h6,
 body.dark-mode h5,
 body.dark-mode h4,
 body.dark-mode h3 {
-  color: #d1d1d1;
+  color: #e2e2e2;
 }
 
 body.dark-mode pre {
-  color: #d1d1d1;
+  color: #e2e2e2;
 }
 
 body.dark-mode .input-container ul li {
-  color: #d1d1d1;
-}
-
-body.dark-mode .toggle-password-btn {
-  filter: invert(1);
+  color: #e2e2e2;
 }
