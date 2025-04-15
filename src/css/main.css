@@ -110,8 +110,9 @@ h3 {
   font-size: 12px;
 }
 
-#root {
+#WebApp {
   min-height: 100vh;
+  text-align: center;
 }
 
 .input-content {

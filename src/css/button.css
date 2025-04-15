@@ -117,8 +117,6 @@
   font-size: 20px;
 }
 
-
-
 .button.green[disabled],
 .upload-button.disabled {
   opacity: 0.6;

@@ -18,10 +18,11 @@ import './css/pagination.css';
 import './css/filter.css';
 import './css/swich.css';
 import './css/dropdown.css';
+import './css/toggle.css';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const WebApp = ReactDOM.createRoot(document.getElementById('WebApp'));
 
-root.render(
+WebApp.render(
   <Provider store={store}>
     <App />
   </Provider>

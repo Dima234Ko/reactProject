@@ -24,6 +24,7 @@ import UserInfo from './pages/user/UserInfo';
 import Replcement from './pages/user/Replacement';
 import ChangePassword from './pages/user/СhangePassword';
 import CamNtu from './pages/user/CamNtu';
+import { ThemeToggle } from './components/ThemeToggle';
 import { TaskButton } from './components/Button/TaskButton';
 import { ExpressButton } from './components/Button/ExpressButton';
 import { FormInfo } from './components/Form/Form';
@@ -263,6 +264,7 @@ function Main() {
         isWorkParam !== 'newConnection' && (
           <TaskButton onClick={openForm} text="Завершить задачу" />
         )}
+        <ThemeToggle/>
     </>
   );
 }
