@@ -1,3 +1,4 @@
+/* Light Theme Styles */
 .burger-menu {
   cursor: pointer;
 }
@@ -34,4 +35,18 @@
 
 .burger-menu.active + .dropdown {
   display: block; /* Показываем меню при активном состоянии бургер-меню */
+}
+
+/* Dark Theme Styles */
+
+body.dark-mode .dropdown {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 1); /* Тень для меню */ 
+}
+
+body.dark-mode .dropdown .button.blue:hover {
+  background-color: #1e1e1e; /* Цвет фона при наведении */
+}
+
+body.dark-mode .dropdown .button.blue {
+  background: #2a2a2a;
 }

@@ -171,6 +171,7 @@ body.dark-mode .button.blue,
 body.dark-mode #startMenu,
 body.dark-mode #activeButton {
   background: #3f6fc9;
+  box-shadow: none;
 }
 
 body.dark-mode .button.green {
