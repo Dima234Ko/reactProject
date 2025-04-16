@@ -124,6 +124,7 @@ function CamNtu() {
           selectedValue={serviceType}
           layout="horizontal"
           style={{ marginTop: '10px' }}
+          text="h4"
         />
       </div>
       {result && <Result data={result} />}

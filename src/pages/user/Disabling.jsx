@@ -83,7 +83,7 @@ function Disabling() {
               selectedValue={selectedRadioOption}
             />
             <Checkbox
-              label="Отключение абонентской линии"
+              label="Отключение абонента"
               checked={isAbonentChecked}
               onChange={handleSecondCheckboxChange}
             />

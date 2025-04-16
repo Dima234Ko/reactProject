@@ -11,7 +11,7 @@ export function Checkbox({ label, id, checked, onChange }) {
         className="checkbox-input"
       />
       <span className="checkbox-checkmark"></span>
-      {label}
+      <h4>{label}</h4>
     </label>
   );
 }

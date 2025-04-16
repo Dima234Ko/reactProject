@@ -112,7 +112,7 @@ ${taskData.equipmentShutdownDto.info}`,
         {row.name.includes('Загрузка фото') && row.id !== undefined ? (
           <pre
             onClick={() => downloadPhotoToServer(row.id)}
-            style={{ cursor: 'pointer', color: 'blue' }}
+            className="link"
           >
             {row.respResult}
           </pre>

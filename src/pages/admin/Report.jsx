@@ -110,7 +110,7 @@ function Report() {
       <td>
         <span
           onClick={() => handleHeaderWorkNameClick(row)}
-          style={{ cursor: 'pointer', color: 'blue' }}
+          className='link'
         >
           {row.headerWorkName || row.channel || '-'}
         </span>

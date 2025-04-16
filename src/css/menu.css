@@ -48,5 +48,7 @@ body.dark-mode .dropdown .button.blue:hover {
 }
 
 body.dark-mode .dropdown .button.blue {
+  box-shadow: none;
   background: #2a2a2a;
 }
+
