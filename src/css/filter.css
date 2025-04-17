@@ -1,3 +1,5 @@
+/* Light Theme Styles */
+
 .filter-display {
   display: flex;
   flex-wrap: wrap;
@@ -18,4 +20,11 @@
 .filter-item.empty {
   background-color: rgba(200, 200, 200, 0.1);
   color: #666;
+}
+
+/* Dark Theme Styles */
+
+body.dark-mode .filter-item {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #e0e0e0; 
 }

@@ -33,7 +33,8 @@ export function FormReportTask({ onClose }) {
         <pre>Загрузка...</pre>
       ) : (
         <>
-          <pre>Задача № {task || 'Не указано'}</pre>
+          <h6>Задача № {task || 'Не указано'}</h6>
+          <pre>Исполнитель: {taskData.login || 'Не указано'}</pre>
           <TableReportTask taskData={taskData} />
         </>
       )}

@@ -96,8 +96,7 @@ ${taskData.equipmentShutdownDto.info}`,
     tableRows.push({
       key: `userInfo`,
       name: `Уточнение данных`,
-      respResult: `${taskData.userInfo.userFullName},
-ТЕЛЕФОН: ${taskData.userInfo.userPhone}`,
+      respResult: `${taskData.userInfo.userFullName}`,
     });
   }
 

@@ -155,9 +155,12 @@ body.dark-mode .upload-result {
   color: #4a90e2; /* Синий акцент для результатов загрузки */
 }
 
-body.dark-mode .textForm h2,
 body.dark-mode .textForm pre {
   color: #e0e0e0; /* Светлый текст для заголовков и pre */
+}
+
+body.dark-mode .textForm h2 {
+  color: #99c2ff;
 }
 
 body.dark-mode form {

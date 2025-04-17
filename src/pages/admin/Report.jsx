@@ -119,6 +119,7 @@ function Report() {
         <a
           href={`http://172.24.10.30/oper/?core_section=customer&action=show&id=${row.idUserSideCard}`}
           target="_blank"
+          className='link'
         >
           {row.userSideLogin}
         </a>
