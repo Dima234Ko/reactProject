@@ -27,6 +27,7 @@ import CamNtu from './pages/user/CamNtu';
 import { ThemeToggle } from './components/ThemeToggle';
 import { TaskButton } from './components/Button/TaskButton';
 import { ExpressButton } from './components/Button/ExpressButton';
+import { ShareButton } from './components/Button/ShareButton';
 import { FormInfo } from './components/Form/Form';
 import { openTask, closeTask } from './functions/work';
 import {
@@ -241,6 +242,7 @@ function Main() {
                   text="Продолжить"
                   closeButton={false}
                 />
+                
                 <ExpressButton
                   onClick={() =>
                     closeTask(navigate, regionFromRedux, dispatch, closeForm)
@@ -248,6 +250,7 @@ function Main() {
                   text="Завершить"
                   closeButton={true}
                 />
+                <br></br>
               </div>
             </>
           }
@@ -264,7 +267,11 @@ function Main() {
         isWorkParam !== 'newConnection' && (
           <TaskButton onClick={openForm} text="Завершить задачу" />
         )}
-        <ThemeToggle/>
+        <div className="toolbar">
+          {pathname !== '/' && <ShareButton />}
+          <ThemeToggle />
+        </div>
+     
     </>
   );
 }

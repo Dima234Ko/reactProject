@@ -49,11 +49,6 @@ input[type='file'] {
   display: none;
 }
 
-/* Создаем кнопку для выбора файла */
-.button.green {
-  background-color: #4caf50;
-}
-
 .button.green:active {
   transform: scale(1.2); /* Восстановление размера при нажатии */
 }
@@ -105,11 +100,6 @@ body.dark-mode select {
   background-color: #242424;
   color: #bbbbbb;
   border: 2px solid #888888;
-}
-
-body.dark-mode .button.green {
-  background-color: #388e3c; 
-  color: #ffffff;
 }
 
 body.dark-mode .file-name {

@@ -9,6 +9,7 @@ import {
   setTransition,
 } from '../store/actions/taskActions';
 import { setSerial } from '../store/actions/serialActions';
+import { setLogin } from '../store/actions/loginActions';
 
 // Функция получения активной задачи
 export async function getActiveTask(dispatch, body) {
@@ -21,6 +22,7 @@ export async function getActiveTask(dispatch, body) {
       dispatch(setWork(response.headerWorkName));
       dispatch(setRegTask(response.regionId));
       dispatch(setSerial(response.ponSerial));
+      dispatch(setLogin(response.aksLogin));
       dispatch(setTransition(true));
     } else {
       dispatch(setTask(null));
@@ -29,6 +31,7 @@ export async function getActiveTask(dispatch, body) {
       dispatch(setWork(null));
       dispatch(setRegTask(null));
       dispatch(setSerial(null));
+      dispatch(setLogin(null));
       dispatch(setTransition(false));
     }
   } catch (error) {
@@ -38,6 +41,7 @@ export async function getActiveTask(dispatch, body) {
     dispatch(setWork(null));
     dispatch(setRegTask(null));
     dispatch(setSerial(null));
+    dispatch(setLogin(null));
     dispatch(setTransition(false));
   }
 }
