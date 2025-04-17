@@ -74,12 +74,15 @@ export async function openTask(
   navigate,
   taskFromRedux,
   serialFromRedux,
+  loginFromRedux,
   closeForm
 ) {
   try {
     if (taskFromRedux.action !== 'NEW') {
       navigate(
-        `/${taskFromRedux.action}?region=${taskFromRedux.reg}&work=${taskFromRedux.work}&serial=${serialFromRedux}&task=${taskFromRedux.subtask}`
+        `/${taskFromRedux.action}?region=${taskFromRedux.reg}&work=${taskFromRedux.work}&serial=${serialFromRedux}${
+          loginFromRedux ? `&login=${loginFromRedux}&task=${taskFromRedux.subtask}` : ''
+        }`
       );
     } else if (taskFromRedux.work === 'Equipment shutdown') {
       navigate(

@@ -233,6 +233,7 @@ function Main() {
                         navigate,
                         taskFromRedux,
                         serialFromRedux,
+                        loginFromRedux,
                         closeForm
                       );
                     } else {
