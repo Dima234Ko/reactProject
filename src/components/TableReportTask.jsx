@@ -109,10 +109,7 @@ ${taskData.equipmentShutdownDto.info}`,
       </td>
       <td>
         {row.name.includes('Загрузка фото') && row.id !== undefined ? (
-          <pre
-            onClick={() => downloadPhotoToServer(row.id)}
-            className="link"
-          >
+          <pre onClick={() => downloadPhotoToServer(row.id)} className="link">
             {row.respResult}
           </pre>
         ) : (

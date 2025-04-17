@@ -44,7 +44,6 @@
   text-align: center;
 }
 
-
 /* Dark Theme Styles */
 body.dark-mode .user-table,
 body.dark-mode .log-table,
@@ -84,7 +83,7 @@ body.dark-mode .app {
   color: #e0e0e0; /* Светлый текст */
 }
 
-.textForm .link, 
+.textForm .link,
 .link {
   cursor: pointer;
   color: blue;
@@ -95,4 +94,3 @@ body.dark-mode .textForm pre.link,
 body.dark-mode .link {
   color: #4a90e2;
 }
-

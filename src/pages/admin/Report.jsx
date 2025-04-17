@@ -108,10 +108,7 @@ function Report() {
       <td data-value={row.taskName}>{row.login}</td>
       <td>{row.ponSerial}</td>
       <td>
-        <span
-          onClick={() => handleHeaderWorkNameClick(row)}
-          className='link'
-        >
+        <span onClick={() => handleHeaderWorkNameClick(row)} className="link">
           {row.headerWorkName || row.channel || '-'}
         </span>
       </td>
@@ -119,7 +116,7 @@ function Report() {
         <a
           href={`http://172.24.10.30/oper/?core_section=customer&action=show&id=${row.idUserSideCard}`}
           target="_blank"
-          className='link'
+          className="link"
         >
           {row.userSideLogin}
         </a>

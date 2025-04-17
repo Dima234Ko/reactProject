@@ -14,7 +14,16 @@ export function RadioButtonGroup({
   };
 
   // Проверяем, является ли text допустимым HTML-тегом
-  const TextComponent = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span'].includes(text)
+  const TextComponent = [
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'p',
+    'span',
+  ].includes(text)
     ? text
     : 'h5'; // Фallback на h5, если передан некорректный тег
 
@@ -30,7 +39,7 @@ export function RadioButtonGroup({
                 value={value}
                 checked={selectedValue === value}
                 onChange={handleChange}
-                aria-label={label} 
+                aria-label={label}
               />
               <TextComponent>{label}</TextComponent>
             </label>

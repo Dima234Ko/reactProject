@@ -40,7 +40,7 @@
 /* Dark Theme Styles */
 
 body.dark-mode .dropdown {
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 1); /* Тень для меню */ 
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 1); /* Тень для меню */
 }
 
 body.dark-mode .dropdown .button.blue:hover {
@@ -51,4 +51,3 @@ body.dark-mode .dropdown .button.blue {
   box-shadow: none;
   background: #2a2a2a;
 }
-

@@ -3,4 +3,3 @@ export const settingCCTVforNtu = (data) => {
         Услуга ${data.serviceType} 
         На ${data.portNumber} портах`);
 };
-

@@ -242,7 +242,7 @@ function Main() {
                   text="Продолжить"
                   closeButton={false}
                 />
-                
+
                 <ExpressButton
                   onClick={() =>
                     closeTask(navigate, regionFromRedux, dispatch, closeForm)
@@ -267,11 +267,10 @@ function Main() {
         isWorkParam !== 'newConnection' && (
           <TaskButton onClick={openForm} text="Завершить задачу" />
         )}
-        <div className="toolbar">
-          {pathname !== '/' && <ShareButton />}
-          <ThemeToggle />
-        </div>
-     
+      <div className="toolbar">
+        {pathname !== '/' && <ShareButton />}
+        <ThemeToggle />
+      </div>
     </>
   );
 }

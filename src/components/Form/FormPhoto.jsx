@@ -60,9 +60,7 @@ export function FormPhoto({
     <div className="input-container">
       <div className="textForm">
         <h2>Загрузить фото</h2>
-        <pre>
-          Выберите скриншоты из приложения Analyzer WiFi и заказ-наряд
-        </pre>
+        <pre>Выберите скриншоты из приложения Analyzer WiFi и заказ-наряд</pre>
         <h4>{login}</h4>
       </div>
       <input

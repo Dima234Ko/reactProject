@@ -64,7 +64,6 @@ input[type='file'] {
   width: 30px;
 }
 
-
 /* Dark Theme Styles */
 body.dark-mode .some-input {
   background-color: #242424;
