@@ -78,17 +78,6 @@
     opacity 0.3s;
 }
 
-.next-button img {
-  margin-top: 2px;
-  transition: opacity 0.3s;
-}
-
-.next-button:hover {
-  color: white;
-  border-color: #0050e4c5;
-  transform: scale(1.1);
-}
-
 .icon-button {
   display: flex;
   align-items: center;

@@ -9,18 +9,13 @@ export function ShareButton() {
     };
 
     try {
-      // Проверяем поддержку Web Share API
       if (navigator.share) {
         await navigator.share(shareData);
       } else {
-        // Запасной вариант: копируем URL в буфер обмена
         await navigator.clipboard.writeText(url);
-        alert('URL скопирован в буфер обмена!');
       }
     } catch (error) {
       console.error('Ошибка при попытке поделиться:', error);
-      // Дополнительный запасной вариант
-      alert('Не удалось поделиться. URL: ' + url);
     }
   };
 
