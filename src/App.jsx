@@ -24,6 +24,7 @@ import UserInfo from './pages/user/UserInfo';
 import Replcement from './pages/user/Replacement';
 import ChangePassword from './pages/user/СhangePassword';
 import CamNtu from './pages/user/CamNtu';
+import  ActionDisplay  from './components/ActionDisplay';
 import { ThemeToggle } from './components/ThemeToggle';
 import { TaskButton } from './components/Button/TaskButton';
 import { ExpressButton } from './components/Button/ExpressButton';
@@ -269,6 +270,9 @@ function Main() {
           <TaskButton onClick={openForm} text="Завершить задачу" />
         )}
       <div className="toolbar">
+        {isWorkParam === 'newConnection' && (
+          <ActionDisplay />
+        )}
         {pathname !== '/' && <ShareButton />}
         <ThemeToggle />
       </div>

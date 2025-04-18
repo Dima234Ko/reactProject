@@ -19,6 +19,7 @@ import './css/filter.css';
 import './css/swich.css';
 import './css/dropdown.css';
 import './css/toggle.css';
+import './css/actionDisplay.css';
 
 const WebApp = ReactDOM.createRoot(document.getElementById('WebApp'));
 

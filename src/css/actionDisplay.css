@@ -1,0 +1,203 @@
+/* Light Theme Styles */
+.action-container {
+    width: 300px; /* Фиксированная ширина */
+    height: 200px; /* Фиксированная высота полоски */
+    background-color: transparent; /* Прозрачный фон */
+    position: relative; /* Для позиционирования кружков */
+    display: flex; /* Горизонтальная раскладка */
+    align-items: center; /* Центрирование по вертикали */
+    overflow-x: auto; /* Прокрутка, если не помещается */
+  }
+  
+  .connection-lines {
+    position: absolute; /* Поверх контейнера */
+    top: 0;
+    left: 0;
+    z-index: 1; /* Под кружками */
+  }
+  
+  .action-circle {
+    position: absolute; /* Абсолютное позиционирование */
+    width: 80px; /* Размер кружка */
+    height: 80px; /* Размер кружка */
+    border-radius: 50%; /* Круглая форма */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2; /* Поверх линий */
+    transform: translateY(-50%); /* Смещение для точного центрирования */
+  }
+  
+  .action-circle.active {
+    background-color: #10b981; /* Зеленый для активного */
+    color: #ffffff; /* Белый текст */
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5); 
+  }
+  
+  .action-circle.inactive {
+    background-color: #d1d5db; /* Серый для неактивного */
+    color: #1f2937; /* Темно-серый текст */
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5); 
+  }
+  
+  .action-text {
+    font-size: 12px; /* Меньший текст */
+    font-weight: 500; /* Средний вес */
+    text-align: center; /* Центрирование текста */
+    padding: 4px; /* Отступ для текста */
+    line-height: 1.2; /* Межстрочный интервал */
+    white-space: normal; /* Разрешить перенос текста */
+  }
+  
+  /* Адаптивные стили для мобильной версии (до 640px) */
+  @media (max-width: 640px) {
+    .action-container {
+      width: 45%; /* 45% ширины экрана */
+      height: 150px; /* Меньшая высота */
+      padding: 0 8px; /* Меньший отступ */
+    }
+  
+    .action-circle {
+      width: 50px; /* Меньший кружок */
+      height: 50px;
+    }
+  
+    .action-text {
+      font-size: 11px; /* Меньший текст */
+    }
+  
+    .connection-lines line {
+      stroke-width: 1; /* Тоньше линии */
+    }
+  
+    /* Позиционирование кружков для мобильной версии */
+    .action-circle {
+      left: calc(10% + 60px * var(--index, 0)); /* Динамическое смещение */
+    }
+  
+    .action-circle:nth-child(1) { --index: 0; top: 50%; }
+    .action-circle:nth-child(2) { --index: 1; top: 25%; }
+    .action-circle:nth-child(3) { --index: 1; top: 75%; }
+  
+    /* Обновленные линии для мобильной версии */
+    .connection-lines line:nth-child(1) {
+      x1: 20%;
+      y1: 50%;
+      x2: 40%;
+      y2: 25%;
+    }
+    .connection-lines line:nth-child(2) {
+      x1: 20%;
+      y1: 50%;
+      x2: 40%;
+      y2: 75%;
+    }
+  }
+
+
+/* Dark Theme Styles */
+body.dark-mode .action-container {
+    width: 300px; /* Фиксированная ширина */
+    height: 200px; /* Фиксированная высота полоски */
+    background-color: transparent; /* Прозрачный фон */
+    position: relative; /* Для позиционирования кружков */
+    display: flex; /* Горизонтальная раскладка */
+    align-items: center; /* Центрирование по вертикали */
+    overflow-x: auto; /* Прокрутка, если не помещается */
+  }
+  
+  body.dark-mode .connection-lines {
+    position: absolute; /* Поверх контейнера */
+    top: 0;
+    left: 0;
+    z-index: 1; /* Под кружками */
+  }
+  
+  body.dark-mode .action-circle {
+    position: absolute; /* Абсолютное позиционирование */
+    width: 80px; /* Размер кружка */
+    height: 80px; /* Размер кружка */
+    border-radius: 50%; /* Круглая форма */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2; /* Поверх линий */
+    transform: translateY(-50%); /* Смещение для точного центрирования */
+  }
+  
+  body.dark-mode .action-circle {
+    color: #ffffff; /* Светло-серый текст */
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.2); /* Светлая тень */
+  }
+  
+  body.dark-mode .action-circle.inactive {
+    background-color: #4b5563; /* Темно-серый для неактивного */
+  }
+  
+  body.dark-mode .action-text {
+    font-size: 12px; /* Меньший текст */
+    font-weight: 500; /* Средний вес */
+    text-align: center; /* Центрирование текста */
+    padding: 4px; /* Отступ для текста */
+    line-height: 1.2; /* Межстрочный интервал */
+    white-space: normal; /* Разрешить перенос текста */
+  }
+  
+  body.dark-mode .connection-lines line {
+    stroke: #9ca3af; /* Светло-серый для линий */
+    stroke-width: 2; /* Толщина линии */
+  }
+  
+  /* Адаптивные стили для мобильной версии (до 640px) */
+  @media (max-width: 640px) {
+    body.dark-mode .action-container {
+      width: 45%; /* 45% ширины экрана */
+      height: 150px; /* Меньшая высота */
+      padding: 0 8px; /* Меньший отступ */
+    }
+  
+    body.dark-mode .action-circle {
+      width: 50px; /* Меньший кружок */
+      height: 50px;
+    }
+  
+    body.dark-mode .action-text {
+      font-size: 11px; /* Меньший текст */
+    }
+  
+    body.dark-mode .connection-lines line {
+      stroke-width: 1; /* Тоньше линии */
+    }
+  
+    /* Позиционирование кружков для мобильной версии */
+    body.dark-mode .action-circle {
+      left: calc(10% + 60px * var(--index, 0)); /* Динамическое смещение */
+    }
+  
+    body.dark-mode .action-circle:nth-child(1) {
+      --index: 0;
+      top: 50%;
+    }
+    body.dark-mode .action-circle:nth-child(2) {
+      --index: 1;
+      top: 25%;
+    }
+    body.dark-mode .action-circle:nth-child(3) {
+      --index: 1;
+      top: 75%;
+    }
+  
+    /* Обновленные линии для мобильной версии */
+    body.dark-mode .connection-lines line:nth-child(1) {
+      x1: 20%;
+      y1: 50%;
+      x2: 40%;
+      y2: 25%;
+    }
+    body.dark-mode .connection-lines line:nth-child(2) {
+      x1: 20%;
+      y1: 50%;
+      x2: 40%;
+      y2: 75%;
+    }
+  }
