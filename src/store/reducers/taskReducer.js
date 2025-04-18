@@ -5,6 +5,7 @@ import {
   SET_WORK,
   SET_REG_TASK,
   SET_TRANSITION,
+  SET_PAGE
 } from '../actions/taskActions';
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   work: null,
   reg: null,
   transition: false,
+  page: null,
 };
 
 const taskReducer = (state = initialState, action) => {
@@ -59,6 +61,11 @@ const taskReducer = (state = initialState, action) => {
       return {
         ...state,
         transition: action.payload,
+      };
+    case SET_PAGE:
+      return {
+        ...state,
+        page: action.payload,
       };
     default:
       return state;

@@ -24,7 +24,7 @@ import UserInfo from './pages/user/UserInfo';
 import Replcement from './pages/user/Replacement';
 import ChangePassword from './pages/user/СhangePassword';
 import CamNtu from './pages/user/CamNtu';
-import  ActionDisplay  from './components/ActionDisplay';
+import ActionDisplay from './components/ActionDisplay';
 import { ThemeToggle } from './components/ThemeToggle';
 import { TaskButton } from './components/Button/TaskButton';
 import { ExpressButton } from './components/Button/ExpressButton';
@@ -36,6 +36,9 @@ import {
   setActivePage,
 } from './store/actions/pageLogTaskActions';
 import FavIcon from './components/Icon';
+import {
+  setPage
+} from './store/actions/taskActions';
 
 function App() {
   return (
@@ -102,6 +105,21 @@ function Main() {
       dispatch(setBulleanTask(true));
       dispatch(setActivePage(1));
     }
+  }, [pathname, dispatch]);
+
+  // Установка названия страницы через setPage
+  useEffect(() => {
+    if (pathname === '/status') {
+      dispatch(setPage('status'));
+    } else if (pathname === '/pppoe') {
+      dispatch(setPage('pppoe'));
+    } else if (pathname === '/wifi') {
+      dispatch(setPage('wifi'));
+    } else if (pathname === '/camntu') {
+      dispatch(setPage('camntu'));
+    } else if (pathname === '/info') {
+      dispatch(setPage('info'));
+    } else dispatch(setPage(null));
   }, [pathname, dispatch]);
 
   // Функция получения пунктов меню
