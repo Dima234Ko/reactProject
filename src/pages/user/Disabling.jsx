@@ -123,10 +123,9 @@ function Disabling() {
         type="text"
         placeholder="Введите pon-serial"
         value={serial}
-        onChange={(e) => setSerial(e.target.value
-          .toUpperCase()
-          .replace(/[^A-Z0-9]/g, '')
-        )}
+        onChange={(e) =>
+          setSerial(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ''))
+        }
         disabled={loading}
       />
       {result && <Result data={result} />}

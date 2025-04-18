@@ -32,7 +32,7 @@ export function FormSelectNewConnection({
           text="Камера"
           closeButton={false}
         />
-         <br></br>
+        <br></br>
       </div>
     </div>
   );

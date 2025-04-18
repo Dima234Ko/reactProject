@@ -82,12 +82,12 @@ const ActionDisplay = () => {
               actions.length === 1
                 ? '50%'
                 : actions.length === 2
-                ? '50%'
-                : index === 0
-                ? '50%'
-                : index === 1
-                ? '25%'
-                : '75%',
+                  ? '50%'
+                  : index === 0
+                    ? '50%'
+                    : index === 1
+                      ? '25%'
+                      : '75%',
             transform:
               actions.length === 1
                 ? 'translate(-50%, -50%)'

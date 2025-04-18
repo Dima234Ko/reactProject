@@ -5,7 +5,7 @@ import {
   SET_WORK,
   SET_REG_TASK,
   SET_TRANSITION,
-  SET_PAGE
+  SET_PAGE,
 } from '../actions/taskActions';
 
 const initialState = {

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '../../components/Button/Button';
 import { uploadPhoto } from '../../functions/api';
-import {
-  setPage
-} from '../../store/actions/taskActions';
+import { setPage } from '../../store/actions/taskActions';
 
 export function FormPhoto({
   isUploading,
@@ -12,7 +10,7 @@ export function FormPhoto({
   idUserSideCard,
   workFromRedux,
   setUploadSuccess,
-  dispatch
+  dispatch,
 }) {
   const [files, setFiles] = useState([]);
   const [resultForm, setResultForm] = useState('');

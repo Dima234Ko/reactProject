@@ -36,9 +36,7 @@ import {
   setActivePage,
 } from './store/actions/pageLogTaskActions';
 import FavIcon from './components/Icon';
-import {
-  setPage
-} from './store/actions/taskActions';
+import { setPage } from './store/actions/taskActions';
 
 function App() {
   return (
@@ -288,9 +286,7 @@ function Main() {
           <TaskButton onClick={openForm} text="Завершить задачу" />
         )}
       <div className="toolbar">
-        {isWorkParam === 'newConnection' && (
-          <ActionDisplay />
-        )}
+        {isWorkParam === 'newConnection' && <ActionDisplay />}
         {pathname !== '/' && <ShareButton />}
         <ThemeToggle />
       </div>

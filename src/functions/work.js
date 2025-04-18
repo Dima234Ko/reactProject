@@ -81,8 +81,8 @@ export async function openTask(
     if (taskFromRedux.action !== 'NEW') {
       navigate(
         `/${taskFromRedux.action}?region=${taskFromRedux.reg}&work=${taskFromRedux.work}&serial=${serialFromRedux}${
-          loginFromRedux ? `&login=${loginFromRedux}&task=${taskFromRedux.subtask}` : ''
-        }`
+        loginFromRedux ? `&login=${loginFromRedux}` : ''
+        }${taskFromRedux.subtask ? `&task=${taskFromRedux.subtask}` : ''}`
       );
     } else if (taskFromRedux.work === 'Equipment shutdown') {
       navigate(
