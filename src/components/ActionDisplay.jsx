@@ -2,10 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 const ActionDisplay = () => {
-  // Получение текущей страницы из Redux
   const page = useSelector((state) => state.task.page);
 
-  // Определение массива actions в зависимости от page
   const actions = (() => {
     switch (page) {
       case 'status':
@@ -24,26 +22,25 @@ const ActionDisplay = () => {
           { name: 'WiFi', isActive: true },
           { name: 'Данные', isActive: false },
         ];
-      case 'camntu':
-        return [{ name: 'Камера', isActive: true }];
       case 'info':
         return [
           { name: 'Фото', isActive: true },
           { name: 'Данные', isActive: false },
         ];
+      case 'end':
+        return [{ name: 'completed', isActive: true }];
       default:
         return [];
     }
   })();
 
   return (
-    <div className="action-container">
+    <div className="action-container" key={page}>
       {actions.length > 1 && (
         <svg className="connection-lines" width="100%" height="100%">
           {actions.length === 2 ? (
-            // Для 2 элементов: горизонтальная линия
             <line
-              x1="20%"
+              x1="37%"
               y1="50%"
               x2="60%"
               y2="50%"
@@ -54,8 +51,8 @@ const ActionDisplay = () => {
             <>
               {/* Линия к первому неактивному кружку (PPPoE) */}
               <line
-                x1="20%"
-                y1="50%"
+                x1="35%"
+                y1="40%"
                 x2="60%"
                 y2="25%"
                 stroke="#4b5563"
@@ -63,8 +60,8 @@ const ActionDisplay = () => {
               />
               {/* Линия ко второму неактивному кружку (Камера) */}
               <line
-                x1="20%"
-                y1="50%"
+                x1="35%"
+                y1="60%"
                 x2="60%"
                 y2="75%"
                 stroke="#4b5563"
@@ -102,8 +99,9 @@ const ActionDisplay = () => {
           )}
           {actions.length === 1 && (
             <svg
-              width="30"
-              height="30"
+              className="checkmark"
+              width="14"
+              height="14"
               viewBox="0 0 24 24"
               fill="none"
               stroke="#ffffff"

@@ -160,6 +160,7 @@ function UserInfo() {
             idUserSideCard={idFromRedux}
             workFromRedux={workFromRedux}
             setUploadSuccess={setUploadSuccess}
+            dispatch={dispatch}
           />
         }
       />

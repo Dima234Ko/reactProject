@@ -1,7 +1,7 @@
 /* Light Theme Styles */
 .action-container {
-    width: 300px; /* Фиксированная ширина */
-    height: 200px; /* Фиксированная высота полоски */
+    width: 220px; /* Фиксированная ширина */
+    height: 150px; /* Фиксированная высота полоски */
     background-color: transparent; /* Прозрачный фон */
     position: relative; /* Для позиционирования кружков */
     display: flex; /* Горизонтальная раскладка */
@@ -14,30 +14,32 @@
     top: 0;
     left: 0;
     z-index: 1; /* Под кружками */
+    animation: fadeIn 0.3s ease-out forwards; /* Анимация появления */
   }
   
   .action-circle {
     position: absolute; /* Абсолютное позиционирование */
-    width: 80px; /* Размер кружка */
-    height: 80px; /* Размер кружка */
+    width: 60px; /* Размер кружка */
+    height: 60px; /* Размер кружка */
     border-radius: 50%; /* Круглая форма */
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 2; /* Поверх линий */
     transform: translateY(-50%); /* Смещение для точного центрирования */
+    animation: fadeIn 0.3s ease-out forwards; /* Анимация появления */
   }
   
   .action-circle.active {
     background-color: #10b981; /* Зеленый для активного */
     color: #ffffff; /* Белый текст */
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5); 
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
   }
   
   .action-circle.inactive {
     background-color: #d1d5db; /* Серый для неактивного */
     color: #1f2937; /* Темно-серый текст */
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5); 
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
   }
   
   .action-text {
@@ -49,11 +51,21 @@
     white-space: normal; /* Разрешить перенос текста */
   }
   
+  /* Анимация появления */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
   /* Адаптивные стили для мобильной версии (до 640px) */
   @media (max-width: 640px) {
     .action-container {
       width: 45%; /* 45% ширины экрана */
-      height: 150px; /* Меньшая высота */
+      height: 120px; /* Меньшая высота */
       padding: 0 8px; /* Меньший отступ */
     }
   
@@ -75,9 +87,18 @@
       left: calc(10% + 60px * var(--index, 0)); /* Динамическое смещение */
     }
   
-    .action-circle:nth-child(1) { --index: 0; top: 50%; }
-    .action-circle:nth-child(2) { --index: 1; top: 25%; }
-    .action-circle:nth-child(3) { --index: 1; top: 75%; }
+    .action-circle:nth-child(1) {
+      --index: 0;
+      top: 50%;
+    }
+    .action-circle:nth-child(2) {
+      --index: 1;
+      top: 25%;
+    }
+    .action-circle:nth-child(3) {
+      --index: 1;
+      top: 75%;
+    }
   
     /* Обновленные линии для мобильной версии */
     .connection-lines line:nth-child(1) {
@@ -93,10 +114,9 @@
       y2: 75%;
     }
   }
-
-
-/* Dark Theme Styles */
-body.dark-mode .action-container {
+  
+  /* Dark Theme Styles */
+  body.dark-mode .action-container {
     width: 300px; /* Фиксированная ширина */
     height: 200px; /* Фиксированная высота полоски */
     background-color: transparent; /* Прозрачный фон */
@@ -111,6 +131,7 @@ body.dark-mode .action-container {
     top: 0;
     left: 0;
     z-index: 1; /* Под кружками */
+    animation: fadeIn 0.3s ease-out forwards; /* Анимация появления */
   }
   
   body.dark-mode .action-circle {
@@ -123,11 +144,13 @@ body.dark-mode .action-container {
     justify-content: center;
     z-index: 2; /* Поверх линий */
     transform: translateY(-50%); /* Смещение для точного центрирования */
+    color: #ffffff; /* Белый текст */
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.2); /* Светлая тень */
+    animation: fadeIn 0.3s ease-out forwards; /* Анимация появления */
   }
   
-  body.dark-mode .action-circle {
-    color: #ffffff; /* Светло-серый текст */
-    box-shadow: 0 0 4px rgba(255, 255, 255, 0.2); /* Светлая тень */
+  body.dark-mode .action-circle.active {
+    background-color: #34d399; /* Яркий зеленый для активного */
   }
   
   body.dark-mode .action-circle.inactive {
@@ -152,7 +175,7 @@ body.dark-mode .action-container {
   @media (max-width: 640px) {
     body.dark-mode .action-container {
       width: 45%; /* 45% ширины экрана */
-      height: 150px; /* Меньшая высота */
+      height: 115px; /* Меньшая высота */
       padding: 0 8px; /* Меньший отступ */
     }
   

@@ -115,10 +115,10 @@ function Main() {
       dispatch(setPage('pppoe'));
     } else if (pathname === '/wifi') {
       dispatch(setPage('wifi'));
-    } else if (pathname === '/camntu') {
-      dispatch(setPage('camntu'));
     } else if (pathname === '/info') {
       dispatch(setPage('info'));
+    } else if (pathname === '/camntu') {
+      dispatch(setPage('end'));
     } else dispatch(setPage(null));
   }, [pathname, dispatch]);
 
