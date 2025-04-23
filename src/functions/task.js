@@ -15,7 +15,7 @@ export async function getTaskId(
     // Запрашиваем номер задачи
     const data = await requestAPI('POST', action, body);
     const taskId = data.taskId;
-
+  
     dispatch(setProgress(30)); // Устанавливаем начальный прогресс
 
     // Добавляем taskId в URL

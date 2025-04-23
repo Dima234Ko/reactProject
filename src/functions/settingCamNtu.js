@@ -1,6 +1,7 @@
+import { getTaskId, checkTask } from './task';
 import { requestAPI } from './api';
 
-export const settingCCTVforNtu = (data) => {
+export async function  settingCCTVforNtu(data) {
   const vlan = getVlan(data);
   const ports = getPorts(data);
 
@@ -10,14 +11,57 @@ export const settingCCTVforNtu = (data) => {
     vlan: vlan,
     regionId: data.regionId,
   };
+
+  let taskId;
   
   switch (data.serviceType) {
     case 'fl':
-      requestAPI('POST', 'newConnection/createPppoeAndCamera', body);
+        try {
+          taskId = await getTaskId(
+            `newConnection/createPppoeAndCamera`,
+            body,
+            data.dispatch,
+            data.setLoading,
+            data.navigate,
+            data.serial
+          );
+        } catch (error) {
+          throw error;
+        }
     case 'bd':
-      requestAPI('POST', 'newConnection/createCameraToSafetyCity', body);    
+      try {
+        taskId = await getTaskId(
+          `newConnection/createCameraToSafetyCity`,
+          body,
+          data.dispatch,
+          data.setLoading,
+          data.navigate,
+          data.serial
+        );
+      } catch (error) {
+        throw error;
+      }  
     default:
         console.log ('Не верно заполнены значения')
+  }
+
+  try {
+    if (taskId) {
+      await checkTask(
+        `task/taskStatus`,
+        taskId,
+        data.dispatch,
+        data.setLoading,
+        data.setResult,
+        data.navigate,
+        0,
+        80
+      );
+    } else {
+      throw new Error('taskId не был получен');
+    }
+  } catch (error) {
+    throw new Error(`Не удалось получить taskId: ${error.message || error}`);
   }
 }
 
@@ -54,5 +98,6 @@ function getPorts (data) {
     four: "1, 2, 3, 4",
   };
 
-  const ports = portMap[data.portNumber] || ""
+  const ports = portMap[data.portNumber] || "";
+  return ports;
 }
