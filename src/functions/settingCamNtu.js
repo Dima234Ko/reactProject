@@ -1,5 +1,4 @@
 import { getTaskId, checkTask } from './task';
-import { requestAPI } from './api';
 
 export async function  settingCCTVforNtu(data) {
   const vlan = getVlan(data);
@@ -57,6 +56,8 @@ export async function  settingCCTVforNtu(data) {
         0,
         80
       );
+      await new Promise(resolve => setTimeout(resolve, 3000));
+      data.navigate(`/region`);
     } else {
       throw new Error('taskId не был получен');
     }
@@ -65,10 +66,22 @@ export async function  settingCCTVforNtu(data) {
   }
 }
 
-function getVlan (data) {
+function getVlan(data) {
+  function isValidVlan(vlan) {
+    return /^\d{2,4}$/.test(vlan);
+  }
+
+  function promptValidVlan() {
+    let vlan = prompt('Укажите VLAN');
+    while (vlan !== null && !isValidVlan(vlan)) {
+      vlan = prompt('Ошибка: VLAN должен быть числом от 2 до 4 цифр. Укажите VLAN');
+    }
+    return vlan ? parseInt(vlan, 10) : null;
+  }
+
   switch (data.serviceType) {
     case 'fl':
-      if (data.regionId === '1' || regionId === '3') {
+      if (data.regionId === '1' || data.regionId === '3') {
         return 132;
       } else if (data.regionId === '2') {
         return 1725;
@@ -79,7 +92,7 @@ function getVlan (data) {
 
     case 'bd':
       if (data.regionId === '1' || data.regionId === '2' || data.regionId === '3') {
-        return prompt('Укажите VLAN');
+        return promptValidVlan();
       } else if (data.regionId === '4') {
         return 100;
       }

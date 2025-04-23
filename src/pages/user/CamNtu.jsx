@@ -74,6 +74,7 @@ function CamNtu() {
 
   // Обработчик отправки запроса
   const handleSubmit = () => {
+    setLoading(true);
     settingCCTVforNtu({ serial, serviceType, portNumber, regionId, dispatch, setLoading, navigate, setResult});
   };
 
