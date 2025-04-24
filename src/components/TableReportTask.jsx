@@ -100,7 +100,6 @@ ${taskData.equipmentShutdownDto.info}`,
     });
   }
 
-  
   if (taskData.cameraDto !== null) {
     tableRows.push({
       key: `cameraDto`,

@@ -3,7 +3,6 @@ import { getTaskId, checkTask } from './task';
 export async function settingCCTVforNtu(data) {
   try {
     const vlan = await getVlan(data);
-    console.log(vlan);
     const ports = getPorts(data);
 
     if (!vlan) {
@@ -60,7 +59,7 @@ export async function settingCCTVforNtu(data) {
       0,
       80
     );
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     data.navigate(`/region`);
   } catch (error) {
     data.setLoading(false);
@@ -81,7 +80,11 @@ async function getVlan(data) {
       return null;
 
     case 'bd':
-      if (data.regionId === '1' || data.regionId === '2' || data.regionId === '3') {
+      if (
+        data.regionId === '1' ||
+        data.regionId === '2' ||
+        data.regionId === '3'
+      ) {
         const vlan = await data.showVlanForm();
         return vlan;
       } else if (data.regionId === '4') {
@@ -96,11 +99,11 @@ async function getVlan(data) {
 
 function getPorts(data) {
   const portMap = {
-    one: "4",
-    two: "3, 4",
-    three: "2, 3, 4",
-    four: "1, 2, 3, 4",
+    one: '4',
+    two: '3, 4',
+    three: '2, 3, 4',
+    four: '1, 2, 3, 4',
   };
 
-  return portMap[data.portNumber] || "";
+  return portMap[data.portNumber] || '';
 }

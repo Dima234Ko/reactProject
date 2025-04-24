@@ -109,7 +109,7 @@ function CamNtu() {
         setLoading,
         navigate,
         setResult,
-        showVlanForm, 
+        showVlanForm,
       });
     } catch (error) {
       setResult({
