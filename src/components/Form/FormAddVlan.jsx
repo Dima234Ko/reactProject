@@ -32,7 +32,7 @@ export function FormAddVlan({ setCreateSuccess, onClose }) {
   return (
     <div className="input-container">
       <div className="textForm">
-        <h2>Создать VLAN</h2>
+        <h2>Внимание</h2>
         <pre>Укажите VLAN</pre>
         <div className="addVlan">
           <Input

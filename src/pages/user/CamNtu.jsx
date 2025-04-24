@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { setProgress } from '../../store/actions/progressActions';
 import { setSerial } from '../../store/actions/serialActions';
 import { setRegion } from '../../store/actions/regionActions';
 import { setWork } from '../../store/actions/workActions';
@@ -96,6 +97,7 @@ function CamNtu() {
   // Обработчик отправки запроса
   const handleSubmit = async () => {
     setResult(null);
+    dispatch(setProgress(0));
 
     try {
       await settingCCTVforNtu({
