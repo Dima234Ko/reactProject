@@ -1,34 +1,38 @@
 import { getTaskId, checkTask } from './task';
 
-export async function  settingCCTVforNtu(data) {
-  const vlan = getVlan(data);
-  const ports = getPorts(data);
+export async function settingCCTVforNtu(data) {
+  try {
+    const vlan = await getVlan(data);
+    console.log(vlan);
+    const ports = getPorts(data);
 
-  let body = {
-    ponSerialNtu: data.serial,
-    ports: ports,
-    vlan: vlan,
-    regionId: data.regionId,
-  };
+    if (!vlan) {
+      data.setLoading(false);
+      throw new Error('VLAN не получен');
+    }
 
-  let taskId;
-  
-  switch (data.serviceType) {
-    case 'fl':
-        try {
-          taskId = await getTaskId(
-            `newConnection/createPppoeAndCamera`,
-            body,
-            data.dispatch,
-            data.setLoading,
-            data.navigate,
-            data.serial
-          );
-        } catch (error) {
-          throw error;
-        }
-    case 'bd':
-      try {
+    data.setLoading(true);
+    const body = {
+      ponSerialNtu: data.serial,
+      ports: ports,
+      vlan: vlan,
+      regionId: data.regionId,
+    };
+
+    let taskId;
+
+    switch (data.serviceType) {
+      case 'fl':
+        taskId = await getTaskId(
+          `newConnection/createPppoeAndCamera`,
+          body,
+          data.dispatch,
+          data.setLoading,
+          data.navigate,
+          data.serial
+        );
+        break;
+      case 'bd':
         taskId = await getTaskId(
           `newConnection/createCameraToSafetyCity`,
           body,
@@ -37,48 +41,34 @@ export async function  settingCCTVforNtu(data) {
           data.navigate,
           data.serial
         );
-      } catch (error) {
-        throw error;
-      }  
-    default:
-        console.log ('Не верно заполнены значения')
-  }
+        break;
+      default:
+        throw new Error('Неверный тип сервиса');
+    }
 
-  try {
-    if (taskId) {
-      await checkTask(
-        `task/taskStatus`,
-        taskId,
-        data.dispatch,
-        data.setLoading,
-        data.setResult,
-        data.navigate,
-        0,
-        80
-      );
-      await new Promise(resolve => setTimeout(resolve, 3000));
-      data.navigate(`/region`);
-    } else {
+    if (!taskId) {
       throw new Error('taskId не был получен');
     }
+
+    await checkTask(
+      `task/taskStatus`,
+      taskId,
+      data.dispatch,
+      data.setLoading,
+      data.setResult,
+      data.navigate,
+      0,
+      80
+    );
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    data.navigate(`/region`);
   } catch (error) {
-    throw new Error(`Не удалось получить taskId: ${error.message || error}`);
+    data.setLoading(false);
+    throw new Error(`Ошибка: ${error.message || error}`);
   }
 }
 
-function getVlan(data) {
-  function isValidVlan(vlan) {
-    return /^\d{2,4}$/.test(vlan);
-  }
-
-  function promptValidVlan() {
-    let vlan = prompt('Укажите VLAN');
-    while (vlan !== null && !isValidVlan(vlan)) {
-      vlan = prompt('Ошибка: VLAN должен быть числом от 2 до 4 цифр. Укажите VLAN');
-    }
-    return vlan ? parseInt(vlan, 10) : null;
-  }
-
+async function getVlan(data) {
   switch (data.serviceType) {
     case 'fl':
       if (data.regionId === '1' || data.regionId === '3') {
@@ -88,22 +78,23 @@ function getVlan(data) {
       } else if (data.regionId === '4') {
         return 106;
       }
-      break;
+      return null;
 
     case 'bd':
       if (data.regionId === '1' || data.regionId === '2' || data.regionId === '3') {
-        return promptValidVlan();
+        const vlan = await data.showVlanForm();
+        return vlan;
       } else if (data.regionId === '4') {
         return 100;
       }
-      break;
+      return null;
 
     default:
       return null;
   }
 }
 
-function getPorts (data) {
+function getPorts(data) {
   const portMap = {
     one: "4",
     two: "3, 4",
@@ -111,6 +102,5 @@ function getPorts (data) {
     four: "1, 2, 3, 4",
   };
 
-  const ports = portMap[data.portNumber] || "";
-  return ports;
+  return portMap[data.portNumber] || "";
 }

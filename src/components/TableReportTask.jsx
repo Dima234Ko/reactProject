@@ -106,7 +106,7 @@ ${taskData.equipmentShutdownDto.info}`,
       key: `cameraDto`,
       name: `Настройка камеры`,
       respResult: `PON: ${taskData.cameraDto[0].serialNewNtu},
-  ${taskData.cameraDto[0].cameraWorkName}`,
+  ${taskData.cameraDto[0].respResult}`,
     });
   }
 

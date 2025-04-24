@@ -9,6 +9,8 @@ import { Input } from '../../components/Input';
 import { Button } from '../../components/Button/Button';
 import { Loader } from '../../components/Loader';
 import Result from '../../components/Result';
+import { FormInfo } from '../../components/Form/Form';
+import { FormAddVlan } from '../../components/Form/FormAddVlan';
 import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
 import { getRegion } from '../../functions/region';
 import { RadioButtonGroup } from '../../components/RadioButtonGroup';
@@ -17,6 +19,7 @@ import { settingCCTVforNtu } from '../../functions/settingCamNtu';
 function CamNtu() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const regionFromRedux = useSelector((state) => state.region.region);
@@ -27,6 +30,8 @@ function CamNtu() {
   const [result, setResult] = useState(null);
   const [serviceType, setServiceType] = useState('bd');
   const [portNumber, setPortNumber] = useState('one');
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [formContent, setFormContent] = useState(null);
   const regionFromUrl = getNumberBrowserUrl('region');
   const workFromUrl = getParamBrowserUrl('work');
 
@@ -72,16 +77,60 @@ function CamNtu() {
     fetchData();
   }, [location.search, navigate]);
 
+  // Функция для открытия формы VLAN
+  const showVlanForm = () => {
+    return new Promise((resolve) => {
+      setFormContent(
+        <FormAddVlan
+          setCreateSuccess={(vlan) => resolve(vlan)}
+          onClose={() => {
+            setIsFormOpen(false);
+            resolve(null);
+          }}
+        />
+      );
+      setIsFormOpen(true);
+    });
+  };
+
   // Обработчик отправки запроса
-  const handleSubmit = () => {
-    setLoading(true);
-    settingCCTVforNtu({ serial, serviceType, portNumber, regionId, dispatch, setLoading, navigate, setResult});
+  const handleSubmit = async () => {
+    setResult(null);
+
+    try {
+      await settingCCTVforNtu({
+        serial,
+        serviceType,
+        portNumber,
+        regionId,
+        dispatch,
+        setLoading,
+        navigate,
+        setResult,
+        showVlanForm, 
+      });
+    } catch (error) {
+      setResult({
+        result: error.message,
+        success: false,
+      });
+    }
+  };
+
+  const closeForm = () => {
+    setIsFormOpen(false);
+    setFormContent(null);
   };
 
   return (
     <div id="camNtu">
       <h2>Настройка CCTV</h2>
       <h5>{getRegion(regionId) || 'Регион не выбран'}</h5>
+      <FormInfo
+        isFormOpen={isFormOpen}
+        closeForm={closeForm}
+        formData={formContent}
+      />
       <div className="pon-container">
         <Input
           id="id_Ntu"

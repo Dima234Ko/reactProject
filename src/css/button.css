@@ -27,6 +27,14 @@
   color: white;
 }
 
+.button:disabled,
+.button[disabled] {
+  background-color: #b3cce6; /* более светлый оттенок синего */
+  color: #f0f0f0;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 .button.green {
   background: #34b43a;
 }

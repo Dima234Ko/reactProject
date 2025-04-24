@@ -106,8 +106,8 @@ export async function checkTask(
     } else {
       dispatch(setProgress(100)); // Устанавливаем прогресс в 100%
       setLoading(false); // Закрываем загрузку
-      //setResult(taskData.result.respResult); // Обновляем результат
-      setResult(taskData.result);
+      setResult(taskData.result.respResult); // Обновляем результат
+     
       // Сохраняем результат
       if (taskData.result.rxPower) {
         localStorage.setItem(
