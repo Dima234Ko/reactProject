@@ -100,6 +100,16 @@ ${taskData.equipmentShutdownDto.info}`,
     });
   }
 
+  
+  if (taskData.cameraDto !== null) {
+    tableRows.push({
+      key: `cameraDto`,
+      name: `Настройка камеры`,
+      respResult: `PON: ${taskData.cameraDto[0].serialNewNtu},
+  ${taskData.cameraDto[0].cameraWorkName}`,
+    });
+  }
+
   const columns = ['Действие', 'Результат'];
 
   const tableBody = tableRows.map((row) => (
