@@ -104,8 +104,8 @@ ${taskData.equipmentShutdownDto.info}`,
     tableRows.push({
       key: `cameraDto`,
       name: `Настройка камеры`,
-      respResult: `PON: ${taskData.cameraDto[0].serialNewNtu},
-  ${taskData.cameraDto[0].respResult}`,
+      // respResult: `PON: ${taskData.cameraDto[0].serialNewNtu},
+      respResult: `${taskData.cameraDto[0].respResult.info}`,
     });
   }
 
