@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import ChangeButton from '../../components/Button/ChangeButton';
-import StatusButton from '../../components/Button/StatusButton';
 import { getRegion } from '../../functions/region';
 import { setWork } from '../../store/actions/workActions';
 import { setRegion } from '../../store/actions/regionActions';
+import ChangeButton from '../../components/Button/ChangeButton';
+import StatusButton from '../../components/Button/StatusButton';
 
 function Malfunction() {
   const dispatch = useDispatch();

@@ -1,6 +1,15 @@
 import { useState } from 'react';
 
-function Input({ id, type, placeholder, value, onChange, disabled, onBlur, onKeyDown }) {
+function Input({
+  id,
+  type,
+  placeholder,
+  value,
+  onChange,
+  disabled,
+  onBlur,
+  onKeyDown,
+}) {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (event) => {

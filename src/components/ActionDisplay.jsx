@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-function ActionDisplay () {
+function ActionDisplay() {
   const page = useSelector((state) => state.task.page);
 
   const actions = (() => {
@@ -114,6 +114,6 @@ function ActionDisplay () {
       ))}
     </div>
   );
-};
+}
 
 export default ActionDisplay;

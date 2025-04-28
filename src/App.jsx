@@ -8,6 +8,12 @@ import {
   useNavigate,
 } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { openTask, closeTask } from './functions/work';
+import {
+  setBulleanTask,
+  setActivePage,
+} from './store/actions/pageLogTaskActions';
+import { setPage } from './store/actions/taskActions';
 import Authorization from './pages/Authorization';
 import Header from './components/Header';
 import Status from './pages/user/Status';
@@ -30,13 +36,7 @@ import TaskButton from './components/Button/TaskButton';
 import ExpressButton from './components/Button/ExpressButton';
 import ShareButton from './components/Button/ShareButton';
 import FormInfo from './components/Form/Form';
-import { openTask, closeTask } from './functions/work';
-import {
-  setBulleanTask,
-  setActivePage,
-} from './store/actions/pageLogTaskActions';
 import FavIcon from './components/Icon';
-import { setPage } from './store/actions/taskActions';
 
 function App() {
   return (

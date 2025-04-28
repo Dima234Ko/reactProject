@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import Input from '../components/Input';
 import { useNavigate } from 'react-router-dom';
-import Button from '../components/Button/Button';
 import { authorization } from '../functions/authorization';
+import Input from '../components/Input';
+import Button from '../components/Button/Button';
 import Loader from '../components/Loader';
 import Result from '../components/Result';
 

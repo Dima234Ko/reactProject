@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { requestAPI } from '../../functions/api';
 import Input from '../../components/Input';
 import Button from '../Button/Button';
-import { SelectRoot } from '../../components/Select/SelectRoot ';
-import { requestAPI } from '../../functions/api';
+import SelectRoot from '../../components/Select/SelectRoot ';
 
 function FormAddUser({ setCreateSuccess, onClose }) {
   const [formData, setFormData] = useState({

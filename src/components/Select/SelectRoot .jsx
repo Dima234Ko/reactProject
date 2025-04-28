@@ -1,7 +1,7 @@
 import React from 'react';
-import { Select } from './Select';
+import Select from './Select';
 
-export function SelectRoot({ onChange, value }) {
+function SelectRoot({ onChange, value }) {
   const options = [
     { label: 'Без прав', value: 'noRoles' },
     { label: 'Монтажник', value: 'installer' },
@@ -17,3 +17,5 @@ export function SelectRoot({ onChange, value }) {
     />
   );
 }
+
+export default SelectRoot;

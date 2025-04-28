@@ -1,7 +1,7 @@
 import React from 'react';
-import { Select } from './Select';
+import Select from './Select';
 
-export function SelectSSID5({ value, onChange }) {
+function SelectSSID5({ value, onChange }) {
   const options = [
     'auto',
     '36',
@@ -25,3 +25,5 @@ export function SelectSSID5({ value, onChange }) {
     />
   );
 }
+
+export default SelectSSID5;

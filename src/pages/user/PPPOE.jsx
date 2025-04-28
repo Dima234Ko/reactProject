@@ -7,16 +7,16 @@ import { setRegion } from '../../store/actions/regionActions';
 import { setLogin } from '../../store/actions/loginActions';
 import { setWork } from '../../store/actions/workActions';
 import { setWarning } from '../../store/actions/warningActions';
+import { setPppoe, searchIdUs } from '../../functions/pppoe';
+import { checkTaskStatus } from '../../functions/task';
+import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
+import { getRegion } from '../../functions/region';
 import Input from '../../components/Input';
 import Button from '../../components/Button/Button';
 import Loader from '../../components/Loader';
 import Result from '../../components/Result';
 import FormInfo from '../../components/Form/Form';
-import { setPppoe, searchIdUs } from '../../functions/pppoe';
-import { checkTaskStatus } from '../../functions/task';
 import NextButton from '../../components/Button/NextButton';
-import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
-import { getRegion } from '../../functions/region';
 import ExpressButton from '../../components/Button/ExpressButton';
 
 function Pppoe() {

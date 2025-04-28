@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Input from '../Input';
-import { Select } from '../Select/Select';
-import { DropdownSelect } from '../Select/DropdownSelect';
-import Button from '../Button/Button';
-import Checkbox from '../Checkbox';
+import DropdownSelect from '../Select/DropdownSelect';
 import {
   setRegionTask,
   setWorkTask,
@@ -19,6 +15,10 @@ import { getLogins } from '../../functions/account';
 import { requestAPI } from '../../functions/api';
 import { getRegionForName } from '../../functions/region';
 import { getWork, setWork } from '../../functions/report';
+import Select from '../Select/Select';
+import Input from '../Input';
+import Button from '../Button/Button';
+import Checkbox from '../Checkbox';
 
 function FormFilterReport({ onClose, task }) {
   const dispatch = useDispatch();

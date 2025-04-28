@@ -5,19 +5,19 @@ import { setProgress } from '../../store/actions/progressActions';
 import { setSerial } from '../../store/actions/serialActions';
 import { setRegion } from '../../store/actions/regionActions';
 import { setWork } from '../../store/actions/workActions';
-import { SelectSSID } from '../../components/Select/SelectSSID';
-import { SelectSSID5 } from '../../components/Select/SelectSSID5';
-import Input from '../../components/Input';
-import Button from '../../components/Button/Button';
-import NextButton from '../../components/Button/NextButton';
-import { setLogin } from '../../store/actions/loginActions';
-import Loader from '../../components/Loader';
-import Result from '../../components/Result';
 import { setWiFi } from '../../functions/wifi';
 import { checkTaskStatus } from '../../functions/task';
 import { searchIdUs } from '../../functions/pppoe';
 import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
 import { getRegion } from '../../functions/region';
+import { setLogin } from '../../store/actions/loginActions';
+import SelectSSID from '../../components/Select/SelectSSID';
+import SelectSSID5 from '../../components/Select/SelectSSID5';
+import Input from '../../components/Input';
+import Button from '../../components/Button/Button';
+import NextButton from '../../components/Button/NextButton';
+import Loader from '../../components/Loader';
+import Result from '../../components/Result';
 
 function Wifi() {
   const dispatch = useDispatch();

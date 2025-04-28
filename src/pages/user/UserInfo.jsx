@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Button from '../../components/Button/Button';
-import UploadButton from '../../components/Button/UploadButton';
+import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
+import { searchIdUs } from '../../functions/pppoe';
+import { setInfoToUs } from '../../functions/userInfo';
+import { closeTask } from '../../functions/work';
 import { setSerial } from '../../store/actions/serialActions';
-import Input from '../../components/Input';
 import { setLogin } from '../../store/actions/loginActions';
 import { getRegion } from '../../functions/region';
 import { setWork } from '../../store/actions/workActions';
 import { setRegion } from '../../store/actions/regionActions';
 import { setId } from '../../store/actions/idActions';
+import Button from '../../components/Button/Button';
+import UploadButton from '../../components/Button/UploadButton';
+import Input from '../../components/Input';
 import FormInfo from '../../components/Form/Form';
 import FormPhoto from '../../components/Form/FormPhoto';
 import Loader from '../../components/Loader';
 import Result from '../../components/Result';
-import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
-import { searchIdUs } from '../../functions/pppoe';
-import { setInfoToUs } from '../../functions/userInfo';
-import { closeTask } from '../../functions/work';
 
 function UserInfo() {
   const dispatch = useDispatch();

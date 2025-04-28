@@ -6,16 +6,16 @@ import { setRegion } from '../../store/actions/regionActions';
 import { setProgress } from '../../store/actions/progressActions';
 import { setWork } from '../../store/actions/workActions';
 import { clearLogin } from '../../store/actions/loginActions';
+import { getStatus } from '../../functions/status';
+import { checkTaskStatus } from '../../functions/task';
+import { getParamBrowserUrl } from '../../functions/url';
 import Input from '../../components/Input';
 import Button from '../../components/Button/Button';
 import Loader from '../../components/Loader';
 import Result from '../../components/Result';
-import { getStatus } from '../../functions/status';
-import { checkTaskStatus } from '../../functions/task';
 import FormSelectNewConnection from '../../components/Form/FormSelectNewConnection';
 import FormInfo from '../../components/Form/Form';
-import  Checkbox  from '../../components/Checkbox';
-import { getParamBrowserUrl } from '../../functions/url';
+import Checkbox from '../../components/Checkbox';
 import { getRegion } from '../../functions/region';
 
 function Status() {

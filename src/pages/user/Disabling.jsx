@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { disableNTU } from '../../functions/disabling';
 import Input from '../../components/Input';
 import FormInfo from '../../components/Form/Form';
 import Button from '../../components/Button/Button';
 import Loader from '../../components/Loader';
-import  Checkbox  from '../../components/Checkbox';
+import Checkbox from '../../components/Checkbox';
 import Result from '../../components/Result';
-import { disableNTU } from '../../functions/disabling';
 import RadioButtonGroup from '../../components/RadioButtonGroup';
 
 function Disabling() {

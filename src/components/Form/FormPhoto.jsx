@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Button from '../../components/Button/Button';
 import { uploadPhoto } from '../../functions/api';
 import { setPage } from '../../store/actions/taskActions';
+import Button from '../../components/Button/Button';
 
 function FormPhoto({
   isUploading,

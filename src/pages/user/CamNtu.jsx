@@ -6,16 +6,16 @@ import { setSerial } from '../../store/actions/serialActions';
 import { setRegion } from '../../store/actions/regionActions';
 import { setWork } from '../../store/actions/workActions';
 import { checkTaskStatus } from '../../functions/task';
+import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
+import { getRegion } from '../../functions/region';
+import { settingCCTVforNtu } from '../../functions/settingCamNtu';
 import Input from '../../components/Input';
 import Button from '../../components/Button/Button';
 import Loader from '../../components/Loader';
 import Result from '../../components/Result';
 import FormInfo from '../../components/Form/Form';
 import FormAddVlan from '../../components/Form/FormAddVlan';
-import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
-import { getRegion } from '../../functions/region';
 import RadioButtonGroup from '../../components/RadioButtonGroup';
-import { settingCCTVforNtu } from '../../functions/settingCamNtu';
 
 function CamNtu() {
   const dispatch = useDispatch();

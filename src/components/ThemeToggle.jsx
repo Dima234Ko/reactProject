@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function ThemeToggle({
-  className = 'theme-toggle',
-  id,
-  disabled = false,
-}) {
+function ThemeToggle({ className = 'theme-toggle', id, disabled = false }) {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
