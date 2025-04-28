@@ -10,52 +10,42 @@ import { requestAPI } from '../functions/api';
  */
 
 export async function changePasswordProcessing(data) {
-  if (!data?.password || !data?.setLoading || !data?.setResult || !data?.navigate) {
-    data.setResult({
-      success: false,
-      message: 'Отсутствуют обязательные параметры'
-    });
-    return;
-  }
+  const { password, setLoading, navigate, setResult } = data;
 
-  data.setLoading(true);
-  data.setResult(null);
+  setLoading(true);
+  setResult(null);
 
   const body = {
-    password: data.password
+    password: password,
   };
   try {
-    if (data.password.length <= 4) {
+    if (password.length <= 4) {
       data.setResult({
         success: false,
-        message: 'Длина пароля должна быть больше 4 символов'
+        message: 'Длина пароля должна быть больше 4 символов',
       });
       return;
     }
-    if (data.password.trim() === '') {
-      data.setResult({
+    if (password.trim() === '') {
+      setResult({
         success: false,
-        message: 'Пароль не может быть пустым'
+        message: 'Пароль не может быть пустым',
       });
       return;
     }
-    const response = await requestAPI(
-      'POST',
-      'settings/updateUserPass',
-      body
-    );
+    const response = await requestAPI('POST', 'settings/updateUserPass', body);
     data.setResult({
       success: true,
-      message: 'Пароль успешно изменен'
+      message: 'Пароль успешно изменен',
     });
-    data.navigate('/');
+    navigate('/');
   } catch (error) {
     console.error('Ошибка при смене пароля:', error);
-    data.setResult({
+    setResult({
       success: false,
-      message: error.message || 'Ошибка. Попробуйте ещё раз'
+      message: error.message || 'Ошибка. Попробуйте ещё раз',
     });
   } finally {
-    data.setLoading(false);
+    setLoading(false);
   }
 }

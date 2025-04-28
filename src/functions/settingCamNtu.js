@@ -17,44 +17,55 @@ import { getTaskId, checkTask } from './task';
  */
 
 export async function settingCCTVforNtu(data) {
+  const {
+    serial,
+    regionId,
+    serviceType,
+    dispatch,
+    setLoading,
+    navigate,
+    setResult,
+    showVlanForm,
+    portNumber,
+  } = data;
   try {
-    const vlan = await getVlan(data);
-    const ports = getPorts(data);
+    const vlan = await getVlan(regionId, serviceType, showVlanForm);
+    const ports = getPorts(portNumber);
 
     if (!vlan) {
-      data.setLoading(false);
+      setLoading(false);
       throw new Error('VLAN не получен');
     }
 
-    data.setLoading(true);
+    setLoading(true);
     const body = {
-      ponSerialNtu: data.serial,
+      ponSerialNtu: serial,
       ports: ports,
       vlan: vlan,
-      regionId: data.regionId,
+      regionId: regionId,
     };
 
     let taskId;
 
-    switch (data.serviceType) {
+    switch (serviceType) {
       case 'fl':
         taskId = await getTaskId(
           `newConnection/createPppoeAndCamera`,
           body,
-          data.dispatch,
-          data.setLoading,
-          data.navigate,
-          data.serial
+          dispatch,
+          setLoading,
+          navigate,
+          serial
         );
         break;
       case 'bd':
         taskId = await getTaskId(
           `newConnection/createCameraToSafetyCity`,
           body,
-          data.dispatch,
-          data.setLoading,
-          data.navigate,
-          data.serial
+          dispatch,
+          setLoading,
+          navigate,
+          serial
         );
         break;
       default:
@@ -68,51 +79,45 @@ export async function settingCCTVforNtu(data) {
     await checkTask(
       `task/taskStatus`,
       taskId,
-      data.dispatch,
-      data.setLoading,
-      data.setResult,
-      data.navigate,
+      dispatch,
+      setLoading,
+      setResult,
+      navigate,
       0,
       80
     );
     await new Promise((resolve) => setTimeout(resolve, 3000));
-    data.navigate(`/region`);
+    navigate(`/region`);
   } catch (error) {
-    data.setLoading(false);
+    setLoading(false);
     throw new Error(`Ошибка: ${error.message || error}`);
   }
 }
 
 /**
  * Определяет VLAN на основе типа сервиса и региона.
- * @param {Object} data - Данные для определения VLAN
- * @param {string} data.serviceType - Тип сервиса ('fl' или 'bd')
- * @param {string} data.regionId - Идентификатор региона ('1', '2', '3', '4')
- * @param {Function} data.showVlanForm - Асинхронная функция для отображения формы ввода VLAN
- * @returns {Promise<number|null>} VLAN (число) или null, если VLAN не определен
+ * @param {string} serviceType - Тип сервиса ('fl' или 'bd')
+ * @param {string} regionId - Идентификатор региона ('1', '2', '3', '4')
+ * @param {Function} showVlanForm - Асинхронная функция для отображения формы ввода VLAN
  */
 
-async function getVlan(data) {
-  switch (data.serviceType) {
+async function getVlan(regionId, serviceType, showVlanForm) {
+  switch (serviceType) {
     case 'fl':
-      if (data.regionId === '1' || data.regionId === '3') {
+      if (regionId === '1' || regionId === '3') {
         return 132;
-      } else if (data.regionId === '2') {
+      } else if (regionId === '2') {
         return 1725;
-      } else if (data.regionId === '4') {
+      } else if (regionId === '4') {
         return 106;
       }
       return null;
 
     case 'bd':
-      if (
-        data.regionId === '1' ||
-        data.regionId === '2' ||
-        data.regionId === '3'
-      ) {
-        const vlan = await data.showVlanForm();
+      if (regionId === '1' || regionId === '2' || regionId === '3') {
+        const vlan = await showVlanForm();
         return vlan;
-      } else if (data.regionId === '4') {
+      } else if (regionId === '4') {
         return 100;
       }
       return null;
@@ -122,7 +127,7 @@ async function getVlan(data) {
   }
 }
 
-function getPorts(data) {
+function getPorts(portNumber) {
   const portMap = {
     one: '4',
     two: '3, 4',
@@ -130,5 +135,5 @@ function getPorts(data) {
     four: '1, 2, 3, 4',
   };
 
-  return portMap[data.portNumber] || '';
+  return portMap[portNumber] || '';
 }

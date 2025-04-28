@@ -7,7 +7,7 @@ import { setRegion } from '../../store/actions/regionActions';
 import { setLogin } from '../../store/actions/loginActions';
 import { setWork } from '../../store/actions/workActions';
 import { setWarning } from '../../store/actions/warningActions';
-import { setPppoe, searchIdUs } from '../../functions/pppoe';
+import { setPppoe, searchIdUs } from '../../functions/settingPppoe';
 import { checkTaskStatus } from '../../functions/task';
 import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
 import { getRegion } from '../../functions/region';
@@ -18,6 +18,7 @@ import Result from '../../components/Result';
 import FormInfo from '../../components/Form/Form';
 import NextButton from '../../components/Button/NextButton';
 import ExpressButton from '../../components/Button/ExpressButton';
+import WarningForm from '../../components/Form/FromWarning';
 
 function Pppoe() {
   const dispatch = useDispatch();
@@ -101,30 +102,18 @@ function Pppoe() {
       return new Promise((resolve) => {
         setFormContent({
           fromData: (
-            <div className="textForm">
-              <h2>Внимание</h2>
-              <pre>Данный PON Serial указан в другой карточке US</pre>
-              <div className="input-container">
-                <ExpressButton
-                  onClick={() => {
-                    dispatch(setWarning(false));
-                    closeForm();
-                    resolve(true);
-                  }}
-                  text="Продолжить"
-                  closeButton={false}
-                />
-                <ExpressButton
-                  onClick={() => {
-                    dispatch(setWarning(true));
-                    closeForm();
-                    resolve(false);
-                  }}
-                  text="Завершить"
-                  closeButton={true}
-                />
-              </div>
-            </div>
+            <WarningForm
+              onContinue={() => {
+                dispatch(setWarning(false));
+                closeForm();
+                resolve(true);
+              }}
+              onCancel={() => {
+                dispatch(setWarning(true));
+                closeForm();
+                resolve(false);
+              }}
+            />
           ),
         });
         setIsFormOpen(true);
@@ -139,7 +128,7 @@ function Pppoe() {
         dispatch(setProgress(0));
 
         try {
-          await setPppoe(
+          await setPppoe({
             serial,
             login,
             password,
@@ -148,8 +137,8 @@ function Pppoe() {
             setResult,
             dispatch,
             navigate,
-            regionId
-          );
+            regionId,
+          });
         } catch (error) {
           setResult({
             result: error.message,
@@ -179,13 +168,13 @@ function Pppoe() {
 
     if (currentLogin !== '' && serialFromRedux !== '') {
       try {
-        const data = await searchIdUs(
+        const data = await searchIdUs({
           currentLogin,
           serialFromRedux,
           setResult,
-          'login',
-          'pppoe'
-        );
+          param: 'login',
+          page: 'pppoe',
+        });
         let hasWarning =
           data.idBySerial != null && data.idBySerial !== data.idByLogin;
         dispatch(setWarning(hasWarning));

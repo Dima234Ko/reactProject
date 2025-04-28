@@ -21,7 +21,7 @@ function ChangePassword() {
       password,
       setLoading,
       setResult,
-      navigate
+      navigate,
     });
   };
 

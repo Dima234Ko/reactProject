@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
-import { searchIdUs } from '../../functions/pppoe';
+import { searchIdUs } from '../../functions/settingPppoe';
 import { setInfoToUs } from '../../functions/userInfo';
 import { closeTask } from '../../functions/work';
 import { setSerial } from '../../store/actions/serialActions';
@@ -75,19 +75,19 @@ function UserInfo() {
     try {
       let data;
       if (loginFromRedux) {
-        data = await searchIdUs(
+        data = await searchIdUs({
           loginFromRedux,
           serialFromRedux,
           setResult,
-          'login'
-        );
+          param: 'login',
+        });
       } else if (serialFromRedux) {
-        data = await searchIdUs(
+        data = await searchIdUs({
           serialFromRedux,
           serialFromRedux,
           setResult,
-          'serial'
-        );
+          param: 'serial',
+        });
       }
       if (data?.idUserSideCard) {
         dispatch(setId(data.idUserSideCard));

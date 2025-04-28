@@ -16,34 +16,48 @@ import { getTaskId, checkTask } from './task';
  */
 
 export async function disableNTU(data) {
+  const {
+    serial,
+    dispatch,
+    setLoading,
+    navigate,
+    setResult,
+    isChecked,
+    selectedRadioOption,
+    radioOptions,
+  } = data;
+
   try {
     let action = `newConnection/equipmentShutdown`;
-    let body = getBody(data);
-    data.setLoading(true);
+    let body = getBody({
+      isChecked,
+      selectedRadioOption,
+      radioOptions,
+      serial,
+    });
+    setLoading(true);
 
-    // Получаем taskId
     const taskId = await getTaskId(
       action,
       body,
-      data.dispatch,
-      data.setLoading,
-      data.navigate,
-      data.serial
+      dispatch,
+      setLoading,
+      navigate,
+      serial
     );
 
     if (taskId) {
-      // Если taskId получен, начинаем отслеживание
       await checkTask(
         `task/taskStatus`,
         taskId,
-        data.dispatch,
-        data.setLoading,
-        data.setResult,
-        data.navigate,
+        dispatch,
+        setLoading,
+        setResult,
+        navigate,
         0,
         30
       );
-      data.navigate(`/region`);
+      navigate(`/region`);
     }
   } catch (error) {
     throw new Error(`Не удалось получить taskId: ${error.message || error}`);
@@ -61,23 +75,24 @@ export async function disableNTU(data) {
  */
 
 function getBody(data) {
+  const { isChecked, selectedRadioOption, radioOptions, serial } = data;
+
   let checkboxText = '';
   let radioText = '';
-  if (data.isChecked) {
+  if (isChecked) {
     checkboxText = 'Неисправность оборудования';
   } else {
     checkboxText = 'Отключение абонентской линии';
   }
 
-  // Определяем текст выбранной радиокнопки
-  if (data.isChecked && data.selectedRadioOption) {
-    radioText = data.radioOptions[data.selectedRadioOption];
+  if (isChecked && selectedRadioOption) {
+    radioText = radioOptions[selectedRadioOption];
   } else {
     radioText = '';
   }
 
   let body = {
-    serialNewNtu: data.serial,
+    serialNewNtu: serial,
     work: checkboxText,
     info: radioText,
   };

@@ -7,7 +7,7 @@ import { setRegion } from '../../store/actions/regionActions';
 import { setWork } from '../../store/actions/workActions';
 import { setWiFi } from '../../functions/wifi';
 import { checkTaskStatus } from '../../functions/task';
-import { searchIdUs } from '../../functions/pppoe';
+import { searchIdUs } from '../../functions/settingPppoe';
 import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
 import { getRegion } from '../../functions/region';
 import { setLogin } from '../../store/actions/loginActions';
@@ -97,21 +97,20 @@ function Wifi() {
       try {
         let data;
         if (loginFromRedux !== null) {
-          data = await searchIdUs(
+          data = await searchIdUs({
             loginFromRedux,
             serialFromRedux,
             setResult,
-            'login',
-            'wifi'
-          );
+            param: 'login',
+            page: 'wifi',
+          });
         } else if (loginFromUrl === '') {
-          data = await searchIdUs(
+          data = await searchIdUs({
             serialFromRedux,
-            '',
             setResult,
-            'serial',
-            'wifi'
-          );
+            param: 'serial',
+            page: 'wifi',
+          });
           dispatch(setLogin(data.userLogin));
         }
         if (data) {

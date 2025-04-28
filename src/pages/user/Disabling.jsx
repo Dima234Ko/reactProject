@@ -58,7 +58,7 @@ function Disabling() {
       navigate,
       dispatch,
       setResult,
-      setLoading
+      setLoading,
     });
     setIsFormOpen(false);
   };
