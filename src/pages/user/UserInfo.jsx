@@ -84,7 +84,6 @@ function UserInfo() {
       } else if (serialFromRedux) {
         data = await searchIdUs({
           serialFromRedux,
-          serialFromRedux,
           setResult,
           param: 'serial',
         });
