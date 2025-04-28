@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Button({
+function Button({
   name,
   id,
   onClick,
@@ -13,3 +13,6 @@ export function Button({
     </button>
   );
 }
+
+
+export default Button;

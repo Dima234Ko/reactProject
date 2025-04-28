@@ -1,8 +1,8 @@
 import React from 'react';
-import { Table } from '../components/Table';
-import { downloadPhotoToServer } from '../functions/photo';
+import Table from './Table';
+import { downloadPhotoToServer } from '../../functions/photo';
 
-export function TableReportTask({ taskData }) {
+function TableReportTask({ taskData }) {
   if (!taskData) {
     return <div>Данные задачи отсутствуют</div>;
   }
@@ -140,3 +140,5 @@ ${taskData.equipmentShutdownDto.info}`,
     </div>
   );
 }
+
+export default TableReportTask;

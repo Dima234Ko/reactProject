@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Input } from '../../components/Input';
-import { Button } from '../Button/Button';
+import Input from '../../components/Input';
+import Button from '../Button/Button';
 import { SelectRoot } from '../../components/Select/SelectRoot ';
 import { requestAPI } from '../../functions/api';
 
-export function FormAddUser({ setCreateSuccess, onClose }) {
+function FormAddUser({ setCreateSuccess, onClose }) {
   const [formData, setFormData] = useState({
     lastName: '',
     firstName: '',
@@ -151,3 +151,5 @@ export function FormAddUser({ setCreateSuccess, onClose }) {
     </div>
   );
 }
+
+export default FormAddUser;

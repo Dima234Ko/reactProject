@@ -1,4 +1,4 @@
-export function Loader({ progress }) {
+function Loader({ progress }) {
   return (
     <div className="loader">
       <div className="spinner"></div>
@@ -8,3 +8,5 @@ export function Loader({ progress }) {
     </div>
   );
 }
+
+export default Loader;

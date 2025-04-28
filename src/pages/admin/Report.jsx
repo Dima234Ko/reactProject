@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Table } from '../../components/Table';
-import { FiltrButton } from '../../components/Button/FiltrButton';
-import { FormInfo } from '../../components/Form/Form';
-import { FormFilterReport } from '../../components/Form/FormFilterReport';
-import { FormReportTask } from '../../components/Form/FormReportTask';
-import { Loader } from '../../components/Loader';
 import { getReport } from '../../functions/report';
 import { setReportTask } from '../../store/actions/taskReportActions';
 import { setActivePage } from '../../store/actions/pageLogTaskActions';
-import { Pagination } from '../../components/Pagination';
-import { FilterDisplay } from '../../components/FilterDisplay';
-import { SwitchComponent } from '../../components/Swich';
+import Table from '../../components/Table/Table';
+import FiltrButton from '../../components/Button/FiltrButton';
+import FormInfo from '../../components/Form/Form';
+import FormFilterReport from '../../components/Form/FormFilterReport';
+import FormReportTask from '../../components/Form/FormReportTask';
+import Loader from '../../components/Loader';
+import Pagination from '../../components/Pagination';
+import FilterDisplay from '../../components/FilterDisplay';
+import SwitchComponent from '../../components/Swich';
 
 function Report() {
   const [loading, setLoading] = useState(true);

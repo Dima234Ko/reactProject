@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserSlash } from '@fortawesome/free-solid-svg-icons';
 
-export function DeleteUserButton({ onClick, className = '' }) {
+function DeleteUserButton({ onClick, className = '' }) {
   return (
     <button className={`upload-button ${className}`} onClick={onClick}>
       <FontAwesomeIcon icon={faUserSlash} />
@@ -10,3 +10,5 @@ export function DeleteUserButton({ onClick, className = '' }) {
     </button>
   );
 }
+
+export default DeleteUserButton;

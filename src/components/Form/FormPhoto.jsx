@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { Button } from '../../components/Button/Button';
+import Button from '../../components/Button/Button';
 import { uploadPhoto } from '../../functions/api';
 import { setPage } from '../../store/actions/taskActions';
 
-export function FormPhoto({
+function FormPhoto({
   isUploading,
   setIsUploading,
   login,
   idUserSideCard,
-  workFromRedux,
   setUploadSuccess,
   dispatch,
 }) {
@@ -94,3 +93,5 @@ export function FormPhoto({
     </div>
   );
 }
+
+export default FormPhoto;

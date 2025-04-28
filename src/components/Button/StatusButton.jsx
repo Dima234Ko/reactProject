@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCheck } from '@fortawesome/free-solid-svg-icons';
 
-export function StatusButton({ onClick, className = '' }) {
+function StatusButton({ onClick, className = '' }) {
   return (
     <button
       className={`upload-button ${className}`}
@@ -16,3 +16,5 @@ export function StatusButton({ onClick, className = '' }) {
     </button>
   );
 }
+
+export default StatusButton;

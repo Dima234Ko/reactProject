@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-const ActionDisplay = () => {
+function ActionDisplay () {
   const page = useSelector((state) => state.task.page);
 
   const actions = (() => {

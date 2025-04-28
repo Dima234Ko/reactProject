@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilterCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
-export function FiltrButton({ onClick, className = '' }) {
+function FiltrButton({ onClick, className = '' }) {
   return (
     <button className={`upload-button ${className}`} onClick={onClick}>
       <FontAwesomeIcon icon={faFilterCircleXmark} />
@@ -10,3 +10,5 @@ export function FiltrButton({ onClick, className = '' }) {
     </button>
   );
 }
+
+export default FiltrButton;

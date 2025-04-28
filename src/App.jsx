@@ -25,11 +25,11 @@ import Replcement from './pages/user/Replacement';
 import ChangePassword from './pages/user/СhangePassword';
 import CamNtu from './pages/user/CamNtu';
 import ActionDisplay from './components/ActionDisplay';
-import { ThemeToggle } from './components/ThemeToggle';
-import { TaskButton } from './components/Button/TaskButton';
-import { ExpressButton } from './components/Button/ExpressButton';
-import { ShareButton } from './components/Button/ShareButton';
-import { FormInfo } from './components/Form/Form';
+import ThemeToggle from './components/ThemeToggle';
+import TaskButton from './components/Button/TaskButton';
+import ExpressButton from './components/Button/ExpressButton';
+import ShareButton from './components/Button/ShareButton';
+import FormInfo from './components/Form/Form';
 import { openTask, closeTask } from './functions/work';
 import {
   setBulleanTask,

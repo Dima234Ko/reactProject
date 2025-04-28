@@ -1,7 +1,7 @@
 import React from 'react';
-import { ExpressButton } from '../Button/ExpressButton';
+import ExpressButton from '../Button/ExpressButton';
 
-export function FormSelectNewConnection({
+function FormSelectNewConnection({
   regionId,
   serial,
   work,
@@ -37,3 +37,5 @@ export function FormSelectNewConnection({
     </div>
   );
 }
+
+export default FormSelectNewConnection;

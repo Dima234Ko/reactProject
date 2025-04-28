@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Pagination({ totalPages, activePage, onPageChange }) {
+function Pagination({ totalPages, activePage, onPageChange }) {
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages && page !== activePage) {
       onPageChange(page);
@@ -87,3 +87,5 @@ export function Pagination({ totalPages, activePage, onPageChange }) {
 
   return <div className="pagination">{renderPagination()}</div>;
 }
+
+export default Pagination;

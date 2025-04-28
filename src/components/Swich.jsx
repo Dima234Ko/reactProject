@@ -1,4 +1,3 @@
-// SwitchComponent.jsx
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
@@ -6,7 +5,7 @@ import {
   setActivePage,
 } from '../store/actions/pageLogTaskActions';
 
-export function SwitchComponent() {
+function SwitchComponent() {
   const [isTasks, setIsTasks] = useState(true);
   const dispatch = useDispatch();
 
@@ -35,3 +34,5 @@ export function SwitchComponent() {
     </div>
   );
 }
+
+export default SwitchComponent;

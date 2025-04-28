@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartLine } from '@fortawesome/free-solid-svg-icons';
 
-export function TaskButton({ onClick, text }) {
+function TaskButton({ onClick, text }) {
   return (
     <button
       className="upload-button action-btn"
@@ -16,3 +16,5 @@ export function TaskButton({ onClick, text }) {
     </button>
   );
 }
+
+export default TaskButton;

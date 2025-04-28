@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function ShareButton() {
+function ShareButton() {
   const handleShare = async () => {
     const url = window.location.href;
     const shareData = {
@@ -29,3 +29,5 @@ export function ShareButton() {
     </button>
   );
 }
+
+export default ShareButton;

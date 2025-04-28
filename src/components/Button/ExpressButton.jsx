@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function ExpressButton({ onClick, text, closeButton }) {
+function ExpressButton({ onClick, text, closeButton }) {
   return (
     <button
       className="button blue"
@@ -13,3 +13,5 @@ export function ExpressButton({ onClick, text, closeButton }) {
     </button>
   );
 }
+
+export default ExpressButton;

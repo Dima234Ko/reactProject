@@ -1,4 +1,4 @@
-export function RadioButtonGroup({
+function RadioButtonGroup({
   options = {}, // Добавлено значение по умолчанию
   isVisible = true, // Добавлено значение по умолчанию
   onChange,
@@ -49,3 +49,5 @@ export function RadioButtonGroup({
     </div>
   );
 }
+
+export default RadioButtonGroup;

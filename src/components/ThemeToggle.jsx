@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export function ThemeToggle({
+function ThemeToggle({
   className = 'theme-toggle',
   id,
   disabled = false,
@@ -43,3 +43,5 @@ export function ThemeToggle({
     </label>
   );
 }
+
+export default ThemeToggle;

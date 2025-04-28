@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleNodes } from '@fortawesome/free-solid-svg-icons';
 
-export function NewConnectionButton({ onClick, className = '', disabled }) {
+function NewConnectionButton({ onClick, className = '', disabled }) {
   return (
     <button
       className={`upload-button ${className} ${disabled ? 'disabled' : ''}`}
@@ -17,3 +17,5 @@ export function NewConnectionButton({ onClick, className = '', disabled }) {
     </button>
   );
 }
+
+export default NewConnectionButton;

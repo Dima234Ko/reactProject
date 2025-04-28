@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Checkbox({ label, id, checked, onChange }) {
+function Checkbox({ label, id, checked, onChange }) {
   return (
     <label className="checkbox-container">
       <input
@@ -15,3 +15,5 @@ export function Checkbox({ label, id, checked, onChange }) {
     </label>
   );
 }
+
+export default Checkbox;

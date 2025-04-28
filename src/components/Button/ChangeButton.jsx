@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHandsAslInterpreting } from '@fortawesome/free-solid-svg-icons';
 
-export function ChangeButton({ onClick, className = '' }) {
+function ChangeButton({ onClick, className = '' }) {
   return (
     <button
       className={`upload-button ${className}`}
@@ -16,3 +16,5 @@ export function ChangeButton({ onClick, className = '' }) {
     </button>
   );
 }
+
+export default ChangeButton;

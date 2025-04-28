@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Input } from '../../components/Input';
-import { Button } from '../Button/Button';
+import Input from '../../components/Input';
+import Button from '../Button/Button';
 
-export function FormAddVlan({ setCreateSuccess, onClose }) {
+function FormAddVlan({ setCreateSuccess, onClose }) {
   const [vlan, setVlan] = useState('');
   const [error, setError] = useState('');
 
@@ -49,3 +49,5 @@ export function FormAddVlan({ setCreateSuccess, onClose }) {
     </div>
   );
 }
+
+export default FormAddVlan;

@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Loader } from '../../components/Loader';
+import Loader from '../../components/Loader';
 import { setRegion } from '../../store/actions/regionActions';
-import { NewConnectionButton } from '../../components/Button/NewConnectionButton';
-import { MalfunctionButton } from '../../components/Button/MalfunctionButton';
-import { DisconnectButton } from '../../components/Button/DisconnectButton';
+import NewConnectionButton from '../../components/Button/NewConnectionButton';
+import MalfunctionButton from '../../components/Button/MalfunctionButton';
+import DisconnectButton from '../../components/Button/DisconnectButton';
 import { getRegion } from '../../functions/region';
 import { setWork } from '../../store/actions/workActions';
 import { connection, getActiveTask } from '../../functions/work';
