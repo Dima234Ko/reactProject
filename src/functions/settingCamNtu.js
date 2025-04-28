@@ -1,5 +1,21 @@
 import { getTaskId, checkTask } from './task';
 
+/**
+ * Настраивает CCTV (видеонаблюдение) для NTU через API, определяя VLAN и порты, отправляя запрос и отслеживая статус задачи.
+ * @param {Object} data - Данные для настройки CCTV
+ * @param {string} data.serial - Серийный номер оборудования NTU
+ * @param {string} data.serviceType - Тип сервиса ('fl' для физических лиц, 'bd' для безопасности города)
+ * @param {string} data.regionId - Идентификатор региона ('1', '2', '3', '4')
+ * @param {string} data.portNumber - Количество портов ('one', 'two', 'three', 'four')
+ * @param {Function} data.showVlanForm - Асинхронная функция для отображения формы ввода VLAN (для serviceType='bd' и определенных регионов)
+ * @param {Function} data.dispatch - Функция диспетчера для управления состоянием (например, Redux)
+ * @param {Function} data.setLoading - Устанавливает состояние загрузки (true/false)
+ * @param {Function} data.setResult - Устанавливает результат операции (например, успех или ошибка)
+ * @param {Function} data.navigate - Функция навигации для перенаправления (например, react-router)
+ * @returns {Promise<void>} Промис, который разрешается при успешном выполнении или выбрасывает ошибку
+ * @throws {Error} Если VLAN не получен, taskId не получен, неверный тип сервиса или произошла другая ошибка
+ */
+
 export async function settingCCTVforNtu(data) {
   try {
     const vlan = await getVlan(data);
@@ -66,6 +82,15 @@ export async function settingCCTVforNtu(data) {
     throw new Error(`Ошибка: ${error.message || error}`);
   }
 }
+
+/**
+ * Определяет VLAN на основе типа сервиса и региона.
+ * @param {Object} data - Данные для определения VLAN
+ * @param {string} data.serviceType - Тип сервиса ('fl' или 'bd')
+ * @param {string} data.regionId - Идентификатор региона ('1', '2', '3', '4')
+ * @param {Function} data.showVlanForm - Асинхронная функция для отображения формы ввода VLAN
+ * @returns {Promise<number|null>} VLAN (число) или null, если VLAN не определен
+ */
 
 async function getVlan(data) {
   switch (data.serviceType) {
