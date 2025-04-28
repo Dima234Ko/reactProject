@@ -24,7 +24,6 @@ function CamNtu() {
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const regionFromRedux = useSelector((state) => state.region.region);
-  const workFromRedux = useSelector((state) => state.work.work);
   const [serial, setSerialState] = useState(serialFromRedux || '');
   const [regionId, setRegionId] = useState(regionFromRedux || '');
   const [loading, setLoading] = useState(false);

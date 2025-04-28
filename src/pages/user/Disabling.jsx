@@ -50,7 +50,7 @@ function Disabling() {
   };
 
   const handleSubmit = () => {
-    disableNTU(
+    disableNTU({
       isChecked,
       selectedRadioOption,
       radioOptions,
@@ -59,7 +59,7 @@ function Disabling() {
       dispatch,
       setResult,
       setLoading
-    );
+    });
     setIsFormOpen(false);
   };
 

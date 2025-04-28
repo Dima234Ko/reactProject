@@ -1,27 +1,18 @@
 import { getTaskId, checkTask } from './task';
-export async function disableNTU(
-  isChecked,
-  selectedRadioOption,
-  radioOptions,
-  serial,
-  navigate,
-  dispatch,
-  setResult,
-  setLoading
-) {
+export async function disableNTU(data) {
   try {
     let action = `newConnection/equipmentShutdown`;
-    let body = getBody(isChecked, selectedRadioOption, radioOptions, serial);
-    setLoading(true);
+    let body = getBody(data);
+    data.setLoading(true);
 
     // Получаем taskId
     const taskId = await getTaskId(
       action,
       body,
-      dispatch,
-      setLoading,
-      navigate,
-      serial
+      data.dispatch,
+      data.setLoading,
+      data.navigate,
+      data.serial
     );
 
     if (taskId) {
@@ -29,38 +20,38 @@ export async function disableNTU(
       await checkTask(
         `task/taskStatus`,
         taskId,
-        dispatch,
-        setLoading,
-        setResult,
-        navigate,
+        data.dispatch,
+        data.setLoading,
+        data.setResult,
+        data.navigate,
         0,
         30
       );
-      navigate(`/region`);
+      data.navigate(`/region`);
     }
   } catch (error) {
     throw new Error(`Не удалось получить taskId: ${error.message || error}`);
   }
 }
 
-function getBody(isChecked, selectedRadioOption, radioOptions, serial) {
+function getBody(data) {
   let checkboxText = '';
   let radioText = '';
-  if (isChecked) {
+  if (data.isChecked) {
     checkboxText = 'Неисправность оборудования';
   } else {
     checkboxText = 'Отключение абонентской линии';
   }
 
   // Определяем текст выбранной радиокнопки
-  if (isChecked && selectedRadioOption) {
-    radioText = radioOptions[selectedRadioOption];
+  if (data.isChecked && data.selectedRadioOption) {
+    radioText = data.radioOptions[data.selectedRadioOption];
   } else {
     radioText = '';
   }
 
   let body = {
-    serialNewNtu: serial,
+    serialNewNtu: data.serial,
     work: checkboxText,
     info: radioText,
   };
