@@ -5,7 +5,7 @@ import { setProgress } from '../../store/actions/progressActions';
 import { setSerial } from '../../store/actions/serialActions';
 import { setRegion } from '../../store/actions/regionActions';
 import { setWork } from '../../store/actions/workActions';
-import { setWiFi } from '../../functions/wifi';
+import { setWiFi } from '../../functions/settingWifi';
 import { checkTaskStatus } from '../../functions/task';
 import { searchIdUs } from '../../functions/settingPppoe';
 import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
@@ -150,7 +150,7 @@ function Wifi() {
     dispatch(setProgress(0));
 
     try {
-      await setWiFi(
+      await setWiFi({
         serial,
         ssid2_4,
         password2_4,
@@ -163,8 +163,8 @@ function Wifi() {
         setResult,
         dispatch,
         navigate,
-        regionId
-      );
+        regionId,
+      });
     } catch (error) {
       setResult({
         result: error.message,

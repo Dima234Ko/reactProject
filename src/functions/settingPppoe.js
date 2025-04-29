@@ -67,7 +67,6 @@ export async function searchIdUs(data) {
  * @param {Function} data.setLoading - Устанавливает состояние загрузки
  * @param {Function} data.setResult - Устанавливает результат операции
  * @param {Function} data.navigate - Функция навигации (например, react-router)
- * @returns {Promise<void>} Промис, который разрешается при успешной настройке
  * @throws {Error} Если не удалось получить taskId или выполнить задачу
  */
 
@@ -82,6 +81,7 @@ export async function setPppoe(data) {
     setResult,
     navigate,
   } = data;
+
   setResult(null);
   dispatch(setProgress(0));
 
