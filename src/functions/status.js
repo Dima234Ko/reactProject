@@ -46,27 +46,26 @@ export async function getStatus(data) {
     }
 
     // Получаем taskId
-    const taskId = await getTaskId(
+    const taskId = await getTaskId({
       action,
       body,
       dispatch,
       setLoading,
       navigate,
-      serial
-    );
+      serial,
+    });
 
     if (taskId) {
       // Если taskId получен, начинаем отслеживание статуса
-      await checkTask(
-        `task/taskStatus`,
+      await checkTask({
+        action: `task/taskStatus`,
         taskId,
         dispatch,
         setLoading,
         setResult,
         navigate,
-        0,
-        30
-      );
+        progress: 30,
+      });
     }
   } catch (error) {
     throw new Error(`Не удалось получить taskId: ${error.message || error}`);

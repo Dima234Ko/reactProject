@@ -49,24 +49,24 @@ export async function settingCCTVforNtu(data) {
 
     switch (serviceType) {
       case 'fl':
-        taskId = await getTaskId(
-          `newConnection/createPppoeAndCamera`,
+        taskId = await getTaskId({
+          action: `newConnection/createPppoeAndCamera`,
           body,
           dispatch,
           setLoading,
           navigate,
-          serial
-        );
+          serial,
+        });
         break;
       case 'bd':
-        taskId = await getTaskId(
-          `newConnection/createCameraToSafetyCity`,
+        taskId = await getTaskId({
+          action: `newConnection/createCameraToSafetyCity`,
           body,
           dispatch,
           setLoading,
           navigate,
-          serial
-        );
+          serial,
+        });
         break;
       default:
         throw new Error('Неверный тип сервиса');
@@ -76,16 +76,15 @@ export async function settingCCTVforNtu(data) {
       throw new Error('taskId не был получен');
     }
 
-    await checkTask(
-      `task/taskStatus`,
+    await checkTask({
+      action: `task/taskStatus`,
       taskId,
       dispatch,
       setLoading,
       setResult,
       navigate,
-      0,
-      80
-    );
+      progress: 80,
+    });
     await new Promise((resolve) => setTimeout(resolve, 3000));
     navigate(`/region`);
   } catch (error) {

@@ -72,15 +72,15 @@ function Wifi() {
       const queryParams = new URLSearchParams(location.search);
       dispatch(setSerial(queryParams.get('serial')));
       try {
-        await checkTaskStatus(
+        await checkTaskStatus({
           location,
           loading,
           result,
           dispatch,
           setLoading,
           setResult,
-          navigate
-        );
+          navigate,
+        });
       } catch (error) {
         setResult({
           result: error.message,

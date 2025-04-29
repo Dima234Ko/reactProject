@@ -52,15 +52,15 @@ function Status() {
     dispatch(setSerial(queryParams.get('serial')));
     const fetchData = async () => {
       try {
-        await checkTaskStatus(
+        await checkTaskStatus({
           location,
           loading,
           result,
           dispatch,
           setLoading,
           setResult,
-          navigate
-        );
+          navigate,
+        });
       } catch (error) {
         setResult({
           result: error.message,

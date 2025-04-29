@@ -95,30 +95,30 @@ export async function setPppoe(data) {
   updateUrlWithParam('login', login, navigate);
 
   try {
-    taskId = await getTaskId(
-      `newConnection/setNtuNewPppoe`,
+    taskId = await getTaskId({
+      action: `newConnection/setNtuNewPppoe`,
       body,
       dispatch,
       setLoading,
       navigate,
-      serial
-    );
+      serial,
+    });
   } catch (error) {
     throw error;
   }
 
   try {
     if (taskId) {
-      await checkTask(
-        `task/taskStatus`,
+      await checkTask({
+        action: `task/taskStatus`,
         taskId,
         dispatch,
         setLoading,
         setResult,
         navigate,
-        0,
-        80
-      );
+        attempts: 0,
+        progress: 80,
+      });
     } else {
       throw new Error('taskId не был получен');
     }

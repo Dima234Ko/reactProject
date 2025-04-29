@@ -37,26 +37,24 @@ export async function disableNTU(data) {
     });
     setLoading(true);
 
-    const taskId = await getTaskId(
+    const taskId = await getTaskId({
       action,
       body,
       dispatch,
       setLoading,
       navigate,
-      serial
-    );
+      serial,
+    });
 
     if (taskId) {
-      await checkTask(
-        `task/taskStatus`,
+      await checkTask({
+        action: `task/taskStatus`,
         taskId,
         dispatch,
         setLoading,
         setResult,
         navigate,
-        0,
-        30
-      );
+      });
       navigate(`/region`);
     }
   } catch (error) {

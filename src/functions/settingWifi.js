@@ -51,25 +51,24 @@ export async function setWiFi(data) {
     };
 
     try {
-      const taskId = await getTaskId(
-        `newConnection/setNtuWifi`,
+      const taskId = await getTaskId({
+        action: `newConnection/setNtuWifi`,
         body,
         dispatch,
         setLoading,
         navigate,
-        serial
-      );
+        serial,
+      });
       if (taskId) {
-        await checkTask(
-          'task/taskStatus',
+        await checkTask({
+          action: 'task/taskStatus',
           taskId,
           dispatch,
           setLoading,
           setResult,
           navigate,
-          0,
-          80
-        );
+          progress: 80,
+        });
       }
     } catch (error) {
       throw new Error(`Не удалось получить taskId: ${error.message || error}`);
