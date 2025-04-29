@@ -11,7 +11,6 @@ import './css/header.css';
 import './css/menu.css';
 import './css/form.css';
 import './css/checkbox.css';
-import './css/mobile.css';
 import './css/table.css';
 import './css/radio.css';
 import './css/pagination.css';
@@ -20,6 +19,7 @@ import './css/swich.css';
 import './css/dropdown.css';
 import './css/toggle.css';
 import './css/actionDisplay.css';
+import './css/mobile.css';
 
 const WebApp = ReactDOM.createRoot(document.getElementById('WebApp'));
 

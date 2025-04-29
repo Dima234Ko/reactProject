@@ -116,7 +116,7 @@ function Main() {
     } else if (pathname === '/info') {
       dispatch(setPage('info'));
     } else if (pathname === '/camntu') {
-      dispatch(setPage('end'));
+      dispatch(setPage('camntu'));
     } else dispatch(setPage(null));
   }, [pathname, dispatch]);
 
