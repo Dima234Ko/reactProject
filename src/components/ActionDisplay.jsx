@@ -32,7 +32,12 @@ function ActionDisplay() {
   return (
     <div className="icon-display-container">
       {icons.map((icon, index) => (
-        <img key={index} src={icon} className='iconAction' alt={`iconAction`} />
+        <img
+          key={index}
+          src={icon}
+          className="iconAction"
+          alt="iconAction"
+        />
       ))}
     </div>
   );

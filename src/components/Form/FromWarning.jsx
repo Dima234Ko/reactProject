@@ -9,9 +9,9 @@ function WarningForm({ onContinue, onCancel }) {
         <ExpressButton
           onClick={onContinue}
           text="Продолжить"
-          closeButton={false}
+          closeButton={true}
         />
-        <ExpressButton onClick={onCancel} text="Завершить" closeButton={true} />
+        <ExpressButton onClick={onCancel} text="Отменить" closeButton={false} />
       </div>
     </div>
   );
