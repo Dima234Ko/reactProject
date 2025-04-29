@@ -1,6 +1,12 @@
 import { requestAPI } from './api';
 
-export async function authorization(login, password, setResult) {
+/**
+ * Функция авторизации пользователя
+ * @param {string} login - Логин пользователя
+ * @param {string} password - Пароль пользователя
+ */
+
+export async function authorization(login, password) {
   let action = 'login';
   let logPass = {
     login: login,

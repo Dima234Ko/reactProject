@@ -1,17 +1,30 @@
 import { getTaskId, checkTask } from './task';
 import { setProgress } from '../store/actions/progressActions';
 
-// Главная функция для получения статуса
-export async function getStatus(
-  serial,
-  isChecked,
-  setLoading,
-  setResult,
-  dispatch,
-  navigate,
-  regionId,
-  workFromRedux
-) {
+/**
+ * Функция получения статуса
+ * @param {Object} data - Данные для запроса статуса
+ * @param {string} data.serial - Серийный номер NTU
+ * @param {string} data.isChecked - Чекбокс сброса устройства
+ * @param {string} data.regionId - Идентификатор региона
+ * @param {Function} data.dispatch - Функция диспетчера (из Redux)
+ * @param {Function} data.setLoading - Устанавливает состояние загрузки
+ * @param {Function} data.setResult - Устанавливает результат операции
+ * @param {Function} data.navigate - Функция навигации (react-router)
+ * @throws {Error} Если не удалось получить taskId или выполнить задачу
+ */
+
+export async function getStatus(data) {
+  const {
+    serial,
+    isChecked,
+    setLoading,
+    setResult,
+    dispatch,
+    navigate,
+    regionId,
+  } = data;
+
   setLoading(true);
   setResult(false);
   dispatch(setProgress(0));

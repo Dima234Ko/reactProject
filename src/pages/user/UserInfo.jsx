@@ -117,14 +117,14 @@ function UserInfo() {
     try {
       setLoading(true);
       setResult(null);
-      await setInfoToUs(
+      await setInfoToUs({
         loginFromRedux,
         surname,
         name,
         patronymic,
         phone,
-        workFromRedux
-      );
+        workFromRedux,
+      });
       setResult({
         result: 'Данные успешно записаны',
         success: true,

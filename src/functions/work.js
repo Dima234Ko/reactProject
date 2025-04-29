@@ -10,8 +10,12 @@ import {
 import { setSerial } from '../store/actions/serialActions';
 import { setLogin } from '../store/actions/loginActions';
 
-// Функция получения активной задачи
-export async function getActiveTask(dispatch, body) {
+/**
+ * Функция получения активной задачи
+ * @param {Function} data.dispatch - Функция диспетчера (из Redux)
+ */
+
+export async function getActiveTask(dispatch) {
   try {
     const response = await requestAPI('GET', 'task/findTaskInProcess');
     if (response && response.headerTaskName) {
@@ -45,13 +49,17 @@ export async function getActiveTask(dispatch, body) {
   }
 }
 
-// Функция завершения задачи
-export async function closeTask(
-  navigate,
-  regionFromRedux,
-  dispatch,
-  closeForm
-) {
+/**
+ * Функция завершения активной задачи
+ * @param {Function} data.dispatch - Функция диспетчера (из Redux)
+ * @param {Function} data.navigate - Функция навигации (react-router)
+ * @param {Function} data.regionFromRedux - Идентификатор региона (из Redux)
+ * @param {Function} data.closeForm - Функция закрытия формы
+ */
+
+export async function closeTask(data) {
+  const { navigate, regionFromRedux, dispatch, closeForm } = data;
+
   try {
     const task = await requestAPI('GET', 'task/closedTask');
     dispatch(setTask(null));

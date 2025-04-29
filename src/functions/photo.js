@@ -1,17 +1,20 @@
 import { downloadPhoto } from '../functions/api';
 
-// Функция для скачивания фото
+/**
+ * Функция выгрузки фото
+ * @param {string} id - id загружаемой фотографии
+ */
+
 export async function downloadPhotoToServer(id) {
   try {
     const response = await downloadPhoto('GET', `photos/getPhoto/${id}`);
-    const blob = await response.blob(); // Получаем бинарные данные как Blob
+    const blob = await response.blob();
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
 
-    // Попробуем извлечь имя файла из заголовков, если оно есть
     const contentDisposition = response.headers.get('Content-Disposition');
-    let fileName = `photo_${id}.jpg`; // Имя по умолчанию
+    let fileName = `photo_${id}.jpg`;
     if (contentDisposition) {
       const match = contentDisposition.match(/filename="(.+)"/);
       if (match && match[1]) {

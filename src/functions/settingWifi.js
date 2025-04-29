@@ -13,9 +13,9 @@ import { setProgress } from '../store/actions/progressActions';
  * @param {Function} data.selectSSID5 - Канал сети 5Ггц
  * @param {Function} data.setLoading - Устанавливает состояние загрузки
  * @param {Function} data.setResult - Устанавливает результат операции
- * @param {Function} data.navigate - Функция навигации (например, react-router)
+ * @param {Function} data.navigate - Функция навигации (react-router)
  * @param {string} data.regionId - Идентификатор региона
- * @param {Function} data.dispatch - Функция диспетчера (например, Redux)
+ * @param {Function} data.dispatch - Функция диспетчера (Redux)
  * @throws {Error} Если не удалось получить taskId или выполнить задачу
  */
 

@@ -34,7 +34,7 @@ function Report() {
   const loginTask = useSelector((state) => state.page.loginTask);
 
   const getLogData = async () => {
-    let reportData = await getReport(
+    let reportData = await getReport({
       dispatch,
       task,
       activePage,
@@ -45,8 +45,8 @@ function Report() {
       cannal,
       regionTask,
       workTask,
-      loginTask
-    );
+      loginTask,
+    });
     return reportData;
   };
 

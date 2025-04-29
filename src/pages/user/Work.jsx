@@ -27,7 +27,7 @@ function Work() {
         let body = {
           regionId: regionId,
         };
-        await getActiveTask(dispatch, body);
+        await getActiveTask(dispatch);
       } catch (error) {
         console.error('Ошибка при получении активной задачи:', error);
       }

@@ -88,7 +88,7 @@ function Status() {
     setError('');
 
     try {
-      await getStatus(
+      await getStatus({
         serial,
         isChecked,
         setLoading,
@@ -96,8 +96,7 @@ function Status() {
         dispatch,
         navigate,
         regionId,
-        workFromRedux
-      );
+      });
       setIsChecked(false);
     } catch (error) {
       setResult({

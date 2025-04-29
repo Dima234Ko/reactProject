@@ -1,16 +1,22 @@
 import { requestAPI } from './api';
 
-//Записать данные в ЮС
-export async function setInfoToUs(
-  userLogin,
-  surname,
-  name,
-  patronymic,
-  phone,
-  workFromRedux
-) {
+/**
+ * Функция записи данных в US
+ * @param {Object} data - Данные для запроса статуса
+ * @param {string} data.userLogin - Логин абонента
+ * @param {string} data.surname - Фамилия абонента
+ * @param {string} data.name - Имя абонента
+ * @param {Function} data.patronymic - Отчество абонента
+ * @param {Function} data.phone - Телефон абонента
+ * @param {Function} data.workFromRedux - Выполняемая работа (Redux)
+ * @throws {Error} Если не удалось получить taskId или выполнить задачу
+ */
+
+export async function setInfoToUs(data) {
+  const { loginFromRedux, surname, name, patronymic, phone, workFromRedux } = data;
+
   let body = {
-    userLogin: userLogin,
+    userLogin: loginFromRedux,
     userFullName: `${surname} ${name} ${patronymic}`,
     userPhone: phone,
   };

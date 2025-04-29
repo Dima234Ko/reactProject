@@ -15,19 +15,38 @@ function translateHeaderWorkName(data) {
   }));
 }
 
-export async function getReport(
-  dispatch,
-  task,
-  activePage,
-  startDate,
-  endDate,
-  selectedUser,
-  ponSerial,
-  channel,
-  regionTask,
-  workTask,
-  loginTask
-) {
+/**
+ * Функция получения отчета по задачам или Wi-Fi логам
+ * @param {Object} data - Данные для запроса
+ * @param {Function} data.dispatch - Функция диспетчера (из Redux)
+ * @param {boolean} data.task - Флаг, определяющий тип запроса (true — задачи, false — Wi-Fi)
+ * @param {number} data.activePage - Текущая страница для пагинации
+ * @param {string} [data.startDate] - Дата начала фильтрации в формате 'YYYY-MM-DD'
+ * @param {string} [data.endDate] - Дата окончания фильтрации в формате 'YYYY-MM-DD'
+ * @param {string} [data.selectedUser] - Логин выбранного пользователя
+ * @param {string} [data.ponSerial] - Серийный номер PON-устройства
+ * @param {string} [data.channel] - Канал для фильтрации Wi-Fi логов
+ * @param {string} [data.regionTask] - Идентификатор региона
+ * @param {string} [data.workTask] - Тип задачи (например, 'newConnection', 'malfunction')
+ * @param {string} [data.loginTask] - Логин пользователя
+ * @throws {Error} В случае ошибки при выполнении запроса или обработки данных.
+ */
+
+export async function getReport(data) {
+  const {
+    dispatch,
+    task,
+    activePage,
+    startDate,
+    endDate,
+    selectedUser,
+    ponSerial,
+    channel,
+    regionTask,
+    workTask,
+    loginTask,
+  } = data;
+
   let url = null;
 
   if (task) {
@@ -63,9 +82,9 @@ export async function getReport(
     url += `&userSideLogin=${encodeURIComponent(loginTask)}`;
   }
 
-  let data = await requestAPI('GET', url);
-  dispatch(setPage(data.totalPages + 1));
-  let content = data.content;
+  let info = await requestAPI('GET', url);
+  dispatch(setPage(info.totalPages + 1));
+  let content = info.content;
   if (task) {
     content = translateHeaderWorkName(content);
   }

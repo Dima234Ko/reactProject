@@ -11,7 +11,6 @@ import { updateUrlWithParam } from './url';
  * @param {Function} data.setResult - Функция для установки результата операции
  * @param {string} data.param - Тип параметра для поиска ('login' или 'serial')
  * @param {string} data.page - Страница, для которой выполняется запрос ('pppoe' или 'wifi')
- * @returns {Promise<Object>} Данные от API (например, { idUserSideCard, idBySerial, idByLogin })
  * @throws {Error} Если запрос к API завершился ошибкой
  */
 
@@ -63,10 +62,10 @@ export async function searchIdUs(data) {
  * @param {string} data.password - Пароль пользователя
  * @param {string} data.work - Тип работы (из Redux)
  * @param {string} data.regionId - Идентификатор региона
- * @param {Function} data.dispatch - Функция диспетчера (например, Redux)
+ * @param {Function} data.dispatch - Функция диспетчера (из Redux)
  * @param {Function} data.setLoading - Устанавливает состояние загрузки
  * @param {Function} data.setResult - Устанавливает результат операции
- * @param {Function} data.navigate - Функция навигации (например, react-router)
+ * @param {Function} data.navigate - Функция навигации (react-router)
  * @throws {Error} Если не удалось получить taskId или выполнить задачу
  */
 

@@ -263,7 +263,12 @@ function Main() {
 
                 <ExpressButton
                   onClick={() =>
-                    closeTask(navigate, regionFromRedux, dispatch, closeForm)
+                    closeTask({
+                      navigate,
+                      regionFromRedux,
+                      dispatch,
+                      closeForm,
+                    })
                   }
                   text="Завершить"
                   closeButton={true}
