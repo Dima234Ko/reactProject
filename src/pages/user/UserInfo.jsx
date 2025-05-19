@@ -130,7 +130,6 @@ function UserInfo() {
         result: 'Данные успешно записаны',
         success: true,
       });
-      closeTask();
       setTimeout(() => {
         navigate(`/work?region=${regionFromRedux}`);
       }, 2000);
