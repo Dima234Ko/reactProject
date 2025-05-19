@@ -14,5 +14,10 @@ export default defineConfig({
       key: fs.readFileSync('./sert/key.txt'),
       cert: fs.readFileSync('./sert/sv_en_ru_2025_07_27.crt'),
     },
+    hmr: {
+      host: 'r1.sv-en.ru',
+      port: 8444,
+      protocol: 'wss',
+    },
   },
 });
