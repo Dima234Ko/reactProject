@@ -1,0 +1,18 @@
+/* ActionDisplay.css */
+
+.icon-display-container {
+  width: 15%;
+  height: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconAction {
+  width: 300px;
+  height: 130px;
+  object-fit: contain;
+  image-rendering: auto;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}

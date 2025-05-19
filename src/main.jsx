@@ -11,17 +11,19 @@ import './css/header.css';
 import './css/menu.css';
 import './css/form.css';
 import './css/checkbox.css';
-import './css/mobile.css';
 import './css/table.css';
 import './css/radio.css';
 import './css/pagination.css';
 import './css/filter.css';
 import './css/swich.css';
 import './css/dropdown.css';
+import './css/toggle.css';
+import './css/actionDisplay.css';
+import './css/mobile.css';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const WebApp = ReactDOM.createRoot(document.getElementById('WebApp'));
 
-root.render(
+WebApp.render(
   <Provider store={store}>
     <App />
   </Provider>

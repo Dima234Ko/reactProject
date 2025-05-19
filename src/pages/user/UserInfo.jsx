@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Button, UploadButton } from '../../components/Button';
+import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
+import { searchIdUs } from '../../functions/settingPppoe';
+import { setInfoToUs } from '../../functions/userInfo';
+import { closeTask } from '../../functions/work';
 import { setSerial } from '../../store/actions/serialActions';
-import { Input } from '../../components/Input';
 import { setLogin } from '../../store/actions/loginActions';
 import { getRegion } from '../../functions/region';
 import { setWork } from '../../store/actions/workActions';
 import { setRegion } from '../../store/actions/regionActions';
 import { setId } from '../../store/actions/idActions';
-import { FormInfo } from '../../components/Form/Form';
-import { FormPhoto } from '../../components/Form/FormPhoto';
-import { Loader } from '../../components/Loader';
+import Button from '../../components/Button/Button';
+import UploadButton from '../../components/Button/UploadButton';
+import Input from '../../components/Input';
+import FormInfo from '../../components/Form/Form';
+import FormPhoto from '../../components/Form/FormPhoto';
+import Loader from '../../components/Loader';
 import Result from '../../components/Result';
-import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
-import { searchIdUs } from '../../functions/pppoe';
-import { setInfoToUs } from '../../functions/userInfo';
-import { closeTask } from '../../functions/work';
 
 function UserInfo() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function UserInfo() {
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const idFromRedux = useSelector((state) => state.id.id);
   const regionFromRedux = useSelector((state) => state.region.region);
+  const page = useSelector((state) => state.task.page);
   const [regionId, setRegionId] = useState('');
   const [serial, setSerialState] = useState(serialFromRedux || '');
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -74,19 +76,18 @@ function UserInfo() {
     try {
       let data;
       if (loginFromRedux) {
-        data = await searchIdUs(
+        data = await searchIdUs({
           loginFromRedux,
           serialFromRedux,
           setResult,
-          'login'
-        );
+          param: 'login',
+        });
       } else if (serialFromRedux) {
-        data = await searchIdUs(
-          serialFromRedux,
+        data = await searchIdUs({
           serialFromRedux,
           setResult,
-          'serial'
-        );
+          param: 'serial',
+        });
       }
       if (data?.idUserSideCard) {
         dispatch(setId(data.idUserSideCard));
@@ -117,20 +118,22 @@ function UserInfo() {
     try {
       setLoading(true);
       setResult(null);
-      await setInfoToUs(
+      await setInfoToUs({
         loginFromRedux,
         surname,
         name,
         patronymic,
         phone,
-        workFromRedux
-      );
+        workFromRedux,
+      });
       setResult({
         result: 'Данные успешно записаны',
         success: true,
       });
       closeTask();
-      navigate(`/work?region=${regionFromRedux}`);
+      setTimeout(() => {
+        navigate(`/work?region=${regionFromRedux}`);
+      }, 2000);
     } catch (error) {
       console.error('Ошибка при записи данных:', error);
       setResult({
@@ -159,6 +162,7 @@ function UserInfo() {
             idUserSideCard={idFromRedux}
             workFromRedux={workFromRedux}
             setUploadSuccess={setUploadSuccess}
+            dispatch={dispatch}
           />
         }
       />
@@ -209,7 +213,7 @@ function UserInfo() {
       <Button
         name="Записать"
         onClick={handleSubmit}
-        disabled={loading || !surname || !name}
+        disabled={loading || !surname || !name || page !== 'end'}
       />
     </div>
   );

@@ -1,4 +1,3 @@
 sert/
 node_modules/
-src/functions/api.js
-vite.config.js
+public/

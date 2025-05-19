@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Table } from '../../components/Table';
-import { FiltrButton } from '../../components/Button';
-import { FormInfo } from '../../components/Form/Form';
-import { FormFilterReport } from '../../components/Form/FormFilterReport';
-import { FormReportTask } from '../../components/Form/FormReportTask';
-import { Loader } from '../../components/Loader';
 import { getReport } from '../../functions/report';
 import { setReportTask } from '../../store/actions/taskReportActions';
 import { setActivePage } from '../../store/actions/pageLogTaskActions';
-import { Pagination } from '../../components/Pagination';
-import { FilterDisplay } from '../../components/FilterDisplay';
-import { SwitchComponent } from '../../components/Swich';
+import Table from '../../components/Table/Table';
+import FiltrButton from '../../components/Button/FiltrButton';
+import FormInfo from '../../components/Form/Form';
+import FormFilterReport from '../../components/Form/FormFilterReport';
+import FormReportTask from '../../components/Form/FormReportTask';
+import Loader from '../../components/Loader';
+import Pagination from '../../components/Pagination';
+import FilterDisplay from '../../components/FilterDisplay';
+import SwitchComponent from '../../components/Swich';
 
 function Report() {
   const [loading, setLoading] = useState(true);
@@ -34,7 +34,7 @@ function Report() {
   const loginTask = useSelector((state) => state.page.loginTask);
 
   const getLogData = async () => {
-    let reportData = await getReport(
+    let reportData = await getReport({
       dispatch,
       task,
       activePage,
@@ -45,8 +45,8 @@ function Report() {
       cannal,
       regionTask,
       workTask,
-      loginTask
-    );
+      loginTask,
+    });
     return reportData;
   };
 
@@ -108,10 +108,7 @@ function Report() {
       <td data-value={row.taskName}>{row.login}</td>
       <td>{row.ponSerial}</td>
       <td>
-        <span
-          onClick={() => handleHeaderWorkNameClick(row)}
-          style={{ cursor: 'pointer', color: 'blue' }}
-        >
+        <span onClick={() => handleHeaderWorkNameClick(row)} className="link">
           {row.headerWorkName || row.channel || '-'}
         </span>
       </td>
@@ -119,6 +116,7 @@ function Report() {
         <a
           href={`http://172.24.10.30/oper/?core_section=customer&action=show&id=${row.idUserSideCard}`}
           target="_blank"
+          className="link"
         >
           {row.userSideLogin}
         </a>

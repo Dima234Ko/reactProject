@@ -1,4 +1,5 @@
-/* CustomComponent.css */
+/* Light Theme Styles */
+
 .custom-component {
   position: fixed;
   top: 13%;
@@ -15,6 +16,7 @@
 
 #disablingForm {
   margin-top: 20px;
+  width: 350px;
 }
 
 .input-container {
@@ -84,7 +86,7 @@
   font-family: monospace;
   unicode-bidi: isolate;
   margin-top: 20px;
-  font-size: 14px; /* Задаем размер шрифта */
+  font-size: 14px;
   color: #003597c5;
 }
 
@@ -114,4 +116,53 @@ form {
 
 .sel-container {
   width: 100%;
+}
+
+/* Dark Theme Styles */
+body.dark-mode .custom-component {
+  background-color: #2a2a2a; /* Темный фон для компонента */
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 1);
+  color: #e0e0e0; /* Светлый текст для читаемости */
+}
+
+body.dark-mode .textForm .some-input {
+  background-color: #2c2c2c; /* Темный фон для полей ввода */
+  border: 1.5px solid #4a4a4a; /* Темная граница */
+  color: #e0e0e0; /* Светлый текст в полях */
+}
+
+body.dark-mode .textForm .some-input[type='date'] {
+  background-color: #2c2c2c; /* Темный фон для полей даты */
+  color: #e0e0e0; /* Светлый текст */
+}
+
+body.dark-mode .form .some-input[type='text'],
+body.dark-mode .form .some-input[type='password'] {
+  background-color: #2c2c2c; /* Темный фон для текстовых и парольных полей */
+  border: 1.5px solid #4a4a4a; /* Темная граница */
+  color: #e0e0e0; /* Светлый текст */
+}
+
+body.dark-mode .close-btn {
+  color: #a0a0a0; /* Светло-серый цвет для кнопки закрытия */
+}
+
+body.dark-mode .close-btn:hover {
+  color: #ff5555; /* Ярко-красный при наведении для акцента */
+}
+
+body.dark-mode .upload-result {
+  color: #4a90e2; /* Синий акцент для результатов загрузки */
+}
+
+body.dark-mode .textForm pre {
+  color: #e0e0e0; /* Светлый текст для заголовков и pre */
+}
+
+body.dark-mode .textForm h2 {
+  color: #99c2ff;
+}
+
+body.dark-mode form {
+  color: #e0e0e0; /* Светлый текст для форм */
 }

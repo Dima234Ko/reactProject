@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Input } from '../../components/Input';
-import { FormInfo } from '../../components/Form/Form';
-import { Button } from '../../components/Button';
-import { Loader } from '../../components/Loader';
-import { Checkbox } from '../../components/Checkbox';
-import Result from '../../components/Result';
 import { disableNTU } from '../../functions/disabling';
-import { RadioButtonGroup } from '../../components/RadioButtonGroup';
+import Input from '../../components/Input';
+import FormInfo from '../../components/Form/Form';
+import Button from '../../components/Button/Button';
+import Loader from '../../components/Loader';
+import Checkbox from '../../components/Checkbox';
+import Result from '../../components/Result';
+import RadioButtonGroup from '../../components/RadioButtonGroup';
 
 function Disabling() {
   const dispatch = useDispatch();
@@ -50,7 +50,7 @@ function Disabling() {
   };
 
   const handleSubmit = () => {
-    disableNTU(
+    disableNTU({
       isChecked,
       selectedRadioOption,
       radioOptions,
@@ -58,8 +58,8 @@ function Disabling() {
       navigate,
       dispatch,
       setResult,
-      setLoading
-    );
+      setLoading,
+    });
     setIsFormOpen(false);
   };
 
@@ -83,7 +83,7 @@ function Disabling() {
               selectedValue={selectedRadioOption}
             />
             <Checkbox
-              label="Отключение абонентской линии"
+              label="Отключение абонента"
               checked={isAbonentChecked}
               onChange={handleSecondCheckboxChange}
             />
@@ -123,7 +123,9 @@ function Disabling() {
         type="text"
         placeholder="Введите pon-serial"
         value={serial}
-        onChange={(e) => setSerial(e.target.value)}
+        onChange={(e) =>
+          setSerial(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ''))
+        }
         disabled={loading}
       />
       {result && <Result data={result} />}

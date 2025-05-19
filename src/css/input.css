@@ -1,3 +1,4 @@
+/* Light Theme Styles */
 .some-input {
   margin-top: 20px;
   padding: 10px;
@@ -48,12 +49,7 @@ input[type='file'] {
   display: none;
 }
 
-/* Создаем кнопку для выбора файла */
-.custom-file-upload {
-  background-color: #4caf50;
-}
-
-.custom-file-upload:active {
+.button.green:active {
   transform: scale(1.2); /* Восстановление размера при нажатии */
 }
 
@@ -66,4 +62,50 @@ input[type='file'] {
 
 #level_Ntu {
   width: 30px;
+}
+
+/* Dark Theme Styles */
+body.dark-mode .some-input {
+  background-color: #242424;
+  border: 1px solid #888888;
+  color: #bbbbbb;
+}
+
+body.dark-mode .some-input[disabled] {
+  background-color: #3a3a3a;
+}
+
+body.dark-mode input {
+  background-color: #242424;
+  color: #bbbbbb;
+  border: 1px solid #888888;
+}
+
+body.dark-mode .date-container input {
+  background-color: #242424;
+  color: #bbbbbb;
+}
+
+body.dark-mode .ssid-container input,
+body.dark-mode .pon-container input,
+body.dark-mode .inp-contanier input {
+  background-color: #242424;
+  color: #bbbbbb;
+  border: 2px solid #888888;
+}
+
+body.dark-mode .ssid-container select,
+body.dark-mode select {
+  background-color: #242424;
+  color: #bbbbbb;
+  border: 2px solid #888888;
+}
+
+body.dark-mode .file-name {
+  color: #bbbbbb;
+}
+
+body.dark-mode #level_Ntu {
+  background-color: #3a3a3a;
+  color: #bbbbbb;
 }

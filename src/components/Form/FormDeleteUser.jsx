@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ExpressButton } from '../Button';
+import ExpressButton from '../Button/ExpressButton';
 import { requestAPI } from '../../functions/api';
 import { useSelector } from 'react-redux';
 
-export function FormDeleteUser() {
+function FormDeleteUser() {
   const [resultForm, setResultForm] = useState('');
   const userId = useSelector((state) => state.checkboxUser.checkedValue);
 
@@ -48,3 +48,5 @@ export function FormDeleteUser() {
     </div>
   );
 }
+
+export default FormDeleteUser;

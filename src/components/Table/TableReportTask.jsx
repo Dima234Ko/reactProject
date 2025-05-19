@@ -1,8 +1,8 @@
 import React from 'react';
-import { Table } from '../components/Table';
-import { downloadPhotoToServer } from '../functions/photo';
+import Table from './Table';
+import { downloadPhotoToServer } from '../../functions/photo';
 
-export function TableReportTask({ taskData }) {
+function TableReportTask({ taskData }) {
   if (!taskData) {
     return <div>Данные задачи отсутствуют</div>;
   }
@@ -96,8 +96,16 @@ ${taskData.equipmentShutdownDto.info}`,
     tableRows.push({
       key: `userInfo`,
       name: `Уточнение данных`,
-      respResult: `${taskData.userInfo.userFullName},
-ТЕЛЕФОН: ${taskData.userInfo.userPhone}`,
+      respResult: `${taskData.userInfo.userFullName}`,
+    });
+  }
+
+  if (taskData.cameraDto !== null) {
+    tableRows.push({
+      key: `cameraDto`,
+      name: `Настройка камеры`,
+      // respResult: `PON: ${taskData.cameraDto[0].serialNewNtu},
+      respResult: `${taskData.cameraDto[0].respResult.info}`,
     });
   }
 
@@ -110,10 +118,7 @@ ${taskData.equipmentShutdownDto.info}`,
       </td>
       <td>
         {row.name.includes('Загрузка фото') && row.id !== undefined ? (
-          <pre
-            onClick={() => downloadPhotoToServer(row.id)}
-            style={{ cursor: 'pointer', color: 'blue' }}
-          >
+          <pre onClick={() => downloadPhotoToServer(row.id)} className="link">
             {row.respResult}
           </pre>
         ) : (
@@ -135,3 +140,5 @@ ${taskData.equipmentShutdownDto.info}`,
     </div>
   );
 }
+
+export default TableReportTask;

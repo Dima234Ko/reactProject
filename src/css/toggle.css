@@ -1,0 +1,138 @@
+/* Light Theme Styles */
+.theme-toggle {
+  margin-top: 5%;
+  display: inline-flex;
+  align-items: center;
+  width: 60px;
+  height: 28px;
+  background-color: #ffffff;
+  border-radius: 14px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.theme-toggle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+      circle,
+      rgba(255, 215, 0, 0.15) 10%,
+      transparent 11%
+    )
+    0 0 / 8px 8px; /* Subtle sun-like pattern */
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+.theme-toggle input {
+  display: none;
+}
+
+.theme-toggle .slider {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 3px;
+  position: relative;
+  z-index: 1;
+}
+
+.theme-toggle .thumb {
+  width: 22px;
+  height: 22px;
+  background-color: #ffd700;
+  border-radius: 50%;
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease;
+  position: relative;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+}
+
+.theme-toggle .thumb::before {
+  content: '☀';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  color: #fff;
+}
+
+.theme-toggle:hover {
+  background-color: #f5f5f5;
+}
+
+.theme-toggle:focus-within {
+  outline: 2px solid #99c2ff;
+  outline-offset: 2px;
+}
+
+.theme-toggle:disabled {
+  background-color: #e6e6e6;
+  cursor: not-allowed;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle:disabled::before {
+  opacity: 0.2;
+}
+
+.theme-toggle:disabled .thumb {
+  background-color: #ccc;
+  box-shadow: none;
+}
+
+.theme-toggle:disabled .thumb::before {
+  color: #999;
+}
+
+/* Dark Theme Styles */
+.theme-toggle.dark {
+  background-color: #333333;
+}
+
+.theme-toggle.dark::before {
+  background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.2) 10%,
+      transparent 11%
+    )
+    0 0 / 6px 6px; /* Subtle moon-like pattern */
+  opacity: 0.6;
+}
+
+.theme-toggle.dark .thumb {
+  transform: translateX(32px);
+  background-color: #e0e0e0;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
+
+.theme-toggle.dark .thumb::before {
+  content: '☾';
+  color: #333;
+}
+
+.theme-toggle.dark:hover {
+  background-color: #444444;
+}
+
+.theme-toggle.dark:disabled {
+  background-color: #555555;
+}
+
+.theme-toggle.dark:disabled .thumb {
+  background-color: #bbb;
+}
+
+.theme-toggle.dark:disabled .thumb::before {
+  color: #777;
+}

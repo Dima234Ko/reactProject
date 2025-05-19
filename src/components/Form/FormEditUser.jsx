@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Input } from '../Input';
-import { Button } from '../Button';
 import { requestAPI } from '../../functions/api';
 import { useSelector } from 'react-redux';
+import Input from '../Input';
+import Button from '../Button/Button';
 
-export function FormEditUser({ setCreateSuccess, onClose }) {
+function FormEditUser({ setCreateSuccess, onClose }) {
   const [formData, setFormData] = useState({
     lastName: '',
     firstName: '',
@@ -148,3 +148,5 @@ export function FormEditUser({ setCreateSuccess, onClose }) {
     </div>
   );
 }
+
+export default FormEditUser;

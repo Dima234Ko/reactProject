@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function FilterDisplay({
+function FilterDisplay({
   startDate,
   endDate,
   selectedUser,
@@ -29,3 +29,5 @@ export function FilterDisplay({
     </div>
   );
 }
+
+export default FilterDisplay;

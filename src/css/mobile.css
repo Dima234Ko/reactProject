@@ -4,6 +4,7 @@
   #status,
   #pppoe,
   #wifi,
+  #camNtu,
   #work,
   #settings,
   #region,
@@ -93,5 +94,15 @@
   #tableButton .upload-button svg {
     width: 24px;
     height: 24px;
+  }
+
+  .icon-display-container {
+    width: 80%;
+    height: auto;
+  }
+
+  .iconAction {
+    width: 100%;
+    height: auto;
   }
 }

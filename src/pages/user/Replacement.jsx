@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSerial } from '../../store/actions/serialActions';
-import { Input } from '../../components/Input';
-import { Button } from '../../components/Button';
-import { Loader } from '../../components/Loader';
-import Result from '../../components/Result';
 import { getRegion } from '../../functions/region';
+import Input from '../../components/Input';
+import Button from '../../components/Button/Button';
 
 function Replcement() {
   const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { LinkButton } from './Link';
-import backIcon from '../img/back.svg';
-import menuIcon from '../img/menu.svg';
+import LinkButton from './Button/Link';
+import BackButton from './Button/BackButton';
+import MenuButton from './Button/MenuButton';
 import logoIcon from '../img/logo.png';
 
 const Header = ({
@@ -14,17 +14,15 @@ const Header = ({
   const burgerMenuRef = useRef(null);
 
   const toggleMenu = () => {
-    setIsMenuOpen((prevState) => !prevState);
+    setIsMenuOpen((prev) => !prev);
   };
 
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
 
-  // Эффект для закрытия меню при клике в любом месте
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Проверяем, что клик не произошел на меню и кнопке бургера
       if (
         menuRef.current &&
         !menuRef.current.contains(event.target) &&
@@ -35,10 +33,8 @@ const Header = ({
       }
     };
 
-    // Добавляем обработчик клика на весь документ
     document.addEventListener('mousedown', handleClickOutside);
 
-    // Очищаем обработчик при размонтировании компонента
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
@@ -46,19 +42,18 @@ const Header = ({
 
   return (
     <header className="header">
-      {showBackButton && (
-        <button className="back-button" onClick={() => window.history.back()}>
-          <img src={backIcon} alt="Кнопка назад" />
-        </button>
-      )}
+      {showBackButton && <BackButton onClick={() => window.history.back()} />}
+
       <a className="logo-container">
         <img src={logoIcon} alt="Логотип" />
       </a>
+
       {showBurgerMenu && (
-        <div className="burger-menu" onClick={toggleMenu} ref={burgerMenuRef}>
-          <img src={menuIcon} alt="Меню" />
-        </div>
+        <span ref={burgerMenuRef}>
+          <MenuButton onClick={toggleMenu} />
+        </span>
       )}
+
       <div
         className="dropdown"
         style={{ display: isMenuOpen ? 'block' : 'none' }}
@@ -71,9 +66,7 @@ const Header = ({
             name={item.name}
             id={item.id}
             to={item.to}
-            onClick={() => {
-              closeMenu();
-            }}
+            onClick={closeMenu}
           />
         ))}
       </div>

@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Input } from '../../components/Input';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '../../components/Button';
-import { requestAPI } from '../../functions/api';
-import { Loader } from '../../components/Loader';
+import { changePasswordProcessing } from '../../functions/changePassword';
+import Input from '../../components/Input';
+import Button from '../../components/Button/Button';
+import Loader from '../../components/Loader';
 import Result from '../../components/Result';
 
 function ChangePassword() {
@@ -12,42 +12,17 @@ function ChangePassword() {
   const [result, setResult] = useState(null);
   const navigate = useNavigate();
 
-  // Исправлена функция обработки ввода
   const handleInputChange = (event) => {
-    setPassword(event.target.value); // Используем event.target.value
+    setPassword(event.target.value);
   };
 
-  const handleAuthorization = async () => {
-    setLoading(true);
-    setResult(null);
-
-    const body = {
-      password: password,
-    };
-
-    try {
-      if (password.length > 4) {
-        const response = await requestAPI(
-          'POST',
-          'settings/updateUserPass',
-          body
-        );
-        navigate(`/`);
-      } else {
-        setResult({
-          success: false,
-          message: 'Длина пароля слишком мала',
-        });
-      }
-    } catch (error) {
-      console.error('Ошибка при смене пароля:', error);
-      setResult({
-        success: false,
-        message: 'Ошибка. Попробуйте ещё раз',
-      });
-    } finally {
-      setLoading(false);
-    }
+  const handleChangePassword = () => {
+    changePasswordProcessing({
+      password,
+      setLoading,
+      setResult,
+      navigate,
+    });
   };
 
   return (
@@ -61,7 +36,7 @@ function ChangePassword() {
         onChange={handleInputChange}
       />
       {result && <Result data={result} />}
-      <Button name="Сменить" onClick={handleAuthorization} />
+      <Button name="Сменить" onClick={handleChangePassword} />
       {loading && <Loader />}
     </div>
   );

@@ -2,115 +2,143 @@ import { requestAPI } from './api';
 import { setProgress } from '../store/actions/progressActions';
 import { updateUrlWithParam } from './url';
 
-// Функция для получения taskId
-export async function getTaskId(
-  action,
-  body,
-  dispatch,
-  setLoading,
-  navigate,
-  serial
-) {
+/**
+ * Функция получения taskId, создавая задачу на сервере, обновляет прогресс и URL.
+ * @param {Object} data - Данные для запроса статуса
+ * @param {string} data.action - Заголовок запроса
+ * @param {Object} data.body - Тело запроса.
+ * @param {Function} data.dispatch - Функция диспетчера (из Redux)
+ * @param {Function} data.setLoading - Устанавливает состояние загрузки
+ * @param {Function} data.navigate - Функция навигации (react-router)
+ * @param {string} data.serial - Pon-serial, который будет добавлен в URL.
+ * @throws {Error} Если не удалось получить taskId или выполнить задачу
+ */
+
+export async function getTaskId(data) {
+  const { action, body, dispatch, setLoading, navigate, serial } = data;
+
   try {
-    // Запрашиваем номер задачи
     const data = await requestAPI('POST', action, body);
     const taskId = data.taskId;
 
-    dispatch(setProgress(30)); // Устанавливаем начальный прогресс
-
-    // Добавляем taskId в URL
+    dispatch(setProgress(30));
     updateUrlWithParam('serial', serial, navigate);
     updateUrlWithParam('task', taskId, navigate);
-
-    return taskId; // Возвращаем taskId
+    return taskId;
   } catch (error) {
     setLoading(false);
     throw error;
   }
 }
 
-// Функция для проверки статуса задачи из URL
-export const checkTaskStatus = async (
-  location,
-  loading,
-  result,
-  dispatch,
-  setSerial,
-  setLoading,
-  setResult,
-  navigate,
-  setLogin
-) => {
-  const queryParams = new URLSearchParams(location.search);
-  const taskIdFromUrl = queryParams.get('task');
-  dispatch(setSerial(queryParams.get('serial')));
+/**
+ * Проверяет статус задачи, если taskId есть в URL и результат ещё не получен
+ * @param {Object} data - Данные для запроса статуса
+ * @param {Object} data.location - Объект с текущим URL (иreact-router)
+ * @param {boolean} data.loading - Состояние загрузки
+ * @param {any} data.result - Текущий результат задачи
+ * @param {Function} data.setLoading - Устанавливает состояние загрузки
+ * @param {Function} data.setResult - Устанавливает результат операции
+ * @param {Function} data.navigate - Функция навигации (react-router)
+ * @param {Function} data.dispatch - Функция диспетчера (Redux)
+ * @throws {Error} Если не удалось получить taskId или выполнить задачу
+ */
 
-  if (taskIdFromUrl && !loading) {
+export async function checkTaskStatus(data) {
+  const {
+    location,
+    loading,
+    result,
+    dispatch,
+    setLoading,
+    setResult,
+    navigate,
+  } = data;
+
+  const queryParams = new URLSearchParams(location.search);
+  const taskId = queryParams.get('task');
+
+  if (taskId && !loading) {
     if (!result) {
       setLoading(true);
       setResult(null);
       try {
-        await checkTask(
-          `task/taskStatus`,
-          taskIdFromUrl,
+        await checkTask({
+          action: `task/taskStatus`,
+          taskId,
           dispatch,
           setLoading,
           setResult,
           navigate,
-          0,
-          50
-        );
+          progress: 50,
+        });
       } catch (error) {
         setLoading(false);
         throw error;
       }
     }
   }
-};
+}
 
-// Функция для проверки статуса задачи
-export async function checkTask(
-  action,
-  taskId,
-  dispatch,
-  setLoading,
-  setResult,
-  navigate,
-  attempts = 0,
-  progress = 30
-) {
+/**
+ * Рекурсивно проверяет статус задачи до её завершения, обновляя прогресс.
+ *
+ * @async
+ * @function
+ * @param {Object} data - Данные для проверки задачи.
+ * @param {string} data.action - Заголовок запроса
+ * @param {string} data.taskId - Идентификатор задачи
+ * @param {Function} data.setLoading - Устанавливает состояние загрузки
+ * @param {Function} data.setResult - Устанавливает результат операции
+ * @param {Function} data.navigate - Функция навигации (react-router)
+ * @param {Function} data.dispatch - Функция диспетчера (Redux)
+ * @param {number} [data.attempts] - Количество попыток запроса (по умолчанию 0).
+ * @param {number} [data.progress] - Текущий прогресс выполнения (по умолчанию 30).
+ * @throws {Error} При ошибке запроса к API.
+ */
+
+export async function checkTask(data) {
+  const {
+    action,
+    taskId,
+    dispatch,
+    setLoading,
+    setResult,
+    navigate,
+    attempts,
+    progress,
+  } = data;
+
+  const currentAttempts = attempts ?? 0;
+  let currentProgress = progress ?? 30;
   const statusAction = `${action}/${taskId}`;
 
   try {
-    // Опрос статуса задачи
     const taskData = await requestAPI('GET', statusAction);
 
-    // Если задача не завершена, повторяем через 10 секунд
     if (taskData.status !== 'completed') {
-      if (progress < 90) {
-        progress = Math.min(progress + 5, 90); // Прогресс не должен превышать 90
-        dispatch(setProgress(progress)); // Обновляем прогресс в Redux
+      if (currentProgress < 90) {
+        currentProgress = Math.min(currentProgress + 5, 90);
+        dispatch(setProgress(currentProgress));
       }
 
-      // Используем задержку через Promise, чтобы использовать await
       await new Promise((resolve) => setTimeout(resolve, 10000));
 
-      // Рекурсивный вызов checkTask
-      await checkTask(
+      await checkTask({
         action,
         taskId,
         dispatch,
         setLoading,
         setResult,
         navigate,
-        attempts + 1,
-        progress
-      );
+        attempts: currentAttempts + 1,
+        progress: currentProgress,
+      });
     } else {
-      dispatch(setProgress(100)); // Устанавливаем прогресс в 100%
-      setLoading(false); // Закрываем загрузку
-      setResult(taskData.result.respResult); // Обновляем результат
-      // Сохраняем результат
+      dispatch(setProgress(100));
+      setLoading(false);
+      setResult(taskData.result.respResult);
+
       if (taskData.result.rxPower) {
         localStorage.setItem(
           'RX_power',
@@ -120,6 +148,6 @@ export async function checkTask(
     }
   } catch (error) {
     setLoading(false);
-    throw error; // Пробрасываем ошибку дальше
+    throw error;
   }
 }

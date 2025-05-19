@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-export function FormInfo({ isFormOpen, closeForm, formData }) {
+function FormInfo({ isFormOpen, closeForm, formData }) {
   const formRef = useRef(null);
   0;
 
@@ -36,3 +36,5 @@ export function FormInfo({ isFormOpen, closeForm, formData }) {
     </div>
   );
 }
+
+export default FormInfo;

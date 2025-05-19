@@ -1,12 +1,13 @@
+/* Light Theme Styles */
+/* Стили для h2 с более тонким подчеркиванием */
 h2 {
-  font-family: 'Arial', Helvetica, 'Roboto', sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 400;
   color: #0d398d;
   text-align: center;
   line-height: 1.4;
   letter-spacing: 0.5px;
-  font-weight: 400;
 }
 
 #app {
@@ -31,7 +32,7 @@ h2 {
 #status,
 #pppoe,
 #wifi,
-#settings,
+#camNtu,
 #settings,
 #region,
 #work,
@@ -41,6 +42,13 @@ h2 {
   display: flex;
   flex-direction: column;
   width: 30%;
+  align-items: center;
+}
+
+.toolbar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
@@ -60,19 +68,19 @@ pre {
   align-items: center;
   text-align: center;
   margin-top: 20px;
-  white-space: pre-wrap; /* Перенос строк, если текст выходит за пределы */
-  word-wrap: break-word; /* Разрыв длинных слов */
+  white-space: pre-wrap;
+  word-wrap: break-word;
   margin-bottom: 0px;
 }
 
 .input-container ul {
-  padding-left: 15px; /* Убираем отступ слева для списка */
+  padding-left: 15px;
   list-style-type: disc;
 }
 
 .input-container ul li {
-  margin-bottom: 10px; /* Отступ между элементами списка */
-  text-align: left; /* Текст будет выровнен по левому краю */
+  margin-bottom: 10px;
+  text-align: left;
 }
 
 h6 {
@@ -81,6 +89,8 @@ h6 {
   margin-top: 20px;
   margin-bottom: 20px;
   font-size: 12px;
+  font-weight: normal;
+  color: #333;
 }
 
 h5 {
@@ -88,14 +98,19 @@ h5 {
   text-align: center;
   margin-top: 0px;
   margin-bottom: 5px;
+  font-size: 15px;
   line-height: 1.6;
+  font-weight: lighter;
+  color: #333;
 }
 
 h4 {
   font-family: 'Georgia', 'Times New Roman', serif;
   text-align: center;
+  font-size: 14px;
   margin-top: 5px;
   margin-bottom: 5px;
+  color: #333;
 }
 
 h3 {
@@ -104,10 +119,13 @@ h3 {
   margin-top: 25px;
   margin-bottom: 0px;
   font-size: 12px;
+  color: #333;
 }
 
-#root {
+#WebApp {
   min-height: 100vh;
+  text-align: center;
+  background-color: #f0f2f5;
 }
 
 .input-content {
@@ -119,14 +137,43 @@ h3 {
 }
 
 .toggle-password-btn {
-  margin-left: -30px; /* Сдвиг кнопки влево, чтобы перекрывать input */
-  margin-top: 18px; /* Вертикальное смещение */
+  margin-left: -30px;
+  margin-top: 18px;
   border: none;
   background: transparent;
-  padding: 6px; /* Отступы вокруг кнопки */
-  cursor: pointer; /* Курсор указателя */
+  padding: 6px;
+  cursor: pointer;
 }
 
 .toggle-password-btn:disabled {
-  cursor: not-allowed; /* Курсор для отключённой кнопки */
+  cursor: not-allowed;
+}
+
+/* Dark Theme Styles */
+body.dark-mode h2 {
+  color: #e2e2e2;
+}
+
+body.dark-mode #app {
+  background-color: #2a2a2a;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode #WebApp {
+  background-color: #1e1e1e;
+}
+
+body.dark-mode h6,
+body.dark-mode h5,
+body.dark-mode h4,
+body.dark-mode h3 {
+  color: #e2e2e2;
+}
+
+body.dark-mode pre {
+  color: #e2e2e2;
+}
+
+body.dark-mode .input-container ul li {
+  color: black;
 }

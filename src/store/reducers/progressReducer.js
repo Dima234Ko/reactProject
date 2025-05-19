@@ -1,7 +1,7 @@
 import { SET_PROGRESS } from '../actions/progressActions';
 
 const initialState = {
-  progress: 0, // начальное значение прогресса
+  progress: 0,
 };
 
 const progressReducer = (state = initialState, action) => {

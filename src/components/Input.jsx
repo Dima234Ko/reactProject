@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-export const Input = ({
+function Input({
   id,
   type,
   placeholder,
@@ -9,7 +9,7 @@ export const Input = ({
   disabled,
   onBlur,
   onKeyDown,
-}) => {
+}) {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (event) => {
@@ -61,4 +61,6 @@ export const Input = ({
       )}
     </>
   );
-};
+}
+
+export default Input;

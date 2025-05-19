@@ -5,18 +5,19 @@ import { setProgress } from '../../store/actions/progressActions';
 import { setSerial } from '../../store/actions/serialActions';
 import { setRegion } from '../../store/actions/regionActions';
 import { setWork } from '../../store/actions/workActions';
-import { SelectSSID, SelectSSID5 } from '../../components/Select';
-import { Input } from '../../components/Input';
-import { Button } from '../../components/Button';
-import { NextButton } from '../../components/Link';
-import { setLogin } from '../../store/actions/loginActions';
-import { Loader } from '../../components/Loader';
-import Result from '../../components/Result';
-import { setWiFi } from '../../functions/wifi';
+import { setWiFi } from '../../functions/settingWifi';
 import { checkTaskStatus } from '../../functions/task';
-import { searchIdUs } from '../../functions/pppoe';
+import { searchIdUs } from '../../functions/settingPppoe';
 import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
 import { getRegion } from '../../functions/region';
+import { setLogin } from '../../store/actions/loginActions';
+import SelectSSID from '../../components/Select/SelectSSID';
+import SelectSSID5 from '../../components/Select/SelectSSID5';
+import Input from '../../components/Input';
+import Button from '../../components/Button/Button';
+import NextButton from '../../components/Button/NextButton';
+import Loader from '../../components/Loader';
+import Result from '../../components/Result';
 
 function Wifi() {
   const dispatch = useDispatch();
@@ -68,17 +69,18 @@ function Wifi() {
 
   useEffect(() => {
     const fetchData = async () => {
+      const queryParams = new URLSearchParams(location.search);
+      dispatch(setSerial(queryParams.get('serial')));
       try {
-        await checkTaskStatus(
+        await checkTaskStatus({
           location,
           loading,
           result,
           dispatch,
-          setSerial,
           setLoading,
           setResult,
-          navigate
-        );
+          navigate,
+        });
       } catch (error) {
         setResult({
           result: error.message,
@@ -95,21 +97,20 @@ function Wifi() {
       try {
         let data;
         if (loginFromRedux !== null) {
-          data = await searchIdUs(
+          data = await searchIdUs({
             loginFromRedux,
             serialFromRedux,
             setResult,
-            'login',
-            'wifi'
-          );
+            param: 'login',
+            page: 'wifi',
+          });
         } else if (loginFromUrl === '') {
-          data = await searchIdUs(
+          data = await searchIdUs({
             serialFromRedux,
-            '',
             setResult,
-            'serial',
-            'wifi'
-          );
+            param: 'serial',
+            page: 'wifi',
+          });
           dispatch(setLogin(data.userLogin));
         }
         if (data) {
@@ -149,7 +150,7 @@ function Wifi() {
     dispatch(setProgress(0));
 
     try {
-      await setWiFi(
+      await setWiFi({
         serial,
         ssid2_4,
         password2_4,
@@ -162,8 +163,8 @@ function Wifi() {
         setResult,
         dispatch,
         navigate,
-        regionId
-      );
+        regionId,
+      });
     } catch (error) {
       setResult({
         result: error.message,

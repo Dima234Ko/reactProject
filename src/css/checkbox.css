@@ -1,3 +1,4 @@
+/* Light Theme Styles */
 .checkbox-container {
   display: flex;
   align-items: center;
@@ -19,4 +20,19 @@
   transition:
     background-color 0.3s,
     border-color 0.3s;
+}
+
+/* Dark Theme Styles */
+body.dark-mode .checkbox-container {
+  color: #e2e2e2;
+}
+
+body.dark-mode .checkbox-input {
+  background-color: #3a3a3a;
+  border: 2px solid #888888;
+}
+
+body.dark-mode .checkbox-input:checked {
+  background-color: #4caf50;
+  border-color: #4caf50;
 }

@@ -1,5 +1,4 @@
 import { requestAPI } from './api';
-import { useNavigate } from 'react-router-dom';
 import {
   setTask,
   setSubtask,
@@ -9,9 +8,14 @@ import {
   setTransition,
 } from '../store/actions/taskActions';
 import { setSerial } from '../store/actions/serialActions';
+import { setLogin } from '../store/actions/loginActions';
 
-// Функция получения активной задачи
-export async function getActiveTask(dispatch, body) {
+/**
+ * Функция получения активной задачи
+ * @param {Function} data.dispatch - Функция диспетчера (из Redux)
+ */
+
+export async function getActiveTask(dispatch) {
   try {
     const response = await requestAPI('GET', 'task/findTaskInProcess');
     if (response && response.headerTaskName) {
@@ -21,6 +25,7 @@ export async function getActiveTask(dispatch, body) {
       dispatch(setWork(response.headerWorkName));
       dispatch(setRegTask(response.regionId));
       dispatch(setSerial(response.ponSerial));
+      dispatch(setLogin(response.aksLogin));
       dispatch(setTransition(true));
     } else {
       dispatch(setTask(null));
@@ -29,6 +34,7 @@ export async function getActiveTask(dispatch, body) {
       dispatch(setWork(null));
       dispatch(setRegTask(null));
       dispatch(setSerial(null));
+      dispatch(setLogin(null));
       dispatch(setTransition(false));
     }
   } catch (error) {
@@ -38,17 +44,22 @@ export async function getActiveTask(dispatch, body) {
     dispatch(setWork(null));
     dispatch(setRegTask(null));
     dispatch(setSerial(null));
+    dispatch(setLogin(null));
     dispatch(setTransition(false));
   }
 }
 
-// Функция завершения задачи
-export async function closeTask(
-  navigate,
-  regionFromRedux,
-  dispatch,
-  closeForm
-) {
+/**
+ * Функция завершения активной задачи
+ * @param {Function} data.dispatch - Функция диспетчера (из Redux)
+ * @param {Function} data.navigate - Функция навигации (react-router)
+ * @param {Function} data.regionFromRedux - Идентификатор региона (из Redux)
+ * @param {Function} data.closeForm - Функция закрытия формы
+ */
+
+export async function closeTask(data) {
+  const { navigate, regionFromRedux, dispatch, closeForm } = data;
+
   try {
     const task = await requestAPI('GET', 'task/closedTask');
     dispatch(setTask(null));
@@ -70,12 +81,15 @@ export async function openTask(
   navigate,
   taskFromRedux,
   serialFromRedux,
+  loginFromRedux,
   closeForm
 ) {
   try {
     if (taskFromRedux.action !== 'NEW') {
       navigate(
-        `/${taskFromRedux.action}?region=${taskFromRedux.reg}&work=${taskFromRedux.work}&serial=${serialFromRedux}&task=${taskFromRedux.subtask}`
+        `/${taskFromRedux.action}?region=${taskFromRedux.reg}&work=${taskFromRedux.work}&serial=${serialFromRedux}${
+          loginFromRedux ? `&login=${loginFromRedux}` : ''
+        }${taskFromRedux.subtask ? `&task=${taskFromRedux.subtask}` : ''}`
       );
     } else if (taskFromRedux.work === 'Equipment shutdown') {
       navigate(

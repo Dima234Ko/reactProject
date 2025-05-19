@@ -8,6 +8,12 @@ import {
   useNavigate,
 } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { openTask, closeTask } from './functions/work';
+import {
+  setBulleanTask,
+  setActivePage,
+} from './store/actions/pageLogTaskActions';
+import { setPage } from './store/actions/taskActions';
 import Authorization from './pages/Authorization';
 import Header from './components/Header';
 import Status from './pages/user/Status';
@@ -23,13 +29,13 @@ import Malfunction from './pages/user/Malfunction';
 import UserInfo from './pages/user/UserInfo';
 import Replcement from './pages/user/Replacement';
 import ChangePassword from './pages/user/СhangePassword';
-import { TaskButton, ExpressButton } from './components/Button';
-import { FormInfo } from './components/Form/Form';
-import { openTask, closeTask } from './functions/work';
-import {
-  setBulleanTask,
-  setActivePage,
-} from './store/actions/pageLogTaskActions';
+import CamNtu from './pages/user/CamNtu';
+import ActionDisplay from './components/ActionDisplay';
+import ThemeToggle from './components/ThemeToggle';
+import TaskButton from './components/Button/TaskButton';
+import ExpressButton from './components/Button/ExpressButton';
+import ShareButton from './components/Button/ShareButton';
+import FormInfo from './components/Form/Form';
 import FavIcon from './components/Icon';
 
 function App() {
@@ -97,6 +103,21 @@ function Main() {
       dispatch(setBulleanTask(true));
       dispatch(setActivePage(1));
     }
+  }, [pathname, dispatch]);
+
+  // Установка названия страницы через setPage
+  useEffect(() => {
+    if (pathname === '/status') {
+      dispatch(setPage('status'));
+    } else if (pathname === '/pppoe') {
+      dispatch(setPage('pppoe'));
+    } else if (pathname === '/wifi') {
+      dispatch(setPage('wifi'));
+    } else if (pathname === '/info') {
+      dispatch(setPage('info'));
+    } else if (pathname === '/camntu') {
+      dispatch(setPage('camntu'));
+    } else dispatch(setPage(null));
   }, [pathname, dispatch]);
 
   // Функция получения пунктов меню
@@ -198,6 +219,7 @@ function Main() {
           <Route path="/" element={<Authorization />} />
           <Route path="/status" element={<Status />} />
           <Route path="/pppoe" element={<Pppoe />} />
+          <Route path="/camntu" element={<CamNtu />} />
           <Route path="/wifi" element={<Wifi />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/region" element={<Region />} />
@@ -228,6 +250,7 @@ function Main() {
                         navigate,
                         taskFromRedux,
                         serialFromRedux,
+                        loginFromRedux,
                         closeForm
                       );
                     } else {
@@ -237,13 +260,20 @@ function Main() {
                   text="Продолжить"
                   closeButton={false}
                 />
+
                 <ExpressButton
                   onClick={() =>
-                    closeTask(navigate, regionFromRedux, dispatch, closeForm)
+                    closeTask({
+                      navigate,
+                      regionFromRedux,
+                      dispatch,
+                      closeForm,
+                    })
                   }
                   text="Завершить"
                   closeButton={true}
                 />
+                <br></br>
               </div>
             </>
           }
@@ -260,6 +290,11 @@ function Main() {
         isWorkParam !== 'newConnection' && (
           <TaskButton onClick={openForm} text="Завершить задачу" />
         )}
+      <div className="toolbar">
+        {isWorkParam === 'newConnection' && <ActionDisplay />}
+        {pathname !== '/' && <ShareButton />}
+        <ThemeToggle />
+      </div>
     </>
   );
 }

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { Button } from '../../components/Button';
 import { uploadPhoto } from '../../functions/api';
+import { setPage } from '../../store/actions/taskActions';
+import Button from '../../components/Button/Button';
 
-export function FormPhoto({
+function FormPhoto({
   isUploading,
   setIsUploading,
-  setFile,
   login,
   idUserSideCard,
-  workFromRedux,
   setUploadSuccess,
+  dispatch,
 }) {
   const [files, setFiles] = useState([]);
   const [resultForm, setResultForm] = useState('');
@@ -48,7 +48,14 @@ export function FormPhoto({
 
     try {
       const response = await uploadPhoto('POST', `photos/uploads`, formData);
-      setResultForm(response);
+      
+      if (response) {
+        dispatch(setPage('end'));
+        setResultForm('Фото успешно загружено');
+      } else {
+        setResultForm('Ошибка загрузки фото');
+      }
+      
     } catch (error) {
       console.error('Ошибка при загрузке фото:', error);
       setResultForm('Произошла ошибка при загрузке файлов. Попробуйте снова.');
@@ -61,19 +68,17 @@ export function FormPhoto({
     <div className="input-container">
       <div className="textForm">
         <h2>Загрузить фото</h2>
-        <pre>
-          Выберите скриншоты из приложения Analizator WiFi и заказ-наряд
-        </pre>
+        <pre>Выберите скриншоты из приложения Analyzer WiFi и заказ-наряд</pre>
         <h4>{login}</h4>
       </div>
       <input
         type="file"
         id="file-upload"
         onChange={handleFileChange}
-        multiple // Разрешаем выбор нескольких файлов
+        multiple
         style={{ display: 'none' }}
       />
-      <label htmlFor="file-upload" className="custom-file-upload">
+      <label htmlFor="file-upload" className="button green">
         Выбрать файлы
       </label>
       {files.length > 0 && (
@@ -94,3 +99,5 @@ export function FormPhoto({
     </div>
   );
 }
+
+export default FormPhoto;

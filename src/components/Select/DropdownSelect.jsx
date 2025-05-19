@@ -1,87 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-export function Select({ id, options, value, onChange }) {
-  return (
-    <select className="some-input" id={id} value={value} onChange={onChange}>
-      {options.map((option) => (
-        <option key={option} value={option}>
-          {option}
-        </option>
-      ))}
-    </select>
-  );
-}
-
-export function SelectRoot({ onChange, value }) {
-  const options = [
-    { label: 'Без прав', value: 'noRoles' },
-    { label: 'Монтажник', value: 'installer' },
-    { label: 'Инженер', value: 'engineer' },
-    { label: 'Администратор', value: 'admin' },
-  ];
-
-  return (
-    <select className="some-input" id="sel" value={value} onChange={onChange}>
-      {options.map((option) => (
-        <option key={option.value} value={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </select>
-  );
-}
-
-export function SelectSSID({ value, onChange }) {
-  const options = [
-    'auto',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '11',
-    '12',
-    '13',
-  ];
-  return (
-    <Select
-      id="selectSSID2_4"
-      options={options}
-      value={value}
-      onChange={onChange}
-    />
-  );
-}
-
-export function SelectSSID5({ value, onChange }) {
-  const options = [
-    'auto',
-    '36',
-    '40',
-    '44',
-    '48',
-    '149',
-    '153',
-    '157',
-    '161',
-    '165',
-  ];
-  return (
-    <Select
-      id="selectSSID5"
-      options={options}
-      value={value}
-      onChange={onChange}
-    />
-  );
-}
-
-export function DropdownSelect({ id, options, value, onChange }) {
+function DropdownSelect({ id, options, value, onChange }) {
   const [searchTerm, setSearchTerm] = useState(value || '');
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -165,3 +84,5 @@ export function DropdownSelect({ id, options, value, onChange }) {
     </div>
   );
 }
+
+export default DropdownSelect;

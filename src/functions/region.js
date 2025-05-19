@@ -1,3 +1,8 @@
+/**
+ * Получение названия региона по идентификатору
+ * @param {string} reg - id региона
+ */
+
 export function getRegion(reg) {
   const regionId = Number(reg);
   switch (regionId) {
@@ -13,6 +18,11 @@ export function getRegion(reg) {
       return 'Регион не определен, необходимо изменить';
   }
 }
+
+/**
+ * Получение id региона по наименованию
+ * @param {string} name - Имя региона
+ */
 
 export function getRegionForName(name) {
   switch (name) {
