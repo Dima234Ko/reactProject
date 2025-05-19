@@ -29,6 +29,7 @@ function UserInfo() {
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const idFromRedux = useSelector((state) => state.id.id);
   const regionFromRedux = useSelector((state) => state.region.region);
+  const page = useSelector((state) => state.task.page);
   const [regionId, setRegionId] = useState('');
   const [serial, setSerialState] = useState(serialFromRedux || '');
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -130,7 +131,9 @@ function UserInfo() {
         success: true,
       });
       closeTask();
-      navigate(`/work?region=${regionFromRedux}`);
+      setTimeout(() => {
+        navigate(`/work?region=${regionFromRedux}`);
+      }, 2000);
     } catch (error) {
       console.error('Ошибка при записи данных:', error);
       setResult({
@@ -210,7 +213,7 @@ function UserInfo() {
       <Button
         name="Записать"
         onClick={handleSubmit}
-        disabled={loading || !surname || !name}
+        disabled={loading || !surname || !name || page !== 'end'}
       />
     </div>
   );
