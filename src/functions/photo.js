@@ -1,12 +1,9 @@
 import { downloadPhoto } from '../functions/api';
-<<<<<<< HEAD
 
 /**
  * Функция выгрузки фото
  * @param {string} id - id загружаемой фотографии
  */
-=======
->>>>>>> 80727152aee48e53dbd539658eab25aa63bdcdc5
 
 export async function downloadPhotoToServer(id) {
   try {

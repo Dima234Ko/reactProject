@@ -74,13 +74,8 @@ function Status() {
 
   const handleInputChange = (event) => {
     const newSerial = event.target.value
-<<<<<<< HEAD
       .toUpperCase()
       .replace(/[^A-Z0-9]/g, '');
-=======
-  .toUpperCase()
-  .replace(/[^A-Z0-9]/g, ''); 
->>>>>>> 80727152aee48e53dbd539658eab25aa63bdcdc5
     setSerialState(newSerial);
     dispatch(setSerial(newSerial));
   };
@@ -174,15 +169,10 @@ function Status() {
         </div>
       )}
 
-<<<<<<< HEAD
       <Button
         name="Далее"
         onClick={moveOn}
         className="button green"
-=======
-      <NextButton
-        to={`/pppoe?region=${regionId}&work=${workFromRedux}&serial=${serial}`}
->>>>>>> 80727152aee48e53dbd539658eab25aa63bdcdc5
         disabled={result === null || result?.buttonVisible !== true}
       />
     </div>
