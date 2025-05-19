@@ -48,8 +48,14 @@ function FormPhoto({
 
     try {
       const response = await uploadPhoto('POST', `photos/uploads`, formData);
-      dispatch(setPage('end'));
-      setResultForm(response);
+      
+      if (response) {
+        dispatch(setPage('end'));
+        setResultForm('Фото успешно загружено');
+      } else {
+        setResultForm('Ошибка загрузки фото');
+      }
+      
     } catch (error) {
       console.error('Ошибка при загрузке фото:', error);
       setResultForm('Произошла ошибка при загрузке файлов. Попробуйте снова.');

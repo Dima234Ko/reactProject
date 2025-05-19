@@ -45,8 +45,8 @@ export async function uploadPhoto(method, action, body) {
     });
 
     if (response.ok) {
-      return 'Фото успешно загружено';
-    } else return 'Ошибка при загрузке на сервер';
+      return true;
+    } else return false;
   } catch (error) {
     console.error('Ошибка при выполнении запроса:', error);
     throw new Error(`Ошибка при выполнении запроса: ${error.message}`);
