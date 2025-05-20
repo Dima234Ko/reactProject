@@ -18,6 +18,7 @@ import Authorization from './pages/Authorization';
 import Header from './components/Header';
 import Status from './pages/user/Status';
 import Pppoe from './pages/user/PPPOE';
+import Static from './pages/user/Static';
 import Wifi from './pages/user/Wifi';
 import Settings from './pages/user/Settings';
 import Region from './pages/user/Region';
@@ -219,6 +220,7 @@ function Main() {
           <Route path="/" element={<Authorization />} />
           <Route path="/status" element={<Status />} />
           <Route path="/pppoe" element={<Pppoe />} />
+          <Route path="/static" element={<Static />} />
           <Route path="/camntu" element={<CamNtu />} />
           <Route path="/wifi" element={<Wifi />} />
           <Route path="/settings" element={<Settings />} />

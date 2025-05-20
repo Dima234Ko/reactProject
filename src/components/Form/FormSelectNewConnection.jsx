@@ -17,6 +17,10 @@ function FormSelectNewConnection({
     navigate(`/camntu?region=${regionId}&work=${work}&serial=${serial}`);
   };
 
+  const handleStaticConnection = async () => {
+    navigate(`/static?region=${regionId}&work=${work}&serial=${serial}`);
+  };
+
   return (
     <div>
       <h2>Подтвердите</h2>
@@ -28,8 +32,13 @@ function FormSelectNewConnection({
           closeButton={false}
         />
         <ExpressButton
+          onClick={handleStaticConnection}
+          text="Интернет Static IP"
+          closeButton={false}
+        />
+        <ExpressButton
           onClick={handleCameraConnection}
-          text="Камера"
+          text="Видеонаблюдение"
           closeButton={false}
         />
         <br></br>

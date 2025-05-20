@@ -5,8 +5,8 @@ import fs from 'fs';
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 8444,
-    //port: 9444,
+    //port: 8444,
+    port: 9444,
 
     host: '0.0.0.0',
     open: true,
@@ -14,10 +14,10 @@ export default defineConfig({
       key: fs.readFileSync('./sert/key.txt'),
       cert: fs.readFileSync('./sert/sv_en_ru_2025_07_27.crt'),
     },
-    hmr: {
-      host: 'r1.sv-en.ru',
-      port: 8444,
-      protocol: 'wss',
-    },
+    // hmr: {
+    //   host: 'r1.sv-en.ru',
+    //   port: 8444,
+    //   protocol: 'wss',
+    // },
   },
 });
