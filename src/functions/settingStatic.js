@@ -1,4 +1,67 @@
+import { getTaskId, checkTask } from './task';
+import { updateUrlWithParam } from './url';
+
 export async function setStatic(data) {
+    const {
+        ip,
+        mask,
+        gateway,
+        serial,
+        vlan,
+        regionId,
+        dispatch, 
+        setResult,
+        setProgress,
+        navigate,
+        setLoading 
+      } = data;
+    
+    setResult(null);
+    dispatch(setProgress(0));
+
+    let body = {
+        regionId: regionId,
+        ponSerialNtu: serial,
+        vlan: vlan,
+        ipAddress: ip,
+        subnetMask: mask,
+        defaultGateway: gateway
+    };
+
+    let taskId;
+    updateUrlWithParam('ip', ip, navigate);
+
+    try {
+        taskId = await getTaskId({
+          action: `newConnection/createNtuStaticIp`,
+          body,
+          dispatch,
+          setLoading,
+          navigate,
+          serial,
+        });
+      } catch (error) {
+        throw error;
+    }
+
+    try {
+      if (taskId) {
+        await checkTask({
+          action: `task/taskStatus`,
+          taskId,
+          dispatch,
+          setLoading,
+          setResult,
+          navigate,
+          attempts: 0,
+          progress: 80,
+        });
+      } else {
+        throw new Error('taskId не был получен');
+      }
+    } catch (error) {
+      throw new Error(`Не удалось получить taskId: ${error.message || error}`);
+    }
     
 }
 
@@ -12,8 +75,7 @@ export async function checkIP(ip) {
             if (num < 0 || num > 255 || octet.length > 1 && octet[0] === '0') {
                 return false;
             }
-        }
-        
+        } 
         return true;
 }
 
@@ -64,19 +126,19 @@ export async function checkGateway(ip, mask, gateway) {
     const ipOctets = ip.split('.').map(Number);
     const maskOctets = mask.split('.').map(Number);
     const gatewayOctets = gateway.split('.').map(Number);
-
     // Вычисление адреса сети для IP
     const network = ipOctets.map((octet, i) => octet & maskOctets[i]);
-
     // Вычисление широковещательного адреса
     const broadcast = ipOctets.map((octet, i) => (octet & maskOctets[i]) | (~maskOctets[i] & 255));
-
     // Проверка, что шлюз находится в той же подсети
     const isInSubnet = gatewayOctets.every((octet, i) => (octet & maskOctets[i]) === network[i]);
-
     // Проверка, что шлюз не является адресом сети или широковещательным адресом
     const isNetworkAddress = gatewayOctets.every((octet, i) => octet === network[i]);
     const isBroadcastAddress = gatewayOctets.every((octet, i) => octet === broadcast[i]);
-
     return isInSubnet && !isNetworkAddress && !isBroadcastAddress;   
+}
+
+export async function checkVlan(vlan) {
+    if (!vlan || typeof vlan !== 'string') return false;
+    return /^\d{1,4}$/.test(vlan);
 }

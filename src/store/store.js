@@ -4,6 +4,7 @@ import progressReducer from './reducers/progressReducer';
 import regionReducer from './reducers/regionReducer';
 import workReducer from './reducers/workReducer';
 import loginReducer from './reducers/loginReducer';
+import ipReducer from './reducers/ipReducer';
 import idReducer from './reducers/idReducer';
 import taskReducer from './reducers/taskReducer';
 import checkboxUserReducer from './reducers/checkboxUserReducer';
@@ -18,6 +19,7 @@ const store = configureStore({
     region: regionReducer,
     work: workReducer,
     login: loginReducer,
+    ip:ipReducer,
     id: idReducer,
     task: taskReducer,
     checkboxUser: checkboxUserReducer,

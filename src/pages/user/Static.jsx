@@ -4,10 +4,10 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { setProgress } from '../../store/actions/progressActions';
 import { setSerial } from '../../store/actions/serialActions';
 import { setRegion } from '../../store/actions/regionActions';
-import { setLogin } from '../../store/actions/loginActions';
+import { setIp } from '../../store/actions/ipActions';
 import { setWork } from '../../store/actions/workActions';
 import { setWarning } from '../../store/actions/warningActions';
-import { checkIP, checkMask, checkGateway, setStatic } from '../../functions/settingStatic';
+import { checkIP, checkMask, checkGateway, checkVlan, setStatic } from '../../functions/settingStatic';
 import { checkTaskStatus } from '../../functions/task';
 import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
 import { getRegion } from '../../functions/region';
@@ -34,13 +34,15 @@ function Static() {
   const [regionId, setRegionId] = useState(regionFromRedux || '');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
-  const [ip, setIp] = useState('');
+  const [ip, setIpInput] = useState('');
   const [mask, setMask] = useState('');
   const [gateway, setGetway] = useState('');
+  const [vlan, setVlan] = useState('');
 
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const regionFromUrl = getNumberBrowserUrl('region');
+  const ipFromUrl = getParamBrowserUrl('ip');
   const workFromUrl = getParamBrowserUrl('work');
   const [formContent, setFormContent] = useState({
     fromData: '',
@@ -57,6 +59,11 @@ function Static() {
       if (regionFromUrl) {
         setRegionId(regionFromUrl);
         dispatch(setRegion(regionFromUrl));
+      }
+
+      if (ipFromUrl) {
+        setIpInput(ipFromUrl);
+          dispatch(setIp(ipFromUrl));
       }
 
       const queryParams = new URLSearchParams(location.search);
@@ -92,9 +99,39 @@ function Static() {
   }, [location.search, navigate]);
 
   const handleSetStatic = async () => {
-    console.log (await checkIP(ip));
-    console.log (await checkMask(mask));
-    console.log (await checkGateway(ip, mask, gateway));
+    
+    if (!await checkIP(ip)){
+      setResult({
+        result: 'Не верный IP',
+        success: false,
+      });
+    } else if (!await checkMask(mask)){
+      setResult({
+        result: 'Не верная Mask',
+        success: false,
+      });
+    } else if (!await checkGateway(ip, mask, gateway)){
+      setResult({
+        result: 'Не верный Gateway',
+        success: false,
+      });
+    } else if (!await checkVlan(vlan)){
+      setResult({
+        result: 'Не верный Vlan',
+        success: false,
+      });
+    } else {
+      setLoading(true);
+      setResult(false);
+      dispatch(setIp(ip));
+      dispatch(setProgress(0));
+      setStatic({ip, mask, gateway, vlan, serial, regionId, dispatch, setResult, setProgress, navigate, setLoading });
+
+    }
+
+
+
+
   };
 
   const closeForm = () => setIsFormOpen(false);
@@ -130,7 +167,7 @@ function Static() {
           type="text"
           placeholder="Введите IP"
           value={ip}
-          onChange={(e) => setIp(e.target.value)}
+          onChange={(e) => setIpInput(e.target.value)}
         />
       </div>
       <div className="inp-contanier">
@@ -146,9 +183,18 @@ function Static() {
         <Input
           id="gateway"
           type="text"
-          placeholder="Введите Default Gateway "
+          placeholder="Введите Default Gateway"
           value={gateway}
           onChange={(e) => setGetway(e.target.value)}
+        />
+      </div>
+      <div className="inp-contanier">
+        <Input
+          id="vlan"
+          type="text"
+          placeholder="Введите Vlan"
+          value={vlan}
+          onChange={(e) => setVlan(e.target.value)}
         />
       </div>
       {result && <Result data={result} />}
