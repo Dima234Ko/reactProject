@@ -7,7 +7,7 @@ import { setRegion } from '../../store/actions/regionActions';
 import { setLogin } from '../../store/actions/loginActions';
 import { setWork } from '../../store/actions/workActions';
 import { setWarning } from '../../store/actions/warningActions';
-import { setPppoe, searchIdUs } from '../../functions/settingPppoe';
+import { checkIP, checkMask, checkGateway, setStatic } from '../../functions/settingStatic';
 import { checkTaskStatus } from '../../functions/task';
 import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
 import { getRegion } from '../../functions/region';
@@ -34,10 +34,9 @@ function Static() {
   const [regionId, setRegionId] = useState(regionFromRedux || '');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
-  const [login, setLoginInp] = useState(loginFromRedux || '');
   const [ip, setIp] = useState('');
   const [mask, setMask] = useState('');
-  const [getway, setGetway] = useState('');
+  const [gateway, setGetway] = useState('');
 
 
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -93,7 +92,9 @@ function Static() {
   }, [location.search, navigate]);
 
   const handleSetStatic = async () => {
-    console.log('нажата кнопка');
+    console.log (await checkIP(ip));
+    console.log (await checkMask(mask));
+    console.log (await checkGateway(ip, mask, gateway));
   };
 
   const closeForm = () => setIsFormOpen(false);
@@ -143,10 +144,10 @@ function Static() {
       </div>
       <div className="inp-contanier">
         <Input
-          id="getway"
+          id="gateway"
           type="text"
           placeholder="Введите Default Gateway "
-          value={getway}
+          value={gateway}
           onChange={(e) => setGetway(e.target.value)}
         />
       </div>

@@ -5,9 +5,7 @@ function FormSelectNewConnection({
   regionId,
   serial,
   work,
-  dispatch,
-  navigate,
-  closeForm,
+  navigate
 }) {
   const handleInternetConnection = async () => {
     navigate(`/pppoe?region=${regionId}&work=${work}&serial=${serial}`);
