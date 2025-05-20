@@ -137,7 +137,7 @@ function Static() {
   const closeForm = () => setIsFormOpen(false);
 
   return (
-    <div id="pppoe">
+    <div id="static">
       <h2>Настройка IP адреса</h2>
       <h5>{getRegion(regionId)}</h5>
       <FormInfo
@@ -207,7 +207,7 @@ function Static() {
         </div>
       )}
       <NextButton
-        to={`/wifi?region=${regionId}&work=${workFromRedux}&serial=${serialFromRedux}&ip=${null}`}
+        to={`/wifi?region=${regionId}&work=${workFromRedux}&serial=${serialFromRedux}&ip=${ip}`}
         disabled={result === null || result?.buttonVisible !== true}
       />
     </div>
