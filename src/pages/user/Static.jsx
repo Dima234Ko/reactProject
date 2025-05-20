@@ -6,7 +6,6 @@ import { setSerial } from '../../store/actions/serialActions';
 import { setRegion } from '../../store/actions/regionActions';
 import { setIp } from '../../store/actions/ipActions';
 import { setWork } from '../../store/actions/workActions';
-import { setWarning } from '../../store/actions/warningActions';
 import { checkIP, checkMask, checkGateway, checkVlan, setStatic } from '../../functions/settingStatic';
 import { checkTaskStatus } from '../../functions/task';
 import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
@@ -17,8 +16,6 @@ import Loader from '../../components/Loader';
 import Result from '../../components/Result';
 import FormInfo from '../../components/Form/Form';
 import NextButton from '../../components/Button/NextButton';
-import ExpressButton from '../../components/Button/ExpressButton';
-import WarningForm from '../../components/Form/FromWarning';
 
 function Static() {
   const dispatch = useDispatch();
@@ -27,9 +24,7 @@ function Static() {
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const regionFromRedux = useSelector((state) => state.region.region);
-  const loginFromRedux = useSelector((state) => state.login.login);
   const workFromRedux = useSelector((state) => state.work.work);
-  const warningFromRedux = useSelector((state) => state.warning.warning);
   const [serial, setSerialState] = useState(serialFromRedux || '');
   const [regionId, setRegionId] = useState(regionFromRedux || '');
   const [loading, setLoading] = useState(false);
@@ -128,10 +123,6 @@ function Static() {
       setStatic({ip, mask, gateway, vlan, serial, regionId, dispatch, setResult, setProgress, navigate, setLoading });
 
     }
-
-
-
-
   };
 
   const closeForm = () => setIsFormOpen(false);

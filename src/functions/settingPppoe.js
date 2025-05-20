@@ -6,7 +6,7 @@ import { updateUrlWithParam } from './url';
 /**
  * Получает информацию о пользователе из UserSide (US) по логину или серийному номеру через API.
  * @param {Object} data - Данные для запроса
- * @param {string} data.userLoginSerial - Логин пользователя или серийный номер NTU
+ * @param {string} data.loginFromRedux - Логин пользователя или серийный номер NTU
  * @param {string} data.serialFromRedux - Серийный номер NTU из состояния (Redux)
  * @param {Function} data.setResult - Функция для установки результата операции
  * @param {string} data.param - Тип параметра для поиска ('login' или 'serial')
@@ -15,7 +15,7 @@ import { updateUrlWithParam } from './url';
  */
 
 export async function searchIdUs(data) {
-  const { userLoginSerial, serialFromRedux, setResult, param, page } = data;
+  const { loginFromRedux, serialFromRedux, setResult, param, page } = data;
   setResult(null);
   let body;
   let info;
@@ -23,9 +23,10 @@ export async function searchIdUs(data) {
   try {
     if (param === 'login') {
       body = {
-        userLogin: userLoginSerial,
+        userLogin: loginFromRedux,
         serialNewNtu: serialFromRedux,
       };
+      
       info = await requestAPI('POST', 'userSide/getUserId', body);
 
       if (page !== 'wifi') {
@@ -43,7 +44,7 @@ export async function searchIdUs(data) {
       }
     } else {
       body = {
-        serialNewNtu: userLoginSerial,
+        serialNewNtu: serialFromRedux,
       };
       info = await requestAPI('POST', 'userSide/getUserId', body);
     }

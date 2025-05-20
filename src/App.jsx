@@ -60,6 +60,7 @@ function Main() {
   const hasRegion = params.has('region');
   const hasWork = params.has('work');
   const hasLogin = params.has('login');
+  const hasIp = params.has('ip');
   const isWorkParam = params.get('work');
 
   // Состояние UI
@@ -113,9 +114,13 @@ function Main() {
     } else if (pathname === '/pppoe') {
       dispatch(setPage('pppoe'));
     } else if (pathname === '/wifi') {
-      dispatch(setPage('wifi'));
+      if (!hasIp) {
+        dispatch(setPage('wifi'));
+      } else dispatch(setPage('wifi2'));
     } else if (pathname === '/info') {
       dispatch(setPage('info'));
+    } else if (pathname === '/static') {
+      dispatch(setPage('static'));
     } else if (pathname === '/camntu') {
       dispatch(setPage('camntu'));
     } else dispatch(setPage(null));
@@ -288,7 +293,9 @@ function Main() {
         pathname === '/pppoe' ||
         pathname === '/wifi' ||
         pathname === '/malfunction' ||
-        pathname === '/replcement') &&
+        pathname === '/replcement' ||
+        pathname === '/camntu' ||
+        pathname === '/static') &&
         isWorkParam !== 'newConnection' && (
           <TaskButton onClick={openForm} text="Завершить задачу" />
         )}
