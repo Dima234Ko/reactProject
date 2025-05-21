@@ -65,6 +65,11 @@ export async function setStatic(data) {
     
 }
 
+/**
+ * Проверяет валидность IP.
+ * @param {string} [ip] - IP адрес для проверки
+ */
+
 export async function checkIP(ip) {
         if (!ip || typeof ip !== 'string') return false;
         const octets = ip.split('.');
@@ -78,6 +83,11 @@ export async function checkIP(ip) {
         } 
         return true;
 }
+
+/**
+ * Проверяет валидность маски подсети.
+ * @param {string} [mask] - Адрес маски для проверки
+ */
 
 export async function checkMask(mask) {
         const validMasks = [
@@ -120,7 +130,12 @@ export async function checkMask(mask) {
         return validMasks.includes(mask);
 }
     
-
+/**
+ * Проверяет валидность шлюза по умолчанию.
+ * @param {string} [ip] - IP адрес для проверки
+ * @param {string} [mask] - Адрес маски для проверки
+ * @param {string} [gateway] - Адрес шлюза для проверки
+ */
 
 export async function checkGateway(ip, mask, gateway) {
     const ipOctets = ip.split('.').map(Number);
@@ -137,6 +152,11 @@ export async function checkGateway(ip, mask, gateway) {
     const isBroadcastAddress = gatewayOctets.every((octet, i) => octet === broadcast[i]);
     return isInSubnet && !isNetworkAddress && !isBroadcastAddress;   
 }
+
+/**
+ * Проверяет валидность влана.
+ * @param {string} [mask] - Влан для проверки
+ */
 
 export async function checkVlan(vlan) {
     if (!vlan || typeof vlan !== 'string') return false;
