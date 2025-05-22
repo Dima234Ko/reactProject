@@ -24,6 +24,7 @@ ${typeof item.respResult.ont_status === 'undefined' ? item.respResult.info : ite
     });
   }
 
+
   if (
     taskData.ntuPppoeEntities !== null &&
     taskData.ntuPppoeEntities?.length > 0
@@ -106,6 +107,20 @@ ${taskData.equipmentShutdownDto.info}`,
       name: `Настройка камеры`,
       // respResult: `PON: ${taskData.cameraDto[0].serialNewNtu},
       respResult: `${taskData.cameraDto[0].respResult.info}`,
+    });
+  }
+
+  if (taskData.staticIpDto !== null && taskData.staticIpDto?.length > 0) {
+    taskData.staticIpDto.forEach((item, index) => {
+      tableRows.push({
+        key: `staticIpDto-${index + 1}`,
+        name: `Настройка Static IP [${index + 1}]`,
+        respResult: `NTU настроена
+VLAN: ${taskData.staticIpDto[0].respResult.vlan}
+IP: ${taskData.staticIpDto[0].respResult.ipAddress}
+MASK: ${taskData.staticIpDto[0].respResult.subnetMask}
+GATEWAY: ${taskData.staticIpDto[0].respResult.defaultGateway}`,
+      });
     });
   }
 
