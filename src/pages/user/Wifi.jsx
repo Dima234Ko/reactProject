@@ -11,6 +11,7 @@ import { searchIdUs } from '../../functions/settingPppoe';
 import { getNumberBrowserUrl, getParamBrowserUrl } from '../../functions/url';
 import { getRegion } from '../../functions/region';
 import { setLogin } from '../../store/actions/loginActions';
+import { closeTask } from '../../functions/work';
 import SelectSSID from '../../components/Select/SelectSSID';
 import SelectSSID5 from '../../components/Select/SelectSSID5';
 import Input from '../../components/Input';
@@ -28,6 +29,7 @@ function Wifi() {
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const regionFromRedux = useSelector((state) => state.region.region);
+  const page = useSelector((state) => state.task.page);
   const [serial, setSerialState] = useState(serialFromRedux || '');
   const [regionId, setRegionId] = useState(regionFromRedux || '');
   const [loading, setLoading] = useState(false);
@@ -41,6 +43,7 @@ function Wifi() {
   const regionFromUrl = getNumberBrowserUrl('region');
   const loginFromUrl = getParamBrowserUrl('login' || '');
   const workFromUrl = getParamBrowserUrl('work');
+  
 
   // Обработка параметров из URL
   useEffect(() => {
@@ -165,6 +168,11 @@ function Wifi() {
         navigate,
         regionId,
       });
+      if (page === 'wifi2' && result?.success){
+        closeTask({navigate, regionFromRedux, dispatch}); 
+      }
+
+
     } catch (error) {
       setResult({
         result: error.message,
@@ -260,7 +268,7 @@ function Wifi() {
         </div>
       )}
 
-      {workFromRedux === 'newConnection' && (
+      {workFromRedux === 'newConnection' && page !== 'wifi2' && (
         <NextButton
           to={`/info?region=${regionId}&work=${workFromRedux}&serial=${serialFromRedux}${
             loginFromRedux !== null ? `&login=${loginFromRedux}` : ''

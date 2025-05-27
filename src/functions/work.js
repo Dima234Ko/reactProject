@@ -9,6 +9,7 @@ import {
 } from '../store/actions/taskActions';
 import { setSerial } from '../store/actions/serialActions';
 import { setLogin } from '../store/actions/loginActions';
+import { setIp } from '../store/actions/ipActions';
 
 /**
  * Функция получения активной задачи
@@ -35,6 +36,7 @@ export async function getActiveTask(dispatch) {
       dispatch(setRegTask(null));
       dispatch(setSerial(null));
       dispatch(setLogin(null));
+      dispatch(setIp(null));
       dispatch(setTransition(false));
     }
   } catch (error) {
@@ -45,6 +47,7 @@ export async function getActiveTask(dispatch) {
     dispatch(setRegTask(null));
     dispatch(setSerial(null));
     dispatch(setLogin(null));
+    dispatch(setIp(null));
     dispatch(setTransition(false));
   }
 }

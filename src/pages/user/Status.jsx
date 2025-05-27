@@ -114,12 +114,7 @@ function Status() {
           regionId={regionId}
           serial={serial}
           work={workFromRedux}
-          dispatch={dispatch}
           navigate={navigate}
-          closeForm={() => {
-            setIsFormOpen(false);
-            setLoading(false);
-          }}
         />
       ),
     });

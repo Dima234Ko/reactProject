@@ -5,9 +5,7 @@ function FormSelectNewConnection({
   regionId,
   serial,
   work,
-  dispatch,
-  navigate,
-  closeForm,
+  navigate
 }) {
   const handleInternetConnection = async () => {
     navigate(`/pppoe?region=${regionId}&work=${work}&serial=${serial}`);
@@ -15,6 +13,10 @@ function FormSelectNewConnection({
 
   const handleCameraConnection = async () => {
     navigate(`/camntu?region=${regionId}&work=${work}&serial=${serial}`);
+  };
+
+  const handleStaticConnection = async () => {
+    navigate(`/static?region=${regionId}&work=${work}&serial=${serial}`);
   };
 
   return (
@@ -28,8 +30,13 @@ function FormSelectNewConnection({
           closeButton={false}
         />
         <ExpressButton
+          onClick={handleStaticConnection}
+          text="Интернет Static IP"
+          closeButton={false}
+        />
+        <ExpressButton
           onClick={handleCameraConnection}
-          text="Камера"
+          text="Видеонаблюдение"
           closeButton={false}
         />
         <br></br>
