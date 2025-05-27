@@ -176,5 +176,9 @@ body.dark-mode pre {
 }
 
 body.dark-mode .input-container ul li {
+  color: rgb(0, 0, 0);
+}
+
+body.dark-mode .input-container .file-list ul li {
   color: rgb(255, 255, 255);
 }
