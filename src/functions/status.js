@@ -22,7 +22,8 @@ export async function getStatus(data) {
     setResult,
     dispatch,
     navigate,
-    regionId,
+    cancelTokenFromRedux,
+    regionId
   } = data;
 
   setLoading(true);
@@ -40,7 +41,7 @@ export async function getStatus(data) {
   };
 
   try {
-    let action = `newConnection/statusNTU`;
+    let action = `newConnection/statusNTUTest`;
     if (isChecked) {
       action = `newConnection/resetNTU`;
     }
@@ -53,6 +54,7 @@ export async function getStatus(data) {
       setLoading,
       navigate,
       serial,
+      cancelTokenFromRedux
     });
 
     if (taskId) {
@@ -64,7 +66,7 @@ export async function getStatus(data) {
         setLoading,
         setResult,
         navigate,
-        progress: 30,
+        progress: 50
       });
     }
   } catch (error) {

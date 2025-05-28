@@ -1,6 +1,8 @@
 import { requestAPI } from './api';
 import { setProgress } from '../store/actions/progressActions';
+import { setCancelToken } from '../store/actions/progressActions';
 import { updateUrlWithParam } from './url';
+
 
 /**
  * Функция получения taskId, создавая задачу на сервере, обновляет прогресс и URL.
@@ -15,7 +17,13 @@ import { updateUrlWithParam } from './url';
  */
 
 export async function getTaskId(data) {
-  const { action, body, dispatch, setLoading, navigate, serial } = data;
+  const { action, body, dispatch, setLoading, navigate, serial, cancelTokenFromRedux } = data;
+  
+  if (cancelTokenFromRedux){
+    return;
+  }
+
+  dispatch(setCancelToken(true));
 
   try {
     const data = await requestAPI('POST', action, body);
@@ -27,6 +35,7 @@ export async function getTaskId(data) {
     return taskId;
   } catch (error) {
     setLoading(false);
+    dispatch(setCancelToken(false));
     throw error;
   }
 }
@@ -70,10 +79,11 @@ export async function checkTaskStatus(data) {
           setLoading,
           setResult,
           navigate,
-          progress: 50,
+          progress: 50
         });
       } catch (error) {
         setLoading(false);
+        dispatch(setCancelToken(false));
         throw error;
       }
     }
@@ -107,6 +117,7 @@ export async function checkTask(data) {
     navigate,
     attempts,
     progress,
+    cancelTokenFromRedux
   } = data;
 
   const currentAttempts = attempts ?? 0;
@@ -122,7 +133,7 @@ export async function checkTask(data) {
         dispatch(setProgress(currentProgress));
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 10000));
+      await new Promise((resolve) => setTimeout(resolve, 3000));
 
       await checkTask({
         action,
@@ -137,6 +148,7 @@ export async function checkTask(data) {
     } else {
       dispatch(setProgress(100));
       setLoading(false);
+      dispatch(setCancelToken(false));
       setResult(taskData.result.respResult);
 
       if (taskData.result.rxPower) {
@@ -148,6 +160,7 @@ export async function checkTask(data) {
     }
   } catch (error) {
     setLoading(false);
+    dispatch(setCancelToken(false));
     throw error;
   }
 }
