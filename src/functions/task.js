@@ -1,6 +1,9 @@
 import { requestAPI } from './api';
 import { setProgress } from '../store/actions/progressActions';
+import { setCancelTokenGetTask } from '../store/actions/progressActions';
+import { setCancelTokenSetTask } from '../store/actions/progressActions';
 import { updateUrlWithParam } from './url';
+import store from '../store/store';
 
 /**
  * Функция получения taskId, создавая задачу на сервере, обновляет прогресс и URL.
@@ -16,6 +19,14 @@ import { updateUrlWithParam } from './url';
 
 export async function getTaskId(data) {
   const { action, body, dispatch, setLoading, navigate, serial } = data;
+  
+  const cancelTokenFromRedux = store.getState().progress.cancelTokenGetTask;
+
+  if (cancelTokenFromRedux){
+    return;
+  }
+
+  dispatch(setCancelTokenGetTask(true));
 
   try {
     const data = await requestAPI('POST', action, body);
@@ -27,6 +38,7 @@ export async function getTaskId(data) {
     return taskId;
   } catch (error) {
     setLoading(false);
+    dispatch(setCancelTokenGetTask(false));
     throw error;
   }
 }
@@ -63,6 +75,7 @@ export async function checkTaskStatus(data) {
       setLoading(true);
       setResult(null);
       try {
+        dispatch(setCancelTokenSetTask(false));
         await checkTask({
           action: `task/taskStatus`,
           taskId,
@@ -70,10 +83,11 @@ export async function checkTaskStatus(data) {
           setLoading,
           setResult,
           navigate,
-          progress: 50,
+          progress: 50
         });
       } catch (error) {
         setLoading(false);
+        dispatch(setCancelTokenGetTask(false));
         throw error;
       }
     }
@@ -106,8 +120,16 @@ export async function checkTask(data) {
     setResult,
     navigate,
     attempts,
-    progress,
+    progress
   } = data;
+
+
+  const cancelTokenFromRedux = store.getState().progress.cancelTokenSetTask;
+
+  if (cancelTokenFromRedux) {
+    setLoading(false);
+    return;
+  }
 
   const currentAttempts = attempts ?? 0;
   let currentProgress = progress ?? 30;
@@ -118,11 +140,11 @@ export async function checkTask(data) {
 
     if (taskData.status !== 'completed') {
       if (currentProgress < 90) {
-        currentProgress = Math.min(currentProgress + 5, 90);
+        currentProgress = Math.min(currentProgress + 10, 90);
         dispatch(setProgress(currentProgress));
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 10000));
+      await new Promise((resolve) => setTimeout(resolve, 3000));
 
       await checkTask({
         action,
@@ -137,6 +159,7 @@ export async function checkTask(data) {
     } else {
       dispatch(setProgress(100));
       setLoading(false);
+      dispatch(setCancelTokenGetTask(false));
       setResult(taskData.result.respResult);
 
       if (taskData.result.rxPower) {
@@ -148,6 +171,7 @@ export async function checkTask(data) {
     }
   } catch (error) {
     setLoading(false);
+    dispatch(setCancelTokenGetTask(false));
     throw error;
   }
 }

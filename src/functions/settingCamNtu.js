@@ -1,4 +1,5 @@
 import { getTaskId, checkTask } from './task';
+import { setCancelTokenSetTask } from '../store/actions/progressActions';
 
 /**
  * Настраивает CCTV (видеонаблюдение) для NTU через API, определяя VLAN и порты, отправляя запрос и отслеживая статус задачи.
@@ -27,6 +28,7 @@ export async function settingCCTVforNtu(data) {
     setResult,
     showVlanForm,
     portNumber,
+    cancelTokenFromRedux
   } = data;
   try {
     const vlan = await getVlan(regionId, serviceType, showVlanForm);
@@ -38,6 +40,8 @@ export async function settingCCTVforNtu(data) {
     }
 
     setLoading(true);
+    dispatch(setCancelTokenSetTask(false));
+
     const body = {
       ponSerialNtu: serial,
       ports: ports,
@@ -56,6 +60,7 @@ export async function settingCCTVforNtu(data) {
           setLoading,
           navigate,
           serial,
+          cancelTokenFromRedux
         });
         break;
       case 'bd':

@@ -1,5 +1,6 @@
 import { getTaskId, checkTask } from './task';
 import { setProgress } from '../store/actions/progressActions';
+import { setCancelTokenSetTask } from '../store/actions/progressActions';
 import { requestAPI } from './api';
 import { updateUrlWithParam } from './url';
 
@@ -80,10 +81,12 @@ export async function setPppoe(data) {
     setLoading,
     setResult,
     navigate,
+    cancelTokenFromRedux
   } = data;
 
   setResult(null);
   dispatch(setProgress(0));
+  dispatch(setCancelTokenSetTask(false));
 
   let body = {
     regionId: regionId,
@@ -103,6 +106,7 @@ export async function setPppoe(data) {
       setLoading,
       navigate,
       serial,
+      cancelTokenFromRedux
     });
   } catch (error) {
     throw error;
@@ -118,7 +122,7 @@ export async function setPppoe(data) {
         setResult,
         navigate,
         attempts: 0,
-        progress: 80,
+        progress: 50,
       });
     } else {
       throw new Error('taskId не был получен');

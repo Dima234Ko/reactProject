@@ -6,7 +6,6 @@ function SelectSSID5({ value, onChange }) {
     'auto',
     '36',
     '40',
-    '42',
     '44',
     '48',
     '149',

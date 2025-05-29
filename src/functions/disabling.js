@@ -1,4 +1,5 @@
 import { getTaskId, checkTask } from './task';
+import { setCancelTokenSetTask } from '../store/actions/progressActions';
 
 /**
  * Отключает оборудование NTU через API, отправляя запрос на отключение и отслеживая статус задачи.
@@ -25,15 +26,18 @@ export async function disableNTU(data) {
     isChecked,
     selectedRadioOption,
     radioOptions,
+    cancelTokenFromRedux
   } = data;
 
+  dispatch(setCancelTokenSetTask(false));
+  
   try {
     let action = `newConnection/equipmentShutdown`;
     let body = getBody({
       isChecked,
       selectedRadioOption,
       radioOptions,
-      serial,
+      serial
     });
     setLoading(true);
 
@@ -44,6 +48,7 @@ export async function disableNTU(data) {
       setLoading,
       navigate,
       serial,
+      cancelTokenFromRedux
     });
 
     if (taskId) {

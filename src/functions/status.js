@@ -1,5 +1,6 @@
 import { getTaskId, checkTask } from './task';
 import { setProgress } from '../store/actions/progressActions';
+import { setCancelTokenSetTask } from '../store/actions/progressActions';
 
 /**
  * Функция получения статуса
@@ -22,11 +23,13 @@ export async function getStatus(data) {
     setResult,
     dispatch,
     navigate,
-    regionId,
+    cancelTokenFromRedux,
+    regionId
   } = data;
 
   setLoading(true);
   setResult(false);
+  dispatch(setCancelTokenSetTask(false));
   dispatch(setProgress(0));
 
   if (serial == null || serial.length < 5) {
@@ -40,7 +43,7 @@ export async function getStatus(data) {
   };
 
   try {
-    let action = `newConnection/statusNTU`;
+    let action = `newConnection/statusNTUTest`;
     if (isChecked) {
       action = `newConnection/resetNTU`;
     }
@@ -53,6 +56,7 @@ export async function getStatus(data) {
       setLoading,
       navigate,
       serial,
+      cancelTokenFromRedux
     });
 
     if (taskId) {
@@ -64,7 +68,7 @@ export async function getStatus(data) {
         setLoading,
         setResult,
         navigate,
-        progress: 30,
+        progress: 60
       });
     }
   } catch (error) {

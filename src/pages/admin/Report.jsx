@@ -28,12 +28,13 @@ function Report() {
   const selectedUser = useSelector((state) => state.page.userPage);
   const ponSerial = useSelector((state) => state.page.ponSerialPage);
   const task = useSelector((state) => state.page.task);
-  const cannal = useSelector((state) => state.page.cannal);
+  const channel = useSelector((state) => state.page.cannal);
   const regionTask = useSelector((state) => state.page.regionTask);
   const workTask = useSelector((state) => state.page.workTask);
   const loginTask = useSelector((state) => state.page.loginTask);
 
   const getLogData = async () => {
+
     let reportData = await getReport({
       dispatch,
       task,
@@ -42,7 +43,7 @@ function Report() {
       endDate,
       selectedUser,
       ponSerial,
-      cannal,
+      channel,
       regionTask,
       workTask,
       loginTask,
@@ -71,7 +72,7 @@ function Report() {
     selectedUser,
     ponSerial,
     task,
-    cannal,
+    channel,
     regionTask,
     workTask,
     loginTask,

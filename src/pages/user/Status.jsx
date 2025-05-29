@@ -24,6 +24,7 @@ function Status() {
   const location = useLocation();
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
+  const cancelTokenFromRedux = useSelector((state) => state.progress.cancelToken);
   const regionFromRedux = useSelector((state) => state.region.region);
   const workFromRedux = useSelector((state) => state.work.work);
   const [serial, setSerialState] = useState(serialFromRedux || '');
@@ -46,6 +47,20 @@ function Status() {
     dispatch(setRegion(regionFromUrl));
     dispatch(setWork(workFromUrl));
   }, [serialFromRedux]);
+
+  useEffect(() => {
+    if (cancelTokenFromRedux){ 
+      
+      const handleKeyDown = (event) => {
+        event.preventDefault();
+        event.stopPropagation(); 
+      };
+      document.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [cancelTokenFromRedux]);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -95,6 +110,7 @@ function Status() {
         setResult,
         dispatch,
         navigate,
+        cancelTokenFromRedux,
         regionId,
       });
       setIsChecked(false);
@@ -106,7 +122,6 @@ function Status() {
     }
   };
 
-  // Обработчик для кнопки далее
   const moveOn = async () => {
     setFormContent({
       fromData: (
