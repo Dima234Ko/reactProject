@@ -1,5 +1,6 @@
 import { getTaskId, checkTask } from './task';
 import { setProgress } from '../store/actions/progressActions';
+import { setCancelTokenSetTask } from '../store/actions/progressActions';
 
 /**
  * Настраивает WiFi на NTU через API, отправляя запрос и отслеживая статус задачи.
@@ -40,6 +41,8 @@ export async function setWiFi(data) {
     setLoading(true);
     setResult(null);
     dispatch(setProgress(0));
+    dispatch(setCancelTokenSetTask(false));
+    
     let body = {
       regionId: regionId,
       serialNewNtu: serial,

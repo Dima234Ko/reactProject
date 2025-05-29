@@ -1,4 +1,5 @@
 import { getTaskId, checkTask } from './task';
+import { setCancelTokenSetTask } from '../store/actions/progressActions';
 import { updateUrlWithParam } from './url';
 
 export async function setStatic(data) {
@@ -19,6 +20,7 @@ export async function setStatic(data) {
     
     setResult(null);
     dispatch(setProgress(0));
+    dispatch(setCancelTokenSetTask(false));
 
     let body = {
         regionId: regionId,

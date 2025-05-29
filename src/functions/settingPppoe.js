@@ -1,5 +1,6 @@
 import { getTaskId, checkTask } from './task';
 import { setProgress } from '../store/actions/progressActions';
+import { setCancelTokenSetTask } from '../store/actions/progressActions';
 import { requestAPI } from './api';
 import { updateUrlWithParam } from './url';
 
@@ -85,6 +86,7 @@ export async function setPppoe(data) {
 
   setResult(null);
   dispatch(setProgress(0));
+  dispatch(setCancelTokenSetTask(false));
 
   let body = {
     regionId: regionId,
