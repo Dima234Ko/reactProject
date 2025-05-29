@@ -25,6 +25,7 @@ function Static() {
   const progressFromRedux = useSelector((state) => state.progress.progress);
   const regionFromRedux = useSelector((state) => state.region.region);
   const workFromRedux = useSelector((state) => state.work.work);
+  const cancelTokenFromRedux = useSelector((state) => state.progress.cancelToken);
   const [serial, setSerialState] = useState(serialFromRedux || '');
   const [regionId, setRegionId] = useState(regionFromRedux || '');
   const [loading, setLoading] = useState(false);
@@ -68,6 +69,20 @@ function Static() {
 
     fetchData();
   }, [serialFromRedux]);
+
+  useEffect(() => {
+    if (cancelTokenFromRedux){ 
+      
+      const handleKeyDown = (event) => {
+        event.preventDefault();
+        event.stopPropagation(); 
+      };
+      document.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [cancelTokenFromRedux]);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -120,8 +135,20 @@ function Static() {
       setResult(false);
       dispatch(setIp(ip));
       dispatch(setProgress(0));
-      setStatic({ip, mask, gateway, vlan, serial, regionId, dispatch, setResult, setProgress, navigate, setLoading });
-
+      setStatic({
+        ip, 
+        mask, 
+        gateway, 
+        vlan, 
+        serial, 
+        regionId, 
+        dispatch, 
+        setResult, 
+        setProgress, 
+        navigate, 
+        setLoading,
+        cancelTokenFromRedux 
+      });
     }
   };
 

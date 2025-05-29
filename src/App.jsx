@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -13,6 +13,8 @@ import {
   setBulleanTask,
   setActivePage,
 } from './store/actions/pageLogTaskActions';
+import { setCancelTokenSetTask } from './store/actions/progressActions';
+import { setCancelTokenGetTask } from './store/actions/progressActions';
 import { setPage } from './store/actions/taskActions';
 import Authorization from './pages/Authorization';
 import Header from './components/Header';
@@ -74,6 +76,10 @@ function Main() {
   const workFromRedux = useSelector((state) => state.work.work);
   const taskFromRedux = useSelector((state) => state.task);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const prevPathnameRef = useRef(null);
+
+
+
 
   // Получение userRoot из localStorage
   const getUserRoot = () => {
@@ -99,6 +105,14 @@ function Main() {
 
     return null;
   };
+
+  useEffect(() => {
+    if (prevPathnameRef.current !== null && prevPathnameRef.current !== pathname) {
+      dispatch(setCancelTokenSetTask(true));
+      dispatch(setCancelTokenGetTask(false));
+    }
+    prevPathnameRef.current = pathname;
+  }, [pathname, dispatch]);
 
   useEffect(() => {
     if (pathname !== '/report') {

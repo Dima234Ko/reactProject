@@ -23,6 +23,7 @@ function CamNtu() {
   const location = useLocation();
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
+  const cancelTokenFromRedux = useSelector((state) => state.progress.cancelToken);
   const regionFromRedux = useSelector((state) => state.region.region);
   const [serial, setSerialState] = useState(serialFromRedux || '');
   const [regionId, setRegionId] = useState(regionFromRedux || '');
@@ -77,6 +78,20 @@ function CamNtu() {
     fetchData();
   }, [location.search, navigate]);
 
+  useEffect(() => {
+    if (cancelTokenFromRedux){ 
+      
+      const handleKeyDown = (event) => {
+        event.preventDefault();
+        event.stopPropagation(); 
+      };
+      document.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [cancelTokenFromRedux]);
+
   // Функция для открытия формы VLAN
   const showVlanForm = () => {
     return new Promise((resolve) => {
@@ -109,6 +124,7 @@ function CamNtu() {
         navigate,
         setResult,
         showVlanForm,
+        cancelTokenFromRedux
       });
     } catch (error) {
       setResult({

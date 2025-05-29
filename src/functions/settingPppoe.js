@@ -80,6 +80,7 @@ export async function setPppoe(data) {
     setLoading,
     setResult,
     navigate,
+    cancelTokenFromRedux
   } = data;
 
   setResult(null);
@@ -103,6 +104,7 @@ export async function setPppoe(data) {
       setLoading,
       navigate,
       serial,
+      cancelTokenFromRedux
     });
   } catch (error) {
     throw error;
@@ -118,7 +120,7 @@ export async function setPppoe(data) {
         setResult,
         navigate,
         attempts: 0,
-        progress: 80,
+        progress: 50,
       });
     } else {
       throw new Error('taskId не был получен');

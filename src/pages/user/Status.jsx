@@ -49,6 +49,20 @@ function Status() {
   }, [serialFromRedux]);
 
   useEffect(() => {
+    if (cancelTokenFromRedux){ 
+      
+      const handleKeyDown = (event) => {
+        event.preventDefault();
+        event.stopPropagation(); 
+      };
+      document.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [cancelTokenFromRedux]);
+
+  useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     dispatch(setSerial(queryParams.get('serial')));
     const fetchData = async () => {
@@ -108,7 +122,6 @@ function Status() {
     }
   };
 
-  // Обработчик для кнопки далее
   const moveOn = async () => {
     setFormContent({
       fromData: (

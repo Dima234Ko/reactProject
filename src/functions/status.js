@@ -1,5 +1,6 @@
 import { getTaskId, checkTask } from './task';
 import { setProgress } from '../store/actions/progressActions';
+import { setCancelTokenSetTask } from '../store/actions/progressActions';
 
 /**
  * Функция получения статуса
@@ -28,6 +29,7 @@ export async function getStatus(data) {
 
   setLoading(true);
   setResult(false);
+  dispatch(setCancelTokenSetTask(false));
   dispatch(setProgress(0));
 
   if (serial == null || serial.length < 5) {
@@ -66,7 +68,7 @@ export async function getStatus(data) {
         setLoading,
         setResult,
         navigate,
-        progress: 50
+        progress: 60
       });
     }
   } catch (error) {

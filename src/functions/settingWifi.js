@@ -33,6 +33,7 @@ export async function setWiFi(data) {
     dispatch,
     navigate,
     regionId,
+    cancelTokenFromRedux
   } = data;
 
   {
@@ -58,6 +59,7 @@ export async function setWiFi(data) {
         setLoading,
         navigate,
         serial,
+        cancelTokenFromRedux
       });
       if (taskId) {
         await checkTask({
@@ -67,7 +69,7 @@ export async function setWiFi(data) {
           setLoading,
           setResult,
           navigate,
-          progress: 80,
+          progress: 50
         });
       }
     } catch (error) {

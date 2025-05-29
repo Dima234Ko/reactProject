@@ -28,6 +28,7 @@ function Wifi() {
   const workFromRedux = useSelector((state) => state.work.work);
   const serialFromRedux = useSelector((state) => state.serial.serial);
   const progressFromRedux = useSelector((state) => state.progress.progress);
+  const cancelTokenFromRedux = useSelector((state) => state.progress.cancelToken);
   const regionFromRedux = useSelector((state) => state.region.region);
   const page = useSelector((state) => state.task.page);
   const [serial, setSerialState] = useState(serialFromRedux || '');
@@ -93,6 +94,20 @@ function Wifi() {
     };
     fetchData();
   }, [location.search, navigate]);
+
+  useEffect(() => {
+    if (cancelTokenFromRedux){ 
+      
+      const handleKeyDown = (event) => {
+        event.preventDefault();
+        event.stopPropagation(); 
+      };
+      document.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [cancelTokenFromRedux]);
 
   // Асинхронная функция для получения данных WiFi
   const fetchDataWiFi = async () => {
@@ -167,6 +182,7 @@ function Wifi() {
         dispatch,
         navigate,
         regionId,
+        cancelTokenFromRedux
       });
       if (page === 'wifi2' && result?.success){
         closeTask({navigate, regionFromRedux, dispatch}); 

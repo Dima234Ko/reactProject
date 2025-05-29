@@ -27,6 +27,7 @@ export async function settingCCTVforNtu(data) {
     setResult,
     showVlanForm,
     portNumber,
+    cancelTokenFromRedux
   } = data;
   try {
     const vlan = await getVlan(regionId, serviceType, showVlanForm);
@@ -56,6 +57,7 @@ export async function settingCCTVforNtu(data) {
           setLoading,
           navigate,
           serial,
+          cancelTokenFromRedux
         });
         break;
       case 'bd':

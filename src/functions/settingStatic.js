@@ -13,7 +13,8 @@ export async function setStatic(data) {
         setResult,
         setProgress,
         navigate,
-        setLoading 
+        setLoading,
+        cancelTokenFromRedux 
       } = data;
     
     setResult(null);
@@ -39,6 +40,7 @@ export async function setStatic(data) {
           setLoading,
           navigate,
           serial,
+          cancelTokenFromRedux
         });
       } catch (error) {
         throw error;

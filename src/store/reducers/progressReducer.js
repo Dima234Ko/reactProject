@@ -1,9 +1,11 @@
 import { SET_PROGRESS } from '../actions/progressActions';
-import { SET_CANSEL_TOKEN } from '../actions/progressActions';
+import { SET_CANSEL_TOKEN_GET_TASK } from '../actions/progressActions';
+import { SET_CANSEL_TOKEN_SET_TASK } from '../actions/progressActions';
 
 const initialState = {
   progress: 0,
-  cancelToken: null,
+  cancelTokenGetTask: null,
+  cancelTokenSetTask: null
 };
 
 const progressReducer = (state = initialState, action) => {
@@ -13,10 +15,15 @@ const progressReducer = (state = initialState, action) => {
         ...state,
         progress: action.payload,
       };
-    case SET_CANSEL_TOKEN:
+    case SET_CANSEL_TOKEN_GET_TASK:
         return {
           ...state,
-          cancelToken: action.payload,
+          cancelTokenGetTask: action.payload,
+        };
+    case SET_CANSEL_TOKEN_SET_TASK:
+        return {
+          ...state,
+          cancelTokenSetTask: action.payload,
         };
     default:
       return state;

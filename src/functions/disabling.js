@@ -25,6 +25,7 @@ export async function disableNTU(data) {
     isChecked,
     selectedRadioOption,
     radioOptions,
+    cancelTokenFromRedux
   } = data;
 
   try {
@@ -33,7 +34,7 @@ export async function disableNTU(data) {
       isChecked,
       selectedRadioOption,
       radioOptions,
-      serial,
+      serial
     });
     setLoading(true);
 
@@ -44,6 +45,7 @@ export async function disableNTU(data) {
       setLoading,
       navigate,
       serial,
+      cancelTokenFromRedux
     });
 
     if (taskId) {

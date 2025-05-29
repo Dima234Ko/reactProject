@@ -17,7 +17,6 @@ import Loader from '../../components/Loader';
 import Result from '../../components/Result';
 import FormInfo from '../../components/Form/Form';
 import NextButton from '../../components/Button/NextButton';
-import ExpressButton from '../../components/Button/ExpressButton';
 import WarningForm from '../../components/Form/FromWarning';
 
 function Pppoe() {
@@ -30,6 +29,7 @@ function Pppoe() {
   const loginFromRedux = useSelector((state) => state.login.login);
   const workFromRedux = useSelector((state) => state.work.work);
   const warningFromRedux = useSelector((state) => state.warning.warning);
+  const cancelTokenFromRedux = useSelector((state) => state.progress.cancelToken);
   const [serial, setSerialState] = useState(serialFromRedux || '');
   const [regionId, setRegionId] = useState(regionFromRedux || '');
   const [loading, setLoading] = useState(false);
@@ -97,6 +97,20 @@ function Pppoe() {
     fetchData();
   }, [location.search, navigate]);
 
+  useEffect(() => {
+    if (cancelTokenFromRedux){ 
+      
+      const handleKeyDown = (event) => {
+        event.preventDefault();
+        event.stopPropagation(); 
+      };
+      document.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [cancelTokenFromRedux]);
+
   const handleSetPppoe = async () => {
     const showWarningForm = () => {
       return new Promise((resolve) => {
@@ -138,6 +152,7 @@ function Pppoe() {
             dispatch,
             navigate,
             regionId,
+            cancelTokenFromRedux
           });
         } catch (error) {
           setResult({

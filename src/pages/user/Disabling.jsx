@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { disableNTU } from '../../functions/disabling';
 import Input from '../../components/Input';
@@ -13,6 +13,7 @@ import RadioButtonGroup from '../../components/RadioButtonGroup';
 function Disabling() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const cancelTokenFromRedux = useSelector((state) => state.progress.cancelToken);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [serial, setSerial] = useState('');
   const [loading, setLoading] = useState(false);
@@ -59,6 +60,7 @@ function Disabling() {
       dispatch,
       setResult,
       setLoading,
+      cancelTokenFromRedux
     });
     setIsFormOpen(false);
   };
