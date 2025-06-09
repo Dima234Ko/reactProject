@@ -33,12 +33,25 @@ function Authorization() {
     try {
       let root = await authorization(login, password);
       if (root.result) {
-        // Сохраняем результат в localStorage, если он существует
-        localStorage.setItem('authResult', JSON.stringify(root.root));
-        if (root.root === '1') {
-          navigate('/user');
-        } else if (root.root === '2' || root.root === '3') {
-          navigate('/status');
+        const valueToStore = {
+          value: root.root,
+          expiresAt: Date.now() + 82800000,
+          //expiresAt: Date.now() + 10000,
+        };
+        localStorage.setItem('authResult', JSON.stringify(valueToStore))
+        const stored = localStorage.getItem('authResult');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Date.now() > parsed.expiresAt) {
+            localStorage.removeItem('authResult');
+          } else {
+            const role = parsed.value;
+            if (role === '1') {
+              navigate('/user');
+            } else if (role === '2' || role === '3') {
+              navigate('/status');
+            }
+          }
         }
       } else {
         // Обработка случая, если нет результата
