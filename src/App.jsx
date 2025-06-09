@@ -84,8 +84,21 @@ function Main() {
   // Получение userRoot из localStorage
   const getUserRoot = () => {
     const authResult = localStorage.getItem('authResult');
-    return authResult ? JSON.parse(authResult) : '0';
+    if (!authResult) return '0';
+  
+    try {
+      const parsed = JSON.parse(authResult);
+      if (Date.now() > parsed.expiresAt) {
+        localStorage.removeItem('authResult');
+        return '0';
+      }
+      return parsed.value;
+    } catch {
+      localStorage.removeItem('authResult'); 
+      return '0';
+    }
   };
+  
   const userRoot = getUserRoot();
 
   // Функция редиректа
