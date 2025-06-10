@@ -78,7 +78,14 @@ function Main() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const prevPathnameRef = useRef(null);
 
-  // Получение userRoot из localStorage
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      window.location.reload();
+    }, 84600000);
+    // }, 10000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const getUserRoot = () => {
     const authResult = localStorage.getItem('authResult');
     if (!authResult) return '0';
