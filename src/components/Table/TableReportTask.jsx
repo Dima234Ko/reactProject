@@ -9,21 +9,24 @@ function TableReportTask({ taskData }) {
 
   const tableRows = [];
 
+
   if (taskData.ntuStatuses !== null && taskData.ntuStatuses?.length > 0) {
     taskData.ntuStatuses.forEach((item, index) => {
+      console.log(JSON.stringify(item.respResult).replace(/,/g, ',\n'));
       tableRows.push({
         key: `ntuStatuses-${index + 1}`,
         name: `Запрос статуса [${index + 1}]`,
-        respResult: item.respResult.success
-          ? `PON: ${item.respResult.serialNewNtu},
-  ONT: ${item.respResult.ont_status}, ${item.respResult.RX_power}, 
-  OLT: ${item.respResult.ip_olt} ${item.respResult.PON_port}/${item.respResult.PON_id}`
-          : `PON: ${item.respResult.serialNewNtu}
-${typeof item.respResult.ont_status === 'undefined' ? item.respResult.info : item.respResult.ont_status && !item.respResult.ont_status.includes('не найден на ACS') ? item.respResult.info : item.respResult.ont_status}`,
+        respResult: JSON.stringify(item.respResult)
+        .replace(/,/g, ',\n')
+        .replace(/^{/, '')
+        .replace(/}$/, '')
+        .replace(/"/g, '')
+        .replace(/:/g, ': ')
       });
     });
   }
 
+  
 
   if (
     taskData.ntuPppoeEntities !== null &&

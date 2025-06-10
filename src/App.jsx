@@ -78,9 +78,6 @@ function Main() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const prevPathnameRef = useRef(null);
 
-
-
-
   // Получение userRoot из localStorage
   const getUserRoot = () => {
     const authResult = localStorage.getItem('authResult');
@@ -112,7 +109,6 @@ function Main() {
     if (!hasRegion && needRegion.includes(pathname)) return '/region';
     if (!hasSerial && needSerial.includes(pathname)) return '/status';
     if (!hasLogin && pathname === '/info') return '/pppoe';
-
     if (rootOnly.includes(pathname) && userRoot !== '1') return '/region';
     if (pathname !== '/' && !['1', '2', '3'].includes(userRoot)) return '/';
 
