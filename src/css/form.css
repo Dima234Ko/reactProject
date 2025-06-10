@@ -33,6 +33,7 @@
 #start_data,
 #stop_data {
   height: 20px;
+  width: 45%;
 }
 
 .textForm .some-input#sel {
@@ -45,7 +46,8 @@
 }
 
 .textForm .some-input {
-  width: 27.5vh;
+  /* width: 27.5vh; */
+  width: 31.5vh;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;

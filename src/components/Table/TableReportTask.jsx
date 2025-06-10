@@ -9,43 +9,30 @@ function TableReportTask({ taskData }) {
 
   const tableRows = [];
 
-
-  if (taskData.ntuStatuses !== null && taskData.ntuStatuses?.length > 0) {
-    taskData.ntuStatuses.forEach((item, index) => {
-      console.log(JSON.stringify(item.respResult).replace(/,/g, ',\n'));
-      tableRows.push({
-        key: `ntuStatuses-${index + 1}`,
-        name: `Запрос статуса [${index + 1}]`,
-        respResult: JSON.stringify(item.respResult)
-        .replace(/,/g, ',\n')
-        .replace(/^{/, '')
-        .replace(/}$/, '')
-        .replace(/"/g, '')
-        .replace(/:/g, ': ')
-      });
-    });
-  }
-
+  const formatJson = (obj) =>
+    JSON.stringify(obj)
+      .replace(/,/g, ',\n')
+      .replace(/^{/, '')
+      .replace(/}$/, '')
+      .replace(/"/g, '')
+      .replace(/:/g, ': ');
   
-
-  if (
-    taskData.ntuPppoeEntities !== null &&
-    taskData.ntuPppoeEntities?.length > 0
-  ) {
-    taskData.ntuPppoeEntities.forEach((item, index) => {
-      tableRows.push({
-        key: `ntuPppoeEntities-${index + 1}`,
-        name: `Настройка PPPoE [${index + 1}]`,
-        respResult: item.respResult.success
-          ? `PON: ${item.respResult.serialNewNtu},
-${item.respResult.create_login_US === null ? 'Карточка существует в US' : item.respResult.create_login_US},
-${item.respResult.write_PONserial}, 
-${item.respResult.ont_config}`
-          : `PON: ${item.respResult.serialNewNtu}
-LOGIN: ${item.userLogin}
-${item.respResult.info}`,
+  const processItems = (items, prefix, namePrefix, tableRows) => {
+    if (items?.length > 0) {
+      items.forEach((item, index) => {
+        const formattedResult = formatJson(item.respResult);
+        tableRows.push({
+          key: `${prefix}-${index + 1}`,
+          name: `${namePrefix} [${index + 1}]`,
+          respResult: formattedResult,
+        });
       });
-    });
+    }
+  };
+  
+  if (taskData.ntuStatuses || taskData.ntuPppoeEntities) {
+    processItems(taskData.ntuStatuses, 'ntuStatuses', 'Запрос статуса', tableRows);
+    processItems(taskData.ntuPppoeEntities, 'ntuPppoeEntities', 'Настройка PPPoE', tableRows);
   }
 
   if (
@@ -59,12 +46,10 @@ ${item.respResult.info}`,
         respResult: item.respResult.success
           ? `PON: ${item.respResult.serialNewNtu},
 ${item.respResult.write_wifi_US},
-
 Настройки WIFI 2.4Ггц
 SSID: ${item.ssidWifi2},
 PASS: ${item.passWifi2},
 CHANNEL: ${item.channelWifi2} [${item.respResult.wifi2_channel}]
-
 Настройки WIFI 5Ггц
 SSID: ${item.ssidWifi5},
 PASS: ${item.passWifi5},
