@@ -30,7 +30,7 @@ input {
 .ssid-container input,
 .pon-container input,
 .inp-contanier input {
-  width: 100%;
+  width: 180%;
 }
 
 .ssid-container select {

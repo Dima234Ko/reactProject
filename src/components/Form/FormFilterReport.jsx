@@ -147,30 +147,30 @@ function FormFilterReport({ onClose, task }) {
             onChange={(e) => setLocalEndDate(e.target.value)}
           />
         </div>
-        <div className="sel-container">
+       
+        <Select
+          id="sel"
+          options={regionNames}
+          value={selectedRegion}
+          // onChange={(e) => setSelectedRegion(e.target.value)}
+          onChange={(val) => setSelectedRegion(val)}
+        />
+        <DropdownSelect
+          id="user-select"
+          options={users}
+          value={selectedUser}
+          onChange={(e) => setSelectedUser(e.target.value)}
+        />
+        {task === true && (
           <Select
             id="sel"
-            options={regionNames}
-            value={selectedRegion}
-            onChange={(e) => setSelectedRegion(e.target.value)}
+            options={workNames}
+            value={selectedWork}
+            // onChange={(e) => setSelectedWork(e.target.value)}
+            onChange={(val) => setSelectedWork(val)}
           />
-
-          <DropdownSelect
-            id="user-select"
-            options={users}
-            value={selectedUser}
-            onChange={(e) => setSelectedUser(e.target.value)}
-          />
-
-          {task === true && (
-            <Select
-              id="sel"
-              options={workNames}
-              value={selectedWork}
-              onChange={(e) => setSelectedWork(e.target.value)}
-            />
-          )}
-        </div>
+        )}
+   
 
         <Input
           id="id_Ntu"

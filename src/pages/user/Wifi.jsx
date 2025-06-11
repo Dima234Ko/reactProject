@@ -232,7 +232,8 @@ function Wifi() {
         />
         <SelectSSID
           value={selectSSID2_4}
-          onChange={(e) => setSelectSSID2_4(e.target.value)}
+          // onChange={(e) => setSelectSSID2_4(e.target.value)}
+          onChange={(val) => setSelectSSID2_4(val)}
         />
       </div>
 
@@ -259,7 +260,8 @@ function Wifi() {
         />
         <SelectSSID5
           value={selectSSID5}
-          onChange={(e) => setSelectSSID5(e.target.value)}
+          // onChange={(e) => setSelectSSID5(e.target.value)}
+          onChange={(val) => setSelectSSID5(val)}
         />
       </div>
 

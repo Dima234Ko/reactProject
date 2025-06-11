@@ -68,7 +68,9 @@ function Region() {
         id="reg"
         options={regionNames}
         value={selectedRegion}
-        onChange={(e) => setSelectedRegion(e.target.value)}
+        // onChange={(e) => setSelectedRegion(e.target.value)}
+        onChange={(val) => setSelectedRegion(val)}
+
       />
       {result && <Result data={result} />}
       <Button name="Применить" onClick={handleApply} />

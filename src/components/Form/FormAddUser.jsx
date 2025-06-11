@@ -77,16 +77,15 @@ function FormAddUser({ setCreateSuccess, onClose }) {
       <div className="textForm">
         <h2>Создать пользователя</h2>
         <pre>Укажите права доступа</pre>
-        <div className="sel">
-          <SelectRoot
-            value={formData.root}
-            onChange={(e) =>
-              handleInputChange({
-                target: { name: 'root', value: e.target.value },
-              })
-            }
-          />
-        </div>
+        <SelectRoot
+          value={formData.root}
+          
+          onChange={(val) =>
+            handleInputChange({
+              target: { name: 'root', value: val },
+            })
+          }
+        />
         <pre>Укажите данные</pre>
         <div className="addUser">
           <Input
