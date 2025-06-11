@@ -9,7 +9,11 @@
 
 .input-container .checkbox-container {
   margin-top: 0px;
-  margin-left: 7%;
+  /* margin-left: 7%; */
+}
+
+#disablingForm{
+  margin-left: 15%; 
 }
 
 .checkbox-input {

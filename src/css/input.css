@@ -14,7 +14,9 @@ input {
 
 .date-container {
   display: flex;
-  width: 30vh;
+  /* width: 30vh; */
+  width: 100%;
+  justify-content: space-between;
 }
 
 .ssid-container,
