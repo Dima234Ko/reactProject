@@ -16,6 +16,7 @@ import Result from '../../components/Result';
 import FormInfo from '../../components/Form/Form';
 import FormAddVlan from '../../components/Form/FormAddVlan';
 import RadioButtonGroup from '../../components/RadioButtonGroup';
+import StatusIndicator from '../../components/StatusIndicator';
 
 function CamNtu() {
   const dispatch = useDispatch();
@@ -157,12 +158,7 @@ function CamNtu() {
           onChange={(e) => setSerialState(e.target.value)}
           disabled={true}
         />
-        <Input
-          id="level_Ntu"
-          type="text"
-          value={JSON.parse(localStorage.getItem('RX_power')) || '-0.0'}
-          disabled={true}
-        />
+        <StatusIndicator />
       </div>
       <div className="camService">
         <h6>Выберите количество портов</h6>

@@ -4,6 +4,7 @@ import App from './App.jsx';
 import store from './store/store.js';
 import { Provider } from 'react-redux';
 import './css/input.css';
+import './css/indicator.css';
 import './css/castomSelect.css';
 import './css/main.css';
 import './css/button.css';

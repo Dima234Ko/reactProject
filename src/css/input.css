@@ -62,10 +62,6 @@ input[type='file'] {
   color: #333;
 }
 
-#level_Ntu {
-  width: 30px;
-}
-
 /* Dark Theme Styles */
 body.dark-mode .some-input {
   background-color: #242424;
@@ -104,10 +100,5 @@ body.dark-mode select {
 }
 
 body.dark-mode .file-name {
-  color: #bbbbbb;
-}
-
-body.dark-mode #level_Ntu {
-  background-color: #3a3a3a;
   color: #bbbbbb;
 }

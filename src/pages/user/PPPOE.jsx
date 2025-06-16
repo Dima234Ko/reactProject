@@ -18,6 +18,7 @@ import Result from '../../components/Result';
 import FormInfo from '../../components/Form/Form';
 import NextButton from '../../components/Button/NextButton';
 import WarningForm from '../../components/Form/FromWarning';
+import StatusIndicator from '../../components/StatusIndicator';
 
 function Pppoe() {
   const dispatch = useDispatch();
@@ -228,13 +229,9 @@ function Pppoe() {
           onChange={(e) => setSerialState(e.target.value)}
           disabled={true}
         />
-        <Input
-          id="level_Ntu"
-          type="text"
-          value={JSON.parse(localStorage.getItem('RX_power')) || '-0.0'}
-          disabled={true}
-        />
-      </div>
+        <StatusIndicator />
+  </div>
+
       <div className="inp-contanier">
         <Input
           id="login"

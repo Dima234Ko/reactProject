@@ -1,0 +1,42 @@
+.input-status-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .input-status-indicator-wrapper {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+  }
+  
+  .input-status-indicator {
+    margin-top: 20px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: gray;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), inset 0 2px 2px rgba(255, 255, 255, 0.2), inset 0 -2px 2px rgba(0, 0, 0, 0.4);
+  }
+  
+  .input-status-indicator.online {
+    background-color: #4caf50;
+  }
+  
+  .input-status-indicator.offline {
+    background-color: #f44336;
+  }
+  
+  .input-status-indicator.neutral {
+    background-color: #9e9e9e;
+  }
+  
+
+  #level_Ntu {
+    font-size: 12px;
+    width: 45px;
+  }
+
+  body.dark-mode #level_Ntu {
+    background-color: #3a3a3a;
+    color: #bbbbbb;
+  }

@@ -19,6 +19,7 @@ import Button from '../../components/Button/Button';
 import NextButton from '../../components/Button/NextButton';
 import Loader from '../../components/Loader';
 import Result from '../../components/Result';
+import StatusIndicator from '../../components/StatusIndicator';
 
 function Wifi() {
   const dispatch = useDispatch();
@@ -210,12 +211,7 @@ function Wifi() {
           onChange={(e) => setSerialState(e.target.value)}
           disabled={true}
         />
-        <Input
-          id="level_Ntu"
-          type="text"
-          value={JSON.parse(localStorage.getItem('RX_power')) || '-0.0'}
-          disabled={true}
-        />
+         <StatusIndicator />
       </div>
 
       <div className="ssid-container">
