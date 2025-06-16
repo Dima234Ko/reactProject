@@ -23,6 +23,7 @@ import Pppoe from './pages/user/PPPOE';
 import Static from './pages/user/Static';
 import Wifi from './pages/user/Wifi';
 import Settings from './pages/user/Settings';
+import Instructions from './pages/user/Instructions';
 import Region from './pages/user/Region';
 import User from './pages/admin/Accounts';
 import Report from './pages/admin/Report';
@@ -38,6 +39,7 @@ import ThemeToggle from './components/ThemeToggle';
 import TaskButton from './components/Button/TaskButton';
 import ExpressButton from './components/Button/ExpressButton';
 import ShareButton from './components/Button/ShareButton';
+import HelpButton from './components/Button/HelpButton';
 import FormInfo from './components/Form/Form';
 import FavIcon from './components/Icon';
 
@@ -268,6 +270,7 @@ function Main() {
           <Route path="/replcement" element={<Replcement />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/info" element={<UserInfo />} />
+          <Route path="/instructions" element={<Instructions />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
@@ -331,7 +334,8 @@ function Main() {
         )}
       <div className="toolbar">
         {isWorkParam === 'newConnection' && <ActionDisplay />}
-        {pathname !== '/' && <ShareButton />}
+        {pathname !== '/' && <ShareButton /> }
+        {pathname !== '/' && pathname !== '/instructions' && <HelpButton to="/instructions" />}
         <ThemeToggle />
       </div>
     </>

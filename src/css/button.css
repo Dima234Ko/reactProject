@@ -116,9 +116,18 @@
     color 0.3s;
 }
 
+.toolbar .upload-button {
+  color: #0d398d;
+}
+
 .upload-button .upload-text {
   margin-left: 8px;
   font-size: 14px;
+}
+
+.toolbar .upload-button .upload-text {
+  margin-left: 4px;
+  color: #0d398d;
 }
 
 .upload-button .fa-file-import {
@@ -222,6 +231,10 @@ body.dark-mode .upload-button {
 
 body.dark-mode .upload-button .upload-text {
   color: #e0e0e0;
+}
+
+body.dark-mode .toolbar .upload-button {
+  color: #ffffff;
 }
 
 body.dark-mode .upload-button .fa-file-import {
