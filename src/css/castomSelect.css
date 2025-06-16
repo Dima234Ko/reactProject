@@ -3,8 +3,11 @@
     margin-top: 20px;
     border-radius: 10px;
     width: 80%;
-    font-family: sans-serif;
-    
+    font-family: sans-serif; 
+}
+
+.dropdown-select :hover {
+  cursor: pointer;
 }
 
 .textForm .dropdown-toggle {
