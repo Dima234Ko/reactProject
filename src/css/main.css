@@ -215,6 +215,14 @@ body.dark-mode pre {
   color: #e2e2e2;
 }
 
+body.dark-mode text {
+  color: white;
+}
+
+body.dark-mode b {
+  color: white;
+}
+
 body.dark-mode .input-container ul li {
   color: rgb(0, 0, 0);
 }
