@@ -7,12 +7,28 @@
   #wifi,
   #camNtu,
   #work,
+  #info,
   #settings,
   #region,
   #info,
   #repalcement,
   #disabling {
     width: 100%;
+  }
+
+  #info {
+    align-items: start;
+  }
+
+  text {
+    width: auto;
+    text-align: left;
+    margin-top: 16px;
+    font-size: 14px
+  }
+
+  .warning-box {
+    width: auto;
   }
 
   h2 {

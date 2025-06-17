@@ -37,6 +37,24 @@ h2 {
 #settings,
 #region,
 #work,
+#info,
+#repalcement,
+#info,
+#disabling {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+#authorization,
+#status,
+#pppoe,
+#static,
+#wifi,
+#camNtu,
+#settings,
+#region,
+#work,
 #repalcement,
 #info,
 #disabling {
@@ -44,6 +62,17 @@ h2 {
   flex-direction: column;
   width: 30%;
   align-items: center;
+}
+
+text {
+  width: 500px;
+  text-align: left;
+  margin-top: 16px;
+  font-size: 18px
+}
+
+b {
+  font-size: 20px
 }
 
 .toolbar {
@@ -149,6 +178,16 @@ h3 {
 
 .toggle-password-btn:disabled {
   cursor: not-allowed;
+}
+
+.warning-box {
+  width: 500px;
+  color: red;
+  border: 1px solid red;
+  border-radius: 6px;
+  padding: 10px;
+  background-color: #ffecec;
+  margin-top: 10px;
 }
 
 /* Dark Theme Styles */
