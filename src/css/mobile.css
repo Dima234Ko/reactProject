@@ -8,15 +8,15 @@
   #camNtu,
   #work,
   #info,
+  #instructions,
   #settings,
   #region,
-  #info,
   #repalcement,
   #disabling {
     width: 100%;
   }
 
-  #info {
+  #instructions {
     align-items: start;
   }
 

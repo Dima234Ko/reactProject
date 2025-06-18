@@ -29,6 +29,8 @@ function removeFields(data) {
     add_descr,
     tag_assign,
     buttonVisible,
+    write_PONserial,
+    RX_power,
     ...newData
   } = data;
   return newData;

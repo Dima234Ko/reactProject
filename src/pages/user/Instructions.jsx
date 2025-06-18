@@ -1,6 +1,6 @@
 function Instructions() {
   return (
-    <div id="info">
+    <div id="instructions">
       <b><u>Новое подключение</u></b>
       <text>
         <li>Выбираем регион</li>

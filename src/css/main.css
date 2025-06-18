@@ -1,5 +1,4 @@
 /* Light Theme Styles */
-/* Стили для h2 с более тонким подчеркиванием */
 h2 {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 2rem;
@@ -37,26 +36,9 @@ h2 {
 #settings,
 #region,
 #work,
-#info,
 #repalcement,
 #info,
-#disabling {
-  display: flex;
-  flex-direction: column;
-  width: 30%;
-}
-
-#authorization,
-#status,
-#pppoe,
-#static,
-#wifi,
-#camNtu,
-#settings,
-#region,
-#work,
-#repalcement,
-#info,
+#instructions, 
 #disabling {
   display: flex;
   flex-direction: column;
