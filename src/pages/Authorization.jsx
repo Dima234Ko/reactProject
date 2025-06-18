@@ -34,10 +34,11 @@ function Authorization() {
     try {
       let root = await authorization(login, password);
       const time = Number(await readTime ());
+  
       if (root.result) {
         const valueToStore = {
           value: root.root,
-          expiresAt: Date.now() + (time !== null ? time : 82800000),
+          expiresAt: Date.now() + (!isNaN(time) ? time : 82800000)
           //expiresAt: Date.now() + 10000,
         };
         localStorage.setItem('authResult', JSON.stringify(valueToStore))

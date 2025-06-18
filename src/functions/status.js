@@ -68,7 +68,7 @@ export async function getStatus(data) {
         setLoading,
         setResult,
         navigate,
-        progress: 60
+        progress: 50
       });
     }
   } catch (error) {

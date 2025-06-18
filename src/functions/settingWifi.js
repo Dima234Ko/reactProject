@@ -72,7 +72,7 @@ export async function setWiFi(data) {
           setLoading,
           setResult,
           navigate,
-          progress: 50
+          progress: 30
         });
       }
     } catch (error) {

@@ -122,7 +122,7 @@ export async function setPppoe(data) {
         setResult,
         navigate,
         attempts: 0,
-        progress: 50,
+        progress: 30,
       });
     } else {
       throw new Error('taskId не был получен');
