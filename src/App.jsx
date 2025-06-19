@@ -42,6 +42,7 @@ import ShareButton from './components/Button/ShareButton';
 import HelpButton from './components/Button/HelpButton';
 import FormInfo from './components/Form/Form';
 import FavIcon from './components/Icon';
+import Loader from './components/Loader';
 
 function App() {
   return (

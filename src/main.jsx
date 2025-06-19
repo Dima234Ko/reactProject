@@ -30,3 +30,8 @@ WebApp.render(
     <App />
   </Provider>
 );
+
+const loaderScreen = document.querySelector('.preload-loader');
+if (loaderScreen) {
+  loaderScreen.remove();
+}
