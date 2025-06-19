@@ -1,35 +1,33 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  setBulleanTask,
-  setActivePage,
-} from '../store/actions/pageLogTaskActions';
+import { setBulleanTask, setActivePage } from '../store/actions/pageLogTaskActions';
 
-function SwitchComponent() {
-  const [isTasks, setIsTasks] = useState(true);
+function SwitchComponent({ options = [] }) {
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const dispatch = useDispatch();
 
-  const handleToggle = (newValue) => {
-    setIsTasks(newValue);
-    dispatch(setBulleanTask(newValue));
+  const handleToggle = (index) => {
+    setSelectedIndex(index);
+
     dispatch(setActivePage(1));
+
+    if (typeof options[index].value === 'boolean') {
+      dispatch(setBulleanTask(options[index].value));
+    }
   };
 
   return (
     <div className="switch-container">
       <div className="switch-labels">
-        <span
-          className={isTasks ? 'active-label' : ''}
-          onClick={() => handleToggle(true)}
-        >
-          Tasks
-        </span>
-        <span
-          className={!isTasks ? 'active-label' : ''}
-          onClick={() => handleToggle(false)}
-        >
-          WiFi
-        </span>
+        {options.map((option, index) => (
+          <span
+            key={index}
+            className={selectedIndex === index ? 'active-label' : ''}
+            onClick={() => handleToggle(index)}
+          >
+            {option.label}
+          </span>
+        ))}
       </div>
     </div>
   );

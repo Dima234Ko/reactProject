@@ -46,7 +46,7 @@ h2 {
   align-items: center;
 }
 
-text {
+.text {
   width: 500px;
   text-align: left;
   margin-top: 16px;
@@ -197,7 +197,7 @@ body.dark-mode pre {
   color: #e2e2e2;
 }
 
-body.dark-mode text {
+body.dark-mode .text {
   color: white;
 }
 

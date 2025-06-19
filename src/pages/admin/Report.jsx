@@ -129,7 +129,12 @@ function Report() {
     <div id="log">
       <h2>Отчет</h2>
       <div className="switch-section">
-        <SwitchComponent />
+      <SwitchComponent
+        options={[
+          { label: 'Tasks', value: true },
+          { label: 'WiFi', value: false },
+        ]}
+      />
       </div>
       <FormInfo
         isFormOpen={isFormOpen}

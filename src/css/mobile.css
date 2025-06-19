@@ -20,11 +20,12 @@
     align-items: start;
   }
 
-  text {
+  .text {
     width: auto;
     text-align: left;
     margin-top: 16px;
-    font-size: 14px
+    font-size: 14px;
+    margin-left: -10px;
   }
 
   .warning-box {
